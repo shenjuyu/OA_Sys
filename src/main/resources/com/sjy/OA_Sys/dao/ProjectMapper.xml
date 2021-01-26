@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sjy.OA_Sys.dao.ProjectMapper">
+  <resultMap id="BaseResultMap" type="com.sjy.OA_Sys.bean.Project">
+    <constructor>
+      <idArg column="pro_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="staff_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="pro_naem" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="pro_time_cre" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+      <arg column="pro_time_start" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+      <arg column="pro_time_end" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+      <arg column="pro_rate_progress" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="pro_state" javaType="java.lang.Integer" jdbcType="INTEGER" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.sjy.OA_Sys.bean.ProjectWithBLOBs">
+    <constructor>
+      <idArg column="pro_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="staff_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="pro_naem" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="pro_time_cre" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+      <arg column="pro_time_start" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+      <arg column="pro_time_end" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+      <arg column="pro_rate_progress" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="pro_state" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="pro_des" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+      <arg column="pro_attachment" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+      <arg column="pro_comments" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    pro_id, staff_id, pro_naem, pro_time_cre, pro_time_start, pro_time_end, pro_rate_progress, 
+    pro_state
+  </sql>
+  <sql id="Blob_Column_List">
+    pro_des, pro_attachment, pro_comments
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.sjy.OA_Sys.bean.ProjectExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from project
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.sjy.OA_Sys.bean.ProjectExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from project
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from project
+    where pro_id = #{proId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from project
+    where pro_id = #{proId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sjy.OA_Sys.bean.ProjectExample">
+    delete from project
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sjy.OA_Sys.bean.ProjectWithBLOBs">
+    insert into project (pro_id, staff_id, pro_naem, 
+      pro_time_cre, pro_time_start, pro_time_end, 
+      pro_rate_progress, pro_state, pro_des, 
+      pro_attachment, pro_comments)
+    values (#{proId,jdbcType=INTEGER}, #{staffId,jdbcType=INTEGER}, #{proNaem,jdbcType=VARCHAR}, 
+      #{proTimeCre,jdbcType=TIMESTAMP}, #{proTimeStart,jdbcType=TIMESTAMP}, #{proTimeEnd,jdbcType=TIMESTAMP}, 
+      #{proRateProgress,jdbcType=VARCHAR}, #{proState,jdbcType=INTEGER}, #{proDes,jdbcType=LONGVARCHAR}, 
+      #{proAttachment,jdbcType=LONGVARCHAR}, #{proComments,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sjy.OA_Sys.bean.ProjectWithBLOBs">
+    insert into project
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="proId != null">
+        pro_id,
+      </if>
+      <if test="staffId != null">
+        staff_id,
+      </if>
+      <if test="proNaem != null">
+        pro_naem,
+      </if>
+      <if test="proTimeCre != null">
+        pro_time_cre,
+      </if>
+      <if test="proTimeStart != null">
+        pro_time_start,
+      </if>
+      <if test="proTimeEnd != null">
+        pro_time_end,
+      </if>
+      <if test="proRateProgress != null">
+        pro_rate_progress,
+      </if>
+      <if test="proState != null">
+        pro_state,
+      </if>
+      <if test="proDes != null">
+        pro_des,
+      </if>
+      <if test="proAttachment != null">
+        pro_attachment,
+      </if>
+      <if test="proComments != null">
+        pro_comments,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="proId != null">
+        #{proId,jdbcType=INTEGER},
+      </if>
+      <if test="staffId != null">
+        #{staffId,jdbcType=INTEGER},
+      </if>
+      <if test="proNaem != null">
+        #{proNaem,jdbcType=VARCHAR},
+      </if>
+      <if test="proTimeCre != null">
+        #{proTimeCre,jdbcType=TIMESTAMP},
+      </if>
+      <if test="proTimeStart != null">
+        #{proTimeStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="proTimeEnd != null">
+        #{proTimeEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="proRateProgress != null">
+        #{proRateProgress,jdbcType=VARCHAR},
+      </if>
+      <if test="proState != null">
+        #{proState,jdbcType=INTEGER},
+      </if>
+      <if test="proDes != null">
+        #{proDes,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="proAttachment != null">
+        #{proAttachment,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="proComments != null">
+        #{proComments,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sjy.OA_Sys.bean.ProjectExample" resultType="java.lang.Long">
+    select count(*) from project
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update project
+    <set>
+      <if test="record.proId != null">
+        pro_id = #{record.proId,jdbcType=INTEGER},
+      </if>
+      <if test="record.staffId != null">
+        staff_id = #{record.staffId,jdbcType=INTEGER},
+      </if>
+      <if test="record.proNaem != null">
+        pro_naem = #{record.proNaem,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proTimeCre != null">
+        pro_time_cre = #{record.proTimeCre,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.proTimeStart != null">
+        pro_time_start = #{record.proTimeStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.proTimeEnd != null">
+        pro_time_end = #{record.proTimeEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.proRateProgress != null">
+        pro_rate_progress = #{record.proRateProgress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proState != null">
+        pro_state = #{record.proState,jdbcType=INTEGER},
+      </if>
+      <if test="record.proDes != null">
+        pro_des = #{record.proDes,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.proAttachment != null">
+        pro_attachment = #{record.proAttachment,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.proComments != null">
+        pro_comments = #{record.proComments,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update project
+    set pro_id = #{record.proId,jdbcType=INTEGER},
+      staff_id = #{record.staffId,jdbcType=INTEGER},
+      pro_naem = #{record.proNaem,jdbcType=VARCHAR},
+      pro_time_cre = #{record.proTimeCre,jdbcType=TIMESTAMP},
+      pro_time_start = #{record.proTimeStart,jdbcType=TIMESTAMP},
+      pro_time_end = #{record.proTimeEnd,jdbcType=TIMESTAMP},
+      pro_rate_progress = #{record.proRateProgress,jdbcType=VARCHAR},
+      pro_state = #{record.proState,jdbcType=INTEGER},
+      pro_des = #{record.proDes,jdbcType=LONGVARCHAR},
+      pro_attachment = #{record.proAttachment,jdbcType=LONGVARCHAR},
+      pro_comments = #{record.proComments,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update project
+    set pro_id = #{record.proId,jdbcType=INTEGER},
+      staff_id = #{record.staffId,jdbcType=INTEGER},
+      pro_naem = #{record.proNaem,jdbcType=VARCHAR},
+      pro_time_cre = #{record.proTimeCre,jdbcType=TIMESTAMP},
+      pro_time_start = #{record.proTimeStart,jdbcType=TIMESTAMP},
+      pro_time_end = #{record.proTimeEnd,jdbcType=TIMESTAMP},
+      pro_rate_progress = #{record.proRateProgress,jdbcType=VARCHAR},
+      pro_state = #{record.proState,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sjy.OA_Sys.bean.ProjectWithBLOBs">
+    update project
+    <set>
+      <if test="staffId != null">
+        staff_id = #{staffId,jdbcType=INTEGER},
+      </if>
+      <if test="proNaem != null">
+        pro_naem = #{proNaem,jdbcType=VARCHAR},
+      </if>
+      <if test="proTimeCre != null">
+        pro_time_cre = #{proTimeCre,jdbcType=TIMESTAMP},
+      </if>
+      <if test="proTimeStart != null">
+        pro_time_start = #{proTimeStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="proTimeEnd != null">
+        pro_time_end = #{proTimeEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="proRateProgress != null">
+        pro_rate_progress = #{proRateProgress,jdbcType=VARCHAR},
+      </if>
+      <if test="proState != null">
+        pro_state = #{proState,jdbcType=INTEGER},
+      </if>
+      <if test="proDes != null">
+        pro_des = #{proDes,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="proAttachment != null">
+        pro_attachment = #{proAttachment,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="proComments != null">
+        pro_comments = #{proComments,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where pro_id = #{proId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.sjy.OA_Sys.bean.ProjectWithBLOBs">
+    update project
+    set staff_id = #{staffId,jdbcType=INTEGER},
+      pro_naem = #{proNaem,jdbcType=VARCHAR},
+      pro_time_cre = #{proTimeCre,jdbcType=TIMESTAMP},
+      pro_time_start = #{proTimeStart,jdbcType=TIMESTAMP},
+      pro_time_end = #{proTimeEnd,jdbcType=TIMESTAMP},
+      pro_rate_progress = #{proRateProgress,jdbcType=VARCHAR},
+      pro_state = #{proState,jdbcType=INTEGER},
+      pro_des = #{proDes,jdbcType=LONGVARCHAR},
+      pro_attachment = #{proAttachment,jdbcType=LONGVARCHAR},
+      pro_comments = #{proComments,jdbcType=LONGVARCHAR}
+    where pro_id = #{proId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sjy.OA_Sys.bean.Project">
+    update project
+    set staff_id = #{staffId,jdbcType=INTEGER},
+      pro_naem = #{proNaem,jdbcType=VARCHAR},
+      pro_time_cre = #{proTimeCre,jdbcType=TIMESTAMP},
+      pro_time_start = #{proTimeStart,jdbcType=TIMESTAMP},
+      pro_time_end = #{proTimeEnd,jdbcType=TIMESTAMP},
+      pro_rate_progress = #{proRateProgress,jdbcType=VARCHAR},
+      pro_state = #{proState,jdbcType=INTEGER}
+    where pro_id = #{proId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sjy.OA_Sys.dao.MailMapper">
+  <resultMap id="BaseResultMap" type="com.sjy.OA_Sys.bean.Mail">
+    <constructor>
+      <idArg column="mail_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="mail_staff_send" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="mail_staff_addressee" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="mail_title" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="mail_time_send" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+      <arg column="mail_situation" javaType="java.lang.Integer" jdbcType="INTEGER" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.sjy.OA_Sys.bean.MailWithBLOBs">
+    <constructor>
+      <idArg column="mail_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="mail_staff_send" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="mail_staff_addressee" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="mail_title" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="mail_time_send" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+      <arg column="mail_situation" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="mail_des" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+      <arg column="mail_attachment" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    mail_id, mail_staff_send, mail_staff_addressee, mail_title, mail_time_send, mail_situation
+  </sql>
+  <sql id="Blob_Column_List">
+    mail_des, mail_attachment
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.sjy.OA_Sys.bean.MailExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from mail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.sjy.OA_Sys.bean.MailExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from mail
+    where mail_id = #{mailId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mail
+    where mail_id = #{mailId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sjy.OA_Sys.bean.MailExample">
+    delete from mail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sjy.OA_Sys.bean.MailWithBLOBs">
+    insert into mail (mail_id, mail_staff_send, mail_staff_addressee, 
+      mail_title, mail_time_send, mail_situation, 
+      mail_des, mail_attachment)
+    values (#{mailId,jdbcType=INTEGER}, #{mailStaffSend,jdbcType=INTEGER}, #{mailStaffAddressee,jdbcType=INTEGER}, 
+      #{mailTitle,jdbcType=VARCHAR}, #{mailTimeSend,jdbcType=TIMESTAMP}, #{mailSituation,jdbcType=INTEGER}, 
+      #{mailDes,jdbcType=LONGVARCHAR}, #{mailAttachment,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sjy.OA_Sys.bean.MailWithBLOBs">
+    insert into mail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mailId != null">
+        mail_id,
+      </if>
+      <if test="mailStaffSend != null">
+        mail_staff_send,
+      </if>
+      <if test="mailStaffAddressee != null">
+        mail_staff_addressee,
+      </if>
+      <if test="mailTitle != null">
+        mail_title,
+      </if>
+      <if test="mailTimeSend != null">
+        mail_time_send,
+      </if>
+      <if test="mailSituation != null">
+        mail_situation,
+      </if>
+      <if test="mailDes != null">
+        mail_des,
+      </if>
+      <if test="mailAttachment != null">
+        mail_attachment,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mailId != null">
+        #{mailId,jdbcType=INTEGER},
+      </if>
+      <if test="mailStaffSend != null">
+        #{mailStaffSend,jdbcType=INTEGER},
+      </if>
+      <if test="mailStaffAddressee != null">
+        #{mailStaffAddressee,jdbcType=INTEGER},
+      </if>
+      <if test="mailTitle != null">
+        #{mailTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="mailTimeSend != null">
+        #{mailTimeSend,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mailSituation != null">
+        #{mailSituation,jdbcType=INTEGER},
+      </if>
+      <if test="mailDes != null">
+        #{mailDes,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="mailAttachment != null">
+        #{mailAttachment,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sjy.OA_Sys.bean.MailExample" resultType="java.lang.Long">
+    select count(*) from mail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update mail
+    <set>
+      <if test="record.mailId != null">
+        mail_id = #{record.mailId,jdbcType=INTEGER},
+      </if>
+      <if test="record.mailStaffSend != null">
+        mail_staff_send = #{record.mailStaffSend,jdbcType=INTEGER},
+      </if>
+      <if test="record.mailStaffAddressee != null">
+        mail_staff_addressee = #{record.mailStaffAddressee,jdbcType=INTEGER},
+      </if>
+      <if test="record.mailTitle != null">
+        mail_title = #{record.mailTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mailTimeSend != null">
+        mail_time_send = #{record.mailTimeSend,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.mailSituation != null">
+        mail_situation = #{record.mailSituation,jdbcType=INTEGER},
+      </if>
+      <if test="record.mailDes != null">
+        mail_des = #{record.mailDes,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.mailAttachment != null">
+        mail_attachment = #{record.mailAttachment,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update mail
+    set mail_id = #{record.mailId,jdbcType=INTEGER},
+      mail_staff_send = #{record.mailStaffSend,jdbcType=INTEGER},
+      mail_staff_addressee = #{record.mailStaffAddressee,jdbcType=INTEGER},
+      mail_title = #{record.mailTitle,jdbcType=VARCHAR},
+      mail_time_send = #{record.mailTimeSend,jdbcType=TIMESTAMP},
+      mail_situation = #{record.mailSituation,jdbcType=INTEGER},
+      mail_des = #{record.mailDes,jdbcType=LONGVARCHAR},
+      mail_attachment = #{record.mailAttachment,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update mail
+    set mail_id = #{record.mailId,jdbcType=INTEGER},
+      mail_staff_send = #{record.mailStaffSend,jdbcType=INTEGER},
+      mail_staff_addressee = #{record.mailStaffAddressee,jdbcType=INTEGER},
+      mail_title = #{record.mailTitle,jdbcType=VARCHAR},
+      mail_time_send = #{record.mailTimeSend,jdbcType=TIMESTAMP},
+      mail_situation = #{record.mailSituation,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sjy.OA_Sys.bean.MailWithBLOBs">
+    update mail
+    <set>
+      <if test="mailStaffSend != null">
+        mail_staff_send = #{mailStaffSend,jdbcType=INTEGER},
+      </if>
+      <if test="mailStaffAddressee != null">
+        mail_staff_addressee = #{mailStaffAddressee,jdbcType=INTEGER},
+      </if>
+      <if test="mailTitle != null">
+        mail_title = #{mailTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="mailTimeSend != null">
+        mail_time_send = #{mailTimeSend,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mailSituation != null">
+        mail_situation = #{mailSituation,jdbcType=INTEGER},
+      </if>
+      <if test="mailDes != null">
+        mail_des = #{mailDes,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="mailAttachment != null">
+        mail_attachment = #{mailAttachment,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where mail_id = #{mailId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.sjy.OA_Sys.bean.MailWithBLOBs">
+    update mail
+    set mail_staff_send = #{mailStaffSend,jdbcType=INTEGER},
+      mail_staff_addressee = #{mailStaffAddressee,jdbcType=INTEGER},
+      mail_title = #{mailTitle,jdbcType=VARCHAR},
+      mail_time_send = #{mailTimeSend,jdbcType=TIMESTAMP},
+      mail_situation = #{mailSituation,jdbcType=INTEGER},
+      mail_des = #{mailDes,jdbcType=LONGVARCHAR},
+      mail_attachment = #{mailAttachment,jdbcType=LONGVARCHAR}
+    where mail_id = #{mailId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sjy.OA_Sys.bean.Mail">
+    update mail
+    set mail_staff_send = #{mailStaffSend,jdbcType=INTEGER},
+      mail_staff_addressee = #{mailStaffAddressee,jdbcType=INTEGER},
+      mail_title = #{mailTitle,jdbcType=VARCHAR},
+      mail_time_send = #{mailTimeSend,jdbcType=TIMESTAMP},
+      mail_situation = #{mailSituation,jdbcType=INTEGER}
+    where mail_id = #{mailId,jdbcType=INTEGER}
+  </update>
+</mapper>
