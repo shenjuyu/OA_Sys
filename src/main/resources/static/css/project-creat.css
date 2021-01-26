@@ -1,0 +1,47 @@
+.pro-cre table{
+	line-height: 32px;
+	text-align: left;
+	border-collapse: separate;
+	margin-top: 9px;
+	border-spacing: 5px;
+}
+.pro-cre .left{
+	width: 210px;
+}
+.pro-cre .left input{
+	width: 195px;
+}
+.pro-cre .right{
+	width: 210px;
+}
+.pro-cre .right input{
+	width: 195px;
+}
+.pro-cre table select{
+	height: 40px;
+	width: 195px;
+}
+.pro-sub{
+	margin-top: 10px;
+	margin-left: 33%;
+}
+.pro-cre{
+	width: 100%;
+	position: relative;
+}
+.pro-cre-child{
+	width: 60%;
+	position: absolute;
+	margin: auto;
+	left: 25%;
+}
+.pro-task{
+	width: 608px;
+	border-bottom: 1px solid #C0C0C0;
+}
+.task-num{
+	line-height: 50px;
+	margin-left: 3px;
+	font-weight: bold;
+	color: #ef7502;
+}

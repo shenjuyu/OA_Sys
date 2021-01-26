@@ -1,0 +1,272 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Tables</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="keywords" content="Novus Admin Panel Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+		<script type="application/x-javascript">
+			addEventListener("load", function() {
+				setTimeout(hideURLbar, 0);
+			}, false);
+
+			function hideURLbar() {
+				window.scrollTo(0, 1);
+			}
+		</script>
+
+		<!-- Bootstrap Core CSS -->
+		<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+		<!-- Custom CSS -->
+		<link href="css/style.css" rel='stylesheet' type='text/css' />
+		<!-- font CSS -->
+		<!-- font-awesome icons -->
+		<link href="css/font-awesome.css" rel="stylesheet">
+		<!-- //font-awesome icons -->
+		<!-- js-->
+		<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="js/modernizr.custom.js"></script>
+		<!--webfonts-->
+		<link href='http://fonts.useso.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet'
+		 type='text/css'>
+		<!--//webfonts-->
+		<!--animate-->
+		<link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
+		<script src="js/wow.min.js"></script>
+		<script>
+			new WOW().init();
+	</script>
+		<!--//end-animate-->
+		<!-- Metis Menu -->
+		<script src="js/metisMenu.min.js"></script>
+		<script src="js/custom.js"></script>
+		<link href="css/custom.css" rel="stylesheet">
+		<!--//Metis Menu -->
+		<!-- ckeditor -->
+		<script src="ckeditor/ckeditor.js"></script>
+		<!--//ckeditor -->
+		<style type="text/css">
+			/* #cke_contents{
+				width: 570px;
+			} */
+		</style>
+		<link href="css/project-creat.css" rel="stylesheet" type="text/css" media="all" />
+	</head>
+	<body class="cbp-spmenu-push">
+		<div class="main-content">
+			<!--left-fixed -navigation-->
+			<div class=" sidebar" role="navigation">
+				<div class="navbar-collapse">
+					<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+						<ul class="nav" id="side-menu">
+							<li>
+								<a href="index.html"><i class="fa fa-home nav_icon"></i>Dashboard</a>
+							</li>
+
+						</ul>
+						<div class="clearfix"> </div>
+						<!-- //sidebar-collapse -->
+					</nav>
+				</div>
+			</div>
+			<!--left-fixed -navigation-->
+			<!-- header-starts -->
+			<div class="sticky-header header-section ">
+				<div class="header-left">
+					<!--toggle button start-->
+					<button id="showLeftPush"><i class="fa fa-bars"></i></button>
+					<!--toggle button end-->
+					<!--logo -->
+					<div class="logo">
+						<a href="index.html">
+							<h1>NOVUS</h1>
+							<span>AdminPanel</span>
+						</a>
+					</div>
+					<!--//logo-->
+					<div class="clearfix"> </div>
+				</div>
+				<div class="header-right">
+					<div class="profile_details_left">
+						<div class="clearfix"> </div>
+					</div>
+					<!--notification menu end -->
+					<div class="profile_details">
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+			<!-- //header-ends -->
+			<!-- main content start-->
+			<div id="page-wrapper">
+				<div class="main-page">
+					<div class="col-md-6 general-grids widget-shadow">
+						<h4 class="title2">创建新项目 :</h4>
+						<div class="bs-example1" data-example-id="embedded-scrollspy">
+							<nav id="navbar-example2" class="navbar navbar-default navbar-static">
+								<div class="container-fluid">
+									<div class="navbar-header">
+										<button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".bs-example-js-navbar-scrollspy">
+											<span class="sr-only">切换导航</span>
+											<span class="icon-bar"></span>
+											<span class="icon-bar"></span>
+											<span class="icon-bar"></span>
+										</button>
+										<a class="navbar-brand" href="#one">子项 ：</a>
+									</div>
+									<div class="collapse navbar-collapse bs-example-js-navbar-scrollspy">
+										<ul class="nav navbar-nav">
+											<li class=""><a href="#one">任务详情</a></li>
+										</ul>
+									</div>
+								</div>
+							</nav>
+							<div data-spy="scroll" data-target="#navbar-example2" class="scrollspy-example scroll scrollbar1 pro-cre" style="height: 450px;">
+								<div class="pro-cre-child">
+									<h4 id="three" style="display: inline;">任务详情</h4>
+									<h4 style="display: inline;margin-left: 5px;">
+										<a href="#">
+											<span class="label label-info">添加任务</span>
+										</a>
+									</h4>
+									<div class="task-box">
+										<div class="pro-task">
+											<span class="task-num">任务1：</span>
+											<table>
+												<tr>
+													<td>任务名称</td>
+													<td class="left"><input name="taskName" type="text" value="" /></td>
+													<td>所属项目</td>
+													<td class="right"><input type="text" value=""></td>
+												</tr>
+												<tr>
+													<td>任务描述：</td>
+												</tr>
+											</table>
+											<textarea id="contents1" name="taskDes" style="height: 350px;" required="required"></textarea>
+											<script>
+												var obj = CKEDITOR.replace('contents1', {
+													width: '570px',
+													height: '100px',
+												});
+											</script>
+											<table>
+												<tr>
+													<td>开始时间：</td>
+													<td class="left"><input name="taskTimeStart" type="datetime-local" value="" /></td>
+													<td>结束时间：</td>
+													<td class="right"><input name="taskTimeend" type="datetime-local" value="" /></td>
+												</tr>
+												<tr>
+													<td>任务人员：</td>
+												</tr>
+												<tr>
+													<td>部门：</td>
+													<td class="left">
+														<select>
+															<option>1</option>
+														</select>
+													</td>
+													<td>项目组：</td>
+													<td class="right">
+														<select>
+															<option>2</option>
+														</select>
+													</td>
+												</tr>
+											</table>
+										</div>
+										<div class="pro-task">
+											<span class="task-num">任务2：</span>
+											<table>
+												<tr>
+													<td>任务名称：</td>
+													<td class="left"><input name="taskName" type="text" value="" /></td>
+													<td>所属项目：</td>
+													<td class="right"><input type="text" value=""></td>
+												</tr>
+												<tr>
+													<td>任务描述：</td>
+												</tr>
+											</table>
+											<textarea id="contents2" name="taskDes" style="height: 350px;" required="required"></textarea>
+											<script>
+												var obj = CKEDITOR.replace('contents2', {
+													width: '570px',
+													height: '100px',
+												});
+											</script>
+											<table>
+												<tr>
+													<td>开始时间：</td>
+													<td class="left"><input name="taskTimeStart" type="datetime-local" value="" /></td>
+													<td>结束时间：</td>
+													<td class="right"><input name="taskTimeend" type="datetime-local" value="" /></td>
+												</tr>
+												<tr>
+													<td>任务人员：</td>
+												</tr>
+												<tr>
+													<td>部门：</td>
+													<td class="left">
+														<select>
+															<option>1</option>
+														</select>
+													</td>
+													<td>项目组：</td>
+													<td class="right">
+														<select>
+															<option>2</option>
+														</select>
+													</td>
+												</tr>
+											</table>
+										</div>
+									</div>
+									<h3 class="pro-sub">
+										<a href="#">
+											<span class="label label-primary">创建任务</span>
+										</a>
+									</h3>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--footer-->
+			<div class="footer">
+				<p>Copyright &copy; 2016.Company name All rights reserved.<a target="_blank" href="http://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p>
+			</div>
+			<!--//footer-->
+		</div>
+		<!-- Classie -->
+		<script src="js/classie.js"></script>
+		<script>
+			var menuLeft = document.getElementById('cbp-spmenu-s1'),
+				showLeftPush = document.getElementById('showLeftPush'),
+				body = document.body;
+
+			showLeftPush.onclick = function() {
+				classie.toggle(this, 'active');
+				classie.toggle(body, 'cbp-spmenu-push-toright');
+				classie.toggle(menuLeft, 'cbp-spmenu-open');
+				disableOther('showLeftPush');
+			};
+
+			function disableOther(button) {
+				if (button !== 'showLeftPush') {
+					classie.toggle(showLeftPush, 'disabled');
+				}
+			}
+		</script>
+		<!--scrolling js-->
+		<script src="js/jquery.nicescroll.js"></script>
+		<script src="js/scripts.js"></script>
+		<!--//scrolling js-->
+		<!-- Bootstrap Core JavaScript -->
+		<script src="js/bootstrap.js"> </script>
+	</body>
+</html>

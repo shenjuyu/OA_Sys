@@ -1,0 +1,381 @@
+<!DOCTYPE HTML>
+<html xmlns:th="www.thymeleaf.org">
+	<head>
+		<title>Tables</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="keywords" content="Novus Admin Panel Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+		<script type="application/x-javascript">
+			addEventListener("load", function() {
+				setTimeout(hideURLbar, 0);
+			}, false);
+
+			function hideURLbar() {
+				window.scrollTo(0, 1);
+			}
+		</script>
+
+		<!-- Bootstrap Core CSS -->
+		<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+		<!-- Custom CSS -->
+		<link href="css/style.css" rel='stylesheet' type='text/css' />
+		<!-- font CSS -->
+		<!-- font-awesome icons -->
+		<link href="css/font-awesome.css" rel="stylesheet">
+		<!-- //font-awesome icons -->
+		<!-- js-->
+		<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="js/modernizr.custom.js"></script>
+		<!--webfonts-->
+		<link href='http://fonts.useso.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet'
+		 type='text/css'>
+		<!--//webfonts-->
+		<!--animate-->
+		<link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
+		<script src="js/wow.min.js"></script>
+		<script>
+			new WOW().init();
+	</script>
+		<!--//end-animate-->
+		<!-- Metis Menu -->
+		<script src="js/metisMenu.min.js"></script>
+		<script src="js/custom.js"></script>
+		<link href="css/custom.css" rel="stylesheet">
+		<!--//Metis Menu -->
+		<link href="css/personnel.css" rel="stylesheet" type="text/css" />
+
+		<script src="ckeditor/ckeditor.js"></script>
+	</head>
+	<body class="cbp-spmenu-push">
+		<div class="main-content">
+			<!--left-fixed -navigation-->
+			<div class=" sidebar" role="navigation">
+				<div class="navbar-collapse">
+					<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+						<ul class="nav" id="side-menu">
+							<li>
+								<a href="index.html"><i class="fa fa-home nav_icon"></i>Dashboard</a>
+							</li>
+
+						</ul>
+						<div class="clearfix"> </div>
+						<!-- //sidebar-collapse -->
+					</nav>
+				</div>
+			</div>
+			<!--left-fixed -navigation-->
+			<!-- header-starts -->
+			<div class="sticky-header header-section ">
+				<div class="header-left">
+					<!--toggle button start-->
+					<button id="showLeftPush"><i class="fa fa-bars"></i></button>
+					<!--toggle button end-->
+					<!--logo -->
+					<div class="logo">
+						<a href="index.html">
+							<h1>NOVUS</h1>
+							<span>AdminPanel</span>
+						</a>
+					</div>
+					<!--//logo-->
+					<div class="clearfix"> </div>
+				</div>
+				<div class="header-right">
+					<div class="profile_details_left">
+						<div class="clearfix"> </div>
+					</div>
+					<!--notification menu end -->
+					<div class="profile_details">
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+			<!-- //header-ends -->
+			<!-- main content start-->
+			<div id="page-wrapper">
+				<div class="main-page">
+					<div class="col-md-6 general-grids grids-right widget-shadow">
+						<ul id="myTabs" class="nav nav-tabs" role="tablist">
+							<li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home"
+								 aria-expanded="false">公告</a></li>
+							<li role="presentation" class=""><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile"
+								 aria-expanded="true">发布</a></li>
+						</ul>
+						<div id="myTabContent" class="tab-content scrollbar1">
+							<div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
+								<div th:if="${noticeList eq null or noticeList.size() eq 0}" style="margin-left: 45%;margin-top: 20%;">
+									暂无公告
+								</div>
+								<div th:if="${noticeList ne null and noticeList.size() gt 0}">
+									<!-- 循环查找公告 这里的公告的显示需要去掉注释， -->
+									<div class="grid_3 grid_4 widget-shadow" th:each="notice:${noticeList}" onmouseout="hideFunction(this)"
+									 onmousemove="showFunction(this)" style="margin-bottom: 10px; background-color: auto;" th:id="'notice'+${notice.id}">
+										<a href="javascript:void(0)" th:onclick="'showAdminNoticeDetils('+${notice.id}+')'" data-toggle="modal"
+										 data-target="#gridSystemModal">
+											<h3 class="hdg" th:text="${notice.title}">这里是公告标题</h3>
+										</a>
+										<div th:id="'d'+${notice.id}" style="display: none;" th:utext="${notice.description}">文章简略...</div>
+										<p class="intro" th:id="'p'+${notice.id}"></p>
+										<script type="text/javascript" th:inline="javascript">
+											var p = p[[$ {
+												notice.id
+											}]];
+											var d = d[[$ {
+												notice.id
+											}]];
+											p.innerText = d.innerText.substring(0, 100).replace(/[\r\n]/g, "") + "......";
+										</script>
+
+										<!-- <span th:text="'发表 '+${notice.push_time}"
+															style="font-size: 0.85em; color: #999;">发表 2020-01-23 12:50</span> -->
+										<span style="font-size: 0.85em; color: #999;">&nbsp;·&nbsp;</span>
+										<span th:text="'最后修改于 '+${notice.modifyTime.toLocalDateTime().getYear()}+'-'+${notice.modifyTime.toLocalDateTime().getMonthValue()}+'-'+${notice.modifyTime.toLocalDateTime().getDayOfMonth()}+' '+${notice.modifyTime.toLocalDateTime().getHour()}+':'+${notice.modifyTime.toLocalDateTime().getMinute()}+':'+${notice.modifyTime.toLocalDateTime().getSecond()}"
+										 style="font-size: 0.85em; color: #999;">修改 2020-01-23 12:50</span>&nbsp;·&nbsp;
+										<span th:if="${notice.who eq 1}" style="font-size: 0.85em; color: #999;">TO管理员</span>
+										<span th:if="${notice.who eq 2}" style="font-size: 0.85em; color: #999;">TO商家</span>
+										<span id="baseFunction" style="float: right; display: none;">
+											<button type="button" class="btn btn-primary btn-lg" th:onclick="'showAdminNoticeDetils('+${notice.id}+')'"
+											 data-toggle="modal" data-target="#gridSystemModal" style="padding: 6px;font-size: 11px;">查看详情 </button>
+										</span>
+									</div>
+									<!-- 分页查询 -->
+									<nav style="margin-left: 65%;">
+										<ul class="pagination pagination-lg">
+											<!-- class='disabled'为选中了第一个或者最后一个的样式 -->
+											<li th:if="${noticeList.pageNum eq 1}" class="disabled"><a href="javascript:void(0)" aria-label="Previous"><span
+													 aria-hidden="true">«</span></a></li>
+											<li th:if="${noticeList.pageNum gt 1}"><a href="javascript:void(0)" th:onclick="'toNoticePage('+${noticeList.pageNum-1}+')'"
+												 aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+											<li th:if="${noticeList.pageNum-2 gt 0 }"><a href="javascript:void(0)" th:onclick="'toNoticePage('+${noticeList.pageNum-2}+')'"
+												 th:text="${noticeList.pageNum-2}">1</a></li>
+											<li th:if="${noticeList.pageNum-1 gt 0 }"><a href="javascript:void(0)" th:onclick="'toNoticePage('+${noticeList.pageNum-1}+')'"
+												 th:text="${noticeList.pageNum-1}">2</a></li>
+											<li class="active"><a href="javascript:void(0)" th:text="${noticeList.pageNum}">3</a></li><!-- 被选中 -->
+											<li th:if="${noticeList.pageNum+1 le noticeList.pages}"><a href="javascript:void(0)" th:onclick="'toNoticePage('+${noticeList.pageNum+1}+')'"
+												 th:text="${noticeList.pageNum+1}">4</a></li>
+											<li th:if="${noticeList.pageNum+2 le noticeList.pages}"><a href="javascript:void(0)" th:onclick="'toNoticePage('+${noticeList.pageNum+2}+')'"
+												 th:text="${noticeList.pageNum+2}">5</a></li>
+											<li th:if="${noticeList.pageNum eq noticeList.pages}" class="disabled"><a href="javascript:void(0)"
+												 aria-label="Next"><span aria-hidden="true">»</span></a></li>
+											<li th:if="${noticeList.pageNum lt noticeList.pages}"><a href="javascript:void(0)" th:onclick="'toNoticePage('+${noticeList.pageNum+1}+')'"
+												 aria-label="Next"><span aria-hidden="true">»</span></a></li>
+										</ul>
+									</nav>
+									<!-- //分页查询 -->
+
+									<!-- 公告详情的弹框 -->
+									<div class="col-md-4 modal-grids">
+										<div class="modal fade" id="gridSystemModal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+											<div class="modal-dialog" role="document">
+												<div class="modal-content" id="adminNoticeDetilsWindow">
+													<div class="modal-header">
+														<button type="button" id="backNoticeDetilsWindowClose" class="close" data-dismiss="modal" aria-label="Close"><span
+															 aria-hidden="true">&times;</span></button>
+														<h4 class="modal-title" id="gridSystemModalLabel">管理员信息</h4>
+													</div>
+													<div class="grid_3 grid_5 widget-shadow" style="margin-top: 0em;">
+														<!-- 公告详情的显示地 -->
+														<label style="font-size: x-large;color: #0000CC;">公告：</label>
+														<h3 style="display: inline-block; color: red;font-weight: bold;">针对刷单的郑重通知</h3>
+														<a style="font-size: 0.85em; color: #999; float: right;">修改</a>
+														<br />
+														<div style="margin-left: 6%;margin-top: 1%;">
+															<span style="font-size: 0.85em; color: #999;">发表 2020-01-23 12:50</span>
+															<span style="font-size: 0.85em; color: #999;">&nbsp;·&nbsp;</span>
+															<span style="font-size: 0.85em; color: #999;">修改 2020-01-23 12:50</span>
+														</div>
+														<div style="margin-left: 6%;margin-top: 1%;">公告内容...</div>
+													</div>
+												</div><!-- /.modal-content -->
+											</div><!-- /.modal-dialog -->
+										</div><!-- /.modal -->
+									</div>
+									<script type="text/javascript" th:inline="javascript">
+										var loginAdmin = [
+											[$ {
+												loginAdmin
+											}]
+										];
+
+										function showFunction(a) {
+											$(a).css('background-color', '#16250613')
+											$('#' + a.id + ' #baseFunction').css('display', 'block');
+										}
+
+										function hideFunction(a) {
+											$(a).css('background-color', '')
+											$('#' + a.id + ' #baseFunction').css('display', 'none');
+										}
+
+										function toNoticePage(page) {
+											$("#noticeList").load("noticeShowToPage.do", {
+												page: page
+											}, function() {});
+										}
+
+										// 编辑公告
+										function modifyNotice(notice) {
+
+											$('#page-wrapper').load('toModifyNotice.do', {
+												id: notice
+											}, function() {
+												removeScrollBar();
+												$('.modal-backdrop').hide();
+											});
+										}
+
+										function showAdminNoticeDetils(notice) {
+											$.post('showAdminNoticeDetils.do', {
+												id: notice
+											}, function(data) {
+												var str = '<div class="modal-header">' +
+													'<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
+													'<h4 class="modal-title" id="gridSystemModalLabel">公告详情</h4></div>' +
+													'<div class="grid_3 grid_5 widget-shadow" style="margin-top: 0em;">' +
+													'<label style="font-size: x-large;color: #0000CC;">公告：</label>';
+												if (data.power == 1) {
+													str += '<h3 style="display: inline-block; color: red;font-weight: bold;" >' + data.title + '</h3>';
+												}
+												str += '<h3 style="display: inline-block; color: #4F52BA;font-weight: bold;" >' + data.title + '</h3>';
+												if (loginAdmin != null && data.admin == loginAdmin.id) {
+													str += '<a href="javascript:void(0)" onclick="modifyNotice(' + data.id +
+														')" style="font-size: 0.85em; color: #999; float: right;">修改</a>';
+												}
+												var modifyTime = new Date(data.modifyTime);
+												console.log(modifyTime.toLocaleString());
+												str += '<br /> <div style="margin-left: 6%;margin-top: 1%;">' +
+													'<span style="font-size: 0.85em; color: #999;">最后修改于 ' + modifyTime.toLocaleString() + '</span></div>' +
+													'<div id="noticeDetilsDescription" style="margin-left: 6%;margin-top: 1%;">' + data.description +
+													'</div></div>';
+												$('#adminNoticeDetilsWindow').html(str);
+												$('#noticeDetilsDescription p').css('color', 'black');
+												$('#noticeDetilsDescription p').css('font-size', '1em');
+											});
+										}
+									</script>
+								</div>
+
+							</div>
+							<div role="tabpanel" class="tab-pane fade" id="profile" aria-labelledby="profile-tab">
+								<form action="backNoticeAdd.do" method="post" id="backNoticeAdd">
+									<div class="inline-form widget-shadow">
+										<div class="form-body">
+											<div data-example-id="simple-form-inline">
+												<div class="form-inline">
+													<input type="text" class="form-control" id="noticeTitle" name="title" placeholder="输入公告标题" style="width: 420px;display: inline-block;"
+													 required="required">
+													<span style="margin-left: 2%;">发给谁:</span>
+													<select class="input-sm" id="noticeWho" name="who" style="font-size: 13px;display: inline-block;">
+														<option value="1">管理员</option>
+														<option value="2">商家</option>
+													</select>
+													<span style="margin-left: 2%;">是否重要:</span>
+													<select id="noticePower" class="input-sm" name="power" style="font-size: 13px;display: inline-block;">
+														<option value="0">否</option>
+														<option value="1">是</option>
+													</select>
+													<input name="id" id="noticeId" style="display: none;" />
+													<button class="btn btn-default" type="submit" style="background-color: rgba(97, 100, 193, 0.85);color: #fff; margin-left: 2%;">发布公告</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<textarea id="contents" name="description" style="height: 350px;" required="required"></textarea>
+									<script>
+										var obj = CKEDITOR.replace('contents', {
+											height: 420
+										});
+									</script>
+									<script th:inline="javascript">
+										var notice = [
+											[$ {
+												notice
+											}]
+										]
+										var obj = CKEDITOR.replace('contents', {
+											height: 420
+										});
+										if (notice != null) {
+											console.log(notice)
+											$('#noticeId').val(notice.id);
+											$('#noticePower').val(notice.power);
+											$('#noticeWho').val(notice.who);
+											$('#noticeTitle').val(notice.title);
+											obj.setData(notice.description);
+										}
+									</script>
+								</form>
+								<script type="text/javascript">
+									$(function() {
+										$("#backNoticeAdd").submit(function() { // 提交表单的id
+											console.log(123);
+											var options = {
+												dataType: 'json',
+												success: function(data) {
+													if (data.sucess == 0) {
+														$('#tipContent').html(data.message);
+														$("#asdf").trigger('click');
+													} else if (data.sucess == 1) {
+														$('#backNoticeAdd').each(function() {
+															this.reset(); //将表单的元素恢复初始化
+															//清空所有ckeditor
+															for (instance in CKEDITOR.instances)
+																CKEDITOR.instances[instance].setData("");
+
+														});
+														$('#tipContent').html(data.message);
+														$("#asdf").trigger('click');
+													}
+												}
+											};
+											for (instance in CKEDITOR.instances)
+												CKEDITOR.instances[instance].updateElement();
+											$('#backNoticeAdd').ajaxSubmit(options);
+
+											return false; //防止表单自动提交
+										});
+									});
+								</script>
+
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--footer-->
+			<div class="footer">
+				<p>Copyright &copy; 2016.Company name All rights reserved.<a target="_blank" href="http://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p>
+			</div>
+			<!--//footer-->
+		</div>
+		<!-- Classie -->
+		<script src="js/classie.js"></script>
+		<script>
+			var menuLeft = document.getElementById('cbp-spmenu-s1'),
+				showLeftPush = document.getElementById('showLeftPush'),
+				body = document.body;
+
+			showLeftPush.onclick = function() {
+				classie.toggle(this, 'active');
+				classie.toggle(body, 'cbp-spmenu-push-toright');
+				classie.toggle(menuLeft, 'cbp-spmenu-open');
+				disableOther('showLeftPush');
+			};
+
+			function disableOther(button) {
+				if (button !== 'showLeftPush') {
+					classie.toggle(showLeftPush, 'disabled');
+				}
+			}
+		</script>
+		<!--scrolling js-->
+		<script src="js/jquery.nicescroll.js"></script>
+		<script src="js/scripts.js"></script>
+		<!--//scrolling js-->
+		<!-- Bootstrap Core JavaScript -->
+		<script src="js/bootstrap.js"> </script>
+	</body>
+</html>

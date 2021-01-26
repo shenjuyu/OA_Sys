@@ -1,0 +1,90 @@
+.staff-left{
+	height: 100%;
+	width: 136px;
+	float: left;
+	border-right: 1px solid #cccccc;
+	margin-right: 8px;
+}
+.staff-right{
+	height: 100%;
+	width: 87%;
+	float: right;
+}
+.staff-left table{
+	font-size: 12px;
+	text-align: left;
+	border-collapse: separate;
+	border-spacing: 5px;
+}
+.staff-img{
+	height: 172px;
+	width: 123px;
+}
+.staff-right table{
+	line-height: 37px;
+	text-align: center;
+	border-collapse: separate;
+	margin-top: 5px;
+	float: left;
+}
+.staff-right table td{
+	border-top: 1px solid #C0C0C0;
+}
+.staff-right table .left{
+	width: 200px;
+}
+.staff-right table .right{
+	text-align: left;
+	width: 670px;
+}
+.staff-edit{
+	float: right;
+	margin-right: 20px;
+	margin-top: 20px;
+}
+.staff-edit span{
+	font-size: 21px;
+}
+
+#staffDetilsWindow{
+	height: 360px;
+}
+.staffs-left{
+	height: 100%;
+	width: 136px;
+	float: left;
+	border-right: 1px solid #cccccc;
+	margin-right: 8px;
+}
+.staffs-right{
+	height: 100%;
+	width: 74%;
+	float: right;
+}
+.staffs-left table{
+	font-size: 12px;
+	text-align: left;
+	border-collapse: separate;
+	border-spacing: 5px;
+}
+.staffs-img{
+	height: 172px;
+	width: 123px;
+}
+.staffs-right table{
+	line-height: 37px;
+	text-align: center;
+	border-collapse: separate;
+	margin-top: 5px;
+	float: left;
+}
+.staffs-right table td{
+	border-top: 1px solid #C0C0C0;
+}
+.staffs-right table .lefts{
+	width: 150px;
+}
+.staffs-right table .rights{
+	text-align: left;
+	width: 170px;
+}
