@@ -28,8 +28,13 @@ spring:
 # 配置邮件发送
   mail:
     host: smtp.qq.com
-    username: yuan16699@qq.com
-    password: cpwfmlsaetdseabb
+    username: shenjunyu123@foxmail.com
+    password: skjhnjcwfirbdgga
+    properties:
+      mail:
+        smtp:
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
     default-encoding: UTF-8
     
   redis:
@@ -47,7 +52,7 @@ spring:
 
 mail:
   formMail:
-    addr: yuan16699@qq.com
+    addr: shenjunyu123@foxmail.com
     resetPwdEmailContent: 您好，欢迎使用重置密码服务，您的验证码为：
     addAdminContent: 您好，欢迎使用管理员添加功能，您的验证码为：
     resetEmEmailContent: 您好，欢迎使用重置邮箱服务，您的验证码为：

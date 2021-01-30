@@ -95,7 +95,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 			<!-- //header-ends -->
 			<!-- main content start-->
 			<div id="page-wrapper">
-				<div class="main-page">
+				<div class="main-page" th:fragment="noticeList">
 					<div class="col-md-6 general-grids grids-right widget-shadow">
 						<ul id="myTabs" class="nav nav-tabs" role="tablist">
 							<li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home"
@@ -103,8 +103,8 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 							<li role="presentation" class=""><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile"
 								 aria-expanded="true">发布</a></li>
 						</ul>
-						<div id="myTabContent" class="tab-content scrollbar1">
-							<div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
+						<div id="myTabContent" class="tab-content">
+							<div role="tabpanel" class="tab-pane fade active in scrollbar1" id="home" aria-labelledby="home-tab" style="height: 280px;">
 								<div th:if="${noticeList eq null or noticeList.size() eq 0}" style="margin-left: 45%;margin-top: 20%;">
 									暂无公告
 								</div>
@@ -258,7 +258,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 								</div>
 
 							</div>
-							<div role="tabpanel" class="tab-pane fade" id="profile" aria-labelledby="profile-tab">
+							<div role="tabpanel" class="tab-pane fade" id="profile" aria-labelledby="profile-tab" style="margin-top:-20px">
 								<form action="backNoticeAdd.do" method="post" id="backNoticeAdd">
 									<div class="inline-form widget-shadow">
 										<div class="form-body">
@@ -282,29 +282,11 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 											</div>
 										</div>
 									</div>
-									<textarea id="contents" name="description" style="height: 350px;" required="required"></textarea>
+									<textarea id="contents" name="description" style="height: 300px;" required="required"></textarea>
 									<script>
 										var obj = CKEDITOR.replace('contents', {
-											height: 420
+											height: 300
 										});
-									</script>
-									<script th:inline="javascript">
-										var notice = [
-											[$ {
-												notice
-											}]
-										]
-										var obj = CKEDITOR.replace('contents', {
-											height: 420
-										});
-										if (notice != null) {
-											console.log(notice)
-											$('#noticeId').val(notice.id);
-											$('#noticePower').val(notice.power);
-											$('#noticeWho').val(notice.who);
-											$('#noticeTitle').val(notice.title);
-											obj.setData(notice.description);
-										}
 									</script>
 								</form>
 								<script type="text/javascript">

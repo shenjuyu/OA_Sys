@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
 	<head>
 		<title>首页</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -41,33 +41,40 @@
 		<!-- Metis Menu -->
 		<script src="js/metisMenu.min.js"></script>
 		<script src="js/custom.js"></script>
+		<script src="js/vue.js"></script>
 		<link href="css/custom.css" rel="stylesheet">
 		<!--//Metis Menu -->
+		
+		<link href="css/personnel.css" rel="stylesheet" type="text/css" />
+		<link href="css/project-creat.css" rel="stylesheet" type="text/css" />
+		
+		
+		<script src="ckeditor/ckeditor.js"></script>
 	</head>
 	<body class="cbp-spmenu-push">
 		<div class="main-content">
 			<!--left-fixed -navigation-->
 			<div class=" sidebar" role="navigation">
-				<div class="navbar-collapse">
+				<div class="navbar-collapse" id="pageJumpApp">
 					<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
 						<ul class="nav" id="side-menu">
 							<li>
 								<a href="index.html" class="active"><i class="fa fa-home nav_icon"></i>首页</a>
 							</li>
 							<li>
-								<a href="charts.html" class="chart-nav"><i class="fa fa-group nav_icon"></i>人事</a>
+								<a href="javascript:void(0)" @click="toPersonnel"><i class="fa fa-group nav_icon"></i>人事</a>
 							</li>
 							<li>
 								<a href="#"><i class="fa fa-comments nav_icon"></i>通讯 <span class="nav-badge">12</span> <span class="fa arrow"></span></a>
 								<ul class="nav nav-second-level collapse">
 									<li>
-										<a class="fa fa-envelope" href="grids.html"> 邮件</a>
+										<a class="fa fa-envelope"  href="javascript:void(0)" @click="toEmail"> 邮件</a>
 									</li>
 									<li>
-										<a class="fa fa-comment" href="media.html"> 信息</a>
+										<a class="fa fa-comment" href="javascript:void(0)" @click="toCustomerService"> 信息</a>
 									</li>
 									<li>
-										<a class="fa fa-bell" href="media.html"> 通告</a>
+										<a class="fa fa-bell" href="javascript:void(0)" @click="toNotice"> 通告</a>
 									</li>
 								</ul>
 								<!-- /nav-second-level -->
@@ -77,13 +84,13 @@
 									<span class="fa arrow"></span></a>
 								<ul class="nav nav-second-level collapse">
 									<li>
-										<a href="grids.html">申请</a>
+										<a href="javascript:void(0)" @click="toProjectCreat">申请</a>
 									</li>
 									<li>
-										<a href="media.html">审核</a>
+										<a href="javascript:void(0)" @click="toProjectAudit">审核</a>
 									</li>
 									<li>
-										<a href="media.html">查看</a>
+										<a href="javascript:void(0)" @click="toProjectFind">查看</a>
 									</li>
 								</ul>
 								<!-- /nav-second-level -->
@@ -92,19 +99,19 @@
 								<a href="#"><i class="fa fa-calendar nav_icon"></i>任务 <span class="nav-badge">12</span> <span class="fa arrow"></span></a>
 								<ul class="nav nav-second-level collapse">
 									<li>
-										<a href="grids.html">创建</a>
+										<a href="javascript:void(0)" @click="toTaskCreat">创建</a>
 									</li>
 									<li>
-										<a href="media.html">查看</a>
+										<a href="javascript:void(0)" @click="toTaskFind">查看</a>
 									</li>
 								</ul>
 								<!-- /nav-second-level -->
 							</li>
 							<li>
-								<a href="charts.html"><i class="fa fa-rmb nav_icon"></i>公共资产</a>
+								<a href="javascript:void(0)" @click="toPublicAssets"><i class="fa fa-rmb nav_icon"></i>公共资产</a>
 							</li>
 							<li>
-								<a href="charts.html" class="chart-nav"><i class="fa fa-plus-square nav_icon"></i>附加 <span class="nav-badge-btm pull-right">new</span></a>
+								<a href="javascript:void(0)" @click="toWidget" class="chart-nav"><i class="fa fa-plus-square nav_icon"></i>附加 <span class="nav-badge-btm pull-right">new</span></a>
 							</li>
 						</ul>
 						<!-- //sidebar-collapse -->
@@ -543,6 +550,72 @@
 		</div>
 		<!-- Classie -->
 		<script src="js/classie.js"></script>
+		<!-- 页面跳转的js -->
+		<script type="text/javascript">
+			/*此js代码仅用于左侧菜单栏页面跳转*/
+			 var pageJump = new Vue({
+			        el: '#pageJumpApp',
+			        methods: {
+			            toPersonnel:function() {
+							$('#page-wrapper').load('toPersonnel.do',function(){
+								removeScrollBar();
+							});
+						},
+						toEmail:function() {
+							$('#page-wrapper').load('toEmail.do',function(){
+								removeScrollBar();
+							});
+						},
+						toCustomerService:function() {
+							$('#page-wrapper').load('toCustomerService.do',function(){
+								removeScrollBar();
+							});
+						},
+						toNotice:function() {
+							$('#page-wrapper').load('toNotice.do',function(){
+								removeScrollBar();
+							});
+						},
+						toProjectCreat:function() {
+							$('#page-wrapper').load('toProjectCreat.do',function(){
+								removeScrollBar();
+							});
+						},
+						toProjectAudit:function() {
+							$('#page-wrapper').load('toProjectAudit.do',function(){
+								removeScrollBar();
+							});
+						},
+						toProjectFind:function() {
+							$('#page-wrapper').load('toProjectFind.do',function(){
+								removeScrollBar();
+							});
+						},
+						toTaskCreat:function() {
+							$('#page-wrapper').load('toTaskCreat.do',function(){
+								removeScrollBar();
+							});
+						},
+						toTaskFind:function() {
+							$('#page-wrapper').load('toTaskFind.do',function(){
+								removeScrollBar();
+							});
+						},
+						toPublicAssets:function() {
+							$('#page-wrapper').load('toPublicAssets.do',function(){
+								removeScrollBar();
+							});
+						},
+						toWidget:function() {
+							$('#page-wrapper').load('toWidget.do',function(){
+								removeScrollBar();
+							});
+						}
+						
+			        }
+			    })
+		</script>
+		<!-- //页面跳转的js -->
 		<script>
 			var menuLeft = document.getElementById('cbp-spmenu-s1'),
 				showLeftPush = document.getElementById('showLeftPush'),

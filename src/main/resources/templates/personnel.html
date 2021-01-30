@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns:th="www.thymeleaf.org">
 	<head>
 		<title>Tables</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -93,7 +93,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 			<!-- //header-ends -->
 			<!-- main content start-->
 			<div id="page-wrapper">
-				<div class="main-page">
+				<div class="main-page" th:fragment="personnelList">
 					<div class="col-md-6 general-grids grids-right widget-shadow">
 						<ul id="myTabs" class="nav nav-tabs" role="tablist">
 							<li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home"
@@ -182,9 +182,9 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 											</select>&nbsp;&nbsp;&nbsp;
 											<button class="label label-info" style="font-size: large;">查询</button>
 										</form>
-										
 										<!-- //条件查询 -->
-										<div id="userShowTable" th:fragment="userShowTable">
+										
+										<div id="userShowTable">
 											<table class="table table-hover">
 												<thead>
 													<tr>
@@ -199,25 +199,25 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 													</tr>
 												</thead>
 												<tbody>
-													<tr th:each="ulist,uStat:${userList}">
-														<th scope="row" th:text="${uStat.count}">1</th>
-														<td th:text="${ulist.trueName}">张三</td>
+													<tr>
+														<th scope="row" >1</th>
+														<td >张三</td>
 														<td>
-															<span th:if=${ulist.sex==0}>女</span>
-															<span th:if=${ulist.sex==1}>男</span>
-															<span th:if=${ulist.sex==2}>未知</span>
+															<span >女</span>
+															<span >男</span>
+															<span>未知</span>
 														</td>
-														<td th:text="${ulist.tel.substring(0,3)}+'****'+${ulist.tel.substring(7,11)}"></td>
-														<td th:text="${ulist.email.substring(0,3)}+'***'+${ulist.email.substring(6)}"></td>
-														<td th:text="${ulist.registerTime.toLocalDateTime().getYear()}+'-'+${ulist.registerTime.toLocalDateTime().getMonthValue()}+'-'+${ulist.registerTime.toLocalDateTime().getDayOfMonth()}">2020-2-22
+														<td></td>
+														<td></td>
+														<td>2020-2-22
 															22:22</td>
 														<td>
-															<label class="label label-info" th:if=${ulist.state==0} th:id="'showUserStateLabel'+${ulist.id}">实习</label>
-															<label class="label label-primary" th:if=${ulist.state==1} th:id="'showUserStateLabel'+${ulist.id}">试用</label>
-															<label class="label label-success" th:if=${ulist.state==2} th:id="'showUserStateLabel'+${ulist.id}">正式</label>
-															<label class="label label-danger" th:if=${ulist.state==3} th:id="'showUserStateLabel'+${ulist.id}">离职</label>
+															<label class="label label-info">实习</label>
+															<label class="label label-primary">试用</label>
+															<label class="label label-success">正式</label>
+															<label class="label label-danger">离职</label>
 														</td>
-														<td><button type="button" class="btn btn-primary btn-lg" th:id="'backUser'+${ulist.id}" th:onclick="'showUserDetails('+${ulist.id}+')'"
+														<td><button type="button" class="btn btn-primary btn-lg" 
 															 data-toggle="modal" data-target="#gridSystemModal" style="padding: 6px;font-size: 11px;">查看详情 </button></td>
 													</tr>
 												</tbody>
@@ -227,22 +227,18 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 											<nav style="margin-left: 65%;">
 												<ul class="pagination pagination-lg">
 													<!-- class='disabled'为选中了第一个或者最后一个的样式 -->
-													<li th:if="${userList.pageNum eq 1}" class="disabled"><a href="javascript:void(0)" aria-label="Previous"><span
+													<li class="disabled"><a href="javascript:void(0)" aria-label="Previous"><span
 															 aria-hidden="true">«</span></a></li>
-													<li th:if="${userList.pageNum gt 1}"><a href="javascript:void(0)" th:onclick="'toPage('+${userList.pageNum-1}+')'"
+													<li><a href="javascript:void(0)" 
 														 aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-													<li th:if="${userList.pageNum-2 gt 0 }"><a href="javascript:void(0)" th:onclick="'toPage('+${userList.pageNum-2}+')'"
-														 th:text="${userList.pageNum-2}">1</a></li>
-													<li th:if="${userList.pageNum-1 gt 0 }"><a href="javascript:void(0)" th:onclick="'toPage('+${userList.pageNum-1}+')'"
-														 th:text="${userList.pageNum-1}">2</a></li>
-													<li class="active"><a href="javascript:void(0)" th:text="${userList.pageNum}">3</a></li><!-- 被选中 -->
-													<li th:if="${userList.pageNum+1 le userList.pages}"><a href="javascript:void(0)" th:onclick="'toPage('+${userList.pageNum+1}+')'"
-														 th:text="${userList.pageNum+1}">4</a></li>
-													<li th:if="${userList.pageNum+2 le userList.pages}"><a href="javascript:void(0)" th:onclick="'toPage('+${userList.pageNum+2}+')'"
-														 th:text="${userList.pageNum+2}">5</a></li>
-													<li th:if="${userList.pageNum eq userList.pages}" class="disabled"><a href="javascript:void(0)" aria-label="Next"><span
+													<li ><a href="javascript:void(0)">1</a></li>
+													<li ><a href="javascript:void(0)">2</a></li>
+													<li class="active"><a href="javascript:void(0)">3</a></li><!-- 被选中 -->
+													<li ><a href="javascript:void(0)">4</a></li>
+													<li ><a href="javascript:void(0)">5</a></li>
+													<li  class="disabled"><a href="javascript:void(0)" aria-label="Next"><span
 															 aria-hidden="true">»</span></a></li>
-													<li th:if="${userList.pageNum lt userList.pages}"><a href="javascript:void(0)" th:onclick="'toPage('+${userList.pageNum+1}+')'"
+													<li ><a href="javascript:void(0)"  
 														 aria-label="Next"><span aria-hidden="true">»</span></a></li>
 												</ul>
 											</nav>

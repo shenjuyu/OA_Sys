@@ -96,11 +96,11 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 			<!-- //header-ends -->
 			<!-- main content start-->
 			<div id="page-wrapper">
-				<div class="main-page">
+				<div class="main-page" th:fragment="projectFind">
 					<div id="myTabContent" class="tab-content scrollbar1">
 						<div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
 							<div th:if="${noticeList eq null or noticeList.size() eq 0}" style="margin-left: 45%;margin-top: 20%;">
-								暂无待审核项目
+								暂无项目
 							</div>
 							<div th:if="${noticeList ne null and noticeList.size() gt 0}">
 								<!-- 循环查找公告 这里的公告的显示需要去掉注释， -->
@@ -259,7 +259,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 																				<td>任务名称：</td>
 																				<td class="left"><input name="taskName" type="text" value="" readonly="readonly"/></td>
 																				<td>所属项目：</td>
-																				<td class="right"><input type="text" readonly="readonly" value="" readonly="readonly"></td>
+																				<td class="right"><input type="text" value="" readonly="readonly"></td>
 																			</tr>
 																			<tr>
 																				<td>任务描述：</td>
@@ -301,7 +301,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 																				<td>任务名称：</td>
 																				<td class="left"><input name="taskName" type="text" value="" readonly="readonly"/></td>
 																				<td>所属项目：</td>
-																				<td class="right"><input type="text" readonly="readonly" value="" readonly="readonly"></td>
+																				<td class="right"><input type="text" value="" readonly="readonly"></td>
 																			</tr>
 																			<tr>
 																				<td>任务描述：</td>
