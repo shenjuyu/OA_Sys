@@ -3,7 +3,9 @@ package com.sjy.OA_Sys.bean;
 import java.sql.Timestamp;
 
 public class Task {
-    private Integer taskId;
+    private Integer id;
+
+    private String taskId;
 
     private String taskName;
 
@@ -15,11 +17,12 @@ public class Task {
 
     private Integer taskState;
 
-    private Integer taskGroupId;
+    private String taskGroupId;
 
-    private Integer proId;
+    private String proId;
 
-    public Task(Integer taskId, String taskName, Timestamp taskTimeStart, Timestamp taskTimeEnd, String taskRateProgress, Integer taskState, Integer taskGroupId, Integer proId) {
+    public Task(Integer id, String taskId, String taskName, Timestamp taskTimeStart, Timestamp taskTimeEnd, String taskRateProgress, Integer taskState, String taskGroupId, String proId) {
+        this.id = id;
         this.taskId = taskId;
         this.taskName = taskName;
         this.taskTimeStart = taskTimeStart;
@@ -34,12 +37,20 @@ public class Task {
         super();
     }
 
-    public Integer getTaskId() {
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getTaskId() {
         return taskId;
     }
 
-    public void setTaskId(Integer taskId) {
-        this.taskId = taskId;
+    public void setTaskId(String taskId) {
+        this.taskId = taskId == null ? null : taskId.trim();
     }
 
     public String getTaskName() {
@@ -82,19 +93,19 @@ public class Task {
         this.taskState = taskState;
     }
 
-    public Integer getTaskGroupId() {
+    public String getTaskGroupId() {
         return taskGroupId;
     }
 
-    public void setTaskGroupId(Integer taskGroupId) {
-        this.taskGroupId = taskGroupId;
+    public void setTaskGroupId(String taskGroupId) {
+        this.taskGroupId = taskGroupId == null ? null : taskGroupId.trim();
     }
 
-    public Integer getProId() {
+    public String getProId() {
         return proId;
     }
 
-    public void setProId(Integer proId) {
-        this.proId = proId;
+    public void setProId(String proId) {
+        this.proId = proId == null ? null : proId.trim();
     }
 }

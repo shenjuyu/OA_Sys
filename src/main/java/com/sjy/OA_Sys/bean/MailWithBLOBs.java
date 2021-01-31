@@ -7,8 +7,8 @@ public class MailWithBLOBs extends Mail {
 
     private String mailAttachment;
 
-    public MailWithBLOBs(Integer mailId, Integer mailStaffSend, Integer mailStaffAddressee, String mailTitle, Timestamp mailTimeSend, Integer mailSituation, String mailDes, String mailAttachment) {
-        super(mailId, mailStaffSend, mailStaffAddressee, mailTitle, mailTimeSend, mailSituation);
+    public MailWithBLOBs(Integer id, String mailId, String mailStaffSend, String mailStaffAddressee, String mailTitle, Timestamp mailTimeSend, Integer mailSituation, String mailDes, String mailAttachment) {
+        super(id, mailId, mailStaffSend, mailStaffAddressee, mailTitle, mailTimeSend, mailSituation);
         this.mailDes = mailDes;
         this.mailAttachment = mailAttachment;
     }

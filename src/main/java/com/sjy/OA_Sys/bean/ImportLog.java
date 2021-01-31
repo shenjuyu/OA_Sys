@@ -3,21 +3,25 @@ package com.sjy.OA_Sys.bean;
 import java.sql.Timestamp;
 
 public class ImportLog {
-    private Integer logId;
+    private Integer id;
 
-    private Integer staffId;
+    private String logId;
+
+    private String staffId;
 
     private Timestamp logTime;
 
     private String logDes;
 
-    public ImportLog(Integer logId, Integer staffId, Timestamp logTime) {
+    public ImportLog(Integer id, String logId, String staffId, Timestamp logTime) {
+        this.id = id;
         this.logId = logId;
         this.staffId = staffId;
         this.logTime = logTime;
     }
 
-    public ImportLog(Integer logId, Integer staffId, Timestamp logTime, String logDes) {
+    public ImportLog(Integer id, String logId, String staffId, Timestamp logTime, String logDes) {
+        this.id = id;
         this.logId = logId;
         this.staffId = staffId;
         this.logTime = logTime;
@@ -28,20 +32,28 @@ public class ImportLog {
         super();
     }
 
-    public Integer getLogId() {
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getLogId() {
         return logId;
     }
 
-    public void setLogId(Integer logId) {
-        this.logId = logId;
+    public void setLogId(String logId) {
+        this.logId = logId == null ? null : logId.trim();
     }
 
-    public Integer getStaffId() {
+    public String getStaffId() {
         return staffId;
     }
 
-    public void setStaffId(Integer staffId) {
-        this.staffId = staffId;
+    public void setStaffId(String staffId) {
+        this.staffId = staffId == null ? null : staffId.trim();
     }
 
     public Timestamp getLogTime() {

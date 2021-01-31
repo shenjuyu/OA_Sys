@@ -3,11 +3,13 @@ package com.sjy.OA_Sys.bean;
 import java.sql.Timestamp;
 
 public class Mail {
-    private Integer mailId;
+    private Integer id;
 
-    private Integer mailStaffSend;
+    private String mailId;
 
-    private Integer mailStaffAddressee;
+    private String mailStaffSend;
+
+    private String mailStaffAddressee;
 
     private String mailTitle;
 
@@ -15,7 +17,8 @@ public class Mail {
 
     private Integer mailSituation;
 
-    public Mail(Integer mailId, Integer mailStaffSend, Integer mailStaffAddressee, String mailTitle, Timestamp mailTimeSend, Integer mailSituation) {
+    public Mail(Integer id, String mailId, String mailStaffSend, String mailStaffAddressee, String mailTitle, Timestamp mailTimeSend, Integer mailSituation) {
+        this.id = id;
         this.mailId = mailId;
         this.mailStaffSend = mailStaffSend;
         this.mailStaffAddressee = mailStaffAddressee;
@@ -28,28 +31,36 @@ public class Mail {
         super();
     }
 
-    public Integer getMailId() {
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getMailId() {
         return mailId;
     }
 
-    public void setMailId(Integer mailId) {
-        this.mailId = mailId;
+    public void setMailId(String mailId) {
+        this.mailId = mailId == null ? null : mailId.trim();
     }
 
-    public Integer getMailStaffSend() {
+    public String getMailStaffSend() {
         return mailStaffSend;
     }
 
-    public void setMailStaffSend(Integer mailStaffSend) {
-        this.mailStaffSend = mailStaffSend;
+    public void setMailStaffSend(String mailStaffSend) {
+        this.mailStaffSend = mailStaffSend == null ? null : mailStaffSend.trim();
     }
 
-    public Integer getMailStaffAddressee() {
+    public String getMailStaffAddressee() {
         return mailStaffAddressee;
     }
 
-    public void setMailStaffAddressee(Integer mailStaffAddressee) {
-        this.mailStaffAddressee = mailStaffAddressee;
+    public void setMailStaffAddressee(String mailStaffAddressee) {
+        this.mailStaffAddressee = mailStaffAddressee == null ? null : mailStaffAddressee.trim();
     }
 
     public String getMailTitle() {

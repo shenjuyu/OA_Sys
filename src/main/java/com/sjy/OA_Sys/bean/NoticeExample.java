@@ -175,52 +175,62 @@ public class NoticeExample {
             return (Criteria) this;
         }
 
-        public Criteria andNoticeStaffSendEqualTo(Integer value) {
+        public Criteria andNoticeStaffSendEqualTo(String value) {
             addCriterion("notice_staff_send =", value, "noticeStaffSend");
             return (Criteria) this;
         }
 
-        public Criteria andNoticeStaffSendNotEqualTo(Integer value) {
+        public Criteria andNoticeStaffSendNotEqualTo(String value) {
             addCriterion("notice_staff_send <>", value, "noticeStaffSend");
             return (Criteria) this;
         }
 
-        public Criteria andNoticeStaffSendGreaterThan(Integer value) {
+        public Criteria andNoticeStaffSendGreaterThan(String value) {
             addCriterion("notice_staff_send >", value, "noticeStaffSend");
             return (Criteria) this;
         }
 
-        public Criteria andNoticeStaffSendGreaterThanOrEqualTo(Integer value) {
+        public Criteria andNoticeStaffSendGreaterThanOrEqualTo(String value) {
             addCriterion("notice_staff_send >=", value, "noticeStaffSend");
             return (Criteria) this;
         }
 
-        public Criteria andNoticeStaffSendLessThan(Integer value) {
+        public Criteria andNoticeStaffSendLessThan(String value) {
             addCriterion("notice_staff_send <", value, "noticeStaffSend");
             return (Criteria) this;
         }
 
-        public Criteria andNoticeStaffSendLessThanOrEqualTo(Integer value) {
+        public Criteria andNoticeStaffSendLessThanOrEqualTo(String value) {
             addCriterion("notice_staff_send <=", value, "noticeStaffSend");
             return (Criteria) this;
         }
 
-        public Criteria andNoticeStaffSendIn(List<Integer> values) {
+        public Criteria andNoticeStaffSendLike(String value) {
+            addCriterion("notice_staff_send like", value, "noticeStaffSend");
+            return (Criteria) this;
+        }
+
+        public Criteria andNoticeStaffSendNotLike(String value) {
+            addCriterion("notice_staff_send not like", value, "noticeStaffSend");
+            return (Criteria) this;
+        }
+
+        public Criteria andNoticeStaffSendIn(List<String> values) {
             addCriterion("notice_staff_send in", values, "noticeStaffSend");
             return (Criteria) this;
         }
 
-        public Criteria andNoticeStaffSendNotIn(List<Integer> values) {
+        public Criteria andNoticeStaffSendNotIn(List<String> values) {
             addCriterion("notice_staff_send not in", values, "noticeStaffSend");
             return (Criteria) this;
         }
 
-        public Criteria andNoticeStaffSendBetween(Integer value1, Integer value2) {
+        public Criteria andNoticeStaffSendBetween(String value1, String value2) {
             addCriterion("notice_staff_send between", value1, value2, "noticeStaffSend");
             return (Criteria) this;
         }
 
-        public Criteria andNoticeStaffSendNotBetween(Integer value1, Integer value2) {
+        public Criteria andNoticeStaffSendNotBetween(String value1, String value2) {
             addCriterion("notice_staff_send not between", value1, value2, "noticeStaffSend");
             return (Criteria) this;
         }

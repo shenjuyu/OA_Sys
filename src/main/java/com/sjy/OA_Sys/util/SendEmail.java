@@ -53,4 +53,5 @@ public class SendEmail {
 		}
 		return new Result(1,"发送邮件成功");
 	}
+	
 }

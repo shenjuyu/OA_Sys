@@ -3,9 +3,11 @@ package com.sjy.OA_Sys.bean;
 import java.sql.Timestamp;
 
 public class Project {
-    private Integer proId;
+    private Integer id;
 
-    private Integer staffId;
+    private String proId;
+
+    private String staffId;
 
     private String proNaem;
 
@@ -19,7 +21,8 @@ public class Project {
 
     private Integer proState;
 
-    public Project(Integer proId, Integer staffId, String proNaem, Timestamp proTimeCre, Timestamp proTimeStart, Timestamp proTimeEnd, String proRateProgress, Integer proState) {
+    public Project(Integer id, String proId, String staffId, String proNaem, Timestamp proTimeCre, Timestamp proTimeStart, Timestamp proTimeEnd, String proRateProgress, Integer proState) {
+        this.id = id;
         this.proId = proId;
         this.staffId = staffId;
         this.proNaem = proNaem;
@@ -34,20 +37,28 @@ public class Project {
         super();
     }
 
-    public Integer getProId() {
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getProId() {
         return proId;
     }
 
-    public void setProId(Integer proId) {
-        this.proId = proId;
+    public void setProId(String proId) {
+        this.proId = proId == null ? null : proId.trim();
     }
 
-    public Integer getStaffId() {
+    public String getStaffId() {
         return staffId;
     }
 
-    public void setStaffId(Integer staffId) {
-        this.staffId = staffId;
+    public void setStaffId(String staffId) {
+        this.staffId = staffId == null ? null : staffId.trim();
     }
 
     public String getProNaem() {

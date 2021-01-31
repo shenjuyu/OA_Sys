@@ -105,6 +105,66 @@ public class ImportLogExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
+        public Criteria andIdIsNull() {
+            addCriterion("id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdIsNotNull() {
+            addCriterion("id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdEqualTo(Integer value) {
+            addCriterion("id =", value, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdNotEqualTo(Integer value) {
+            addCriterion("id <>", value, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdGreaterThan(Integer value) {
+            addCriterion("id >", value, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("id >=", value, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdLessThan(Integer value) {
+            addCriterion("id <", value, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdLessThanOrEqualTo(Integer value) {
+            addCriterion("id <=", value, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdIn(List<Integer> values) {
+            addCriterion("id in", values, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdNotIn(List<Integer> values) {
+            addCriterion("id not in", values, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdBetween(Integer value1, Integer value2) {
+            addCriterion("id between", value1, value2, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("id not between", value1, value2, "id");
+            return (Criteria) this;
+        }
+
         public Criteria andLogIdIsNull() {
             addCriterion("log_id is null");
             return (Criteria) this;
@@ -115,52 +175,62 @@ public class ImportLogExample {
             return (Criteria) this;
         }
 
-        public Criteria andLogIdEqualTo(Integer value) {
+        public Criteria andLogIdEqualTo(String value) {
             addCriterion("log_id =", value, "logId");
             return (Criteria) this;
         }
 
-        public Criteria andLogIdNotEqualTo(Integer value) {
+        public Criteria andLogIdNotEqualTo(String value) {
             addCriterion("log_id <>", value, "logId");
             return (Criteria) this;
         }
 
-        public Criteria andLogIdGreaterThan(Integer value) {
+        public Criteria andLogIdGreaterThan(String value) {
             addCriterion("log_id >", value, "logId");
             return (Criteria) this;
         }
 
-        public Criteria andLogIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andLogIdGreaterThanOrEqualTo(String value) {
             addCriterion("log_id >=", value, "logId");
             return (Criteria) this;
         }
 
-        public Criteria andLogIdLessThan(Integer value) {
+        public Criteria andLogIdLessThan(String value) {
             addCriterion("log_id <", value, "logId");
             return (Criteria) this;
         }
 
-        public Criteria andLogIdLessThanOrEqualTo(Integer value) {
+        public Criteria andLogIdLessThanOrEqualTo(String value) {
             addCriterion("log_id <=", value, "logId");
             return (Criteria) this;
         }
 
-        public Criteria andLogIdIn(List<Integer> values) {
+        public Criteria andLogIdLike(String value) {
+            addCriterion("log_id like", value, "logId");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogIdNotLike(String value) {
+            addCriterion("log_id not like", value, "logId");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogIdIn(List<String> values) {
             addCriterion("log_id in", values, "logId");
             return (Criteria) this;
         }
 
-        public Criteria andLogIdNotIn(List<Integer> values) {
+        public Criteria andLogIdNotIn(List<String> values) {
             addCriterion("log_id not in", values, "logId");
             return (Criteria) this;
         }
 
-        public Criteria andLogIdBetween(Integer value1, Integer value2) {
+        public Criteria andLogIdBetween(String value1, String value2) {
             addCriterion("log_id between", value1, value2, "logId");
             return (Criteria) this;
         }
 
-        public Criteria andLogIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andLogIdNotBetween(String value1, String value2) {
             addCriterion("log_id not between", value1, value2, "logId");
             return (Criteria) this;
         }
@@ -175,52 +245,62 @@ public class ImportLogExample {
             return (Criteria) this;
         }
 
-        public Criteria andStaffIdEqualTo(Integer value) {
+        public Criteria andStaffIdEqualTo(String value) {
             addCriterion("staff_id =", value, "staffId");
             return (Criteria) this;
         }
 
-        public Criteria andStaffIdNotEqualTo(Integer value) {
+        public Criteria andStaffIdNotEqualTo(String value) {
             addCriterion("staff_id <>", value, "staffId");
             return (Criteria) this;
         }
 
-        public Criteria andStaffIdGreaterThan(Integer value) {
+        public Criteria andStaffIdGreaterThan(String value) {
             addCriterion("staff_id >", value, "staffId");
             return (Criteria) this;
         }
 
-        public Criteria andStaffIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andStaffIdGreaterThanOrEqualTo(String value) {
             addCriterion("staff_id >=", value, "staffId");
             return (Criteria) this;
         }
 
-        public Criteria andStaffIdLessThan(Integer value) {
+        public Criteria andStaffIdLessThan(String value) {
             addCriterion("staff_id <", value, "staffId");
             return (Criteria) this;
         }
 
-        public Criteria andStaffIdLessThanOrEqualTo(Integer value) {
+        public Criteria andStaffIdLessThanOrEqualTo(String value) {
             addCriterion("staff_id <=", value, "staffId");
             return (Criteria) this;
         }
 
-        public Criteria andStaffIdIn(List<Integer> values) {
+        public Criteria andStaffIdLike(String value) {
+            addCriterion("staff_id like", value, "staffId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffIdNotLike(String value) {
+            addCriterion("staff_id not like", value, "staffId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffIdIn(List<String> values) {
             addCriterion("staff_id in", values, "staffId");
             return (Criteria) this;
         }
 
-        public Criteria andStaffIdNotIn(List<Integer> values) {
+        public Criteria andStaffIdNotIn(List<String> values) {
             addCriterion("staff_id not in", values, "staffId");
             return (Criteria) this;
         }
 
-        public Criteria andStaffIdBetween(Integer value1, Integer value2) {
+        public Criteria andStaffIdBetween(String value1, String value2) {
             addCriterion("staff_id between", value1, value2, "staffId");
             return (Criteria) this;
         }
 
-        public Criteria andStaffIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andStaffIdNotBetween(String value1, String value2) {
             addCriterion("staff_id not between", value1, value2, "staffId");
             return (Criteria) this;
         }

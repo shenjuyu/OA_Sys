@@ -65,8 +65,8 @@
 			<generatedKey column="id" sqlStatement="mysql" identity="true"/>
 			<!-- 配置 日期字段 -->
 			<columnOverride column="staff_birth" javaType="java.sql.Timestamp"></columnOverride>
-			<columnOverride column="att_sheet_start" javaType="java.sql.Timestamp"></columnOverride>
-			<columnOverride column="att_sheet_end" javaType="java.sql.Timestamp"></columnOverride>
+			<columnOverride column="att_sheet_time_start" javaType="java.sql.Timestamp"></columnOverride>
+			<columnOverride column="att_sheet_time_end" javaType="java.sql.Timestamp"></columnOverride>
 			<columnOverride column="pro_time_cre" javaType="java.sql.Timestamp"></columnOverride>
 			<columnOverride column="pro_time_start" javaType="java.sql.Timestamp"></columnOverride>
 			<columnOverride column="pro_time_end" javaType="java.sql.Timestamp"></columnOverride>

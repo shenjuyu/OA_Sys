@@ -104,6 +104,66 @@ public class TaskGroupExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
+        public Criteria andIdIsNull() {
+            addCriterion("id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdIsNotNull() {
+            addCriterion("id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdEqualTo(Integer value) {
+            addCriterion("id =", value, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdNotEqualTo(Integer value) {
+            addCriterion("id <>", value, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdGreaterThan(Integer value) {
+            addCriterion("id >", value, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("id >=", value, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdLessThan(Integer value) {
+            addCriterion("id <", value, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdLessThanOrEqualTo(Integer value) {
+            addCriterion("id <=", value, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdIn(List<Integer> values) {
+            addCriterion("id in", values, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdNotIn(List<Integer> values) {
+            addCriterion("id not in", values, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdBetween(Integer value1, Integer value2) {
+            addCriterion("id between", value1, value2, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("id not between", value1, value2, "id");
+            return (Criteria) this;
+        }
+
         public Criteria andTaskGroupIdIsNull() {
             addCriterion("task_group_id is null");
             return (Criteria) this;
@@ -114,52 +174,62 @@ public class TaskGroupExample {
             return (Criteria) this;
         }
 
-        public Criteria andTaskGroupIdEqualTo(Integer value) {
+        public Criteria andTaskGroupIdEqualTo(String value) {
             addCriterion("task_group_id =", value, "taskGroupId");
             return (Criteria) this;
         }
 
-        public Criteria andTaskGroupIdNotEqualTo(Integer value) {
+        public Criteria andTaskGroupIdNotEqualTo(String value) {
             addCriterion("task_group_id <>", value, "taskGroupId");
             return (Criteria) this;
         }
 
-        public Criteria andTaskGroupIdGreaterThan(Integer value) {
+        public Criteria andTaskGroupIdGreaterThan(String value) {
             addCriterion("task_group_id >", value, "taskGroupId");
             return (Criteria) this;
         }
 
-        public Criteria andTaskGroupIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andTaskGroupIdGreaterThanOrEqualTo(String value) {
             addCriterion("task_group_id >=", value, "taskGroupId");
             return (Criteria) this;
         }
 
-        public Criteria andTaskGroupIdLessThan(Integer value) {
+        public Criteria andTaskGroupIdLessThan(String value) {
             addCriterion("task_group_id <", value, "taskGroupId");
             return (Criteria) this;
         }
 
-        public Criteria andTaskGroupIdLessThanOrEqualTo(Integer value) {
+        public Criteria andTaskGroupIdLessThanOrEqualTo(String value) {
             addCriterion("task_group_id <=", value, "taskGroupId");
             return (Criteria) this;
         }
 
-        public Criteria andTaskGroupIdIn(List<Integer> values) {
+        public Criteria andTaskGroupIdLike(String value) {
+            addCriterion("task_group_id like", value, "taskGroupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskGroupIdNotLike(String value) {
+            addCriterion("task_group_id not like", value, "taskGroupId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskGroupIdIn(List<String> values) {
             addCriterion("task_group_id in", values, "taskGroupId");
             return (Criteria) this;
         }
 
-        public Criteria andTaskGroupIdNotIn(List<Integer> values) {
+        public Criteria andTaskGroupIdNotIn(List<String> values) {
             addCriterion("task_group_id not in", values, "taskGroupId");
             return (Criteria) this;
         }
 
-        public Criteria andTaskGroupIdBetween(Integer value1, Integer value2) {
+        public Criteria andTaskGroupIdBetween(String value1, String value2) {
             addCriterion("task_group_id between", value1, value2, "taskGroupId");
             return (Criteria) this;
         }
 
-        public Criteria andTaskGroupIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andTaskGroupIdNotBetween(String value1, String value2) {
             addCriterion("task_group_id not between", value1, value2, "taskGroupId");
             return (Criteria) this;
         }
@@ -244,52 +314,62 @@ public class TaskGroupExample {
             return (Criteria) this;
         }
 
-        public Criteria andStaffIdEqualTo(Integer value) {
+        public Criteria andStaffIdEqualTo(String value) {
             addCriterion("staff_id =", value, "staffId");
             return (Criteria) this;
         }
 
-        public Criteria andStaffIdNotEqualTo(Integer value) {
+        public Criteria andStaffIdNotEqualTo(String value) {
             addCriterion("staff_id <>", value, "staffId");
             return (Criteria) this;
         }
 
-        public Criteria andStaffIdGreaterThan(Integer value) {
+        public Criteria andStaffIdGreaterThan(String value) {
             addCriterion("staff_id >", value, "staffId");
             return (Criteria) this;
         }
 
-        public Criteria andStaffIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andStaffIdGreaterThanOrEqualTo(String value) {
             addCriterion("staff_id >=", value, "staffId");
             return (Criteria) this;
         }
 
-        public Criteria andStaffIdLessThan(Integer value) {
+        public Criteria andStaffIdLessThan(String value) {
             addCriterion("staff_id <", value, "staffId");
             return (Criteria) this;
         }
 
-        public Criteria andStaffIdLessThanOrEqualTo(Integer value) {
+        public Criteria andStaffIdLessThanOrEqualTo(String value) {
             addCriterion("staff_id <=", value, "staffId");
             return (Criteria) this;
         }
 
-        public Criteria andStaffIdIn(List<Integer> values) {
+        public Criteria andStaffIdLike(String value) {
+            addCriterion("staff_id like", value, "staffId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffIdNotLike(String value) {
+            addCriterion("staff_id not like", value, "staffId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffIdIn(List<String> values) {
             addCriterion("staff_id in", values, "staffId");
             return (Criteria) this;
         }
 
-        public Criteria andStaffIdNotIn(List<Integer> values) {
+        public Criteria andStaffIdNotIn(List<String> values) {
             addCriterion("staff_id not in", values, "staffId");
             return (Criteria) this;
         }
 
-        public Criteria andStaffIdBetween(Integer value1, Integer value2) {
+        public Criteria andStaffIdBetween(String value1, String value2) {
             addCriterion("staff_id between", value1, value2, "staffId");
             return (Criteria) this;
         }
 
-        public Criteria andStaffIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andStaffIdNotBetween(String value1, String value2) {
             addCriterion("staff_id not between", value1, value2, "staffId");
             return (Criteria) this;
         }

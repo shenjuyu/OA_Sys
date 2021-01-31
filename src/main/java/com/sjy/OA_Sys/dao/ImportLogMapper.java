@@ -10,7 +10,7 @@ public interface ImportLogMapper {
 
     int deleteByExample(ImportLogExample example);
 
-    int deleteByPrimaryKey(Integer logId);
+    int deleteByPrimaryKey(Integer id);
 
     int insert(ImportLog record);
 
@@ -20,7 +20,7 @@ public interface ImportLogMapper {
 
     List<ImportLog> selectByExample(ImportLogExample example);
 
-    ImportLog selectByPrimaryKey(Integer logId);
+    ImportLog selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") ImportLog record, @Param("example") ImportLogExample example);
 

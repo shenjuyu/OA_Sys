@@ -1,6 +1,7 @@
 package com.sjy.OA_Sys.util;
 
 import java.awt.*;
+import java.util.Date;
 import java.util.Random;
 
 /**
@@ -50,5 +51,9 @@ public class RandomUtils{
 
     public static int nextInt(int bound) {
         return random.nextInt(bound);
+    }
+    
+    public static int getMinute(Date fromDate, Date toDate) {
+    	 return (int) (toDate.getTime() - fromDate.getTime()) / (60 * 1000);
     }
 }

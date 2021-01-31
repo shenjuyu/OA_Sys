@@ -235,52 +235,62 @@ public class ChatRecordExample {
             return (Criteria) this;
         }
 
-        public Criteria andChatSenderEqualTo(Integer value) {
+        public Criteria andChatSenderEqualTo(String value) {
             addCriterion("chat_sender =", value, "chatSender");
             return (Criteria) this;
         }
 
-        public Criteria andChatSenderNotEqualTo(Integer value) {
+        public Criteria andChatSenderNotEqualTo(String value) {
             addCriterion("chat_sender <>", value, "chatSender");
             return (Criteria) this;
         }
 
-        public Criteria andChatSenderGreaterThan(Integer value) {
+        public Criteria andChatSenderGreaterThan(String value) {
             addCriterion("chat_sender >", value, "chatSender");
             return (Criteria) this;
         }
 
-        public Criteria andChatSenderGreaterThanOrEqualTo(Integer value) {
+        public Criteria andChatSenderGreaterThanOrEqualTo(String value) {
             addCriterion("chat_sender >=", value, "chatSender");
             return (Criteria) this;
         }
 
-        public Criteria andChatSenderLessThan(Integer value) {
+        public Criteria andChatSenderLessThan(String value) {
             addCriterion("chat_sender <", value, "chatSender");
             return (Criteria) this;
         }
 
-        public Criteria andChatSenderLessThanOrEqualTo(Integer value) {
+        public Criteria andChatSenderLessThanOrEqualTo(String value) {
             addCriterion("chat_sender <=", value, "chatSender");
             return (Criteria) this;
         }
 
-        public Criteria andChatSenderIn(List<Integer> values) {
+        public Criteria andChatSenderLike(String value) {
+            addCriterion("chat_sender like", value, "chatSender");
+            return (Criteria) this;
+        }
+
+        public Criteria andChatSenderNotLike(String value) {
+            addCriterion("chat_sender not like", value, "chatSender");
+            return (Criteria) this;
+        }
+
+        public Criteria andChatSenderIn(List<String> values) {
             addCriterion("chat_sender in", values, "chatSender");
             return (Criteria) this;
         }
 
-        public Criteria andChatSenderNotIn(List<Integer> values) {
+        public Criteria andChatSenderNotIn(List<String> values) {
             addCriterion("chat_sender not in", values, "chatSender");
             return (Criteria) this;
         }
 
-        public Criteria andChatSenderBetween(Integer value1, Integer value2) {
+        public Criteria andChatSenderBetween(String value1, String value2) {
             addCriterion("chat_sender between", value1, value2, "chatSender");
             return (Criteria) this;
         }
 
-        public Criteria andChatSenderNotBetween(Integer value1, Integer value2) {
+        public Criteria andChatSenderNotBetween(String value1, String value2) {
             addCriterion("chat_sender not between", value1, value2, "chatSender");
             return (Criteria) this;
         }
@@ -295,52 +305,62 @@ public class ChatRecordExample {
             return (Criteria) this;
         }
 
-        public Criteria andChatReceiveEqualTo(Integer value) {
+        public Criteria andChatReceiveEqualTo(String value) {
             addCriterion("chat_receive =", value, "chatReceive");
             return (Criteria) this;
         }
 
-        public Criteria andChatReceiveNotEqualTo(Integer value) {
+        public Criteria andChatReceiveNotEqualTo(String value) {
             addCriterion("chat_receive <>", value, "chatReceive");
             return (Criteria) this;
         }
 
-        public Criteria andChatReceiveGreaterThan(Integer value) {
+        public Criteria andChatReceiveGreaterThan(String value) {
             addCriterion("chat_receive >", value, "chatReceive");
             return (Criteria) this;
         }
 
-        public Criteria andChatReceiveGreaterThanOrEqualTo(Integer value) {
+        public Criteria andChatReceiveGreaterThanOrEqualTo(String value) {
             addCriterion("chat_receive >=", value, "chatReceive");
             return (Criteria) this;
         }
 
-        public Criteria andChatReceiveLessThan(Integer value) {
+        public Criteria andChatReceiveLessThan(String value) {
             addCriterion("chat_receive <", value, "chatReceive");
             return (Criteria) this;
         }
 
-        public Criteria andChatReceiveLessThanOrEqualTo(Integer value) {
+        public Criteria andChatReceiveLessThanOrEqualTo(String value) {
             addCriterion("chat_receive <=", value, "chatReceive");
             return (Criteria) this;
         }
 
-        public Criteria andChatReceiveIn(List<Integer> values) {
+        public Criteria andChatReceiveLike(String value) {
+            addCriterion("chat_receive like", value, "chatReceive");
+            return (Criteria) this;
+        }
+
+        public Criteria andChatReceiveNotLike(String value) {
+            addCriterion("chat_receive not like", value, "chatReceive");
+            return (Criteria) this;
+        }
+
+        public Criteria andChatReceiveIn(List<String> values) {
             addCriterion("chat_receive in", values, "chatReceive");
             return (Criteria) this;
         }
 
-        public Criteria andChatReceiveNotIn(List<Integer> values) {
+        public Criteria andChatReceiveNotIn(List<String> values) {
             addCriterion("chat_receive not in", values, "chatReceive");
             return (Criteria) this;
         }
 
-        public Criteria andChatReceiveBetween(Integer value1, Integer value2) {
+        public Criteria andChatReceiveBetween(String value1, String value2) {
             addCriterion("chat_receive between", value1, value2, "chatReceive");
             return (Criteria) this;
         }
 
-        public Criteria andChatReceiveNotBetween(Integer value1, Integer value2) {
+        public Criteria andChatReceiveNotBetween(String value1, String value2) {
             addCriterion("chat_receive not between", value1, value2, "chatReceive");
             return (Criteria) this;
         }

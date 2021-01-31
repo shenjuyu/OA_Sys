@@ -1,7 +1,7 @@
 package com.sjy.OA_Sys.bean;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 public class AttSheetExample {
@@ -175,52 +175,62 @@ public class AttSheetExample {
             return (Criteria) this;
         }
 
-        public Criteria andStaffIdEqualTo(Integer value) {
+        public Criteria andStaffIdEqualTo(String value) {
             addCriterion("staff_id =", value, "staffId");
             return (Criteria) this;
         }
 
-        public Criteria andStaffIdNotEqualTo(Integer value) {
+        public Criteria andStaffIdNotEqualTo(String value) {
             addCriterion("staff_id <>", value, "staffId");
             return (Criteria) this;
         }
 
-        public Criteria andStaffIdGreaterThan(Integer value) {
+        public Criteria andStaffIdGreaterThan(String value) {
             addCriterion("staff_id >", value, "staffId");
             return (Criteria) this;
         }
 
-        public Criteria andStaffIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andStaffIdGreaterThanOrEqualTo(String value) {
             addCriterion("staff_id >=", value, "staffId");
             return (Criteria) this;
         }
 
-        public Criteria andStaffIdLessThan(Integer value) {
+        public Criteria andStaffIdLessThan(String value) {
             addCriterion("staff_id <", value, "staffId");
             return (Criteria) this;
         }
 
-        public Criteria andStaffIdLessThanOrEqualTo(Integer value) {
+        public Criteria andStaffIdLessThanOrEqualTo(String value) {
             addCriterion("staff_id <=", value, "staffId");
             return (Criteria) this;
         }
 
-        public Criteria andStaffIdIn(List<Integer> values) {
+        public Criteria andStaffIdLike(String value) {
+            addCriterion("staff_id like", value, "staffId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffIdNotLike(String value) {
+            addCriterion("staff_id not like", value, "staffId");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffIdIn(List<String> values) {
             addCriterion("staff_id in", values, "staffId");
             return (Criteria) this;
         }
 
-        public Criteria andStaffIdNotIn(List<Integer> values) {
+        public Criteria andStaffIdNotIn(List<String> values) {
             addCriterion("staff_id not in", values, "staffId");
             return (Criteria) this;
         }
 
-        public Criteria andStaffIdBetween(Integer value1, Integer value2) {
+        public Criteria andStaffIdBetween(String value1, String value2) {
             addCriterion("staff_id between", value1, value2, "staffId");
             return (Criteria) this;
         }
 
-        public Criteria andStaffIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andStaffIdNotBetween(String value1, String value2) {
             addCriterion("staff_id not between", value1, value2, "staffId");
             return (Criteria) this;
         }
@@ -235,52 +245,52 @@ public class AttSheetExample {
             return (Criteria) this;
         }
 
-        public Criteria andAttSheetTimeStartEqualTo(Date value) {
+        public Criteria andAttSheetTimeStartEqualTo(Timestamp value) {
             addCriterion("att_sheet_time_start =", value, "attSheetTimeStart");
             return (Criteria) this;
         }
 
-        public Criteria andAttSheetTimeStartNotEqualTo(Date value) {
+        public Criteria andAttSheetTimeStartNotEqualTo(Timestamp value) {
             addCriterion("att_sheet_time_start <>", value, "attSheetTimeStart");
             return (Criteria) this;
         }
 
-        public Criteria andAttSheetTimeStartGreaterThan(Date value) {
+        public Criteria andAttSheetTimeStartGreaterThan(Timestamp value) {
             addCriterion("att_sheet_time_start >", value, "attSheetTimeStart");
             return (Criteria) this;
         }
 
-        public Criteria andAttSheetTimeStartGreaterThanOrEqualTo(Date value) {
+        public Criteria andAttSheetTimeStartGreaterThanOrEqualTo(Timestamp value) {
             addCriterion("att_sheet_time_start >=", value, "attSheetTimeStart");
             return (Criteria) this;
         }
 
-        public Criteria andAttSheetTimeStartLessThan(Date value) {
+        public Criteria andAttSheetTimeStartLessThan(Timestamp value) {
             addCriterion("att_sheet_time_start <", value, "attSheetTimeStart");
             return (Criteria) this;
         }
 
-        public Criteria andAttSheetTimeStartLessThanOrEqualTo(Date value) {
+        public Criteria andAttSheetTimeStartLessThanOrEqualTo(Timestamp value) {
             addCriterion("att_sheet_time_start <=", value, "attSheetTimeStart");
             return (Criteria) this;
         }
 
-        public Criteria andAttSheetTimeStartIn(List<Date> values) {
+        public Criteria andAttSheetTimeStartIn(List<Timestamp> values) {
             addCriterion("att_sheet_time_start in", values, "attSheetTimeStart");
             return (Criteria) this;
         }
 
-        public Criteria andAttSheetTimeStartNotIn(List<Date> values) {
+        public Criteria andAttSheetTimeStartNotIn(List<Timestamp> values) {
             addCriterion("att_sheet_time_start not in", values, "attSheetTimeStart");
             return (Criteria) this;
         }
 
-        public Criteria andAttSheetTimeStartBetween(Date value1, Date value2) {
+        public Criteria andAttSheetTimeStartBetween(Timestamp value1, Timestamp value2) {
             addCriterion("att_sheet_time_start between", value1, value2, "attSheetTimeStart");
             return (Criteria) this;
         }
 
-        public Criteria andAttSheetTimeStartNotBetween(Date value1, Date value2) {
+        public Criteria andAttSheetTimeStartNotBetween(Timestamp value1, Timestamp value2) {
             addCriterion("att_sheet_time_start not between", value1, value2, "attSheetTimeStart");
             return (Criteria) this;
         }
@@ -295,52 +305,52 @@ public class AttSheetExample {
             return (Criteria) this;
         }
 
-        public Criteria andAttSheetTimeEndEqualTo(Date value) {
+        public Criteria andAttSheetTimeEndEqualTo(Timestamp value) {
             addCriterion("att_sheet_time_end =", value, "attSheetTimeEnd");
             return (Criteria) this;
         }
 
-        public Criteria andAttSheetTimeEndNotEqualTo(Date value) {
+        public Criteria andAttSheetTimeEndNotEqualTo(Timestamp value) {
             addCriterion("att_sheet_time_end <>", value, "attSheetTimeEnd");
             return (Criteria) this;
         }
 
-        public Criteria andAttSheetTimeEndGreaterThan(Date value) {
+        public Criteria andAttSheetTimeEndGreaterThan(Timestamp value) {
             addCriterion("att_sheet_time_end >", value, "attSheetTimeEnd");
             return (Criteria) this;
         }
 
-        public Criteria andAttSheetTimeEndGreaterThanOrEqualTo(Date value) {
+        public Criteria andAttSheetTimeEndGreaterThanOrEqualTo(Timestamp value) {
             addCriterion("att_sheet_time_end >=", value, "attSheetTimeEnd");
             return (Criteria) this;
         }
 
-        public Criteria andAttSheetTimeEndLessThan(Date value) {
+        public Criteria andAttSheetTimeEndLessThan(Timestamp value) {
             addCriterion("att_sheet_time_end <", value, "attSheetTimeEnd");
             return (Criteria) this;
         }
 
-        public Criteria andAttSheetTimeEndLessThanOrEqualTo(Date value) {
+        public Criteria andAttSheetTimeEndLessThanOrEqualTo(Timestamp value) {
             addCriterion("att_sheet_time_end <=", value, "attSheetTimeEnd");
             return (Criteria) this;
         }
 
-        public Criteria andAttSheetTimeEndIn(List<Date> values) {
+        public Criteria andAttSheetTimeEndIn(List<Timestamp> values) {
             addCriterion("att_sheet_time_end in", values, "attSheetTimeEnd");
             return (Criteria) this;
         }
 
-        public Criteria andAttSheetTimeEndNotIn(List<Date> values) {
+        public Criteria andAttSheetTimeEndNotIn(List<Timestamp> values) {
             addCriterion("att_sheet_time_end not in", values, "attSheetTimeEnd");
             return (Criteria) this;
         }
 
-        public Criteria andAttSheetTimeEndBetween(Date value1, Date value2) {
+        public Criteria andAttSheetTimeEndBetween(Timestamp value1, Timestamp value2) {
             addCriterion("att_sheet_time_end between", value1, value2, "attSheetTimeEnd");
             return (Criteria) this;
         }
 
-        public Criteria andAttSheetTimeEndNotBetween(Date value1, Date value2) {
+        public Criteria andAttSheetTimeEndNotBetween(Timestamp value1, Timestamp value2) {
             addCriterion("att_sheet_time_end not between", value1, value2, "attSheetTimeEnd");
             return (Criteria) this;
         }

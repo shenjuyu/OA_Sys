@@ -3,22 +3,24 @@
 <mapper namespace="com.sjy.OA_Sys.dao.PublicAssetsMapper">
   <resultMap id="BaseResultMap" type="com.sjy.OA_Sys.bean.PublicAssets">
     <constructor>
-      <idArg column="pubass_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="pubass_id" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="pubass_name" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="pubass_type" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="pubass_price" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
-      <arg column="depart_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="depart_id" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="pubass_time" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
       <arg column="pubass_count" javaType="java.lang.Integer" jdbcType="INTEGER" />
     </constructor>
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.sjy.OA_Sys.bean.PublicAssets">
     <constructor>
-      <idArg column="pubass_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="pubass_id" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="pubass_name" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="pubass_type" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="pubass_price" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
-      <arg column="depart_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="depart_id" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="pubass_time" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
       <arg column="pubass_count" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="pubass_des" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
@@ -83,7 +85,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    pubass_id, pubass_name, pubass_type, pubass_price, depart_id, pubass_time, pubass_count
+    id, pubass_id, pubass_name, pubass_type, pubass_price, depart_id, pubass_time, pubass_count
   </sql>
   <sql id="Blob_Column_List">
     pubass_des
@@ -124,11 +126,11 @@
     ,
     <include refid="Blob_Column_List" />
     from public_assets
-    where pubass_id = #{pubassId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from public_assets
-    where pubass_id = #{pubassId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.sjy.OA_Sys.bean.PublicAssetsExample">
     delete from public_assets
@@ -137,14 +139,20 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.sjy.OA_Sys.bean.PublicAssets">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into public_assets (pubass_id, pubass_name, pubass_type, 
       pubass_price, depart_id, pubass_time, 
       pubass_count, pubass_des)
-    values (#{pubassId,jdbcType=INTEGER}, #{pubassName,jdbcType=VARCHAR}, #{pubassType,jdbcType=VARCHAR}, 
-      #{pubassPrice,jdbcType=DECIMAL}, #{departId,jdbcType=INTEGER}, #{pubassTime,jdbcType=TIMESTAMP}, 
+    values (#{pubassId,jdbcType=VARCHAR}, #{pubassName,jdbcType=VARCHAR}, #{pubassType,jdbcType=VARCHAR}, 
+      #{pubassPrice,jdbcType=DECIMAL}, #{departId,jdbcType=VARCHAR}, #{pubassTime,jdbcType=TIMESTAMP}, 
       #{pubassCount,jdbcType=INTEGER}, #{pubassDes,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.sjy.OA_Sys.bean.PublicAssets">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into public_assets
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="pubassId != null">
@@ -174,7 +182,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="pubassId != null">
-        #{pubassId,jdbcType=INTEGER},
+        #{pubassId,jdbcType=VARCHAR},
       </if>
       <if test="pubassName != null">
         #{pubassName,jdbcType=VARCHAR},
@@ -186,7 +194,7 @@
         #{pubassPrice,jdbcType=DECIMAL},
       </if>
       <if test="departId != null">
-        #{departId,jdbcType=INTEGER},
+        #{departId,jdbcType=VARCHAR},
       </if>
       <if test="pubassTime != null">
         #{pubassTime,jdbcType=TIMESTAMP},
@@ -208,8 +216,11 @@
   <update id="updateByExampleSelective" parameterType="map">
     update public_assets
     <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
       <if test="record.pubassId != null">
-        pubass_id = #{record.pubassId,jdbcType=INTEGER},
+        pubass_id = #{record.pubassId,jdbcType=VARCHAR},
       </if>
       <if test="record.pubassName != null">
         pubass_name = #{record.pubassName,jdbcType=VARCHAR},
@@ -221,7 +232,7 @@
         pubass_price = #{record.pubassPrice,jdbcType=DECIMAL},
       </if>
       <if test="record.departId != null">
-        depart_id = #{record.departId,jdbcType=INTEGER},
+        depart_id = #{record.departId,jdbcType=VARCHAR},
       </if>
       <if test="record.pubassTime != null">
         pubass_time = #{record.pubassTime,jdbcType=TIMESTAMP},
@@ -239,11 +250,12 @@
   </update>
   <update id="updateByExampleWithBLOBs" parameterType="map">
     update public_assets
-    set pubass_id = #{record.pubassId,jdbcType=INTEGER},
+    set id = #{record.id,jdbcType=INTEGER},
+      pubass_id = #{record.pubassId,jdbcType=VARCHAR},
       pubass_name = #{record.pubassName,jdbcType=VARCHAR},
       pubass_type = #{record.pubassType,jdbcType=VARCHAR},
       pubass_price = #{record.pubassPrice,jdbcType=DECIMAL},
-      depart_id = #{record.departId,jdbcType=INTEGER},
+      depart_id = #{record.departId,jdbcType=VARCHAR},
       pubass_time = #{record.pubassTime,jdbcType=TIMESTAMP},
       pubass_count = #{record.pubassCount,jdbcType=INTEGER},
       pubass_des = #{record.pubassDes,jdbcType=LONGVARCHAR}
@@ -253,11 +265,12 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update public_assets
-    set pubass_id = #{record.pubassId,jdbcType=INTEGER},
+    set id = #{record.id,jdbcType=INTEGER},
+      pubass_id = #{record.pubassId,jdbcType=VARCHAR},
       pubass_name = #{record.pubassName,jdbcType=VARCHAR},
       pubass_type = #{record.pubassType,jdbcType=VARCHAR},
       pubass_price = #{record.pubassPrice,jdbcType=DECIMAL},
-      depart_id = #{record.departId,jdbcType=INTEGER},
+      depart_id = #{record.departId,jdbcType=VARCHAR},
       pubass_time = #{record.pubassTime,jdbcType=TIMESTAMP},
       pubass_count = #{record.pubassCount,jdbcType=INTEGER}
     <if test="_parameter != null">
@@ -267,6 +280,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.sjy.OA_Sys.bean.PublicAssets">
     update public_assets
     <set>
+      <if test="pubassId != null">
+        pubass_id = #{pubassId,jdbcType=VARCHAR},
+      </if>
       <if test="pubassName != null">
         pubass_name = #{pubassName,jdbcType=VARCHAR},
       </if>
@@ -277,7 +293,7 @@
         pubass_price = #{pubassPrice,jdbcType=DECIMAL},
       </if>
       <if test="departId != null">
-        depart_id = #{departId,jdbcType=INTEGER},
+        depart_id = #{departId,jdbcType=VARCHAR},
       </if>
       <if test="pubassTime != null">
         pubass_time = #{pubassTime,jdbcType=TIMESTAMP},
@@ -289,27 +305,29 @@
         pubass_des = #{pubassDes,jdbcType=LONGVARCHAR},
       </if>
     </set>
-    where pubass_id = #{pubassId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.sjy.OA_Sys.bean.PublicAssets">
     update public_assets
-    set pubass_name = #{pubassName,jdbcType=VARCHAR},
+    set pubass_id = #{pubassId,jdbcType=VARCHAR},
+      pubass_name = #{pubassName,jdbcType=VARCHAR},
       pubass_type = #{pubassType,jdbcType=VARCHAR},
       pubass_price = #{pubassPrice,jdbcType=DECIMAL},
-      depart_id = #{departId,jdbcType=INTEGER},
+      depart_id = #{departId,jdbcType=VARCHAR},
       pubass_time = #{pubassTime,jdbcType=TIMESTAMP},
       pubass_count = #{pubassCount,jdbcType=INTEGER},
       pubass_des = #{pubassDes,jdbcType=LONGVARCHAR}
-    where pubass_id = #{pubassId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.sjy.OA_Sys.bean.PublicAssets">
     update public_assets
-    set pubass_name = #{pubassName,jdbcType=VARCHAR},
+    set pubass_id = #{pubassId,jdbcType=VARCHAR},
+      pubass_name = #{pubassName,jdbcType=VARCHAR},
       pubass_type = #{pubassType,jdbcType=VARCHAR},
       pubass_price = #{pubassPrice,jdbcType=DECIMAL},
-      depart_id = #{departId,jdbcType=INTEGER},
+      depart_id = #{departId,jdbcType=VARCHAR},
       pubass_time = #{pubassTime,jdbcType=TIMESTAMP},
       pubass_count = #{pubassCount,jdbcType=INTEGER}
-    where pubass_id = #{pubassId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

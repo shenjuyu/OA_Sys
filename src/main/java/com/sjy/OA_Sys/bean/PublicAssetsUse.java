@@ -6,9 +6,9 @@ import java.util.Date;
 public class PublicAssetsUse {
     private Integer id;
 
-    private Integer pubassId;
+    private String pubassId;
 
-    private Integer staffId;
+    private String staffId;
 
     private Integer useCount;
 
@@ -16,7 +16,7 @@ public class PublicAssetsUse {
 
     private Date useTerm;
 
-    public PublicAssetsUse(Integer id, Integer pubassId, Integer staffId, Integer useCount, Timestamp useTime, Date useTerm) {
+    public PublicAssetsUse(Integer id, String pubassId, String staffId, Integer useCount, Timestamp useTime, Date useTerm) {
         this.id = id;
         this.pubassId = pubassId;
         this.staffId = staffId;
@@ -37,20 +37,20 @@ public class PublicAssetsUse {
         this.id = id;
     }
 
-    public Integer getPubassId() {
+    public String getPubassId() {
         return pubassId;
     }
 
-    public void setPubassId(Integer pubassId) {
-        this.pubassId = pubassId;
+    public void setPubassId(String pubassId) {
+        this.pubassId = pubassId == null ? null : pubassId.trim();
     }
 
-    public Integer getStaffId() {
+    public String getStaffId() {
         return staffId;
     }
 
-    public void setStaffId(Integer staffId) {
-        this.staffId = staffId;
+    public void setStaffId(String staffId) {
+        this.staffId = staffId == null ? null : staffId.trim();
     }
 
     public Integer getUseCount() {

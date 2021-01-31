@@ -1,11 +1,12 @@
 package com.sjy.OA_Sys.bean;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class Notice {
     private Integer id;
 
-    private Integer noticeStaffSend;
+    private String noticeStaffSend;
 
     private Integer noticeStaffAddressee;
 
@@ -14,8 +15,10 @@ public class Notice {
     private Timestamp noticeTime;
 
     private String noticeDes;
+    
+    private List<NoticeNum> noticeNumList;
 
-    public Notice(Integer id, Integer noticeStaffSend, Integer noticeStaffAddressee, String noticeTitle, Timestamp noticeTime) {
+    public Notice(Integer id, String noticeStaffSend, Integer noticeStaffAddressee, String noticeTitle, Timestamp noticeTime) {
         this.id = id;
         this.noticeStaffSend = noticeStaffSend;
         this.noticeStaffAddressee = noticeStaffAddressee;
@@ -23,7 +26,7 @@ public class Notice {
         this.noticeTime = noticeTime;
     }
 
-    public Notice(Integer id, Integer noticeStaffSend, Integer noticeStaffAddressee, String noticeTitle, Timestamp noticeTime, String noticeDes) {
+    public Notice(Integer id, String noticeStaffSend, Integer noticeStaffAddressee, String noticeTitle, Timestamp noticeTime, String noticeDes) {
         this.id = id;
         this.noticeStaffSend = noticeStaffSend;
         this.noticeStaffAddressee = noticeStaffAddressee;
@@ -44,12 +47,12 @@ public class Notice {
         this.id = id;
     }
 
-    public Integer getNoticeStaffSend() {
+    public String getNoticeStaffSend() {
         return noticeStaffSend;
     }
 
-    public void setNoticeStaffSend(Integer noticeStaffSend) {
-        this.noticeStaffSend = noticeStaffSend;
+    public void setNoticeStaffSend(String noticeStaffSend) {
+        this.noticeStaffSend = noticeStaffSend == null ? null : noticeStaffSend.trim();
     }
 
     public Integer getNoticeStaffAddressee() {
@@ -83,4 +86,13 @@ public class Notice {
     public void setNoticeDes(String noticeDes) {
         this.noticeDes = noticeDes == null ? null : noticeDes.trim();
     }
+
+	public List<NoticeNum> getNoticeNumList() {
+		return noticeNumList;
+	}
+
+	public void setNoticeNumList(List<NoticeNum> noticeNumList) {
+		this.noticeNumList = noticeNumList;
+	}
+    
 }

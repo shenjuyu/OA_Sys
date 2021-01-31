@@ -5,8 +5,10 @@
     <constructor>
       <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="notice_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="staff_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="staff_id" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
+    <association property="staff" autoMapping="true" column="staff_id" fetchType="lazy"
+    	select="com.sjy.OA_Sys.dao.StaffMapper.selectByStaffId"></association>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -89,6 +91,13 @@
     from notice_num
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <!-- 根据公告编号查找 -->
+  <select id="selectByNoticeId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from notice_num
+    where notice_id = #{noticeId,jdbcType=INTEGER}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from notice_num
     where id = #{id,jdbcType=INTEGER}
@@ -104,7 +113,7 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into notice_num (notice_id, staff_id)
-    values (#{noticeId,jdbcType=INTEGER}, #{staffId,jdbcType=INTEGER})
+    values (#{noticeId,jdbcType=INTEGER}, #{staffId,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.sjy.OA_Sys.bean.NoticeNum">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -124,7 +133,7 @@
         #{noticeId,jdbcType=INTEGER},
       </if>
       <if test="staffId != null">
-        #{staffId,jdbcType=INTEGER},
+        #{staffId,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -144,7 +153,7 @@
         notice_id = #{record.noticeId,jdbcType=INTEGER},
       </if>
       <if test="record.staffId != null">
-        staff_id = #{record.staffId,jdbcType=INTEGER},
+        staff_id = #{record.staffId,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -155,7 +164,7 @@
     update notice_num
     set id = #{record.id,jdbcType=INTEGER},
       notice_id = #{record.noticeId,jdbcType=INTEGER},
-      staff_id = #{record.staffId,jdbcType=INTEGER}
+      staff_id = #{record.staffId,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -167,7 +176,7 @@
         notice_id = #{noticeId,jdbcType=INTEGER},
       </if>
       <if test="staffId != null">
-        staff_id = #{staffId,jdbcType=INTEGER},
+        staff_id = #{staffId,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -175,7 +184,7 @@
   <update id="updateByPrimaryKey" parameterType="com.sjy.OA_Sys.bean.NoticeNum">
     update notice_num
     set notice_id = #{noticeId,jdbcType=INTEGER},
-      staff_id = #{staffId,jdbcType=INTEGER}
+      staff_id = #{staffId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

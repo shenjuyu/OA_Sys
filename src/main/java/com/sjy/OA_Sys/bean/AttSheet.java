@@ -1,19 +1,20 @@
 package com.sjy.OA_Sys.bean;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class AttSheet {
     private Integer id;
 
-    private Integer staffId;
+    private String staffId;
 
-    private Date attSheetTimeStart;
+    private Timestamp attSheetTimeStart;
 
-    private Date attSheetTimeEnd;
+    private Timestamp attSheetTimeEnd;
 
     private Integer attSheetSituation;
 
-    public AttSheet(Integer id, Integer staffId, Date attSheetTimeStart, Date attSheetTimeEnd, Integer attSheetSituation) {
+    public AttSheet(Integer id, String staffId, Timestamp attSheetTimeStart, Timestamp attSheetTimeEnd, Integer attSheetSituation) {
         this.id = id;
         this.staffId = staffId;
         this.attSheetTimeStart = attSheetTimeStart;
@@ -33,19 +34,19 @@ public class AttSheet {
         this.id = id;
     }
 
-    public Integer getStaffId() {
+    public String getStaffId() {
         return staffId;
     }
 
-    public void setStaffId(Integer staffId) {
-        this.staffId = staffId;
+    public void setStaffId(String staffId) {
+        this.staffId = staffId == null ? null : staffId.trim();
     }
 
     public Date getAttSheetTimeStart() {
         return attSheetTimeStart;
     }
 
-    public void setAttSheetTimeStart(Date attSheetTimeStart) {
+    public void setAttSheetTimeStart(Timestamp attSheetTimeStart) {
         this.attSheetTimeStart = attSheetTimeStart;
     }
 
@@ -53,7 +54,7 @@ public class AttSheet {
         return attSheetTimeEnd;
     }
 
-    public void setAttSheetTimeEnd(Date attSheetTimeEnd) {
+    public void setAttSheetTimeEnd(Timestamp attSheetTimeEnd) {
         this.attSheetTimeEnd = attSheetTimeEnd;
     }
 

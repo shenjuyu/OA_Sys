@@ -4,8 +4,8 @@
   <resultMap id="BaseResultMap" type="com.sjy.OA_Sys.bean.PublicAssetsUse">
     <constructor>
       <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="pubass_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="staff_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="pubass_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="staff_id" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="use_count" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="use_time" javaType="java.sql.Timestamp" jdbcType="DATE" />
       <arg column="use_term" javaType="java.util.Date" jdbcType="DATE" />
@@ -108,7 +108,7 @@
     </selectKey>
     insert into public_assets_use (pubass_id, staff_id, use_count, 
       use_time, use_term)
-    values (#{pubassId,jdbcType=INTEGER}, #{staffId,jdbcType=INTEGER}, #{useCount,jdbcType=INTEGER}, 
+    values (#{pubassId,jdbcType=VARCHAR}, #{staffId,jdbcType=VARCHAR}, #{useCount,jdbcType=INTEGER}, 
       #{useTime,jdbcType=DATE}, #{useTerm,jdbcType=DATE})
   </insert>
   <insert id="insertSelective" parameterType="com.sjy.OA_Sys.bean.PublicAssetsUse">
@@ -135,10 +135,10 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="pubassId != null">
-        #{pubassId,jdbcType=INTEGER},
+        #{pubassId,jdbcType=VARCHAR},
       </if>
       <if test="staffId != null">
-        #{staffId,jdbcType=INTEGER},
+        #{staffId,jdbcType=VARCHAR},
       </if>
       <if test="useCount != null">
         #{useCount,jdbcType=INTEGER},
@@ -164,10 +164,10 @@
         id = #{record.id,jdbcType=INTEGER},
       </if>
       <if test="record.pubassId != null">
-        pubass_id = #{record.pubassId,jdbcType=INTEGER},
+        pubass_id = #{record.pubassId,jdbcType=VARCHAR},
       </if>
       <if test="record.staffId != null">
-        staff_id = #{record.staffId,jdbcType=INTEGER},
+        staff_id = #{record.staffId,jdbcType=VARCHAR},
       </if>
       <if test="record.useCount != null">
         use_count = #{record.useCount,jdbcType=INTEGER},
@@ -186,8 +186,8 @@
   <update id="updateByExample" parameterType="map">
     update public_assets_use
     set id = #{record.id,jdbcType=INTEGER},
-      pubass_id = #{record.pubassId,jdbcType=INTEGER},
-      staff_id = #{record.staffId,jdbcType=INTEGER},
+      pubass_id = #{record.pubassId,jdbcType=VARCHAR},
+      staff_id = #{record.staffId,jdbcType=VARCHAR},
       use_count = #{record.useCount,jdbcType=INTEGER},
       use_time = #{record.useTime,jdbcType=DATE},
       use_term = #{record.useTerm,jdbcType=DATE}
@@ -199,10 +199,10 @@
     update public_assets_use
     <set>
       <if test="pubassId != null">
-        pubass_id = #{pubassId,jdbcType=INTEGER},
+        pubass_id = #{pubassId,jdbcType=VARCHAR},
       </if>
       <if test="staffId != null">
-        staff_id = #{staffId,jdbcType=INTEGER},
+        staff_id = #{staffId,jdbcType=VARCHAR},
       </if>
       <if test="useCount != null">
         use_count = #{useCount,jdbcType=INTEGER},
@@ -218,8 +218,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.sjy.OA_Sys.bean.PublicAssetsUse">
     update public_assets_use
-    set pubass_id = #{pubassId,jdbcType=INTEGER},
-      staff_id = #{staffId,jdbcType=INTEGER},
+    set pubass_id = #{pubassId,jdbcType=VARCHAR},
+      staff_id = #{staffId,jdbcType=VARCHAR},
       use_count = #{useCount,jdbcType=INTEGER},
       use_time = #{useTime,jdbcType=DATE},
       use_term = #{useTerm,jdbcType=DATE}

@@ -1,13 +1,16 @@
 package com.sjy.OA_Sys.bean;
 
 public class Depart {
-    private Integer departId;
+    private Integer id;
+
+    private String departId;
 
     private String departName;
 
     private String departAddr;
 
-    public Depart(Integer departId, String departName, String departAddr) {
+    public Depart(Integer id, String departId, String departName, String departAddr) {
+        this.id = id;
         this.departId = departId;
         this.departName = departName;
         this.departAddr = departAddr;
@@ -17,12 +20,20 @@ public class Depart {
         super();
     }
 
-    public Integer getDepartId() {
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getDepartId() {
         return departId;
     }
 
-    public void setDepartId(Integer departId) {
-        this.departId = departId;
+    public void setDepartId(String departId) {
+        this.departId = departId == null ? null : departId.trim();
     }
 
     public String getDepartName() {

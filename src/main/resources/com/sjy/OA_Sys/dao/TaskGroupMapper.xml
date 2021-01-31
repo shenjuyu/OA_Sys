@@ -3,9 +3,10 @@
 <mapper namespace="com.sjy.OA_Sys.dao.TaskGroupMapper">
   <resultMap id="BaseResultMap" type="com.sjy.OA_Sys.bean.TaskGroup">
     <constructor>
-      <arg column="task_group_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="task_group_id" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="task_group_name" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="staff_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="staff_id" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="task_group_power" javaType="java.lang.Integer" jdbcType="INTEGER" />
     </constructor>
   </resultMap>
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    task_group_id, task_group_name, staff_id, task_group_power
+    id, task_group_id, task_group_name, staff_id, task_group_power
   </sql>
   <select id="selectByExample" parameterType="com.sjy.OA_Sys.bean.TaskGroupExample" resultMap="BaseResultMap">
     select
@@ -84,6 +85,16 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from task_group
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from task_group
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
   <delete id="deleteByExample" parameterType="com.sjy.OA_Sys.bean.TaskGroupExample">
     delete from task_group
     <if test="_parameter != null">
@@ -91,12 +102,18 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.sjy.OA_Sys.bean.TaskGroup">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into task_group (task_group_id, task_group_name, staff_id, 
       task_group_power)
-    values (#{taskGroupId,jdbcType=INTEGER}, #{taskGroupName,jdbcType=VARCHAR}, #{staffId,jdbcType=INTEGER}, 
+    values (#{taskGroupId,jdbcType=VARCHAR}, #{taskGroupName,jdbcType=VARCHAR}, #{staffId,jdbcType=VARCHAR}, 
       #{taskGroupPower,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.sjy.OA_Sys.bean.TaskGroup">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into task_group
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="taskGroupId != null">
@@ -114,13 +131,13 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="taskGroupId != null">
-        #{taskGroupId,jdbcType=INTEGER},
+        #{taskGroupId,jdbcType=VARCHAR},
       </if>
       <if test="taskGroupName != null">
         #{taskGroupName,jdbcType=VARCHAR},
       </if>
       <if test="staffId != null">
-        #{staffId,jdbcType=INTEGER},
+        #{staffId,jdbcType=VARCHAR},
       </if>
       <if test="taskGroupPower != null">
         #{taskGroupPower,jdbcType=INTEGER},
@@ -136,14 +153,17 @@
   <update id="updateByExampleSelective" parameterType="map">
     update task_group
     <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
       <if test="record.taskGroupId != null">
-        task_group_id = #{record.taskGroupId,jdbcType=INTEGER},
+        task_group_id = #{record.taskGroupId,jdbcType=VARCHAR},
       </if>
       <if test="record.taskGroupName != null">
         task_group_name = #{record.taskGroupName,jdbcType=VARCHAR},
       </if>
       <if test="record.staffId != null">
-        staff_id = #{record.staffId,jdbcType=INTEGER},
+        staff_id = #{record.staffId,jdbcType=VARCHAR},
       </if>
       <if test="record.taskGroupPower != null">
         task_group_power = #{record.taskGroupPower,jdbcType=INTEGER},
@@ -155,12 +175,39 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update task_group
-    set task_group_id = #{record.taskGroupId,jdbcType=INTEGER},
+    set id = #{record.id,jdbcType=INTEGER},
+      task_group_id = #{record.taskGroupId,jdbcType=VARCHAR},
       task_group_name = #{record.taskGroupName,jdbcType=VARCHAR},
-      staff_id = #{record.staffId,jdbcType=INTEGER},
+      staff_id = #{record.staffId,jdbcType=VARCHAR},
       task_group_power = #{record.taskGroupPower,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sjy.OA_Sys.bean.TaskGroup">
+    update task_group
+    <set>
+      <if test="taskGroupId != null">
+        task_group_id = #{taskGroupId,jdbcType=VARCHAR},
+      </if>
+      <if test="taskGroupName != null">
+        task_group_name = #{taskGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="staffId != null">
+        staff_id = #{staffId,jdbcType=VARCHAR},
+      </if>
+      <if test="taskGroupPower != null">
+        task_group_power = #{taskGroupPower,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sjy.OA_Sys.bean.TaskGroup">
+    update task_group
+    set task_group_id = #{taskGroupId,jdbcType=VARCHAR},
+      task_group_name = #{taskGroupName,jdbcType=VARCHAR},
+      staff_id = #{staffId,jdbcType=VARCHAR},
+      task_group_power = #{taskGroupPower,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

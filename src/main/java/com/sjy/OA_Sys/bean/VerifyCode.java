@@ -1,5 +1,7 @@
 package com.sjy.OA_Sys.bean;
 
+import java.util.Date;
+
 /**
  * 验证码类
  */
@@ -9,8 +11,17 @@ public class VerifyCode {
 
     private byte[] imgBytes;
 
-    private long expireTime;
+    private Date date;
     
+    public VerifyCode() {
+	}
+	public VerifyCode(String code) {
+		this.code = code;
+	}
+	public VerifyCode(String code, Date date) {
+		this.code = code;
+		this.date = date;
+	}
 
 	public String getCode() {
 		return code;
@@ -28,14 +39,12 @@ public class VerifyCode {
 		this.imgBytes = imgBytes;
 	}
 
-	public long getExpireTime() {
-		return expireTime;
+	public Date getDate() {
+		return date;
 	}
-
-	public void setExpireTime(long expireTime) {
-		this.expireTime = expireTime;
+	public void setDate(Date date) {
+		this.date = date;
 	}
-    
     
 
 }

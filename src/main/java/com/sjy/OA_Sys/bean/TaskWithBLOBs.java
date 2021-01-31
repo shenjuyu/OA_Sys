@@ -7,8 +7,8 @@ public class TaskWithBLOBs extends Task {
 
     private String taskReport;
 
-    public TaskWithBLOBs(Integer taskId, String taskName, Timestamp taskTimeStart, Timestamp taskTimeEnd, String taskRateProgress, Integer taskState, Integer taskGroupId, Integer proId, String taskDes, String taskReport) {
-        super(taskId, taskName, taskTimeStart, taskTimeEnd, taskRateProgress, taskState, taskGroupId, proId);
+    public TaskWithBLOBs(Integer id, String taskId, String taskName, Timestamp taskTimeStart, Timestamp taskTimeEnd, String taskRateProgress, Integer taskState, String taskGroupId, String proId, String taskDes, String taskReport) {
+        super(id, taskId, taskName, taskTimeStart, taskTimeEnd, taskRateProgress, taskState, taskGroupId, proId);
         this.taskDes = taskDes;
         this.taskReport = taskReport;
     }

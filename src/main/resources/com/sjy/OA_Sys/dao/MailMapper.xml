@@ -3,9 +3,10 @@
 <mapper namespace="com.sjy.OA_Sys.dao.MailMapper">
   <resultMap id="BaseResultMap" type="com.sjy.OA_Sys.bean.Mail">
     <constructor>
-      <idArg column="mail_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="mail_staff_send" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="mail_staff_addressee" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="mail_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="mail_staff_send" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="mail_staff_addressee" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="mail_title" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="mail_time_send" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
       <arg column="mail_situation" javaType="java.lang.Integer" jdbcType="INTEGER" />
@@ -13,9 +14,10 @@
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.sjy.OA_Sys.bean.MailWithBLOBs">
     <constructor>
-      <idArg column="mail_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="mail_staff_send" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="mail_staff_addressee" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="mail_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="mail_staff_send" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="mail_staff_addressee" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="mail_title" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="mail_time_send" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
       <arg column="mail_situation" javaType="java.lang.Integer" jdbcType="INTEGER" />
@@ -82,7 +84,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    mail_id, mail_staff_send, mail_staff_addressee, mail_title, mail_time_send, mail_situation
+    id, mail_id, mail_staff_send, mail_staff_addressee, mail_title, mail_time_send, mail_situation
   </sql>
   <sql id="Blob_Column_List">
     mail_des, mail_attachment
@@ -123,11 +125,11 @@
     ,
     <include refid="Blob_Column_List" />
     from mail
-    where mail_id = #{mailId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from mail
-    where mail_id = #{mailId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.sjy.OA_Sys.bean.MailExample">
     delete from mail
@@ -136,14 +138,20 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.sjy.OA_Sys.bean.MailWithBLOBs">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into mail (mail_id, mail_staff_send, mail_staff_addressee, 
       mail_title, mail_time_send, mail_situation, 
       mail_des, mail_attachment)
-    values (#{mailId,jdbcType=INTEGER}, #{mailStaffSend,jdbcType=INTEGER}, #{mailStaffAddressee,jdbcType=INTEGER}, 
+    values (#{mailId,jdbcType=VARCHAR}, #{mailStaffSend,jdbcType=VARCHAR}, #{mailStaffAddressee,jdbcType=VARCHAR}, 
       #{mailTitle,jdbcType=VARCHAR}, #{mailTimeSend,jdbcType=TIMESTAMP}, #{mailSituation,jdbcType=INTEGER}, 
       #{mailDes,jdbcType=LONGVARCHAR}, #{mailAttachment,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.sjy.OA_Sys.bean.MailWithBLOBs">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into mail
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="mailId != null">
@@ -173,13 +181,13 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="mailId != null">
-        #{mailId,jdbcType=INTEGER},
+        #{mailId,jdbcType=VARCHAR},
       </if>
       <if test="mailStaffSend != null">
-        #{mailStaffSend,jdbcType=INTEGER},
+        #{mailStaffSend,jdbcType=VARCHAR},
       </if>
       <if test="mailStaffAddressee != null">
-        #{mailStaffAddressee,jdbcType=INTEGER},
+        #{mailStaffAddressee,jdbcType=VARCHAR},
       </if>
       <if test="mailTitle != null">
         #{mailTitle,jdbcType=VARCHAR},
@@ -207,14 +215,17 @@
   <update id="updateByExampleSelective" parameterType="map">
     update mail
     <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
       <if test="record.mailId != null">
-        mail_id = #{record.mailId,jdbcType=INTEGER},
+        mail_id = #{record.mailId,jdbcType=VARCHAR},
       </if>
       <if test="record.mailStaffSend != null">
-        mail_staff_send = #{record.mailStaffSend,jdbcType=INTEGER},
+        mail_staff_send = #{record.mailStaffSend,jdbcType=VARCHAR},
       </if>
       <if test="record.mailStaffAddressee != null">
-        mail_staff_addressee = #{record.mailStaffAddressee,jdbcType=INTEGER},
+        mail_staff_addressee = #{record.mailStaffAddressee,jdbcType=VARCHAR},
       </if>
       <if test="record.mailTitle != null">
         mail_title = #{record.mailTitle,jdbcType=VARCHAR},
@@ -238,9 +249,10 @@
   </update>
   <update id="updateByExampleWithBLOBs" parameterType="map">
     update mail
-    set mail_id = #{record.mailId,jdbcType=INTEGER},
-      mail_staff_send = #{record.mailStaffSend,jdbcType=INTEGER},
-      mail_staff_addressee = #{record.mailStaffAddressee,jdbcType=INTEGER},
+    set id = #{record.id,jdbcType=INTEGER},
+      mail_id = #{record.mailId,jdbcType=VARCHAR},
+      mail_staff_send = #{record.mailStaffSend,jdbcType=VARCHAR},
+      mail_staff_addressee = #{record.mailStaffAddressee,jdbcType=VARCHAR},
       mail_title = #{record.mailTitle,jdbcType=VARCHAR},
       mail_time_send = #{record.mailTimeSend,jdbcType=TIMESTAMP},
       mail_situation = #{record.mailSituation,jdbcType=INTEGER},
@@ -252,9 +264,10 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update mail
-    set mail_id = #{record.mailId,jdbcType=INTEGER},
-      mail_staff_send = #{record.mailStaffSend,jdbcType=INTEGER},
-      mail_staff_addressee = #{record.mailStaffAddressee,jdbcType=INTEGER},
+    set id = #{record.id,jdbcType=INTEGER},
+      mail_id = #{record.mailId,jdbcType=VARCHAR},
+      mail_staff_send = #{record.mailStaffSend,jdbcType=VARCHAR},
+      mail_staff_addressee = #{record.mailStaffAddressee,jdbcType=VARCHAR},
       mail_title = #{record.mailTitle,jdbcType=VARCHAR},
       mail_time_send = #{record.mailTimeSend,jdbcType=TIMESTAMP},
       mail_situation = #{record.mailSituation,jdbcType=INTEGER}
@@ -265,11 +278,14 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.sjy.OA_Sys.bean.MailWithBLOBs">
     update mail
     <set>
+      <if test="mailId != null">
+        mail_id = #{mailId,jdbcType=VARCHAR},
+      </if>
       <if test="mailStaffSend != null">
-        mail_staff_send = #{mailStaffSend,jdbcType=INTEGER},
+        mail_staff_send = #{mailStaffSend,jdbcType=VARCHAR},
       </if>
       <if test="mailStaffAddressee != null">
-        mail_staff_addressee = #{mailStaffAddressee,jdbcType=INTEGER},
+        mail_staff_addressee = #{mailStaffAddressee,jdbcType=VARCHAR},
       </if>
       <if test="mailTitle != null">
         mail_title = #{mailTitle,jdbcType=VARCHAR},
@@ -287,26 +303,28 @@
         mail_attachment = #{mailAttachment,jdbcType=LONGVARCHAR},
       </if>
     </set>
-    where mail_id = #{mailId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.sjy.OA_Sys.bean.MailWithBLOBs">
     update mail
-    set mail_staff_send = #{mailStaffSend,jdbcType=INTEGER},
-      mail_staff_addressee = #{mailStaffAddressee,jdbcType=INTEGER},
+    set mail_id = #{mailId,jdbcType=VARCHAR},
+      mail_staff_send = #{mailStaffSend,jdbcType=VARCHAR},
+      mail_staff_addressee = #{mailStaffAddressee,jdbcType=VARCHAR},
       mail_title = #{mailTitle,jdbcType=VARCHAR},
       mail_time_send = #{mailTimeSend,jdbcType=TIMESTAMP},
       mail_situation = #{mailSituation,jdbcType=INTEGER},
       mail_des = #{mailDes,jdbcType=LONGVARCHAR},
       mail_attachment = #{mailAttachment,jdbcType=LONGVARCHAR}
-    where mail_id = #{mailId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.sjy.OA_Sys.bean.Mail">
     update mail
-    set mail_staff_send = #{mailStaffSend,jdbcType=INTEGER},
-      mail_staff_addressee = #{mailStaffAddressee,jdbcType=INTEGER},
+    set mail_id = #{mailId,jdbcType=VARCHAR},
+      mail_staff_send = #{mailStaffSend,jdbcType=VARCHAR},
+      mail_staff_addressee = #{mailStaffAddressee,jdbcType=VARCHAR},
       mail_title = #{mailTitle,jdbcType=VARCHAR},
       mail_time_send = #{mailTimeSend,jdbcType=TIMESTAMP},
       mail_situation = #{mailSituation,jdbcType=INTEGER}
-    where mail_id = #{mailId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -105,6 +105,66 @@ public class MailExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
+        public Criteria andIdIsNull() {
+            addCriterion("id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdIsNotNull() {
+            addCriterion("id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdEqualTo(Integer value) {
+            addCriterion("id =", value, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdNotEqualTo(Integer value) {
+            addCriterion("id <>", value, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdGreaterThan(Integer value) {
+            addCriterion("id >", value, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("id >=", value, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdLessThan(Integer value) {
+            addCriterion("id <", value, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdLessThanOrEqualTo(Integer value) {
+            addCriterion("id <=", value, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdIn(List<Integer> values) {
+            addCriterion("id in", values, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdNotIn(List<Integer> values) {
+            addCriterion("id not in", values, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdBetween(Integer value1, Integer value2) {
+            addCriterion("id between", value1, value2, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("id not between", value1, value2, "id");
+            return (Criteria) this;
+        }
+
         public Criteria andMailIdIsNull() {
             addCriterion("mail_id is null");
             return (Criteria) this;
@@ -115,52 +175,62 @@ public class MailExample {
             return (Criteria) this;
         }
 
-        public Criteria andMailIdEqualTo(Integer value) {
+        public Criteria andMailIdEqualTo(String value) {
             addCriterion("mail_id =", value, "mailId");
             return (Criteria) this;
         }
 
-        public Criteria andMailIdNotEqualTo(Integer value) {
+        public Criteria andMailIdNotEqualTo(String value) {
             addCriterion("mail_id <>", value, "mailId");
             return (Criteria) this;
         }
 
-        public Criteria andMailIdGreaterThan(Integer value) {
+        public Criteria andMailIdGreaterThan(String value) {
             addCriterion("mail_id >", value, "mailId");
             return (Criteria) this;
         }
 
-        public Criteria andMailIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andMailIdGreaterThanOrEqualTo(String value) {
             addCriterion("mail_id >=", value, "mailId");
             return (Criteria) this;
         }
 
-        public Criteria andMailIdLessThan(Integer value) {
+        public Criteria andMailIdLessThan(String value) {
             addCriterion("mail_id <", value, "mailId");
             return (Criteria) this;
         }
 
-        public Criteria andMailIdLessThanOrEqualTo(Integer value) {
+        public Criteria andMailIdLessThanOrEqualTo(String value) {
             addCriterion("mail_id <=", value, "mailId");
             return (Criteria) this;
         }
 
-        public Criteria andMailIdIn(List<Integer> values) {
+        public Criteria andMailIdLike(String value) {
+            addCriterion("mail_id like", value, "mailId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMailIdNotLike(String value) {
+            addCriterion("mail_id not like", value, "mailId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMailIdIn(List<String> values) {
             addCriterion("mail_id in", values, "mailId");
             return (Criteria) this;
         }
 
-        public Criteria andMailIdNotIn(List<Integer> values) {
+        public Criteria andMailIdNotIn(List<String> values) {
             addCriterion("mail_id not in", values, "mailId");
             return (Criteria) this;
         }
 
-        public Criteria andMailIdBetween(Integer value1, Integer value2) {
+        public Criteria andMailIdBetween(String value1, String value2) {
             addCriterion("mail_id between", value1, value2, "mailId");
             return (Criteria) this;
         }
 
-        public Criteria andMailIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andMailIdNotBetween(String value1, String value2) {
             addCriterion("mail_id not between", value1, value2, "mailId");
             return (Criteria) this;
         }
@@ -175,52 +245,62 @@ public class MailExample {
             return (Criteria) this;
         }
 
-        public Criteria andMailStaffSendEqualTo(Integer value) {
+        public Criteria andMailStaffSendEqualTo(String value) {
             addCriterion("mail_staff_send =", value, "mailStaffSend");
             return (Criteria) this;
         }
 
-        public Criteria andMailStaffSendNotEqualTo(Integer value) {
+        public Criteria andMailStaffSendNotEqualTo(String value) {
             addCriterion("mail_staff_send <>", value, "mailStaffSend");
             return (Criteria) this;
         }
 
-        public Criteria andMailStaffSendGreaterThan(Integer value) {
+        public Criteria andMailStaffSendGreaterThan(String value) {
             addCriterion("mail_staff_send >", value, "mailStaffSend");
             return (Criteria) this;
         }
 
-        public Criteria andMailStaffSendGreaterThanOrEqualTo(Integer value) {
+        public Criteria andMailStaffSendGreaterThanOrEqualTo(String value) {
             addCriterion("mail_staff_send >=", value, "mailStaffSend");
             return (Criteria) this;
         }
 
-        public Criteria andMailStaffSendLessThan(Integer value) {
+        public Criteria andMailStaffSendLessThan(String value) {
             addCriterion("mail_staff_send <", value, "mailStaffSend");
             return (Criteria) this;
         }
 
-        public Criteria andMailStaffSendLessThanOrEqualTo(Integer value) {
+        public Criteria andMailStaffSendLessThanOrEqualTo(String value) {
             addCriterion("mail_staff_send <=", value, "mailStaffSend");
             return (Criteria) this;
         }
 
-        public Criteria andMailStaffSendIn(List<Integer> values) {
+        public Criteria andMailStaffSendLike(String value) {
+            addCriterion("mail_staff_send like", value, "mailStaffSend");
+            return (Criteria) this;
+        }
+
+        public Criteria andMailStaffSendNotLike(String value) {
+            addCriterion("mail_staff_send not like", value, "mailStaffSend");
+            return (Criteria) this;
+        }
+
+        public Criteria andMailStaffSendIn(List<String> values) {
             addCriterion("mail_staff_send in", values, "mailStaffSend");
             return (Criteria) this;
         }
 
-        public Criteria andMailStaffSendNotIn(List<Integer> values) {
+        public Criteria andMailStaffSendNotIn(List<String> values) {
             addCriterion("mail_staff_send not in", values, "mailStaffSend");
             return (Criteria) this;
         }
 
-        public Criteria andMailStaffSendBetween(Integer value1, Integer value2) {
+        public Criteria andMailStaffSendBetween(String value1, String value2) {
             addCriterion("mail_staff_send between", value1, value2, "mailStaffSend");
             return (Criteria) this;
         }
 
-        public Criteria andMailStaffSendNotBetween(Integer value1, Integer value2) {
+        public Criteria andMailStaffSendNotBetween(String value1, String value2) {
             addCriterion("mail_staff_send not between", value1, value2, "mailStaffSend");
             return (Criteria) this;
         }
@@ -235,52 +315,62 @@ public class MailExample {
             return (Criteria) this;
         }
 
-        public Criteria andMailStaffAddresseeEqualTo(Integer value) {
+        public Criteria andMailStaffAddresseeEqualTo(String value) {
             addCriterion("mail_staff_addressee =", value, "mailStaffAddressee");
             return (Criteria) this;
         }
 
-        public Criteria andMailStaffAddresseeNotEqualTo(Integer value) {
+        public Criteria andMailStaffAddresseeNotEqualTo(String value) {
             addCriterion("mail_staff_addressee <>", value, "mailStaffAddressee");
             return (Criteria) this;
         }
 
-        public Criteria andMailStaffAddresseeGreaterThan(Integer value) {
+        public Criteria andMailStaffAddresseeGreaterThan(String value) {
             addCriterion("mail_staff_addressee >", value, "mailStaffAddressee");
             return (Criteria) this;
         }
 
-        public Criteria andMailStaffAddresseeGreaterThanOrEqualTo(Integer value) {
+        public Criteria andMailStaffAddresseeGreaterThanOrEqualTo(String value) {
             addCriterion("mail_staff_addressee >=", value, "mailStaffAddressee");
             return (Criteria) this;
         }
 
-        public Criteria andMailStaffAddresseeLessThan(Integer value) {
+        public Criteria andMailStaffAddresseeLessThan(String value) {
             addCriterion("mail_staff_addressee <", value, "mailStaffAddressee");
             return (Criteria) this;
         }
 
-        public Criteria andMailStaffAddresseeLessThanOrEqualTo(Integer value) {
+        public Criteria andMailStaffAddresseeLessThanOrEqualTo(String value) {
             addCriterion("mail_staff_addressee <=", value, "mailStaffAddressee");
             return (Criteria) this;
         }
 
-        public Criteria andMailStaffAddresseeIn(List<Integer> values) {
+        public Criteria andMailStaffAddresseeLike(String value) {
+            addCriterion("mail_staff_addressee like", value, "mailStaffAddressee");
+            return (Criteria) this;
+        }
+
+        public Criteria andMailStaffAddresseeNotLike(String value) {
+            addCriterion("mail_staff_addressee not like", value, "mailStaffAddressee");
+            return (Criteria) this;
+        }
+
+        public Criteria andMailStaffAddresseeIn(List<String> values) {
             addCriterion("mail_staff_addressee in", values, "mailStaffAddressee");
             return (Criteria) this;
         }
 
-        public Criteria andMailStaffAddresseeNotIn(List<Integer> values) {
+        public Criteria andMailStaffAddresseeNotIn(List<String> values) {
             addCriterion("mail_staff_addressee not in", values, "mailStaffAddressee");
             return (Criteria) this;
         }
 
-        public Criteria andMailStaffAddresseeBetween(Integer value1, Integer value2) {
+        public Criteria andMailStaffAddresseeBetween(String value1, String value2) {
             addCriterion("mail_staff_addressee between", value1, value2, "mailStaffAddressee");
             return (Criteria) this;
         }
 
-        public Criteria andMailStaffAddresseeNotBetween(Integer value1, Integer value2) {
+        public Criteria andMailStaffAddresseeNotBetween(String value1, String value2) {
             addCriterion("mail_staff_addressee not between", value1, value2, "mailStaffAddressee");
             return (Criteria) this;
         }

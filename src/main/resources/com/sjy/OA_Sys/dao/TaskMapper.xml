@@ -3,26 +3,28 @@
 <mapper namespace="com.sjy.OA_Sys.dao.TaskMapper">
   <resultMap id="BaseResultMap" type="com.sjy.OA_Sys.bean.Task">
     <constructor>
-      <idArg column="task_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="task_id" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="task_name" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="task_time_start" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
       <arg column="task_time_end" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
       <arg column="task_rate_progress" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="task_state" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="task_group_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="pro_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="task_group_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="pro_id" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.sjy.OA_Sys.bean.TaskWithBLOBs">
     <constructor>
-      <idArg column="task_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="task_id" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="task_name" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="task_time_start" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
       <arg column="task_time_end" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
       <arg column="task_rate_progress" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="task_state" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="task_group_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="pro_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="task_group_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="pro_id" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="task_des" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
       <arg column="task_report" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
     </constructor>
@@ -86,7 +88,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    task_id, task_name, task_time_start, task_time_end, task_rate_progress, task_state, 
+    id, task_id, task_name, task_time_start, task_time_end, task_rate_progress, task_state, 
     task_group_id, pro_id
   </sql>
   <sql id="Blob_Column_List">
@@ -128,11 +130,11 @@
     ,
     <include refid="Blob_Column_List" />
     from task
-    where task_id = #{taskId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from task
-    where task_id = #{taskId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.sjy.OA_Sys.bean.TaskExample">
     delete from task
@@ -141,16 +143,22 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.sjy.OA_Sys.bean.TaskWithBLOBs">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into task (task_id, task_name, task_time_start, 
       task_time_end, task_rate_progress, task_state, 
       task_group_id, pro_id, task_des, 
       task_report)
-    values (#{taskId,jdbcType=INTEGER}, #{taskName,jdbcType=VARCHAR}, #{taskTimeStart,jdbcType=TIMESTAMP}, 
+    values (#{taskId,jdbcType=VARCHAR}, #{taskName,jdbcType=VARCHAR}, #{taskTimeStart,jdbcType=TIMESTAMP}, 
       #{taskTimeEnd,jdbcType=TIMESTAMP}, #{taskRateProgress,jdbcType=VARCHAR}, #{taskState,jdbcType=INTEGER}, 
-      #{taskGroupId,jdbcType=INTEGER}, #{proId,jdbcType=INTEGER}, #{taskDes,jdbcType=LONGVARCHAR}, 
+      #{taskGroupId,jdbcType=VARCHAR}, #{proId,jdbcType=VARCHAR}, #{taskDes,jdbcType=LONGVARCHAR}, 
       #{taskReport,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.sjy.OA_Sys.bean.TaskWithBLOBs">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into task
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="taskId != null">
@@ -186,7 +194,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="taskId != null">
-        #{taskId,jdbcType=INTEGER},
+        #{taskId,jdbcType=VARCHAR},
       </if>
       <if test="taskName != null">
         #{taskName,jdbcType=VARCHAR},
@@ -204,10 +212,10 @@
         #{taskState,jdbcType=INTEGER},
       </if>
       <if test="taskGroupId != null">
-        #{taskGroupId,jdbcType=INTEGER},
+        #{taskGroupId,jdbcType=VARCHAR},
       </if>
       <if test="proId != null">
-        #{proId,jdbcType=INTEGER},
+        #{proId,jdbcType=VARCHAR},
       </if>
       <if test="taskDes != null">
         #{taskDes,jdbcType=LONGVARCHAR},
@@ -226,8 +234,11 @@
   <update id="updateByExampleSelective" parameterType="map">
     update task
     <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
       <if test="record.taskId != null">
-        task_id = #{record.taskId,jdbcType=INTEGER},
+        task_id = #{record.taskId,jdbcType=VARCHAR},
       </if>
       <if test="record.taskName != null">
         task_name = #{record.taskName,jdbcType=VARCHAR},
@@ -245,10 +256,10 @@
         task_state = #{record.taskState,jdbcType=INTEGER},
       </if>
       <if test="record.taskGroupId != null">
-        task_group_id = #{record.taskGroupId,jdbcType=INTEGER},
+        task_group_id = #{record.taskGroupId,jdbcType=VARCHAR},
       </if>
       <if test="record.proId != null">
-        pro_id = #{record.proId,jdbcType=INTEGER},
+        pro_id = #{record.proId,jdbcType=VARCHAR},
       </if>
       <if test="record.taskDes != null">
         task_des = #{record.taskDes,jdbcType=LONGVARCHAR},
@@ -263,14 +274,15 @@
   </update>
   <update id="updateByExampleWithBLOBs" parameterType="map">
     update task
-    set task_id = #{record.taskId,jdbcType=INTEGER},
+    set id = #{record.id,jdbcType=INTEGER},
+      task_id = #{record.taskId,jdbcType=VARCHAR},
       task_name = #{record.taskName,jdbcType=VARCHAR},
       task_time_start = #{record.taskTimeStart,jdbcType=TIMESTAMP},
       task_time_end = #{record.taskTimeEnd,jdbcType=TIMESTAMP},
       task_rate_progress = #{record.taskRateProgress,jdbcType=VARCHAR},
       task_state = #{record.taskState,jdbcType=INTEGER},
-      task_group_id = #{record.taskGroupId,jdbcType=INTEGER},
-      pro_id = #{record.proId,jdbcType=INTEGER},
+      task_group_id = #{record.taskGroupId,jdbcType=VARCHAR},
+      pro_id = #{record.proId,jdbcType=VARCHAR},
       task_des = #{record.taskDes,jdbcType=LONGVARCHAR},
       task_report = #{record.taskReport,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
@@ -279,14 +291,15 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update task
-    set task_id = #{record.taskId,jdbcType=INTEGER},
+    set id = #{record.id,jdbcType=INTEGER},
+      task_id = #{record.taskId,jdbcType=VARCHAR},
       task_name = #{record.taskName,jdbcType=VARCHAR},
       task_time_start = #{record.taskTimeStart,jdbcType=TIMESTAMP},
       task_time_end = #{record.taskTimeEnd,jdbcType=TIMESTAMP},
       task_rate_progress = #{record.taskRateProgress,jdbcType=VARCHAR},
       task_state = #{record.taskState,jdbcType=INTEGER},
-      task_group_id = #{record.taskGroupId,jdbcType=INTEGER},
-      pro_id = #{record.proId,jdbcType=INTEGER}
+      task_group_id = #{record.taskGroupId,jdbcType=VARCHAR},
+      pro_id = #{record.proId,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -294,6 +307,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.sjy.OA_Sys.bean.TaskWithBLOBs">
     update task
     <set>
+      <if test="taskId != null">
+        task_id = #{taskId,jdbcType=VARCHAR},
+      </if>
       <if test="taskName != null">
         task_name = #{taskName,jdbcType=VARCHAR},
       </if>
@@ -310,10 +326,10 @@
         task_state = #{taskState,jdbcType=INTEGER},
       </if>
       <if test="taskGroupId != null">
-        task_group_id = #{taskGroupId,jdbcType=INTEGER},
+        task_group_id = #{taskGroupId,jdbcType=VARCHAR},
       </if>
       <if test="proId != null">
-        pro_id = #{proId,jdbcType=INTEGER},
+        pro_id = #{proId,jdbcType=VARCHAR},
       </if>
       <if test="taskDes != null">
         task_des = #{taskDes,jdbcType=LONGVARCHAR},
@@ -322,30 +338,32 @@
         task_report = #{taskReport,jdbcType=LONGVARCHAR},
       </if>
     </set>
-    where task_id = #{taskId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.sjy.OA_Sys.bean.TaskWithBLOBs">
     update task
-    set task_name = #{taskName,jdbcType=VARCHAR},
+    set task_id = #{taskId,jdbcType=VARCHAR},
+      task_name = #{taskName,jdbcType=VARCHAR},
       task_time_start = #{taskTimeStart,jdbcType=TIMESTAMP},
       task_time_end = #{taskTimeEnd,jdbcType=TIMESTAMP},
       task_rate_progress = #{taskRateProgress,jdbcType=VARCHAR},
       task_state = #{taskState,jdbcType=INTEGER},
-      task_group_id = #{taskGroupId,jdbcType=INTEGER},
-      pro_id = #{proId,jdbcType=INTEGER},
+      task_group_id = #{taskGroupId,jdbcType=VARCHAR},
+      pro_id = #{proId,jdbcType=VARCHAR},
       task_des = #{taskDes,jdbcType=LONGVARCHAR},
       task_report = #{taskReport,jdbcType=LONGVARCHAR}
-    where task_id = #{taskId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.sjy.OA_Sys.bean.Task">
     update task
-    set task_name = #{taskName,jdbcType=VARCHAR},
+    set task_id = #{taskId,jdbcType=VARCHAR},
+      task_name = #{taskName,jdbcType=VARCHAR},
       task_time_start = #{taskTimeStart,jdbcType=TIMESTAMP},
       task_time_end = #{taskTimeEnd,jdbcType=TIMESTAMP},
       task_rate_progress = #{taskRateProgress,jdbcType=VARCHAR},
       task_state = #{taskState,jdbcType=INTEGER},
-      task_group_id = #{taskGroupId,jdbcType=INTEGER},
-      pro_id = #{proId,jdbcType=INTEGER}
-    where task_id = #{taskId,jdbcType=INTEGER}
+      task_group_id = #{taskGroupId,jdbcType=VARCHAR},
+      pro_id = #{proId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

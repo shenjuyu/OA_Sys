@@ -4,9 +4,9 @@
   <resultMap id="BaseResultMap" type="com.sjy.OA_Sys.bean.AttSheet">
     <constructor>
       <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="staff_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="att_sheet_time_start" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-      <arg column="att_sheet_time_end" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="staff_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="att_sheet_time_start" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+      <arg column="att_sheet_time_end" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
       <arg column="att_sheet_situation" javaType="java.lang.Integer" jdbcType="INTEGER" />
     </constructor>
   </resultMap>
@@ -107,7 +107,7 @@
     </selectKey>
     insert into att_sheet (staff_id, att_sheet_time_start, att_sheet_time_end, 
       att_sheet_situation)
-    values (#{staffId,jdbcType=INTEGER}, #{attSheetTimeStart,jdbcType=TIMESTAMP}, #{attSheetTimeEnd,jdbcType=TIMESTAMP}, 
+    values (#{staffId,jdbcType=VARCHAR}, #{attSheetTimeStart,jdbcType=TIMESTAMP}, #{attSheetTimeEnd,jdbcType=TIMESTAMP}, 
       #{attSheetSituation,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.sjy.OA_Sys.bean.AttSheet">
@@ -131,7 +131,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="staffId != null">
-        #{staffId,jdbcType=INTEGER},
+        #{staffId,jdbcType=VARCHAR},
       </if>
       <if test="attSheetTimeStart != null">
         #{attSheetTimeStart,jdbcType=TIMESTAMP},
@@ -157,7 +157,7 @@
         id = #{record.id,jdbcType=INTEGER},
       </if>
       <if test="record.staffId != null">
-        staff_id = #{record.staffId,jdbcType=INTEGER},
+        staff_id = #{record.staffId,jdbcType=VARCHAR},
       </if>
       <if test="record.attSheetTimeStart != null">
         att_sheet_time_start = #{record.attSheetTimeStart,jdbcType=TIMESTAMP},
@@ -176,7 +176,7 @@
   <update id="updateByExample" parameterType="map">
     update att_sheet
     set id = #{record.id,jdbcType=INTEGER},
-      staff_id = #{record.staffId,jdbcType=INTEGER},
+      staff_id = #{record.staffId,jdbcType=VARCHAR},
       att_sheet_time_start = #{record.attSheetTimeStart,jdbcType=TIMESTAMP},
       att_sheet_time_end = #{record.attSheetTimeEnd,jdbcType=TIMESTAMP},
       att_sheet_situation = #{record.attSheetSituation,jdbcType=INTEGER}
@@ -188,7 +188,7 @@
     update att_sheet
     <set>
       <if test="staffId != null">
-        staff_id = #{staffId,jdbcType=INTEGER},
+        staff_id = #{staffId,jdbcType=VARCHAR},
       </if>
       <if test="attSheetTimeStart != null">
         att_sheet_time_start = #{attSheetTimeStart,jdbcType=TIMESTAMP},
@@ -204,7 +204,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.sjy.OA_Sys.bean.AttSheet">
     update att_sheet
-    set staff_id = #{staffId,jdbcType=INTEGER},
+    set staff_id = #{staffId,jdbcType=VARCHAR},
       att_sheet_time_start = #{attSheetTimeStart,jdbcType=TIMESTAMP},
       att_sheet_time_end = #{attSheetTimeEnd,jdbcType=TIMESTAMP},
       att_sheet_situation = #{attSheetSituation,jdbcType=INTEGER}

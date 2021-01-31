@@ -4,7 +4,9 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 public class PublicAssets {
-    private Integer pubassId;
+    private Integer id;
+
+    private String pubassId;
 
     private String pubassName;
 
@@ -12,7 +14,7 @@ public class PublicAssets {
 
     private BigDecimal pubassPrice;
 
-    private Integer departId;
+    private String departId;
 
     private Timestamp pubassTime;
 
@@ -20,7 +22,8 @@ public class PublicAssets {
 
     private String pubassDes;
 
-    public PublicAssets(Integer pubassId, String pubassName, String pubassType, BigDecimal pubassPrice, Integer departId, Timestamp pubassTime, Integer pubassCount) {
+    public PublicAssets(Integer id, String pubassId, String pubassName, String pubassType, BigDecimal pubassPrice, String departId, Timestamp pubassTime, Integer pubassCount) {
+        this.id = id;
         this.pubassId = pubassId;
         this.pubassName = pubassName;
         this.pubassType = pubassType;
@@ -30,7 +33,8 @@ public class PublicAssets {
         this.pubassCount = pubassCount;
     }
 
-    public PublicAssets(Integer pubassId, String pubassName, String pubassType, BigDecimal pubassPrice, Integer departId, Timestamp pubassTime, Integer pubassCount, String pubassDes) {
+    public PublicAssets(Integer id, String pubassId, String pubassName, String pubassType, BigDecimal pubassPrice, String departId, Timestamp pubassTime, Integer pubassCount, String pubassDes) {
+        this.id = id;
         this.pubassId = pubassId;
         this.pubassName = pubassName;
         this.pubassType = pubassType;
@@ -45,12 +49,20 @@ public class PublicAssets {
         super();
     }
 
-    public Integer getPubassId() {
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getPubassId() {
         return pubassId;
     }
 
-    public void setPubassId(Integer pubassId) {
-        this.pubassId = pubassId;
+    public void setPubassId(String pubassId) {
+        this.pubassId = pubassId == null ? null : pubassId.trim();
     }
 
     public String getPubassName() {
@@ -77,12 +89,12 @@ public class PublicAssets {
         this.pubassPrice = pubassPrice;
     }
 
-    public Integer getDepartId() {
+    public String getDepartId() {
         return departId;
     }
 
-    public void setDepartId(Integer departId) {
-        this.departId = departId;
+    public void setDepartId(String departId) {
+        this.departId = departId == null ? null : departId.trim();
     }
 
     public Timestamp getPubassTime() {

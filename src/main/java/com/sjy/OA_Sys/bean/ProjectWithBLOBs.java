@@ -9,8 +9,8 @@ public class ProjectWithBLOBs extends Project {
 
     private String proComments;
 
-    public ProjectWithBLOBs(Integer proId, Integer staffId, String proNaem, Timestamp proTimeCre, Timestamp proTimeStart, Timestamp proTimeEnd, String proRateProgress, Integer proState, String proDes, String proAttachment, String proComments) {
-        super(proId, staffId, proNaem, proTimeCre, proTimeStart, proTimeEnd, proRateProgress, proState);
+    public ProjectWithBLOBs(Integer id, String proId, String staffId, String proNaem, Timestamp proTimeCre, Timestamp proTimeStart, Timestamp proTimeEnd, String proRateProgress, Integer proState, String proDes, String proAttachment, String proComments) {
+        super(id, proId, staffId, proNaem, proTimeCre, proTimeStart, proTimeEnd, proRateProgress, proState);
         this.proDes = proDes;
         this.proAttachment = proAttachment;
         this.proComments = proComments;

@@ -4,21 +4,25 @@
   <resultMap id="BaseResultMap" type="com.sjy.OA_Sys.bean.Notice">
     <constructor>
       <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="notice_staff_send" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="notice_staff_send" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="notice_staff_addressee" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="notice_title" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="notice_time" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
     </constructor>
+    <collection property="noticeNumList" autoMapping="true" column="id" fetchType="lazy"
+      	select="com.sjy.OA_Sys.dao.NoticeNumMapper.selectByNoticeId"></collection>
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.sjy.OA_Sys.bean.Notice">
     <constructor>
       <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="notice_staff_send" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="notice_staff_send" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="notice_staff_addressee" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="notice_title" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="notice_time" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
       <arg column="notice_des" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
     </constructor>
+    <collection property="noticeNumList" autoMapping="true" column="id" fetchType="lazy"
+    	select="com.sjy.OA_Sys.dao.NoticeNumMapper.selectByNoticeId"></collection>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -139,7 +143,7 @@
     insert into notice (notice_staff_send, notice_staff_addressee, 
       notice_title, notice_time, notice_des
       )
-    values (#{noticeStaffSend,jdbcType=INTEGER}, #{noticeStaffAddressee,jdbcType=INTEGER}, 
+    values (#{noticeStaffSend,jdbcType=VARCHAR}, #{noticeStaffAddressee,jdbcType=INTEGER}, 
       #{noticeTitle,jdbcType=VARCHAR}, #{noticeTime,jdbcType=TIMESTAMP}, #{noticeDes,jdbcType=LONGVARCHAR}
       )
   </insert>
@@ -167,7 +171,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="noticeStaffSend != null">
-        #{noticeStaffSend,jdbcType=INTEGER},
+        #{noticeStaffSend,jdbcType=VARCHAR},
       </if>
       <if test="noticeStaffAddressee != null">
         #{noticeStaffAddressee,jdbcType=INTEGER},
@@ -196,7 +200,7 @@
         id = #{record.id,jdbcType=INTEGER},
       </if>
       <if test="record.noticeStaffSend != null">
-        notice_staff_send = #{record.noticeStaffSend,jdbcType=INTEGER},
+        notice_staff_send = #{record.noticeStaffSend,jdbcType=VARCHAR},
       </if>
       <if test="record.noticeStaffAddressee != null">
         notice_staff_addressee = #{record.noticeStaffAddressee,jdbcType=INTEGER},
@@ -218,7 +222,7 @@
   <update id="updateByExampleWithBLOBs" parameterType="map">
     update notice
     set id = #{record.id,jdbcType=INTEGER},
-      notice_staff_send = #{record.noticeStaffSend,jdbcType=INTEGER},
+      notice_staff_send = #{record.noticeStaffSend,jdbcType=VARCHAR},
       notice_staff_addressee = #{record.noticeStaffAddressee,jdbcType=INTEGER},
       notice_title = #{record.noticeTitle,jdbcType=VARCHAR},
       notice_time = #{record.noticeTime,jdbcType=TIMESTAMP},
@@ -230,7 +234,7 @@
   <update id="updateByExample" parameterType="map">
     update notice
     set id = #{record.id,jdbcType=INTEGER},
-      notice_staff_send = #{record.noticeStaffSend,jdbcType=INTEGER},
+      notice_staff_send = #{record.noticeStaffSend,jdbcType=VARCHAR},
       notice_staff_addressee = #{record.noticeStaffAddressee,jdbcType=INTEGER},
       notice_title = #{record.noticeTitle,jdbcType=VARCHAR},
       notice_time = #{record.noticeTime,jdbcType=TIMESTAMP}
@@ -242,7 +246,7 @@
     update notice
     <set>
       <if test="noticeStaffSend != null">
-        notice_staff_send = #{noticeStaffSend,jdbcType=INTEGER},
+        notice_staff_send = #{noticeStaffSend,jdbcType=VARCHAR},
       </if>
       <if test="noticeStaffAddressee != null">
         notice_staff_addressee = #{noticeStaffAddressee,jdbcType=INTEGER},
@@ -261,7 +265,7 @@
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.sjy.OA_Sys.bean.Notice">
     update notice
-    set notice_staff_send = #{noticeStaffSend,jdbcType=INTEGER},
+    set notice_staff_send = #{noticeStaffSend,jdbcType=VARCHAR},
       notice_staff_addressee = #{noticeStaffAddressee,jdbcType=INTEGER},
       notice_title = #{noticeTitle,jdbcType=VARCHAR},
       notice_time = #{noticeTime,jdbcType=TIMESTAMP},
@@ -270,7 +274,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.sjy.OA_Sys.bean.Notice">
     update notice
-    set notice_staff_send = #{noticeStaffSend,jdbcType=INTEGER},
+    set notice_staff_send = #{noticeStaffSend,jdbcType=VARCHAR},
       notice_staff_addressee = #{noticeStaffAddressee,jdbcType=INTEGER},
       notice_title = #{noticeTitle,jdbcType=VARCHAR},
       notice_time = #{noticeTime,jdbcType=TIMESTAMP}

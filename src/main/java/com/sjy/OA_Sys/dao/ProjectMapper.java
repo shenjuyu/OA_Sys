@@ -11,7 +11,7 @@ public interface ProjectMapper {
 
     int deleteByExample(ProjectExample example);
 
-    int deleteByPrimaryKey(Integer proId);
+    int deleteByPrimaryKey(Integer id);
 
     int insert(ProjectWithBLOBs record);
 
@@ -21,7 +21,7 @@ public interface ProjectMapper {
 
     List<Project> selectByExample(ProjectExample example);
 
-    ProjectWithBLOBs selectByPrimaryKey(Integer proId);
+    ProjectWithBLOBs selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") ProjectWithBLOBs record, @Param("example") ProjectExample example);
 

@@ -10,7 +10,7 @@ public interface PublicAssetsMapper {
 
     int deleteByExample(PublicAssetsExample example);
 
-    int deleteByPrimaryKey(Integer pubassId);
+    int deleteByPrimaryKey(Integer id);
 
     int insert(PublicAssets record);
 
@@ -20,7 +20,7 @@ public interface PublicAssetsMapper {
 
     List<PublicAssets> selectByExample(PublicAssetsExample example);
 
-    PublicAssets selectByPrimaryKey(Integer pubassId);
+    PublicAssets selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") PublicAssets record, @Param("example") PublicAssetsExample example);
 

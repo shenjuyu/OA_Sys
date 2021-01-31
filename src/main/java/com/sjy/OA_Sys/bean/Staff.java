@@ -4,7 +4,9 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 public class Staff {
-    private Integer staffId;
+    private Integer id;
+
+    private String staffId;
 
     private String staffPwd;
 
@@ -26,11 +28,14 @@ public class Staff {
 
     private Integer staffState;
 
-    private Integer staffPower;
+    private String staffPower;
 
-    private Integer departId;
+    private String departId;
+    
+    private String departName;
 
-    public Staff(Integer staffId, String staffPwd, String staffName, Timestamp staffBirth, String staffIdCard, String staffTel, String staffEmail, String staffAddr, String staffImg, BigDecimal staffWages, Integer staffState, Integer staffPower, Integer departId) {
+    public Staff(Integer id, String staffId, String staffPwd, String staffName, Timestamp staffBirth, String staffIdCard, String staffTel, String staffEmail, String staffAddr, String staffImg, BigDecimal staffWages, Integer staffState, String staffPower, String departId) {
+        this.id = id;
         this.staffId = staffId;
         this.staffPwd = staffPwd;
         this.staffName = staffName;
@@ -50,12 +55,20 @@ public class Staff {
         super();
     }
 
-    public Integer getStaffId() {
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getStaffId() {
         return staffId;
     }
 
-    public void setStaffId(Integer staffId) {
-        this.staffId = staffId;
+    public void setStaffId(String staffId) {
+        this.staffId = staffId == null ? null : staffId.trim();
     }
 
     public String getStaffPwd() {
@@ -138,19 +151,28 @@ public class Staff {
         this.staffState = staffState;
     }
 
-    public Integer getStaffPower() {
+    public String getStaffPower() {
         return staffPower;
     }
 
-    public void setStaffPower(Integer staffPower) {
-        this.staffPower = staffPower;
+    public void setStaffPower(String staffPower) {
+        this.staffPower = staffPower == null ? null : staffPower.trim();
     }
 
-    public Integer getDepartId() {
+    public String getDepartId() {
         return departId;
     }
 
-    public void setDepartId(Integer departId) {
-        this.departId = departId;
+    public void setDepartId(String departId) {
+        this.departId = departId == null ? null : departId.trim();
     }
+
+	public String getDepartName() {
+		return departName;
+	}
+
+	public void setDepartName(String departName) {
+		this.departName = departName;
+	}
+    
 }

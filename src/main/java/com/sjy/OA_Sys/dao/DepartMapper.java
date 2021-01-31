@@ -10,7 +10,7 @@ public interface DepartMapper {
 
     int deleteByExample(DepartExample example);
 
-    int deleteByPrimaryKey(Integer departId);
+    int deleteByPrimaryKey(Integer id);
 
     int insert(Depart record);
 
@@ -18,7 +18,7 @@ public interface DepartMapper {
 
     List<Depart> selectByExample(DepartExample example);
 
-    Depart selectByPrimaryKey(Integer departId);
+    Depart selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") Depart record, @Param("example") DepartExample example);
 

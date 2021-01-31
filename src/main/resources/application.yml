@@ -53,11 +53,22 @@ spring:
 mail:
   formMail:
     addr: shenjunyu123@foxmail.com
+    adminEmail: slience_1998@163.com
+    subject: OA系统
+    currency: （请勿泄露此验证码）,本验证码5分钟内有效，请及时输入。如非本人操作，请及时修改密码。(这是一封自动发送的邮件，请不要直接回复）
     resetPwdEmailContent: 您好，欢迎使用重置密码服务，您的验证码为：
     addAdminContent: 您好，欢迎使用管理员添加功能，您的验证码为：
     resetEmEmailContent: 您好，欢迎使用重置邮箱服务，您的验证码为：
     resetTelEmailContent: 您好，欢迎使用重置电话服务，您的验证码为：
     businessRegisterEmailContent: 您好，欢迎使用注册服务，您的验证码为：
+    errorContent: 管理员你好，本系统中产生错误，请及时查看。
+
+contentTips:
+  initPwd: 123456
+  loginPwdTips: 您的登录密码是初始密码，请及时修改。
+  closingTimeHour: 17      # 下班的时间 时
+  closingTimeMin: 30       # 下班的时间 分
+  salaryDay: 10            # 发工资的时间 日
 
 # 配置debug日志输出
 logging:

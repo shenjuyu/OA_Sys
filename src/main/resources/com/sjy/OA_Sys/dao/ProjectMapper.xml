@@ -3,8 +3,9 @@
 <mapper namespace="com.sjy.OA_Sys.dao.ProjectMapper">
   <resultMap id="BaseResultMap" type="com.sjy.OA_Sys.bean.Project">
     <constructor>
-      <idArg column="pro_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="staff_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="pro_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="staff_id" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="pro_naem" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="pro_time_cre" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
       <arg column="pro_time_start" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
@@ -15,8 +16,9 @@
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.sjy.OA_Sys.bean.ProjectWithBLOBs">
     <constructor>
-      <idArg column="pro_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="staff_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="pro_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="staff_id" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="pro_naem" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="pro_time_cre" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
       <arg column="pro_time_start" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
@@ -87,7 +89,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    pro_id, staff_id, pro_naem, pro_time_cre, pro_time_start, pro_time_end, pro_rate_progress, 
+    id, pro_id, staff_id, pro_naem, pro_time_cre, pro_time_start, pro_time_end, pro_rate_progress, 
     pro_state
   </sql>
   <sql id="Blob_Column_List">
@@ -129,11 +131,11 @@
     ,
     <include refid="Blob_Column_List" />
     from project
-    where pro_id = #{proId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from project
-    where pro_id = #{proId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.sjy.OA_Sys.bean.ProjectExample">
     delete from project
@@ -142,16 +144,22 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.sjy.OA_Sys.bean.ProjectWithBLOBs">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into project (pro_id, staff_id, pro_naem, 
       pro_time_cre, pro_time_start, pro_time_end, 
       pro_rate_progress, pro_state, pro_des, 
       pro_attachment, pro_comments)
-    values (#{proId,jdbcType=INTEGER}, #{staffId,jdbcType=INTEGER}, #{proNaem,jdbcType=VARCHAR}, 
+    values (#{proId,jdbcType=VARCHAR}, #{staffId,jdbcType=VARCHAR}, #{proNaem,jdbcType=VARCHAR}, 
       #{proTimeCre,jdbcType=TIMESTAMP}, #{proTimeStart,jdbcType=TIMESTAMP}, #{proTimeEnd,jdbcType=TIMESTAMP}, 
       #{proRateProgress,jdbcType=VARCHAR}, #{proState,jdbcType=INTEGER}, #{proDes,jdbcType=LONGVARCHAR}, 
       #{proAttachment,jdbcType=LONGVARCHAR}, #{proComments,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.sjy.OA_Sys.bean.ProjectWithBLOBs">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into project
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="proId != null">
@@ -190,10 +198,10 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="proId != null">
-        #{proId,jdbcType=INTEGER},
+        #{proId,jdbcType=VARCHAR},
       </if>
       <if test="staffId != null">
-        #{staffId,jdbcType=INTEGER},
+        #{staffId,jdbcType=VARCHAR},
       </if>
       <if test="proNaem != null">
         #{proNaem,jdbcType=VARCHAR},
@@ -233,11 +241,14 @@
   <update id="updateByExampleSelective" parameterType="map">
     update project
     <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
       <if test="record.proId != null">
-        pro_id = #{record.proId,jdbcType=INTEGER},
+        pro_id = #{record.proId,jdbcType=VARCHAR},
       </if>
       <if test="record.staffId != null">
-        staff_id = #{record.staffId,jdbcType=INTEGER},
+        staff_id = #{record.staffId,jdbcType=VARCHAR},
       </if>
       <if test="record.proNaem != null">
         pro_naem = #{record.proNaem,jdbcType=VARCHAR},
@@ -273,8 +284,9 @@
   </update>
   <update id="updateByExampleWithBLOBs" parameterType="map">
     update project
-    set pro_id = #{record.proId,jdbcType=INTEGER},
-      staff_id = #{record.staffId,jdbcType=INTEGER},
+    set id = #{record.id,jdbcType=INTEGER},
+      pro_id = #{record.proId,jdbcType=VARCHAR},
+      staff_id = #{record.staffId,jdbcType=VARCHAR},
       pro_naem = #{record.proNaem,jdbcType=VARCHAR},
       pro_time_cre = #{record.proTimeCre,jdbcType=TIMESTAMP},
       pro_time_start = #{record.proTimeStart,jdbcType=TIMESTAMP},
@@ -290,8 +302,9 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update project
-    set pro_id = #{record.proId,jdbcType=INTEGER},
-      staff_id = #{record.staffId,jdbcType=INTEGER},
+    set id = #{record.id,jdbcType=INTEGER},
+      pro_id = #{record.proId,jdbcType=VARCHAR},
+      staff_id = #{record.staffId,jdbcType=VARCHAR},
       pro_naem = #{record.proNaem,jdbcType=VARCHAR},
       pro_time_cre = #{record.proTimeCre,jdbcType=TIMESTAMP},
       pro_time_start = #{record.proTimeStart,jdbcType=TIMESTAMP},
@@ -305,8 +318,11 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.sjy.OA_Sys.bean.ProjectWithBLOBs">
     update project
     <set>
+      <if test="proId != null">
+        pro_id = #{proId,jdbcType=VARCHAR},
+      </if>
       <if test="staffId != null">
-        staff_id = #{staffId,jdbcType=INTEGER},
+        staff_id = #{staffId,jdbcType=VARCHAR},
       </if>
       <if test="proNaem != null">
         pro_naem = #{proNaem,jdbcType=VARCHAR},
@@ -336,11 +352,12 @@
         pro_comments = #{proComments,jdbcType=LONGVARCHAR},
       </if>
     </set>
-    where pro_id = #{proId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.sjy.OA_Sys.bean.ProjectWithBLOBs">
     update project
-    set staff_id = #{staffId,jdbcType=INTEGER},
+    set pro_id = #{proId,jdbcType=VARCHAR},
+      staff_id = #{staffId,jdbcType=VARCHAR},
       pro_naem = #{proNaem,jdbcType=VARCHAR},
       pro_time_cre = #{proTimeCre,jdbcType=TIMESTAMP},
       pro_time_start = #{proTimeStart,jdbcType=TIMESTAMP},
@@ -350,17 +367,18 @@
       pro_des = #{proDes,jdbcType=LONGVARCHAR},
       pro_attachment = #{proAttachment,jdbcType=LONGVARCHAR},
       pro_comments = #{proComments,jdbcType=LONGVARCHAR}
-    where pro_id = #{proId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.sjy.OA_Sys.bean.Project">
     update project
-    set staff_id = #{staffId,jdbcType=INTEGER},
+    set pro_id = #{proId,jdbcType=VARCHAR},
+      staff_id = #{staffId,jdbcType=VARCHAR},
       pro_naem = #{proNaem,jdbcType=VARCHAR},
       pro_time_cre = #{proTimeCre,jdbcType=TIMESTAMP},
       pro_time_start = #{proTimeStart,jdbcType=TIMESTAMP},
       pro_time_end = #{proTimeEnd,jdbcType=TIMESTAMP},
       pro_rate_progress = #{proRateProgress,jdbcType=VARCHAR},
       pro_state = #{proState,jdbcType=INTEGER}
-    where pro_id = #{proId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

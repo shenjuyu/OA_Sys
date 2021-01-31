@@ -3,15 +3,17 @@
 <mapper namespace="com.sjy.OA_Sys.dao.ImportLogMapper">
   <resultMap id="BaseResultMap" type="com.sjy.OA_Sys.bean.ImportLog">
     <constructor>
-      <idArg column="log_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="staff_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="log_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="staff_id" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="log_time" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
     </constructor>
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.sjy.OA_Sys.bean.ImportLog">
     <constructor>
-      <idArg column="log_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="staff_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="log_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="staff_id" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="log_time" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
       <arg column="log_des" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
     </constructor>
@@ -75,7 +77,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    log_id, staff_id, log_time
+    id, log_id, staff_id, log_time
   </sql>
   <sql id="Blob_Column_List">
     log_des
@@ -116,11 +118,11 @@
     ,
     <include refid="Blob_Column_List" />
     from import_log
-    where log_id = #{logId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from import_log
-    where log_id = #{logId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.sjy.OA_Sys.bean.ImportLogExample">
     delete from import_log
@@ -129,12 +131,18 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.sjy.OA_Sys.bean.ImportLog">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into import_log (log_id, staff_id, log_time, 
       log_des)
-    values (#{logId,jdbcType=INTEGER}, #{staffId,jdbcType=INTEGER}, #{logTime,jdbcType=TIMESTAMP}, 
+    values (#{logId,jdbcType=VARCHAR}, #{staffId,jdbcType=VARCHAR}, #{logTime,jdbcType=TIMESTAMP}, 
       #{logDes,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.sjy.OA_Sys.bean.ImportLog">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into import_log
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="logId != null">
@@ -152,10 +160,10 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="logId != null">
-        #{logId,jdbcType=INTEGER},
+        #{logId,jdbcType=VARCHAR},
       </if>
       <if test="staffId != null">
-        #{staffId,jdbcType=INTEGER},
+        #{staffId,jdbcType=VARCHAR},
       </if>
       <if test="logTime != null">
         #{logTime,jdbcType=TIMESTAMP},
@@ -174,11 +182,14 @@
   <update id="updateByExampleSelective" parameterType="map">
     update import_log
     <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
       <if test="record.logId != null">
-        log_id = #{record.logId,jdbcType=INTEGER},
+        log_id = #{record.logId,jdbcType=VARCHAR},
       </if>
       <if test="record.staffId != null">
-        staff_id = #{record.staffId,jdbcType=INTEGER},
+        staff_id = #{record.staffId,jdbcType=VARCHAR},
       </if>
       <if test="record.logTime != null">
         log_time = #{record.logTime,jdbcType=TIMESTAMP},
@@ -193,8 +204,9 @@
   </update>
   <update id="updateByExampleWithBLOBs" parameterType="map">
     update import_log
-    set log_id = #{record.logId,jdbcType=INTEGER},
-      staff_id = #{record.staffId,jdbcType=INTEGER},
+    set id = #{record.id,jdbcType=INTEGER},
+      log_id = #{record.logId,jdbcType=VARCHAR},
+      staff_id = #{record.staffId,jdbcType=VARCHAR},
       log_time = #{record.logTime,jdbcType=TIMESTAMP},
       log_des = #{record.logDes,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
@@ -203,8 +215,9 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update import_log
-    set log_id = #{record.logId,jdbcType=INTEGER},
-      staff_id = #{record.staffId,jdbcType=INTEGER},
+    set id = #{record.id,jdbcType=INTEGER},
+      log_id = #{record.logId,jdbcType=VARCHAR},
+      staff_id = #{record.staffId,jdbcType=VARCHAR},
       log_time = #{record.logTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -213,8 +226,11 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.sjy.OA_Sys.bean.ImportLog">
     update import_log
     <set>
+      <if test="logId != null">
+        log_id = #{logId,jdbcType=VARCHAR},
+      </if>
       <if test="staffId != null">
-        staff_id = #{staffId,jdbcType=INTEGER},
+        staff_id = #{staffId,jdbcType=VARCHAR},
       </if>
       <if test="logTime != null">
         log_time = #{logTime,jdbcType=TIMESTAMP},
@@ -223,19 +239,21 @@
         log_des = #{logDes,jdbcType=LONGVARCHAR},
       </if>
     </set>
-    where log_id = #{logId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.sjy.OA_Sys.bean.ImportLog">
     update import_log
-    set staff_id = #{staffId,jdbcType=INTEGER},
+    set log_id = #{logId,jdbcType=VARCHAR},
+      staff_id = #{staffId,jdbcType=VARCHAR},
       log_time = #{logTime,jdbcType=TIMESTAMP},
       log_des = #{logDes,jdbcType=LONGVARCHAR}
-    where log_id = #{logId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.sjy.OA_Sys.bean.ImportLog">
     update import_log
-    set staff_id = #{staffId,jdbcType=INTEGER},
+    set log_id = #{logId,jdbcType=VARCHAR},
+      staff_id = #{staffId,jdbcType=VARCHAR},
       log_time = #{logTime,jdbcType=TIMESTAMP}
-    where log_id = #{logId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

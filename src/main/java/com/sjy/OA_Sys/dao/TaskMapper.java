@@ -11,7 +11,7 @@ public interface TaskMapper {
 
     int deleteByExample(TaskExample example);
 
-    int deleteByPrimaryKey(Integer taskId);
+    int deleteByPrimaryKey(Integer id);
 
     int insert(TaskWithBLOBs record);
 
@@ -21,7 +21,7 @@ public interface TaskMapper {
 
     List<Task> selectByExample(TaskExample example);
 
-    TaskWithBLOBs selectByPrimaryKey(Integer taskId);
+    TaskWithBLOBs selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") TaskWithBLOBs record, @Param("example") TaskExample example);
 

@@ -11,7 +11,7 @@ public interface MailMapper {
 
     int deleteByExample(MailExample example);
 
-    int deleteByPrimaryKey(Integer mailId);
+    int deleteByPrimaryKey(Integer id);
 
     int insert(MailWithBLOBs record);
 
@@ -21,7 +21,7 @@ public interface MailMapper {
 
     List<Mail> selectByExample(MailExample example);
 
-    MailWithBLOBs selectByPrimaryKey(Integer mailId);
+    MailWithBLOBs selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") MailWithBLOBs record, @Param("example") MailExample example);
 

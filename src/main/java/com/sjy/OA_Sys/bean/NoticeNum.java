@@ -5,9 +5,11 @@ public class NoticeNum {
 
     private Integer noticeId;
 
-    private Integer staffId;
+    private String staffId;
+    
+    private Staff staff;
 
-    public NoticeNum(Integer id, Integer noticeId, Integer staffId) {
+    public NoticeNum(Integer id, Integer noticeId, String staffId) {
         this.id = id;
         this.noticeId = noticeId;
         this.staffId = staffId;
@@ -33,11 +35,20 @@ public class NoticeNum {
         this.noticeId = noticeId;
     }
 
-    public Integer getStaffId() {
+    public String getStaffId() {
         return staffId;
     }
 
-    public void setStaffId(Integer staffId) {
-        this.staffId = staffId;
+    public void setStaffId(String staffId) {
+        this.staffId = staffId == null ? null : staffId.trim();
     }
+
+	public Staff getStaff() {
+		return staff;
+	}
+
+	public void setStaff(Staff staff) {
+		this.staff = staff;
+	}
+    
 }

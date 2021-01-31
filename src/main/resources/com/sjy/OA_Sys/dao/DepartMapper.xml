@@ -3,7 +3,8 @@
 <mapper namespace="com.sjy.OA_Sys.dao.DepartMapper">
   <resultMap id="BaseResultMap" type="com.sjy.OA_Sys.bean.Depart">
     <constructor>
-      <idArg column="depart_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="depart_id" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="depart_name" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="depart_addr" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    depart_id, depart_name, depart_addr
+    id, depart_id, depart_name, depart_addr
   </sql>
   <select id="selectByExample" parameterType="com.sjy.OA_Sys.bean.DepartExample" resultMap="BaseResultMap">
     select
@@ -87,11 +88,18 @@
     select 
     <include refid="Base_Column_List" />
     from depart
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <!-- 根据部门编号查找 -->
+  <select id="selectByDepartId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from depart
     where depart_id = #{departId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from depart
-    where depart_id = #{departId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.sjy.OA_Sys.bean.DepartExample">
     delete from depart
@@ -100,12 +108,18 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.sjy.OA_Sys.bean.Depart">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into depart (depart_id, depart_name, depart_addr
       )
-    values (#{departId,jdbcType=INTEGER}, #{departName,jdbcType=VARCHAR}, #{departAddr,jdbcType=VARCHAR}
+    values (#{departId,jdbcType=VARCHAR}, #{departName,jdbcType=VARCHAR}, #{departAddr,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.sjy.OA_Sys.bean.Depart">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into depart
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="departId != null">
@@ -120,7 +134,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="departId != null">
-        #{departId,jdbcType=INTEGER},
+        #{departId,jdbcType=VARCHAR},
       </if>
       <if test="departName != null">
         #{departName,jdbcType=VARCHAR},
@@ -139,8 +153,11 @@
   <update id="updateByExampleSelective" parameterType="map">
     update depart
     <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
       <if test="record.departId != null">
-        depart_id = #{record.departId,jdbcType=INTEGER},
+        depart_id = #{record.departId,jdbcType=VARCHAR},
       </if>
       <if test="record.departName != null">
         depart_name = #{record.departName,jdbcType=VARCHAR},
@@ -155,7 +172,8 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update depart
-    set depart_id = #{record.departId,jdbcType=INTEGER},
+    set id = #{record.id,jdbcType=INTEGER},
+      depart_id = #{record.departId,jdbcType=VARCHAR},
       depart_name = #{record.departName,jdbcType=VARCHAR},
       depart_addr = #{record.departAddr,jdbcType=VARCHAR}
     <if test="_parameter != null">
@@ -165,6 +183,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.sjy.OA_Sys.bean.Depart">
     update depart
     <set>
+      <if test="departId != null">
+        depart_id = #{departId,jdbcType=VARCHAR},
+      </if>
       <if test="departName != null">
         depart_name = #{departName,jdbcType=VARCHAR},
       </if>
@@ -172,12 +193,13 @@
         depart_addr = #{departAddr,jdbcType=VARCHAR},
       </if>
     </set>
-    where depart_id = #{departId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.sjy.OA_Sys.bean.Depart">
     update depart
-    set depart_name = #{departName,jdbcType=VARCHAR},
+    set depart_id = #{departId,jdbcType=VARCHAR},
+      depart_name = #{departName,jdbcType=VARCHAR},
       depart_addr = #{departAddr,jdbcType=VARCHAR}
-    where depart_id = #{departId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

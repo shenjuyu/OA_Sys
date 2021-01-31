@@ -7,15 +7,15 @@ public class ChatRecord {
 
     private Timestamp chatTimeSend;
 
-    private Integer chatSender;
+    private String chatSender;
 
-    private Integer chatReceive;
+    private String chatReceive;
 
     private Integer isGroup;
 
     private String message;
 
-    public ChatRecord(Integer id, Timestamp chatTimeSend, Integer chatSender, Integer chatReceive, Integer isGroup) {
+    public ChatRecord(Integer id, Timestamp chatTimeSend, String chatSender, String chatReceive, Integer isGroup) {
         this.id = id;
         this.chatTimeSend = chatTimeSend;
         this.chatSender = chatSender;
@@ -23,7 +23,7 @@ public class ChatRecord {
         this.isGroup = isGroup;
     }
 
-    public ChatRecord(Integer id, Timestamp chatTimeSend, Integer chatSender, Integer chatReceive, Integer isGroup, String message) {
+    public ChatRecord(Integer id, Timestamp chatTimeSend, String chatSender, String chatReceive, Integer isGroup, String message) {
         this.id = id;
         this.chatTimeSend = chatTimeSend;
         this.chatSender = chatSender;
@@ -52,20 +52,20 @@ public class ChatRecord {
         this.chatTimeSend = chatTimeSend;
     }
 
-    public Integer getChatSender() {
+    public String getChatSender() {
         return chatSender;
     }
 
-    public void setChatSender(Integer chatSender) {
-        this.chatSender = chatSender;
+    public void setChatSender(String chatSender) {
+        this.chatSender = chatSender == null ? null : chatSender.trim();
     }
 
-    public Integer getChatReceive() {
+    public String getChatReceive() {
         return chatReceive;
     }
 
-    public void setChatReceive(Integer chatReceive) {
-        this.chatReceive = chatReceive;
+    public void setChatReceive(String chatReceive) {
+        this.chatReceive = chatReceive == null ? null : chatReceive.trim();
     }
 
     public Integer getIsGroup() {

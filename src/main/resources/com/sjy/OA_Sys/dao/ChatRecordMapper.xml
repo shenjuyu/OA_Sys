@@ -5,8 +5,8 @@
     <constructor>
       <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="chat_time_send" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
-      <arg column="chat_sender" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="chat_receive" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="chat_sender" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="chat_receive" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="is_group" javaType="java.lang.Integer" jdbcType="INTEGER" />
     </constructor>
   </resultMap>
@@ -14,8 +14,8 @@
     <constructor>
       <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="chat_time_send" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
-      <arg column="chat_sender" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="chat_receive" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="chat_sender" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="chat_receive" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="is_group" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="message" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
     </constructor>
@@ -138,7 +138,7 @@
     </selectKey>
     insert into chat_record (chat_time_send, chat_sender, chat_receive, 
       is_group, message)
-    values (#{chatTimeSend,jdbcType=TIMESTAMP}, #{chatSender,jdbcType=INTEGER}, #{chatReceive,jdbcType=INTEGER}, 
+    values (#{chatTimeSend,jdbcType=TIMESTAMP}, #{chatSender,jdbcType=VARCHAR}, #{chatReceive,jdbcType=VARCHAR}, 
       #{isGroup,jdbcType=INTEGER}, #{message,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.sjy.OA_Sys.bean.ChatRecord">
@@ -168,10 +168,10 @@
         #{chatTimeSend,jdbcType=TIMESTAMP},
       </if>
       <if test="chatSender != null">
-        #{chatSender,jdbcType=INTEGER},
+        #{chatSender,jdbcType=VARCHAR},
       </if>
       <if test="chatReceive != null">
-        #{chatReceive,jdbcType=INTEGER},
+        #{chatReceive,jdbcType=VARCHAR},
       </if>
       <if test="isGroup != null">
         #{isGroup,jdbcType=INTEGER},
@@ -197,10 +197,10 @@
         chat_time_send = #{record.chatTimeSend,jdbcType=TIMESTAMP},
       </if>
       <if test="record.chatSender != null">
-        chat_sender = #{record.chatSender,jdbcType=INTEGER},
+        chat_sender = #{record.chatSender,jdbcType=VARCHAR},
       </if>
       <if test="record.chatReceive != null">
-        chat_receive = #{record.chatReceive,jdbcType=INTEGER},
+        chat_receive = #{record.chatReceive,jdbcType=VARCHAR},
       </if>
       <if test="record.isGroup != null">
         is_group = #{record.isGroup,jdbcType=INTEGER},
@@ -217,8 +217,8 @@
     update chat_record
     set id = #{record.id,jdbcType=INTEGER},
       chat_time_send = #{record.chatTimeSend,jdbcType=TIMESTAMP},
-      chat_sender = #{record.chatSender,jdbcType=INTEGER},
-      chat_receive = #{record.chatReceive,jdbcType=INTEGER},
+      chat_sender = #{record.chatSender,jdbcType=VARCHAR},
+      chat_receive = #{record.chatReceive,jdbcType=VARCHAR},
       is_group = #{record.isGroup,jdbcType=INTEGER},
       message = #{record.message,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
@@ -229,8 +229,8 @@
     update chat_record
     set id = #{record.id,jdbcType=INTEGER},
       chat_time_send = #{record.chatTimeSend,jdbcType=TIMESTAMP},
-      chat_sender = #{record.chatSender,jdbcType=INTEGER},
-      chat_receive = #{record.chatReceive,jdbcType=INTEGER},
+      chat_sender = #{record.chatSender,jdbcType=VARCHAR},
+      chat_receive = #{record.chatReceive,jdbcType=VARCHAR},
       is_group = #{record.isGroup,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -243,10 +243,10 @@
         chat_time_send = #{chatTimeSend,jdbcType=TIMESTAMP},
       </if>
       <if test="chatSender != null">
-        chat_sender = #{chatSender,jdbcType=INTEGER},
+        chat_sender = #{chatSender,jdbcType=VARCHAR},
       </if>
       <if test="chatReceive != null">
-        chat_receive = #{chatReceive,jdbcType=INTEGER},
+        chat_receive = #{chatReceive,jdbcType=VARCHAR},
       </if>
       <if test="isGroup != null">
         is_group = #{isGroup,jdbcType=INTEGER},
@@ -260,8 +260,8 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.sjy.OA_Sys.bean.ChatRecord">
     update chat_record
     set chat_time_send = #{chatTimeSend,jdbcType=TIMESTAMP},
-      chat_sender = #{chatSender,jdbcType=INTEGER},
-      chat_receive = #{chatReceive,jdbcType=INTEGER},
+      chat_sender = #{chatSender,jdbcType=VARCHAR},
+      chat_receive = #{chatReceive,jdbcType=VARCHAR},
       is_group = #{isGroup,jdbcType=INTEGER},
       message = #{message,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
@@ -269,8 +269,8 @@
   <update id="updateByPrimaryKey" parameterType="com.sjy.OA_Sys.bean.ChatRecord">
     update chat_record
     set chat_time_send = #{chatTimeSend,jdbcType=TIMESTAMP},
-      chat_sender = #{chatSender,jdbcType=INTEGER},
-      chat_receive = #{chatReceive,jdbcType=INTEGER},
+      chat_sender = #{chatSender,jdbcType=VARCHAR},
+      chat_receive = #{chatReceive,jdbcType=VARCHAR},
       is_group = #{isGroup,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
