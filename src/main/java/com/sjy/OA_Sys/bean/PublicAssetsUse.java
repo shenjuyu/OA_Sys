@@ -16,13 +16,16 @@ public class PublicAssetsUse {
 
     private Date useTerm;
 
-    public PublicAssetsUse(Integer id, String pubassId, String staffId, Integer useCount, Timestamp useTime, Date useTerm) {
+    private Integer useState;
+
+    public PublicAssetsUse(Integer id, String pubassId, String staffId, Integer useCount, Timestamp useTime, Date useTerm, Integer useState) {
         this.id = id;
         this.pubassId = pubassId;
         this.staffId = staffId;
         this.useCount = useCount;
         this.useTime = useTime;
         this.useTerm = useTerm;
+        this.useState = useState;
     }
 
     public PublicAssetsUse() {
@@ -75,5 +78,13 @@ public class PublicAssetsUse {
 
     public void setUseTerm(Date useTerm) {
         this.useTerm = useTerm;
+    }
+
+    public Integer getUseState() {
+        return useState;
+    }
+
+    public void setUseState(Integer useState) {
+        this.useState = useState;
     }
 }

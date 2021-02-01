@@ -9,7 +9,7 @@ public class Project {
 
     private String staffId;
 
-    private String proNaem;
+    private String proName;
 
     private Timestamp proTimeCre;
 
@@ -21,11 +21,11 @@ public class Project {
 
     private Integer proState;
 
-    public Project(Integer id, String proId, String staffId, String proNaem, Timestamp proTimeCre, Timestamp proTimeStart, Timestamp proTimeEnd, String proRateProgress, Integer proState) {
+    public Project(Integer id, String proId, String staffId, String proName, Timestamp proTimeCre, Timestamp proTimeStart, Timestamp proTimeEnd, String proRateProgress, Integer proState) {
         this.id = id;
         this.proId = proId;
         this.staffId = staffId;
-        this.proNaem = proNaem;
+        this.proName = proName;
         this.proTimeCre = proTimeCre;
         this.proTimeStart = proTimeStart;
         this.proTimeEnd = proTimeEnd;
@@ -61,12 +61,12 @@ public class Project {
         this.staffId = staffId == null ? null : staffId.trim();
     }
 
-    public String getProNaem() {
-        return proNaem;
+    public String getProName() {
+        return proName;
     }
 
-    public void setProNaem(String proNaem) {
-        this.proNaem = proNaem == null ? null : proNaem.trim();
+    public void setProName(String proName) {
+        this.proName = proName == null ? null : proName.trim();
     }
 
     public Timestamp getProTimeCre() {

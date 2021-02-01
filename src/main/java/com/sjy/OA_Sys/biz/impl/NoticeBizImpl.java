@@ -48,12 +48,12 @@ public class NoticeBizImpl implements NoticeBiz {
 				if(notice.getNoticeTime()!=null) {
 					criteria.andNoticeTimeBetween(notice.getNoticeTime(), new Timestamp(new Date().getTime()));
 				}
-				
-				// 分页
-				if (pageNum != null && pageSize != null) {
-					PageHelper.startPage(pageNum, pageSize);
-					return nm.selectByExample(ne);
-				}
+			}
+			
+			// 分页
+			if (pageNum != null && pageSize != null) {
+				PageHelper.startPage(pageNum, pageSize);
+				return nm.selectByExample(ne);
 			}
 			return nm.selectByExample(ne);
 		} catch (Exception e) {

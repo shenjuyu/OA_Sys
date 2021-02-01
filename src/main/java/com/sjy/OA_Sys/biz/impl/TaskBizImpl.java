@@ -73,18 +73,19 @@ public class TaskBizImpl implements TaskBiz {
 				if(task.getTaskTimeStart()!=null) {
 					criteria.andTaskTimeStartEqualTo(task.getTaskTimeStart());
 				}
-				
-				// 分页
-				if (pageNum != null && pageSize != null) {
-					if(withBLOB) {
-						PageHelper.startPage(pageNum, pageSize);
-						return tm.selectByExampleWithBLOBs(te);
-					}else {
-						PageHelper.startPage(pageNum, pageSize);
-						return tm.selectByExample(te);
-					}
+			}
+			
+			// 分页
+			if (pageNum != null && pageSize != null) {
+				if(withBLOB) {
+					PageHelper.startPage(pageNum, pageSize);
+					return tm.selectByExampleWithBLOBs(te);
+				}else {
+					PageHelper.startPage(pageNum, pageSize);
+					return tm.selectByExample(te);
 				}
 			}
+			
 			if(withBLOB) {
 				PageHelper.startPage(pageNum, pageSize);
 				return tm.selectByExampleWithBLOBs(te);

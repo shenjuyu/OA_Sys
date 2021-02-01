@@ -6,7 +6,7 @@
       <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="pro_id" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="staff_id" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="pro_naem" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="pro_name" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="pro_time_cre" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
       <arg column="pro_time_start" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
       <arg column="pro_time_end" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
@@ -19,7 +19,7 @@
       <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="pro_id" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="staff_id" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="pro_naem" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="pro_name" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="pro_time_cre" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
       <arg column="pro_time_start" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
       <arg column="pro_time_end" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
@@ -89,7 +89,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, pro_id, staff_id, pro_naem, pro_time_cre, pro_time_start, pro_time_end, pro_rate_progress, 
+    id, pro_id, staff_id, pro_name, pro_time_cre, pro_time_start, pro_time_end, pro_rate_progress, 
     pro_state
   </sql>
   <sql id="Blob_Column_List">
@@ -147,11 +147,11 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into project (pro_id, staff_id, pro_naem, 
+    insert into project (pro_id, staff_id, pro_name, 
       pro_time_cre, pro_time_start, pro_time_end, 
       pro_rate_progress, pro_state, pro_des, 
       pro_attachment, pro_comments)
-    values (#{proId,jdbcType=VARCHAR}, #{staffId,jdbcType=VARCHAR}, #{proNaem,jdbcType=VARCHAR}, 
+    values (#{proId,jdbcType=VARCHAR}, #{staffId,jdbcType=VARCHAR}, #{proName,jdbcType=VARCHAR}, 
       #{proTimeCre,jdbcType=TIMESTAMP}, #{proTimeStart,jdbcType=TIMESTAMP}, #{proTimeEnd,jdbcType=TIMESTAMP}, 
       #{proRateProgress,jdbcType=VARCHAR}, #{proState,jdbcType=INTEGER}, #{proDes,jdbcType=LONGVARCHAR}, 
       #{proAttachment,jdbcType=LONGVARCHAR}, #{proComments,jdbcType=LONGVARCHAR})
@@ -168,8 +168,8 @@
       <if test="staffId != null">
         staff_id,
       </if>
-      <if test="proNaem != null">
-        pro_naem,
+      <if test="proName != null">
+        pro_name,
       </if>
       <if test="proTimeCre != null">
         pro_time_cre,
@@ -203,8 +203,8 @@
       <if test="staffId != null">
         #{staffId,jdbcType=VARCHAR},
       </if>
-      <if test="proNaem != null">
-        #{proNaem,jdbcType=VARCHAR},
+      <if test="proName != null">
+        #{proName,jdbcType=VARCHAR},
       </if>
       <if test="proTimeCre != null">
         #{proTimeCre,jdbcType=TIMESTAMP},
@@ -250,8 +250,8 @@
       <if test="record.staffId != null">
         staff_id = #{record.staffId,jdbcType=VARCHAR},
       </if>
-      <if test="record.proNaem != null">
-        pro_naem = #{record.proNaem,jdbcType=VARCHAR},
+      <if test="record.proName != null">
+        pro_name = #{record.proName,jdbcType=VARCHAR},
       </if>
       <if test="record.proTimeCre != null">
         pro_time_cre = #{record.proTimeCre,jdbcType=TIMESTAMP},
@@ -287,7 +287,7 @@
     set id = #{record.id,jdbcType=INTEGER},
       pro_id = #{record.proId,jdbcType=VARCHAR},
       staff_id = #{record.staffId,jdbcType=VARCHAR},
-      pro_naem = #{record.proNaem,jdbcType=VARCHAR},
+      pro_name = #{record.proName,jdbcType=VARCHAR},
       pro_time_cre = #{record.proTimeCre,jdbcType=TIMESTAMP},
       pro_time_start = #{record.proTimeStart,jdbcType=TIMESTAMP},
       pro_time_end = #{record.proTimeEnd,jdbcType=TIMESTAMP},
@@ -305,7 +305,7 @@
     set id = #{record.id,jdbcType=INTEGER},
       pro_id = #{record.proId,jdbcType=VARCHAR},
       staff_id = #{record.staffId,jdbcType=VARCHAR},
-      pro_naem = #{record.proNaem,jdbcType=VARCHAR},
+      pro_name = #{record.proName,jdbcType=VARCHAR},
       pro_time_cre = #{record.proTimeCre,jdbcType=TIMESTAMP},
       pro_time_start = #{record.proTimeStart,jdbcType=TIMESTAMP},
       pro_time_end = #{record.proTimeEnd,jdbcType=TIMESTAMP},
@@ -324,8 +324,8 @@
       <if test="staffId != null">
         staff_id = #{staffId,jdbcType=VARCHAR},
       </if>
-      <if test="proNaem != null">
-        pro_naem = #{proNaem,jdbcType=VARCHAR},
+      <if test="proName != null">
+        pro_name = #{proName,jdbcType=VARCHAR},
       </if>
       <if test="proTimeCre != null">
         pro_time_cre = #{proTimeCre,jdbcType=TIMESTAMP},
@@ -358,7 +358,7 @@
     update project
     set pro_id = #{proId,jdbcType=VARCHAR},
       staff_id = #{staffId,jdbcType=VARCHAR},
-      pro_naem = #{proNaem,jdbcType=VARCHAR},
+      pro_name = #{proName,jdbcType=VARCHAR},
       pro_time_cre = #{proTimeCre,jdbcType=TIMESTAMP},
       pro_time_start = #{proTimeStart,jdbcType=TIMESTAMP},
       pro_time_end = #{proTimeEnd,jdbcType=TIMESTAMP},
@@ -373,7 +373,7 @@
     update project
     set pro_id = #{proId,jdbcType=VARCHAR},
       staff_id = #{staffId,jdbcType=VARCHAR},
-      pro_naem = #{proNaem,jdbcType=VARCHAR},
+      pro_name = #{proName,jdbcType=VARCHAR},
       pro_time_cre = #{proTimeCre,jdbcType=TIMESTAMP},
       pro_time_start = #{proTimeStart,jdbcType=TIMESTAMP},
       pro_time_end = #{proTimeEnd,jdbcType=TIMESTAMP},

@@ -22,6 +22,8 @@ public class StaffBizImpl implements StaffBiz{
 	private StaffMapper stm;
 	@Resource
 	private SendEmail sendEmail;
+	@Resource
+	private DepartBizImpl dbi;
 	
 	private StaffExample stem = new StaffExample();
 	
@@ -93,6 +95,21 @@ public class StaffBizImpl implements StaffBiz{
 			return new Result(1, "重置成功");
 		}
 		return new Result(0, "重置密码失败");
+	}
+
+	@Override
+	public List<Staff> findStaff(Staff staff) {
+		try {
+			// 登录员工的部门编号  查找属于该部门的员工
+			stem.createCriteria()
+				.andDepartIdEqualTo(staff.getDepartId());
+			return stm.selectByExample(stem);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			stem.clear();
+		}
+		return null;
 	}
 
 	

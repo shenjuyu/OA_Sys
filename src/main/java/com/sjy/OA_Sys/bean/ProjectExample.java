@@ -305,73 +305,73 @@ public class ProjectExample {
             return (Criteria) this;
         }
 
-        public Criteria andProNaemIsNull() {
-            addCriterion("pro_naem is null");
+        public Criteria andProNameIsNull() {
+            addCriterion("pro_name is null");
             return (Criteria) this;
         }
 
-        public Criteria andProNaemIsNotNull() {
-            addCriterion("pro_naem is not null");
+        public Criteria andProNameIsNotNull() {
+            addCriterion("pro_name is not null");
             return (Criteria) this;
         }
 
-        public Criteria andProNaemEqualTo(String value) {
-            addCriterion("pro_naem =", value, "proNaem");
+        public Criteria andProNameEqualTo(String value) {
+            addCriterion("pro_name =", value, "proName");
             return (Criteria) this;
         }
 
-        public Criteria andProNaemNotEqualTo(String value) {
-            addCriterion("pro_naem <>", value, "proNaem");
+        public Criteria andProNameNotEqualTo(String value) {
+            addCriterion("pro_name <>", value, "proName");
             return (Criteria) this;
         }
 
-        public Criteria andProNaemGreaterThan(String value) {
-            addCriterion("pro_naem >", value, "proNaem");
+        public Criteria andProNameGreaterThan(String value) {
+            addCriterion("pro_name >", value, "proName");
             return (Criteria) this;
         }
 
-        public Criteria andProNaemGreaterThanOrEqualTo(String value) {
-            addCriterion("pro_naem >=", value, "proNaem");
+        public Criteria andProNameGreaterThanOrEqualTo(String value) {
+            addCriterion("pro_name >=", value, "proName");
             return (Criteria) this;
         }
 
-        public Criteria andProNaemLessThan(String value) {
-            addCriterion("pro_naem <", value, "proNaem");
+        public Criteria andProNameLessThan(String value) {
+            addCriterion("pro_name <", value, "proName");
             return (Criteria) this;
         }
 
-        public Criteria andProNaemLessThanOrEqualTo(String value) {
-            addCriterion("pro_naem <=", value, "proNaem");
+        public Criteria andProNameLessThanOrEqualTo(String value) {
+            addCriterion("pro_name <=", value, "proName");
             return (Criteria) this;
         }
 
-        public Criteria andProNaemLike(String value) {
-            addCriterion("pro_naem like", value, "proNaem");
+        public Criteria andProNameLike(String value) {
+            addCriterion("pro_name like", value, "proName");
             return (Criteria) this;
         }
 
-        public Criteria andProNaemNotLike(String value) {
-            addCriterion("pro_naem not like", value, "proNaem");
+        public Criteria andProNameNotLike(String value) {
+            addCriterion("pro_name not like", value, "proName");
             return (Criteria) this;
         }
 
-        public Criteria andProNaemIn(List<String> values) {
-            addCriterion("pro_naem in", values, "proNaem");
+        public Criteria andProNameIn(List<String> values) {
+            addCriterion("pro_name in", values, "proName");
             return (Criteria) this;
         }
 
-        public Criteria andProNaemNotIn(List<String> values) {
-            addCriterion("pro_naem not in", values, "proNaem");
+        public Criteria andProNameNotIn(List<String> values) {
+            addCriterion("pro_name not in", values, "proName");
             return (Criteria) this;
         }
 
-        public Criteria andProNaemBetween(String value1, String value2) {
-            addCriterion("pro_naem between", value1, value2, "proNaem");
+        public Criteria andProNameBetween(String value1, String value2) {
+            addCriterion("pro_name between", value1, value2, "proName");
             return (Criteria) this;
         }
 
-        public Criteria andProNaemNotBetween(String value1, String value2) {
-            addCriterion("pro_naem not between", value1, value2, "proNaem");
+        public Criteria andProNameNotBetween(String value1, String value2) {
+            addCriterion("pro_name not between", value1, value2, "proName");
             return (Criteria) this;
         }
 

@@ -9,6 +9,7 @@
       <arg column="use_count" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="use_time" javaType="java.sql.Timestamp" jdbcType="DATE" />
       <arg column="use_term" javaType="java.util.Date" jdbcType="DATE" />
+      <arg column="use_state" javaType="java.lang.Integer" jdbcType="INTEGER" />
     </constructor>
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -70,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, pubass_id, staff_id, use_count, use_time, use_term
+    id, pubass_id, staff_id, use_count, use_time, use_term, use_state
   </sql>
   <select id="selectByExample" parameterType="com.sjy.OA_Sys.bean.PublicAssetsUseExample" resultMap="BaseResultMap">
     select
@@ -107,9 +108,11 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into public_assets_use (pubass_id, staff_id, use_count, 
-      use_time, use_term)
+      use_time, use_term, use_state
+      )
     values (#{pubassId,jdbcType=VARCHAR}, #{staffId,jdbcType=VARCHAR}, #{useCount,jdbcType=INTEGER}, 
-      #{useTime,jdbcType=DATE}, #{useTerm,jdbcType=DATE})
+      #{useTime,jdbcType=DATE}, #{useTerm,jdbcType=DATE}, #{useState,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.sjy.OA_Sys.bean.PublicAssetsUse">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -132,6 +135,9 @@
       <if test="useTerm != null">
         use_term,
       </if>
+      <if test="useState != null">
+        use_state,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="pubassId != null">
@@ -148,6 +154,9 @@
       </if>
       <if test="useTerm != null">
         #{useTerm,jdbcType=DATE},
+      </if>
+      <if test="useState != null">
+        #{useState,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -178,6 +187,9 @@
       <if test="record.useTerm != null">
         use_term = #{record.useTerm,jdbcType=DATE},
       </if>
+      <if test="record.useState != null">
+        use_state = #{record.useState,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -190,7 +202,8 @@
       staff_id = #{record.staffId,jdbcType=VARCHAR},
       use_count = #{record.useCount,jdbcType=INTEGER},
       use_time = #{record.useTime,jdbcType=DATE},
-      use_term = #{record.useTerm,jdbcType=DATE}
+      use_term = #{record.useTerm,jdbcType=DATE},
+      use_state = #{record.useState,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -213,6 +226,9 @@
       <if test="useTerm != null">
         use_term = #{useTerm,jdbcType=DATE},
       </if>
+      <if test="useState != null">
+        use_state = #{useState,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -222,7 +238,8 @@
       staff_id = #{staffId,jdbcType=VARCHAR},
       use_count = #{useCount,jdbcType=INTEGER},
       use_time = #{useTime,jdbcType=DATE},
-      use_term = #{useTerm,jdbcType=DATE}
+      use_term = #{useTerm,jdbcType=DATE},
+      use_state = #{useState,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

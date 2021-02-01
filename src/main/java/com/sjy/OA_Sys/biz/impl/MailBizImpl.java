@@ -65,25 +65,19 @@ public class MailBizImpl implements MailBiz {
 				if (mail.getMailTitle() != null) {
 					criteria.andMailTitleEqualTo(mail.getMailTitle());
 				}
-
-				// 分页
-				if (pageNum != null && pageSize != null) {
-					PageHelper.startPage(pageNum, pageSize);
-					// 分页 && 是否需要邮件详情
-					if (withBLOB) {
-						return mm.selectByExampleWithBLOBs(me);
-					} else {
-						return mm.selectByExample(me);
-					}
-				}
-
-				// 是否需要邮件详情
+			}
+			// 分页
+			if (pageNum != null && pageSize != null) {
+				// 分页 && 是否需要邮件详情
 				if (withBLOB) {
+					PageHelper.startPage(pageNum, pageSize);
 					return mm.selectByExampleWithBLOBs(me);
 				} else {
+					PageHelper.startPage(pageNum, pageSize);
 					return mm.selectByExample(me);
 				}
 			}
+
 			// 是否需要邮件详情
 			if (withBLOB) {
 				return mm.selectByExampleWithBLOBs(me);
