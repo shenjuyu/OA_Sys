@@ -376,6 +376,66 @@ public class StaffExample {
             return (Criteria) this;
         }
 
+        public Criteria andStaffSexIsNull() {
+            addCriterion("staff_sex is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffSexIsNotNull() {
+            addCriterion("staff_sex is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffSexEqualTo(Integer value) {
+            addCriterion("staff_sex =", value, "staffSex");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffSexNotEqualTo(Integer value) {
+            addCriterion("staff_sex <>", value, "staffSex");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffSexGreaterThan(Integer value) {
+            addCriterion("staff_sex >", value, "staffSex");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffSexGreaterThanOrEqualTo(Integer value) {
+            addCriterion("staff_sex >=", value, "staffSex");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffSexLessThan(Integer value) {
+            addCriterion("staff_sex <", value, "staffSex");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffSexLessThanOrEqualTo(Integer value) {
+            addCriterion("staff_sex <=", value, "staffSex");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffSexIn(List<Integer> values) {
+            addCriterion("staff_sex in", values, "staffSex");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffSexNotIn(List<Integer> values) {
+            addCriterion("staff_sex not in", values, "staffSex");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffSexBetween(Integer value1, Integer value2) {
+            addCriterion("staff_sex between", value1, value2, "staffSex");
+            return (Criteria) this;
+        }
+
+        public Criteria andStaffSexNotBetween(Integer value1, Integer value2) {
+            addCriterion("staff_sex not between", value1, value2, "staffSex");
+            return (Criteria) this;
+        }
+        
         public Criteria andStaffBirthIsNull() {
             addCriterion("staff_birth is null");
             return (Criteria) this;

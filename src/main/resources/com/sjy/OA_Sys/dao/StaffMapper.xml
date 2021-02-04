@@ -7,6 +7,7 @@
       <arg column="staff_id" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="staff_pwd" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="staff_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="staff_sex" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="staff_birth" javaType="java.sql.Timestamp" jdbcType="DATE" />
       <arg column="staff_id_card" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="staff_tel" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -18,11 +19,14 @@
       <arg column="staff_power" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="depart_id" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
+    <association property="depart" autoMapping="true" column="depart_id"
+    	select="com.sjy.OA_Sys.dao.DepartMapper.selectByDepartId"></association>
   </resultMap>
   <resultMap id="NotImpResultMap" type="com.sjy.OA_Sys.bean.Staff">
     <constructor>
       <arg column="staff_id" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="staff_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="staff_sex" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="staff_img" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="staff_state" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="staff_power" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -89,7 +93,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, staff_id, staff_pwd, staff_name, staff_birth, staff_id_card, staff_tel, staff_email, 
+    id, staff_id, staff_pwd, staff_name, staff_sex, staff_birth, staff_id_card, staff_tel, staff_email, 
     staff_addr, staff_img, staff_wages, staff_state, staff_power, depart_id
   </sql>
   <select id="selectByExample" parameterType="com.sjy.OA_Sys.bean.StaffExample" resultMap="BaseResultMap">
@@ -134,15 +138,15 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into staff (staff_id, staff_pwd, staff_name, 
-      staff_birth, staff_id_card, staff_tel, 
+      staff_sex, staff_birth, staff_id_card, staff_tel, 
       staff_email, staff_addr, staff_img, 
       staff_wages, staff_state, staff_power, 
       depart_id)
     values (#{staffId,jdbcType=VARCHAR}, #{staffPwd,jdbcType=VARCHAR}, #{staffName,jdbcType=VARCHAR}, 
-      #{staffBirth,jdbcType=DATE}, #{staffIdCard,jdbcType=VARCHAR}, #{staffTel,jdbcType=VARCHAR}, 
-      #{staffEmail,jdbcType=VARCHAR}, #{staffAddr,jdbcType=VARCHAR}, #{staffImg,jdbcType=VARCHAR}, 
-      #{staffWages,jdbcType=DECIMAL}, #{staffState,jdbcType=INTEGER}, #{staffPower,jdbcType=VARCHAR}, 
-      #{departId,jdbcType=VARCHAR})
+      #{staffSex,jdbcType=INTEGER}, #{staffBirth,jdbcType=DATE}, #{staffIdCard,jdbcType=VARCHAR},
+      #{staffTel,jdbcType=VARCHAR}, #{staffEmail,jdbcType=VARCHAR}, #{staffAddr,jdbcType=VARCHAR}, 
+      #{staffImg,jdbcType=VARCHAR}, #{staffWages,jdbcType=DECIMAL}, #{staffState,jdbcType=INTEGER}, 
+      #{staffPower,jdbcType=VARCHAR}, #{departId,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.sjy.OA_Sys.bean.Staff">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -158,6 +162,9 @@
       </if>
       <if test="staffName != null">
         staff_name,
+      </if>
+      <if test="staffSex != null">
+        staff_sex,
       </if>
       <if test="staffBirth != null">
         staff_birth,
@@ -199,6 +206,9 @@
       </if>
       <if test="staffName != null">
         #{staffName,jdbcType=VARCHAR},
+      </if>
+      <if test="staffSex != null">
+        #{staffSex,jdbcType=INTEGER},
       </if>
       <if test="staffBirth != null">
         #{staffBirth,jdbcType=DATE},
@@ -253,6 +263,9 @@
       <if test="record.staffName != null">
         staff_name = #{record.staffName,jdbcType=VARCHAR},
       </if>
+      <if test="record.staffSex != null">
+        staff_sex = #{record.staffSex,jdbcType=INTEGER},
+      </if>
       <if test="record.staffBirth != null">
         staff_birth = #{record.staffBirth,jdbcType=DATE},
       </if>
@@ -294,6 +307,7 @@
       staff_id = #{record.staffId,jdbcType=VARCHAR},
       staff_pwd = #{record.staffPwd,jdbcType=VARCHAR},
       staff_name = #{record.staffName,jdbcType=VARCHAR},
+      staff_sex = #{record.staffSex,jdbcType=INTEGER},
       staff_birth = #{record.staffBirth,jdbcType=DATE},
       staff_id_card = #{record.staffIdCard,jdbcType=VARCHAR},
       staff_tel = #{record.staffTel,jdbcType=VARCHAR},
@@ -319,6 +333,9 @@
       </if>
       <if test="staffName != null">
         staff_name = #{staffName,jdbcType=VARCHAR},
+      </if>
+      <if test="staffSex != null">
+        staff_sex = #{staffSex,jdbcType=INTEGER},
       </if>
       <if test="staffBirth != null">
         staff_birth = #{staffBirth,jdbcType=DATE},
@@ -358,6 +375,7 @@
     set staff_id = #{staffId,jdbcType=VARCHAR},
       staff_pwd = #{staffPwd,jdbcType=VARCHAR},
       staff_name = #{staffName,jdbcType=VARCHAR},
+      staff_sex = #{staffSex,jdbcType=INTEGER},
       staff_birth = #{staffBirth,jdbcType=DATE},
       staff_id_card = #{staffIdCard,jdbcType=VARCHAR},
       staff_tel = #{staffTel,jdbcType=VARCHAR},

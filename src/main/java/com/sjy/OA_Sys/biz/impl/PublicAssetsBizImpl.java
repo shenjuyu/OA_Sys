@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Service;
+
 import com.github.pagehelper.PageHelper;
 import com.sjy.OA_Sys.bean.PublicAssets;
 import com.sjy.OA_Sys.bean.PublicAssetsExample;
@@ -12,6 +14,7 @@ import com.sjy.OA_Sys.bean.Result;
 import com.sjy.OA_Sys.biz.PublicAssetsBiz;
 import com.sjy.OA_Sys.dao.PublicAssetsMapper;
 
+@Service
 public class PublicAssetsBizImpl implements PublicAssetsBiz {
 
 	@Resource

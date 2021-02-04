@@ -4,12 +4,15 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Service;
+
 import com.sjy.OA_Sys.bean.Depart;
 import com.sjy.OA_Sys.bean.DepartExample;
 import com.sjy.OA_Sys.bean.DepartExample.Criteria;
 import com.sjy.OA_Sys.bean.Result;
 import com.sjy.OA_Sys.dao.DepartMapper;
 
+@Service
 public class DepartBizImpl implements com.sjy.OA_Sys.biz.DepartBiz {
 
 	@Resource

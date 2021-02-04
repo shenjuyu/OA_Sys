@@ -21,6 +21,6 @@ public interface NoticeBiz {
 	 * @param pageSize
 	 * @return
 	 */
-	List<Notice> findNotice(Notice notice,Integer pageNum,Integer pageSize);
+	List<Notice> findNotice(Notice notice, Boolean read, String staffId,Integer pageNum,Integer pageSize);
 	
 }

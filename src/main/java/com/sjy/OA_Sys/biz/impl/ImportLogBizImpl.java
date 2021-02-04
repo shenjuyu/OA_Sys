@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Service;
+
 import com.sjy.OA_Sys.bean.ImportLog;
 import com.sjy.OA_Sys.bean.ImportLogExample;
 import com.sjy.OA_Sys.bean.ImportLogExample.Criteria;
@@ -12,6 +14,7 @@ import com.sjy.OA_Sys.bean.Result;
 import com.sjy.OA_Sys.biz.ImportLogBiz;
 import com.sjy.OA_Sys.dao.ImportLogMapper;
 
+@Service
 public class ImportLogBizImpl implements ImportLogBiz {
 
 	@Resource

@@ -28,11 +28,11 @@ public interface StaffBiz {
 	String findUserEmail(String staffId);
 	
 	/**
-	 * 查找下属员工
+	 * 查找员工
 	 * @param staff
 	 * @return
 	 */
-	List<Staff> findStaff(Staff staff);
+	List<Staff> findStaff(Staff staff, Integer pageNum, Integer pageSize);
 	
 	/**
 	 * 修改员工密码

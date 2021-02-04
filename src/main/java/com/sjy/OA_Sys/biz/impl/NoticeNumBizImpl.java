@@ -4,12 +4,15 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Service;
+
 import com.sjy.OA_Sys.bean.NoticeNum;
 import com.sjy.OA_Sys.bean.NoticeNumExample;
 import com.sjy.OA_Sys.bean.Result;
 import com.sjy.OA_Sys.biz.NoticeNumBiz;
 import com.sjy.OA_Sys.dao.NoticeNumMapper;
 
+@Service
 public class NoticeNumBizImpl implements NoticeNumBiz {
 
 	@Resource

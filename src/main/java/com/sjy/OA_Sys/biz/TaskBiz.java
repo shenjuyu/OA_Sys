@@ -28,4 +28,14 @@ public interface TaskBiz {
 	 * @return
 	 */
 	List<?> findTask(Task task,Boolean withBLOB, Integer pageNum, Integer pageSize);
+	
+	/**
+	 * 根据员工ID查找未完成任务
+	 * @param task
+	 * @param withBLOB
+	 * @param pageNum
+	 * @param pageSize
+	 * @return
+	 */
+	List<?> findNoFinishedTask(String staffID,Boolean withBLOB, Integer pageNum, Integer pageSize);
 }

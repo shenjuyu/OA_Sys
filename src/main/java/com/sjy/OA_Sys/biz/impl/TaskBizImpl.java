@@ -1,22 +1,29 @@
 package com.sjy.OA_Sys.biz.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
 import com.sjy.OA_Sys.bean.Result;
 import com.sjy.OA_Sys.bean.Task;
 import com.sjy.OA_Sys.bean.TaskExample;
 import com.sjy.OA_Sys.bean.TaskExample.Criteria;
+import com.sjy.OA_Sys.bean.TaskGroup;
 import com.sjy.OA_Sys.bean.TaskWithBLOBs;
 import com.sjy.OA_Sys.biz.TaskBiz;
 import com.sjy.OA_Sys.dao.TaskMapper;
 
+@Service
 public class TaskBizImpl implements TaskBiz {
 
 	@Resource
 	private TaskMapper tm;
+	@Resource
+	private TaskGroupBizImpl tgbi;
 	
 	private TaskExample te = new TaskExample();
 	
@@ -99,6 +106,28 @@ public class TaskBizImpl implements TaskBiz {
 			te.clear();
 		}
 		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<TaskWithBLOBs> findNoFinishedTask(String staffId, Boolean withBLOB, Integer pageNum, Integer pageSize) {
+		// 先查出该员工位于哪几个小组  在查出这几个小组未完成的任务
+		List<TaskWithBLOBs> noFinishedTaskList = new ArrayList<TaskWithBLOBs>();
+		TaskGroup taskGroup = new TaskGroup();
+		taskGroup.setStaffId(staffId);
+		List<TaskGroup> taskGroups = tgbi.findTaskGroup(taskGroup);
+		if(taskGroups.size()>0) {
+			Task task = new Task();
+			task.setTaskState(3);
+			for (TaskGroup taskGroupFind : taskGroups) {
+				task.setTaskGroupId(taskGroupFind.getTaskGroupId());
+				noFinishedTaskList.addAll((List<TaskWithBLOBs>) findTask(task, withBLOB, pageNum, pageSize));
+			}
+			
+		}
+		
+		
+		return noFinishedTaskList;
 	}
 
 }

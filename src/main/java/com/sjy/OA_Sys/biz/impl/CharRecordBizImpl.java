@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Service;
+
 import com.github.pagehelper.PageHelper;
 import com.sjy.OA_Sys.bean.ChatRecord;
 import com.sjy.OA_Sys.bean.ChatRecordExample;
@@ -12,6 +14,7 @@ import com.sjy.OA_Sys.bean.Result;
 import com.sjy.OA_Sys.biz.CharRecordBiz;
 import com.sjy.OA_Sys.dao.ChatRecordMapper;
 
+@Service
 public class CharRecordBizImpl implements CharRecordBiz {
 
 	@Resource

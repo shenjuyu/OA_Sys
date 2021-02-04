@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import com.github.pagehelper.PageHelper;
 import com.sjy.OA_Sys.bean.Result;
 import com.sjy.OA_Sys.bean.Staff;
 import com.sjy.OA_Sys.bean.StaffExample;
+import com.sjy.OA_Sys.bean.StaffExample.Criteria;
 import com.sjy.OA_Sys.biz.StaffBiz;
 import com.sjy.OA_Sys.dao.StaffMapper;
 import com.sjy.OA_Sys.util.SendEmail;
@@ -98,11 +100,28 @@ public class StaffBizImpl implements StaffBiz{
 	}
 
 	@Override
-	public List<Staff> findStaff(Staff staff) {
+	public List<Staff> findStaff(Staff staff, Integer pageNum, Integer pageSize) {
 		try {
-			// 登录员工的部门编号  查找属于该部门的员工
-			stem.createCriteria()
-				.andDepartIdEqualTo(staff.getDepartId());
+			Criteria criteria = stem.createCriteria();
+			if(staff!=null) {
+				if(staff.getDepartId()!=null) {
+					criteria.andDepartIdEqualTo(staff.getDepartId());
+				}
+				if(staff.getStaffId()!=null) {
+					criteria.andStaffIdEqualTo(staff.getStaffId());
+				}
+				if(staff.getStaffName()!=null) {
+					criteria.andStaffNameLike(staff.getStaffName());
+				}
+				if(staff.getStaffState()!=null) {
+					criteria.andStaffStateEqualTo(staff.getStaffState());
+				}
+			}
+			
+			if(pageNum!=null && pageSize!=null) {
+				PageHelper.startPage(pageNum, pageSize);
+				return stm.selectByExample(stem);
+			}
 			return stm.selectByExample(stem);
 		} catch (Exception e) {
 			e.printStackTrace();

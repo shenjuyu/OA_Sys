@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import com.sjy.OA_Sys.bean.AttSheet;
 import com.sjy.OA_Sys.bean.AttSheetExample;
@@ -15,6 +16,7 @@ import com.sjy.OA_Sys.biz.AttSheetBiz;
 import com.sjy.OA_Sys.dao.AttSheetMapper;
 import com.sjy.OA_Sys.util.TimeUtil;
 
+@Service
 public class AttSheetBizImpl implements AttSheetBiz {
 
 	@Resource

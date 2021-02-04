@@ -106,63 +106,67 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 								<div class="staff-left">
 									<table>
 										<tr>
-											<td><img class="staff-img" src="images/staff-img1.jpg" /></td>
+											<td><img class="staff-img" th:src="${loginStaff.staffImg}" /></td>
 										</tr>
 										<tr>
-											<td>部门：开发部</td>
+											<td th:text="'部门：'+${loginStaff.depart.departName}">部门：开发部</td>
 										</tr>
-										<tr>
+										<!-- <tr>
 											<td>直接上级：刘根朔</td>
 										</tr>
 										<tr>
 											<td>下属：5</td>
+										</tr> -->
+										<tr>
+											<td th:if="${loginStaff.staffSex eq 1}">性别：男</td>
+											<td th:if="${loginStaff.staffSex eq 0}">性别：女</td>
 										</tr>
 										<tr>
 											<td>状态：正式</td>
 										</tr>
-										<tr>
+										<!-- <tr>
 											<td>最后登录：2021/1/22 20:23</td>
-										</tr>
+										</tr> -->
 									</table>
 								</div>
 								<div class="staff-right">
 									<table>
 										<tr>
 											<td class="left">工号</td>
-											<td class="right">17020140242</td>
+											<td class="right" th:text="${loginStaff.staffId}">17020140242</td>
 										</tr>
 										<tr>
 											<td class="left">姓名</td>
-											<td class="right">沈俊羽</td>
+											<td class="right" th:text="${loginStaff.staffName}">沈俊羽</td>
 										</tr>
 										<tr>
-											<td class="left">年龄</td>
-											<td class="right">24</td>
+											<td class="left">生日</td>
+											<td class="right" th:text="${loginStaff.staffBirth.toLocalDateTime().getYear()}+'-'+${loginStaff.staffBirth.toLocalDateTime().getMonthValue()}+'-'+${loginStaff.staffBirth.toLocalDateTime().getDayOfMonth()}">24</td>
 										</tr>
 										<tr>
 											<td class="left">身份证号</td>
-											<td class="right">3713241999********</td>
+											<td class="right" th:text="${loginStaff.staffIdCard.substring(0,9)}+'********'">3713241999********</td>
 										</tr>
 										<tr>
 											<td class="left">手机号</td>
-											<td class="right">175****4608</td>
+											<td class="right" th:text="${loginStaff.staffTel.substring(0,3)}+'****'+${loginStaff.staffTel.substring(7)}">175****4608</td>
 										</tr>
 										<tr>
 											<td class="left">邮箱</td>
-											<td class="right">175***5809@qq.com</td>
+											<td class="right" th:text="${loginStaff.staffEmail.substring(0,3)}+'***'+${loginStaff.staffEmail.substring(6)}">175***5809@qq.com</td>
 										</tr>
 										<tr>
 											<td class="left">住址</td>
-											<td class="right">山东省临沂市兰陵县</td>
+											<td class="right" th:text="${loginStaff.staffAddr}">山东省临沂市兰陵县</td>
 										</tr>
 										<tr>
 											<td class="left">工资</td>
-											<td class="right">7400</td>
+											<td class="right" th:text="${loginStaff.staffWages}">7400</td>
 										</tr>
 									</table>
-									<a href="#" class="staff-edit">
+									<!-- <a href="#" class="staff-edit">
 										<span class="label label-info">编辑</span>
-									</a>
+									</a> -->
 								</div>
 
 							</div>
@@ -171,9 +175,9 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 									<div class="bs-example widget-shadow" data-example-id="hoverable-table">
 										<!-- 条件查询 -->
 										<form id="staffFindForm" action="staffFind.do" method="post">
-											<input type="text" style="margin-left: 2%;" placeholder="员工编号" id="findStaffId" name="trueId" />
-											<input type="text" style="margin-left: 2%;" placeholder="员工姓名" id="findStaffName" name="trueName" />
-											<select class="input-sm" style="font-size: 13px;margin-left: 2%;" name="state" id="findUserState">
+											<input type="text" style="margin-left: 2%;" placeholder="员工编号" id="findStaffId" name="staffId" />
+											<input type="text" style="margin-left: 2%;" placeholder="员工姓名" id="findStaffName" name="staffName" />
+											<select class="input-sm" style="font-size: 13px;margin-left: 2%;" name="staffState" id="findStaffState">
 												<option value="4">未选择</option>
 												<option value="0">实习</option>
 												<option value="1">试用</option>
@@ -183,8 +187,27 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 											<button class="label label-info" style="font-size: large;">查询</button>
 										</form>
 										<!-- //条件查询 -->
+										<script type="text/javascript">
+										   var staffId;
+										   var staffName;
+										   var staffState;
+										   
+										   function toPage(page){
+												$("#staffShowTable").load("staffShowToPage.do", {staffId: staffId,staffName:staffName,staffState:staffState}, function(){});
+											}
+											
+											$(function(){
+												$("#staffFindForm").submit(function(){     // 提交表单的id
+													staffId = $('#findStaffId').val();
+													staffName = $('#findStaffName').val();
+													staffState = $('#findStaffState').val();													
+													$("#staffShowTable").load("staffFind.do", {staffId: staffId,staffName:staffName,staffState:staffState}, function(){});
+											        return false;   //防止表单自动提交
+											    });
+											});
+										</script>
 										
-										<div id="userShowTable">
+										<div id="staffShowTable" th:fragment="staffShowTable">
 											<table class="table table-hover">
 												<thead>
 													<tr>
@@ -193,53 +216,90 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 														<th>性别</th>
 														<th>电话</th>
 														<th>邮箱</th>
-														<th>注册时间</th>
+														<th>生日</th>
 														<th>状态</th>
-														<th>操作</th><!-- 点击查看详情，跳转到product-add.html页面，填充所有的数据 -->
+														<th>操作</th>
 													</tr>
 												</thead>
 												<tbody>
-													<tr>
-														<th scope="row" >1</th>
-														<td >张三</td>
+													<tr th:each="staff:${departStaffs}">
+														<th scope="row" th:text="${staff.staffId}">1</th>
+														<td th:text="${staff.staffName}">张三</td>
 														<td>
-															<span >女</span>
-															<span >男</span>
-															<span>未知</span>
+															<span th:if="${staff.staffSex eq 0}">女</span>
+															<span th:if="${staff.staffSex eq 1}">男</span>
 														</td>
-														<td></td>
-														<td></td>
-														<td>2020-2-22
+														<td th:text="${loginStaff.staffTel.substring(0,3)}+'****'+${loginStaff.staffTel.substring(7)}"></td>
+														<td th:text="${loginStaff.staffEmail.substring(0,3)}+'***'+${loginStaff.staffEmail.substring(6)}"></td>
+														<td th:text="${staff.staffBirth.toLocalDateTime().getYear()}+'-'+${staff.staffBirth.toLocalDateTime().getMonthValue()}+'-'+${staff.staffBirth.toLocalDateTime().getDayOfMonth()}">2020-2-22
 															22:22</td>
 														<td>
-															<label class="label label-info">实习</label>
-															<label class="label label-primary">试用</label>
-															<label class="label label-success">正式</label>
-															<label class="label label-danger">离职</label>
+															<label th:if="${staff.staffState eq 0}" class="label label-info">实习</label>
+															<label th:if="${staff.staffState eq 1}" class="label label-primary">试用</label>
+															<label th:if="${staff.staffState eq 2}" class="label label-success">正式</label>
+															<label th:if="${staff.staffState eq 3}" class="label label-danger">离职</label>
 														</td>
-														<td><button type="button" class="btn btn-primary btn-lg" 
-															 data-toggle="modal" data-target="#gridSystemModal" style="padding: 6px;font-size: 11px;">查看详情 </button></td>
+														<td><button type="button" class="btn btn-primary btn-lg" th:onclick="showStaffDetails([[${staff.staffId}]])"
+														 data-toggle="modal" data-target="#gridSystemModal" style="padding: 6px;font-size: 11px;">查看详情 </button></td>
 													</tr>
 												</tbody>
 											</table>
-
+											<script type="text/javascript" th:inline="javascript">
+							     				function showStaffDetails(staff){
+							     					$.post('toShowStaffDetils.do',{staffId:staff},function(data){
+							     						var str='<div class="staffs-left"><table><tr>'
+							     							+'<td><img class="staffs-img" src="'+data.staffImg+'" /></td></tr>'
+							     							+'<tr><td>部门：'+data.depart.departName+'</td></tr><tr>'
+							     							+'<td>性别：5</td></tr><tr>';
+							     						if(data.staffSex==1){
+							     							str+='<td>性别：男</td></tr><tr>'
+							     						}else{
+							     							str+='<td>性别：女</td></tr><tr>'
+							     						}
+							     							
+							     						if(data.staffState==0){
+							     							str+='<td>状态：实习</td></tr><tr></table></div>'
+							     						}else if(data.staffState==1){
+							     							str+='<td>状态：使用</td></tr><tr></table></div>'
+							     						}else if(data.staffState==2){
+							     							str+='<td>状态：正式</td></tr><tr></table></div>'
+							     						}else if(data.staffState==3){
+							     							str+='<td>状态：离职</td></tr><tr></table></div>'
+							     						}
+							     						var date = new Date();
+							     						console.log(date.getFullYear());
+							     						str+='<div class="staffs-right"><table><tr>'
+							     							+'<td class="lefts">工号</td>'
+							     							+'<td class="rights">'+data.staffId+'</td></tr><tr>'
+							     							+'<td class="lefts">姓名</td>'
+							     							+'<td class="rights">'+data.staffName+'</td></tr><tr>'
+							     							+'<td class="lefts">年龄</td>'
+							     							+'<td class="rights">'+(date.getFullYear()-parseInt(data.staffBirth.substring(0,4)))+'</td></tr><tr>'
+							     							+'<td class="lefts">身份证号</td>'
+							     							+'<td class="rights">'+data.staffIdCard.substring(0,9)+'********</td></tr><tr>'
+							     							+'<td class="lefts">手机号</td>'
+							     							+'<td class="rights">'+data.staffTel.substring(0,3)+'****'+data.staffTel.substring(7)+'</td></tr><tr>'
+							     							+'<td class="lefts">邮箱</td>'
+							     							+'<td class="rights">'+data.staffEmail.substring(0,3)+'***'+data.staffEmail.substring(6)+'</td></tr><tr>'
+							     							+'<td class="lefts">住址</td>'
+							     							+'<td class="rights">'+data.staffAddr+'</td></tr></table></div>';
+							     						$('#staffDetilsWindow').html(str);
+							     					});
+							     				}
+											</script>
 											<!-- 分页查询 -->
 											<nav style="margin-left: 65%;">
 												<ul class="pagination pagination-lg">
 													<!-- class='disabled'为选中了第一个或者最后一个的样式 -->
-													<li class="disabled"><a href="javascript:void(0)" aria-label="Previous"><span
-															 aria-hidden="true">«</span></a></li>
-													<li><a href="javascript:void(0)" 
-														 aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-													<li ><a href="javascript:void(0)">1</a></li>
-													<li ><a href="javascript:void(0)">2</a></li>
-													<li class="active"><a href="javascript:void(0)">3</a></li><!-- 被选中 -->
-													<li ><a href="javascript:void(0)">4</a></li>
-													<li ><a href="javascript:void(0)">5</a></li>
-													<li  class="disabled"><a href="javascript:void(0)" aria-label="Next"><span
-															 aria-hidden="true">»</span></a></li>
-													<li ><a href="javascript:void(0)"  
-														 aria-label="Next"><span aria-hidden="true">»</span></a></li>
+													<li th:if="${departStaffs.pageNum eq 1}" class="disabled"><a href="javascript:void(0)" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+													<li th:if="${departStaffs.pageNum gt 1}" ><a href="javascript:void(0)" th:onclick="'toPage('+${departStaffs.pageNum-1}+')'" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+													<li th:if="${departStaffs.pageNum-2 gt 0 }"><a href="javascript:void(0)" th:onclick="'toPage('+${departStaffs.pageNum-2}+')'" th:text="${departStaffs.pageNum-2}">1</a></li>
+													<li th:if="${departStaffs.pageNum-1 gt 0 }"><a href="javascript:void(0)" th:onclick="'toPage('+${departStaffs.pageNum-1}+')'" th:text="${departStaffs.pageNum-1}">2</a></li>
+													<li class="active"><a href="javascript:void(0)" th:text="${departStaffs.pageNum}">3</a></li><!-- 被选中 -->
+													<li th:if="${departStaffs.pageNum+1 le departStaffs.pages}"><a href="javascript:void(0)" th:onclick="'toPage('+${departStaffs.pageNum+1}+')'" th:text="${departStaffs.pageNum+1}">4</a></li>
+													<li th:if="${departStaffs.pageNum+2 le departStaffs.pages}"><a href="javascript:void(0)" th:onclick="'toPage('+${departStaffs.pageNum+2}+')'" th:text="${departStaffs.pageNum+2}">5</a></li>
+													<li th:if="${departStaffs.pageNum eq departStaffs.pages}" class="disabled"><a href="javascript:void(0)"  aria-label="Next"><span aria-hidden="true">»</span></a></li>
+													<li th:if="${departStaffs.pageNum lt departStaffs.pages}"><a href="javascript:void(0)" th:onclick="'toPage('+${departStaffs.pageNum+1}+')'" aria-label="Next"><span aria-hidden="true">»</span></a></li>
 												</ul>
 											</nav>
 											<!-- //分页查询 -->
@@ -263,16 +323,10 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 																		<td>部门：开发部</td>
 																	</tr>
 																	<tr>
-																		<td>直接上级：刘根朔</td>
-																	</tr>
-																	<tr>
-																		<td>下属：5</td>
+																		<td>性别：男</td>
 																	</tr>
 																	<tr>
 																		<td>状态：正式</td>
-																	</tr>
-																	<tr>
-																		<td>最后登录：2021/1/22 20:23</td>
 																	</tr>
 																</table>
 															</div>
@@ -305,10 +359,6 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 																	<tr>
 																		<td class="lefts">住址</td>
 																		<td class="rights">山东省临沂市兰陵县</td>
-																	</tr>
-																	<tr>
-																		<td class="lefts">工资</td>
-																		<td class="rights">7400</td>
 																	</tr>
 																</table>
 															</div>

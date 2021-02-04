@@ -11,6 +11,8 @@ public class Staff {
     private String staffPwd;
 
     private String staffName;
+    
+    private Integer staffSex;
 
     private Timestamp staffBirth;
 
@@ -32,13 +34,14 @@ public class Staff {
 
     private String departId;
     
-    private String departName;
+    private Depart depart;
 
-    public Staff(Integer id, String staffId, String staffPwd, String staffName, Timestamp staffBirth, String staffIdCard, String staffTel, String staffEmail, String staffAddr, String staffImg, BigDecimal staffWages, Integer staffState, String staffPower, String departId) {
+    public Staff(Integer id, String staffId, String staffPwd, String staffName, Integer staffSex, Timestamp staffBirth, String staffIdCard, String staffTel, String staffEmail, String staffAddr, String staffImg, BigDecimal staffWages, Integer staffState, String staffPower, String departId) {
         this.id = id;
         this.staffId = staffId;
         this.staffPwd = staffPwd;
         this.staffName = staffName;
+        this.staffSex = staffSex;
         this.staffBirth = staffBirth;
         this.staffIdCard = staffIdCard;
         this.staffTel = staffTel;
@@ -85,6 +88,14 @@ public class Staff {
 
     public void setStaffName(String staffName) {
         this.staffName = staffName == null ? null : staffName.trim();
+    }
+
+    public Integer getStaffSex() {
+        return staffSex;
+    }
+
+    public void setStaffSex(Integer staffSex) {
+        this.staffSex = staffSex;
     }
 
     public Timestamp getStaffBirth() {
@@ -167,12 +178,12 @@ public class Staff {
         this.departId = departId == null ? null : departId.trim();
     }
 
-	public String getDepartName() {
-		return departName;
+	public Depart getDepart() {
+		return depart;
 	}
 
-	public void setDepartName(String departName) {
-		this.departName = departName;
+	public void setDepartName(Depart depart) {
+		this.depart = depart;
 	}
-    
+
 }

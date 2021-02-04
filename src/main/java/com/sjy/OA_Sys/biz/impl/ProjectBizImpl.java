@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Service;
+
 import com.github.pagehelper.PageHelper;
 import com.sjy.OA_Sys.bean.Project;
 import com.sjy.OA_Sys.bean.ProjectExample;
@@ -14,6 +16,7 @@ import com.sjy.OA_Sys.bean.TaskWithBLOBs;
 import com.sjy.OA_Sys.biz.ProjectBiz;
 import com.sjy.OA_Sys.dao.ProjectMapper;
 
+@Service
 public class ProjectBizImpl implements ProjectBiz {
 
 	@Resource

@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Service;
+
 import com.sjy.OA_Sys.bean.Result;
 import com.sjy.OA_Sys.bean.TaskGroup;
 import com.sjy.OA_Sys.bean.TaskGroupExample;
@@ -11,6 +13,7 @@ import com.sjy.OA_Sys.bean.TaskGroupExample.Criteria;
 import com.sjy.OA_Sys.biz.TaskGroupBiz;
 import com.sjy.OA_Sys.dao.TaskGroupMapper;
 
+@Service
 public class TaskGroupBizImpl implements TaskGroupBiz {
 
 	@Resource

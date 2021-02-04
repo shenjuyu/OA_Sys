@@ -13,7 +13,7 @@ spring:
 # 配置 静态资源路径
   resources:
     staticLocations:
-      file:/d:/ppt/,
+      file:/F:/Java_WorkSpace/ProjectFile,
       classpath:/static/,
       classpath:/META-INF/resources/,
       classpath:/resources/,
