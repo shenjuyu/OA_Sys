@@ -174,8 +174,13 @@ public class StaffBizImpl implements StaffBiz{
 				mailList.add(staff2);
 			}
 		}
-		
-		
+		int removeNum=0;
+		for(Staff staff3:mailList) {
+			if(staff3.getStaffId()==staff.getStaffId()) {
+				removeNum=mailList.indexOf(staff3);
+			}
+		}
+		mailList.remove(removeNum);
 		return mailList;
 	}
 

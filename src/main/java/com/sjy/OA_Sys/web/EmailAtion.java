@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,9 +20,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sjy.OA_Sys.bean.Mail;
 import com.sjy.OA_Sys.bean.MailWithBLOBs;
@@ -228,5 +231,48 @@ public class EmailAtion {
 	public Result toReadNow(MailWithBLOBs mail) {
 		mail.setMailSituation(2);
 		return mbi.updateMailSituation(mail);
+	}
+	
+	@PostMapping("uploadEmailAtta.do")
+	@ResponseBody
+	public Result toUploadEmailAtta(@RequestParam("file") MultipartFile file,@SessionAttribute(value="loginStaff") Staff loginStaff) {
+		Result result = fileUtil.fileUpload(file, "mailFile/");
+		if(result.getSucess()==0) {
+			return result;
+		}
+		return result;
+	}
+	
+	@PostMapping("sendEmail.do")
+	@ResponseBody
+	public Result toSendEmail(@RequestParam ArrayList<String> fileNames,String addresses,MailWithBLOBs mail,@SessionAttribute(value="loginStaff") Staff loginStaff) {
+		if(fileNames.size()>0) {// 处理附件
+			String fileName=FileOperationUtil.fileNameArrange(fileNames);
+			mail.setMailAttachment(fileName);
+		}
+		mail.setMailStaffSend(loginStaff.getStaffId());
+		
+		Result result = null;
+		// 处理收件者
+		String[] addressArr=addresses.split(";");
+		List<String> addressList = new ArrayList<String>();
+		for(int i =0;i<addressArr.length;i++) {
+			String address = addressArr[i];
+			addressList.add(address.substring(address.indexOf("<")+1, address.indexOf(">")));
+		}
+		
+		// 发送邮件
+		for(String trueAddress : addressList) {
+			mail.setMailId(mailCodeUtil.createEmailCode());
+			mail.setMailStaffAddressee(trueAddress);
+			mail.setMailSituation(1);
+			result = mbi.addMail(mail);
+			if(result.getSucess()==1) {
+				continue;
+			}else if(result.getSucess()==0){
+				return result;
+			}
+		}
+		return result;
 	}
 }

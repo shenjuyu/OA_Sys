@@ -7,12 +7,16 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.sjy.OA_Sys.bean.Result;
 
 @Component
 public class FileOperationUtil {
@@ -28,7 +32,7 @@ public class FileOperationUtil {
 	 * @param fileNextPath 服务器存放的下级路径
 	 * @param request
 	 * @param response
-	 * @return
+	 * @return String
 	 */
 	public String download(String fileName, String trueName, String fileNextPath, HttpServletRequest request,
 			HttpServletResponse response) {
@@ -96,12 +100,37 @@ public class FileOperationUtil {
 		}
 		return null;
 	}
+	
+	/**
+	 * 文件上传
+	 * @param file 上传的文件的 MultipartFile
+	 * @param nextPath 文件保存路径 例: images/
+	 * @return Result 上传结果
+	 */
+	public Result fileUpload(MultipartFile file,String nextPath) {
+		if (file.isEmpty()) {
+	        return new Result(0,"上传失败，请选择文件");
+        }
+		String prePath = filePath[0].substring("file:/".length());
+		
+        String fileName = file.getOriginalFilename();
+        fileName = FileOperationUtil.fileNameEncryption(fileName);
+        
+        String filePath = prePath+nextPath;
+        File dest = new File(filePath + fileName);
+        try {
+            file.transferTo(dest);
+            return new Result(1,"上传成功",fileName);
+        } catch (IOException e) {
+        }
+        return new Result(0,"上传失败");
+	}
 
 	/**
 	 * 文件名加密
 	 * 
 	 * @param fileName
-	 * @return
+	 * @return String
 	 */
 	public static String fileNameEncryption(String fileName) {
 		fileName = fileName.substring(0, fileName.lastIndexOf("."))
@@ -113,11 +142,11 @@ public class FileOperationUtil {
 	 * 文件名解密
 	 * 
 	 * @param fileName
-	 * @return
+	 * @return String
 	 */
 	public static String fileNameDecryption(String fileName) {
-		String pendingName = fileName.substring(0, fileName.indexOf("."));
-		String suffixName = fileName.substring(fileName.indexOf("."));
+		String pendingName = fileName.substring(0, fileName.lastIndexOf("."));
+		String suffixName = fileName.substring(fileName.lastIndexOf("."));
 
 		pendingName = new StringBuffer(pendingName).reverse().toString();
 		pendingName = pendingName.substring(14);
@@ -125,5 +154,14 @@ public class FileOperationUtil {
 		fileName = pendingName + suffixName;
 
 		return fileName;
+	}
+	
+	public static String fileNameArrange(List<String> fileNames) {
+		StringBuffer sb = new StringBuffer();
+		for(String fileName:fileNames) {
+			sb.append(fileName);
+			sb.append(";");
+		}
+		return sb.toString();
 	}
 }

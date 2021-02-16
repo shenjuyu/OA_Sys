@@ -85,12 +85,12 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 				<div class="panel-default" th:fragment="writeEmail">
 					<div class="panel-heading">写一封新邮件</div>
 					<div class="panel-body">
-						<div class="alert alert-info">再发送前，请完善邮件信息。</div>
-						<form class="com-mail">
-							<input type="text" id="writeEmailAddress" class="form-control1 control3"
-								placeholder="收件人 :" value=""> <input type="text"
-								class="form-control1 control3" placeholder="主题 :">
-							<textarea id="editor1" class="form-control1 control2"
+						<div id="mailTip" class="alert alert-info" style="display: none">再发送前，请完善邮件信息。</div>
+						<form id="writeMailForm" class="com-mail" action="sendEmail.do" method="post">
+							<input type="text" id="writeEmailAddress" class="form-control1 control3" name="addresses"
+								placeholder="收件人 :" value=""> <input type="text" id="mailTitle"
+								class="form-control1 control3" name="mailTitle" placeholder="主题 :">
+							<textarea id="editor1" name="mailDes" class="form-control1 control2"
 								placeholder="正文 :"></textarea>
 							<script>
 								CKEDITOR.replace('editor1', {
@@ -99,10 +99,6 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 								});
 							</script>
 							<div class="form-group">
-								<div class="btn btn-default btn-file">
-									<i class="fa fa-paperclip"></i> 添加附件 <input type="file"
-										name="attachment">
-								</div>
 								
 							</div>
 							<button style="float: right; 
@@ -118,7 +114,70 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 								style="float: right; margin-top: -45px;">
 						</form>
 					</div>
+					<script src="js/uploadself.js"></script>
 					<script>
+						$("#writeMailForm").submit(function() { // 提交表单的id
+							var options = {
+								dataType: 'json',
+								beforeSubmit: function(){
+									var address = $('#writeEmailAddress').val()
+									var title = $('#mailTitle').val()
+									if(address==null || address==''){
+										$('#mailTip').css('display','block')
+										return false
+									}
+									if(title == null || title == ''){
+										$('#mailTip').css('display','block')
+										return false
+									}
+									$('#mailTip').css('display','none')
+								},
+								success: function(data) {
+									$('#tipContent').html(data.message);
+									$("#asdf").trigger('click');
+									toEmail();
+								}
+								
+							};
+							for ( instance in CKEDITOR.instances ){
+								CKEDITOR.instances[instance].updateElement();
+							}
+							$('#writeMailForm').ajaxSubmit(options);
+							return false; //防止表单自动提交
+						});
+					</script>
+					<script>
+						$(".form-group").filesUpload({
+							url:'uploadEmailAtta.do',//上传地址
+							multiple: true,  //是否多文件上传
+							accept: '', //input accept属性
+							buttonText: '添加附件',  //按钮文字
+							fileChangeEnd:function(file){
+								$("#txtname").text(file[0].name)
+								
+							},
+							onUploadStart: function() {}, //请求开始
+							onUploadSuccess: function(a,b) {
+								var data = eval("("+b+")")
+								$('.fileprocess').remove()
+								$('.size').remove()
+								$('.sizeSplit').remove()
+								$('.sizetext').append('<a class="delatta" href="javaScript:void(0)" onclick="delEmailAtta(this)">删除</a><input name="fileNames" value="'+data.obj+'"  hidden="true"/>')
+								$('.sizetext').addClass('sizetextend')
+								$('.sizetext').removeClass('sizetext')
+							},//请求成功
+							onUploadComplete: function() {
+								
+							},//请求完成
+							onUploadError:function(res, xhr){//请求错误
+								console.log("err",res,xhr)
+							}
+						})
+					</script>
+					<script>
+						function delEmailAtta(obj){
+							$(obj).parent().parent().remove();
+						}
 						function findByStaff(staffName,staffId){
 							var emailAddress = $('#writeEmailAddress').val()
 							var addressList = emailAddress.split(';')
