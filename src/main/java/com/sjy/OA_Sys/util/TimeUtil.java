@@ -1,7 +1,9 @@
 package com.sjy.OA_Sys.util;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * 获取时间工具类
@@ -10,6 +12,11 @@ import java.util.Calendar;
  * 2021年1月31日
  */
 public class TimeUtil {
+	
+	public static String formatDateTime(Date date,String pattern) {
+		SimpleDateFormat formatter= new SimpleDateFormat(pattern);
+		return formatter.format(date);
+	}
 	
 	/**
 	 * 获取下个月的指定时间

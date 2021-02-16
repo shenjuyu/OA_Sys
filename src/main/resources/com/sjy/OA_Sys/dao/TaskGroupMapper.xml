@@ -9,6 +9,8 @@
       <arg column="staff_id" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="task_group_power" javaType="java.lang.Integer" jdbcType="INTEGER" />
     </constructor>
+    <association property="groupStaff" autoMapping="true" column="staff_id"
+    	select="com.sjy.OA_Sys.dao.StaffMapper.selectByStaffId"></association>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>

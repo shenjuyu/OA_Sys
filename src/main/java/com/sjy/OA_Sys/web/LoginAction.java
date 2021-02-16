@@ -46,7 +46,8 @@ public class LoginAction {
 				if(cookie.getName().equals("backName")) {
 					landed++;
 					continue;
-				}else if(cookie.getName().equals("backPwd")) {
+				}
+				if(cookie.getName().equals("backPwd")) {
 					landed++;
 					continue;
 				}

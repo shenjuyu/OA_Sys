@@ -16,8 +16,12 @@ public class Mail {
     private Timestamp mailTimeSend;
 
     private Integer mailSituation;
+    
+    private Staff staffSend;
+    
+    private Staff staffAddressee;
 
-    public Mail(Integer id, String mailId, String mailStaffSend, String mailStaffAddressee, String mailTitle, Timestamp mailTimeSend, Integer mailSituation) {
+	public Mail(Integer id, String mailId, String mailStaffSend, String mailStaffAddressee, String mailTitle, Timestamp mailTimeSend, Integer mailSituation) {
         this.id = id;
         this.mailId = mailId;
         this.mailStaffSend = mailStaffSend;
@@ -86,4 +90,21 @@ public class Mail {
     public void setMailSituation(Integer mailSituation) {
         this.mailSituation = mailSituation;
     }
+
+	public Staff getStaffSend() {
+		return staffSend;
+	}
+
+	public void setStaffSend(Staff staffSend) {
+		this.staffSend = staffSend;
+	}
+
+	public Staff getStaffAddressee() {
+		return staffAddressee;
+	}
+
+	public void setStaffAddressee(Staff staffAddressee) {
+		this.staffAddressee = staffAddressee;
+	}
+    
 }

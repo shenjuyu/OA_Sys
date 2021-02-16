@@ -21,7 +21,13 @@ public interface MailBiz {
 	 * @param mail
 	 * @return
 	 */
-	List<?> findMail(Mail mail,Integer pageNum,Integer pageSize,Boolean withBLOB);
+	List<?> findMail(Mail mail, Integer otherSituation,Integer pageNum,Integer pageSize,Boolean withBLOB);
+	
+	/**
+	 * 查找最后一个mail
+	 * @return
+	 */
+	Mail findLastMail();
 	
 	/**
 	 * 发送邮件/添加草稿
@@ -39,7 +45,7 @@ public interface MailBiz {
 	 * @param mail
 	 * @return
 	 */
-	Result updateMailSituation(Mail mail);
+	Result updateMailSituation(MailWithBLOBs mail);
 	
 	/**
 	 * 修改草稿邮件

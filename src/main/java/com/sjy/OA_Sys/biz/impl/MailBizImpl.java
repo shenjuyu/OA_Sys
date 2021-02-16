@@ -1,6 +1,7 @@
 package com.sjy.OA_Sys.biz.impl;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -43,7 +44,7 @@ public class MailBizImpl implements MailBiz {
 	}
 
 	@Override
-	public List<?> findMail(Mail mail, Integer pageNum, Integer pageSize, Boolean withBLOB) {
+	public List<?> findMail(Mail mail, Integer otherSituation, Integer pageNum, Integer pageSize, Boolean withBLOB) {
 		try {
 			Criteria criteria = me.createCriteria();
 			if (mail != null) {
@@ -51,7 +52,15 @@ public class MailBizImpl implements MailBiz {
 					criteria.andMailIdEqualTo(mail.getMailId());
 				}
 				if (mail.getMailSituation() != null) {
-					criteria.andMailSituationEqualTo(mail.getMailSituation());
+					if(otherSituation!=null) {
+						List<Integer> values = new ArrayList<Integer>();
+						values.add(mail.getMailSituation());
+						values.add(otherSituation);
+						criteria.andMailSituationIn(values);
+					}else {
+						criteria.andMailSituationEqualTo(mail.getMailSituation());
+					}
+					
 				}
 				if (mail.getMailStaffAddressee() != null) {
 					criteria.andMailStaffAddresseeEqualTo(mail.getMailStaffAddressee());
@@ -93,6 +102,16 @@ public class MailBizImpl implements MailBiz {
 	}
 
 	@Override
+	public Mail findLastMail() {
+		me.setOrderByClause("id desc");
+		List<Mail> mails = mm.selectByExample(me);
+		if(mails.size()<1) {
+			return null;
+		}
+		return mails.get(0);
+	}
+	
+	@Override
 	public Result addMail(MailWithBLOBs mail) {
 		mail.setMailTimeSend(new Timestamp(new Date().getTime()));
 		
@@ -110,9 +129,9 @@ public class MailBizImpl implements MailBiz {
 	}
 
 	@Override
-	public Result updateMailSituation(Mail mail) {
+	public Result updateMailSituation(MailWithBLOBs mail) {
 		me.createCriteria().andMailIdEqualTo(mail.getMailId());
-		int code = mm.updateByExample(mail, me);
+		int code = mm.updateByExampleSelective(mail, me);
 		me.clear();
 		if(code>0) {
 			return new Result(1, "修改成功");

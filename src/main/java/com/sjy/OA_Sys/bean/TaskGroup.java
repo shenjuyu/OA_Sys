@@ -10,6 +10,8 @@ public class TaskGroup {
     private String staffId;
 
     private Integer taskGroupPower;
+    
+    private Staff groupStaff;
 
     public TaskGroup(Integer id, String taskGroupId, String taskGroupName, String staffId, Integer taskGroupPower) {
         this.id = id;
@@ -62,4 +64,12 @@ public class TaskGroup {
     public void setTaskGroupPower(Integer taskGroupPower) {
         this.taskGroupPower = taskGroupPower;
     }
+
+	public Staff getGroupStaff() {
+		return groupStaff;
+	}
+
+	public void setGroupStaff(Staff groupStaff) {
+		this.groupStaff = groupStaff;
+	}
 }

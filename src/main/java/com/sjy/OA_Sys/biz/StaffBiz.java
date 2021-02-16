@@ -41,4 +41,10 @@ public interface StaffBiz {
 	 */
 	Result updateUserPwd(Staff staff);
 	
+	/**
+	 * 查找某个员工的通讯录
+	 * @param staff
+	 * @return
+	 */
+	List<Staff> findStaffForComm(Staff staff);
 }

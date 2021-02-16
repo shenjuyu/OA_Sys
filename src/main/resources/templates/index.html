@@ -50,6 +50,7 @@
 		
 		<script src="js/jquery.form.js"></script>
 		<script src="ckeditor/ckeditor.js"></script>
+		<script src="js/timeago.js"></script>
 	</head>
 	<body class="cbp-spmenu-push">
 		<div class="main-content">
@@ -491,6 +492,25 @@
 			</div>
 			<!--//footer-->
 		</div>
+		
+		<!-- 消息提示框 -->
+		<div class="col-md-4 modal-grids">
+			<button type="button" id="asdf" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm" style="display: none;">Small
+				modal</button>
+			<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+							<h4 class="modal-title" id="mySmallModalLabel">温馨提示</h4>
+						</div>
+						<div class="modal-body" id="tipContent"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- //消息提示框 -->
+		
 		<!-- Classie -->
 		<script src="js/classie.js"></script>
 		<!-- 页面跳转的js -->
@@ -552,9 +572,37 @@
 					removeScrollBar();
 				});
 			}
-						
+			
+			<!-- 邮件页面内部跳转 -->
+			function toWriteEmail(){
+				$('#emailLoadArea').load('toWriteEmail.do',function(){
+					removeScrollBar();
+				});
+			}
+			function toInboxEmail(){
+				$('#emailLoadArea').load('toInboxEmail.do',{staffId:''},function(){
+					removeScrollBar();
+				});
+			}
+			function toOutboxEmail(){
+				$('#emailLoadArea').load('toOutboxEmail.do',{staffId:''},function(){
+					removeScrollBar();
+				});
+			}
+			function toDraftEmail(){
+				$('#emailLoadArea').load('toDraftEmail.do',{staffId:''},function(){
+					removeScrollBar();
+				});
+			}
+			function toTrashEmail(){
+				$('#emailLoadArea').load('toTrashEmail.do',{staffId:''},function(){
+					removeScrollBar();
+				});
+			}
+			<!--//邮件页面内部跳转 -->
 		</script>
 		<!-- //页面跳转的js -->
+		
 		<script>
 			var menuLeft = document.getElementById('cbp-spmenu-s1'),
 				showLeftPush = document.getElementById('showLeftPush'),

@@ -1,6 +1,9 @@
 package com.sjy.OA_Sys.biz.impl;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -13,6 +16,7 @@ import com.sjy.OA_Sys.bean.Result;
 import com.sjy.OA_Sys.bean.Staff;
 import com.sjy.OA_Sys.bean.StaffExample;
 import com.sjy.OA_Sys.bean.StaffExample.Criteria;
+import com.sjy.OA_Sys.bean.TaskGroup;
 import com.sjy.OA_Sys.biz.StaffBiz;
 import com.sjy.OA_Sys.dao.StaffMapper;
 import com.sjy.OA_Sys.util.SendEmail;
@@ -26,6 +30,8 @@ public class StaffBizImpl implements StaffBiz{
 	private SendEmail sendEmail;
 	@Resource
 	private DepartBizImpl dbi;
+	@Resource
+	private TaskGroupBizImpl tgbi;
 	
 	private StaffExample stem = new StaffExample();
 	
@@ -129,6 +135,48 @@ public class StaffBizImpl implements StaffBiz{
 			stem.clear();
 		}
 		return null;
+	}
+
+	@Override
+	public List<Staff> findStaffForComm(Staff staff) {
+		// 通讯录 包括 本部门的所有员工 参与的所有任务的小组（任务全部由小组完成）中的所有员工 去重
+		List<Staff> mailList = new ArrayList<Staff>();
+		
+		TaskGroup taskGroup = new TaskGroup();
+		taskGroup.setStaffId(staff.getStaffId());
+		List<TaskGroup> taskGroups = tgbi.findTaskGroup(taskGroup);
+		taskGroup.setStaffId(null);
+		List<TaskGroup> taskGroups2 = null;
+		for (TaskGroup taskGroup2 : taskGroups) {
+			
+			taskGroup.setTaskGroupId(taskGroup2.getTaskGroupId());
+			taskGroups2 = tgbi.findTaskGroup(taskGroup);
+			
+			for (TaskGroup taskGroup3 : taskGroups2) {
+				mailList.add(taskGroup3.getGroupStaff());
+			}
+		}
+		
+		Staff staffDepart = new Staff();
+		staffDepart.setDepartId(staff.getDepartId());
+		List<Staff> staffList = findStaff(staffDepart, null, null);
+		for (Staff staff2 : staffList) { // 去重
+			boolean flag = true; // 是否已经存在
+			for (int i=0;i<mailList.size();i++) {
+				if(staff2.getStaffId().equals(mailList.get(i).getStaffId())) {
+					break;
+				}
+				if(i==mailList.size()-1) {
+					flag = false;
+				}
+			}
+			if(flag==false) {
+				mailList.add(staff2);
+			}
+		}
+		
+		
+		return mailList;
 	}
 
 	

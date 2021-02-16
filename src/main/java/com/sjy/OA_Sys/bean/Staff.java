@@ -54,7 +54,19 @@ public class Staff {
         this.departId = departId;
     }
 
-    public Staff() {
+    public Staff(String staffId, String staffName, Integer staffSex, String staffImg, Integer staffState,
+			String staffPower) {
+		super();
+		this.staffId = staffId;
+		this.staffName = staffName;
+		this.staffSex = staffSex;
+		this.staffImg = staffImg;
+		this.staffState = staffState;
+		this.staffPower = staffPower;
+	}
+
+
+	public Staff() {
         super();
     }
 

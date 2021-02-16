@@ -11,6 +11,10 @@
       <arg column="mail_time_send" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
       <arg column="mail_situation" javaType="java.lang.Integer" jdbcType="INTEGER" />
     </constructor>
+    <association property="staffSend" autoMapping="true" column="mail_staff_send"
+    	select="com.sjy.OA_Sys.dao.StaffMapper.selectByStaffId"></association>
+    <association property="staffAddressee" autoMapping="true" column="mail_staff_addressee"
+    	select="com.sjy.OA_Sys.dao.StaffMapper.selectByStaffId"></association>
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.sjy.OA_Sys.bean.MailWithBLOBs">
     <constructor>
@@ -24,6 +28,10 @@
       <arg column="mail_des" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
       <arg column="mail_attachment" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
     </constructor>
+    <association property="staffSend" autoMapping="true" column="mail_staff_send"
+    	select="com.sjy.OA_Sys.dao.StaffMapper.selectByStaffId"></association>
+    <association property="staffAddressee" autoMapping="true" column="mail_staff_addressee"
+    	select="com.sjy.OA_Sys.dao.StaffMapper.selectByStaffId"></association>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
