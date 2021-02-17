@@ -1,5 +1,8 @@
 package com.sjy.OA_Sys.initData;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.annotation.Resource;
 
 import org.springframework.boot.ApplicationArguments;
@@ -25,9 +28,18 @@ public class AfterServiceStarted implements ApplicationRunner {
 		if (mail == null) {
 			redisUtil.set("emailCodeNumTody", 0);
 		} else {
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+			Date date = new Date(System.currentTimeMillis());
+			int nowEmailCode = Integer.parseInt(formatter.format(date));
 			String emailCodeNumTody = mail.getMailId();
-			emailCodeNumTody = emailCodeNumTody.substring(8);
-			redisUtil.set("emailCodeNumTody", Integer.parseInt(emailCodeNumTody));
+			int emailCodePre = Integer.parseInt(emailCodeNumTody.substring(0, 8));
+
+			if (emailCodePre < nowEmailCode) {
+				redisUtil.set("emailCodeNumTody", 0);
+			} else {
+				emailCodeNumTody = emailCodeNumTody.substring(8);
+				redisUtil.set("emailCodeNumTody", Integer.parseInt(emailCodeNumTody));
+			}
 		}
 
 	}

@@ -75,4 +75,4 @@ contentTips:
 logging:
   level:
     com:
-      sllp: debug
+      sjy: debug

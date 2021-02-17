@@ -44,7 +44,7 @@ public class MailBizImpl implements MailBiz {
 	}
 
 	@Override
-	public List<?> findMail(Mail mail, Integer otherSituation, Integer pageNum, Integer pageSize, Boolean withBLOB) {
+	public List<?> findMail(Mail mail, List<Integer> otherSituation, Integer pageNum, Integer pageSize, Boolean withBLOB) {
 		try {
 			Criteria criteria = me.createCriteria();
 			if (mail != null) {
@@ -55,7 +55,7 @@ public class MailBizImpl implements MailBiz {
 					if(otherSituation!=null) {
 						List<Integer> values = new ArrayList<Integer>();
 						values.add(mail.getMailSituation());
-						values.add(otherSituation);
+						values.addAll(otherSituation);
 						criteria.andMailSituationIn(values);
 					}else {
 						criteria.andMailSituationEqualTo(mail.getMailSituation());
@@ -119,7 +119,6 @@ public class MailBizImpl implements MailBiz {
 			mail.setMailSituation(1);
 			return updateMailSituation(mail);
 		}
-		
 		int code = mm.insertSelective(mail); //发送或添加草稿
 		if(code>0) {
 			return new Result(1, "发送成功");

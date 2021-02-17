@@ -86,40 +86,64 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 					<div class="panel-heading">写一封新邮件</div>
 					<div class="panel-body">
 						<div id="mailTip" class="alert alert-info" style="display: none">再发送前，请完善邮件信息。</div>
+						
 						<form id="writeMailForm" class="com-mail" action="sendEmail.do" method="post">
 							<input type="text" id="writeEmailAddress" class="form-control1 control3" name="addresses"
-								placeholder="收件人 :" value=""> <input type="text" id="mailTitle"
-								class="form-control1 control3" name="mailTitle" placeholder="主题 :">
+								placeholder="收件人 :" > 
+							<input type="text" id="mailTitle" class="form-control1 control3" name="mailTitle" 
+								placeholder="主题 :">
 							<textarea id="editor1" name="mailDes" class="form-control1 control2"
 								placeholder="正文 :"></textarea>
-							<script>
-								CKEDITOR.replace('editor1', {
+							<script th:inline="javascript">
+								var mailEdit = [[${mailEdit}]]
+								var obj = CKEDITOR.replace('editor1', {
 									width: '763px',
 									height: '120px',
 								});
+								if(mailEdit!=null){
+									$('#writeEmailAddress').val(mailEdit.mailStaffAddressee!=null?mailEdit.staffAddressee.staffName+'<'+mailEdit.mailStaffAddressee+'>;':'')
+									$('#mailTitle').val(mailEdit.mailTitle!=null?mailEdit.mailTitle:'')
+									obj.setData(des);
+								}
 							</script>
 							<div class="form-group">
 								
+								<div class="fileprocessbox" th:if="mailAttaList!=null" th:each="atta:${mailAttaList}">
+									<div class="sizetextend">
+										<span class="filesName" th:text="${atta}+'&nbsp;&nbsp;'">apache-ant-1.9.15-src.zip&nbsp;&nbsp;</span>
+										<a class="delatta" href="javaScript:void(0)" onclick="delEmailAtta(this)">删除</a>
+										<input name="fileNames" th:value="${atta}" hidden="true">
+									</div>
+								</div>
 							</div>
-							<button style="float: right; 
+							<a id="saveEmailBtn" href="javaScript:void(0)" style="float: right; 
 											margin-top: -45px;
 											margin-right:70px;
 											font-size: 0.9em;
 											background-color: #6164C1;
 											border: 1px solid #4F52BA;
 											color: #fff;
-											padding: 0.4em 1em;">存草稿</button>
+											padding: 0.4em 1em;">存草稿</a>
 											
-							<input type="submit" value="发送"
+							<input type="submit" id="sendEmailBtn" value="发送"
 								style="float: right; margin-top: -45px;">
 						</form>
 					</div>
 					<script src="js/uploadself.js"></script>
 					<script>
+						$('#saveEmailBtn').click(function(){
+							$('#writeMailForm').attr('action','saveMail.do')
+							$('#sendEmailBtn').trigger('click');
+						})
 						$("#writeMailForm").submit(function() { // 提交表单的id
 							var options = {
 								dataType: 'json',
 								beforeSubmit: function(){
+									var saveMailJudge = $('#writeMailForm').attr('action')
+									if(saveMailJudge == 'saveMail.do'){
+										return true
+									}
+									
 									var address = $('#writeEmailAddress').val()
 									var title = $('#mailTitle').val()
 									if(address==null || address==''){
@@ -135,7 +159,14 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 								success: function(data) {
 									$('#tipContent').html(data.message);
 									$("#asdf").trigger('click');
-									toEmail();
+									
+									var saveMailJudge = $('#writeMailForm').attr('action')
+									if(saveMailJudge == 'saveMail.do'){
+										$('#writeMailForm').attr('action','sendEmail.do')
+										console.log("?????????????")
+									}else{
+										toEmail();
+									}
 								}
 								
 							};

@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -156,6 +157,11 @@ public class FileOperationUtil {
 		return fileName;
 	}
 	
+	/**
+	 * 文件名拼接
+	 * @param fileNames
+	 * @return
+	 */
 	public static String fileNameArrange(List<String> fileNames) {
 		StringBuffer sb = new StringBuffer();
 		for(String fileName:fileNames) {
@@ -163,5 +169,13 @@ public class FileOperationUtil {
 			sb.append(";");
 		}
 		return sb.toString();
+	}
+	
+	public static List<String> fileNameDismantling(String fileNames){
+		List<String> fileNamesList = new ArrayList<String>();
+		for(String str : fileNames.split(";")) {
+			fileNamesList.add(str);
+		}
+		return fileNamesList;
 	}
 }

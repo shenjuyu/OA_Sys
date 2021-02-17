@@ -576,7 +576,7 @@
 			
 			<!-- 邮件页面内部跳转 -->
 			function toWriteEmail(){
-				$('#emailLoadArea').load('toWriteEmail.do',function(){
+				$('#emailLoadArea').load('toWriteEmail.do',{id:''},function(){
 					removeScrollBar();
 				});
 			}

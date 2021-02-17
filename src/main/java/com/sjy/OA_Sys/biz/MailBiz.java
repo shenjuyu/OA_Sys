@@ -21,7 +21,7 @@ public interface MailBiz {
 	 * @param mail
 	 * @return
 	 */
-	List<?> findMail(Mail mail, Integer otherSituation,Integer pageNum,Integer pageSize,Boolean withBLOB);
+	List<?> findMail(Mail mail, List<Integer> otherSituation,Integer pageNum,Integer pageSize,Boolean withBLOB);
 	
 	/**
 	 * 查找最后一个mail
