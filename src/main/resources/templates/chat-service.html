@@ -1,0 +1,365 @@
+<!DOCTYPE HTML>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+<title>OASys</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Novus Admin Panel Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- Bootstrap Core CSS -->
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<!-- Custom CSS -->
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+<!-- font CSS -->
+<!-- font-awesome icons -->
+<link href="css/font-awesome.css" rel="stylesheet"> 
+<!-- //font-awesome icons -->
+ <!-- js-->
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/modernizr.custom.js"></script>
+<!--webfonts-->
+<link href='http://fonts.useso.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+<!--//webfonts--> 
+<!--animate-->
+<link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
+<script src="js/wow.min.js"></script>
+	<script>
+		 new WOW().init();
+	</script>
+<!--//end-animate-->
+<!-- chart -->
+<script src="js/Chart.js"></script>
+<!-- //chart -->
+<!--Calender-->
+<link rel="stylesheet" href="css/clndr.css" type="text/css" />
+<script src="js/underscore-min.js" type="text/javascript"></script>
+<script src= "js/moment-2.2.1.js" type="text/javascript"></script>
+<script src="js/clndr.js" type="text/javascript"></script>
+<script src="js/site.js" type="text/javascript"></script>
+<!--End Calender-->
+<!-- Metis Menu -->
+<script src="js/metisMenu.min.js"></script>
+<script src="js/custom.js"></script>
+<link href="css/custom.css" rel="stylesheet">
+<!--//Metis Menu -->
+</head> 
+<body class="cbp-spmenu-push" >
+	<div class="main-content">
+		<!--left-fixed -navigation-->
+		<div class=" sidebar" role="navigation">
+            <div class="navbar-collapse">
+				<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+				</nav>
+			</div>
+		</div>
+		<!--left-fixed -navigation-->
+		<!-- header-starts -->
+		<div class="sticky-header header-section ">
+			<div class="header-left">
+				<!--toggle button start-->
+				<button id="showLeftPush"><i class="fa fa-bars"></i></button>
+				<!--toggle button end-->
+				<!--logo -->
+				<div class="logo">
+					<a href="index.html">
+						<h1>OASys</h1>
+						<span>-ShenJunYu</span>
+					</a>
+				</div>
+				<!--//logo-->
+			</div>
+			<div class="header-right">
+				<div class="profile_details_left"><!--notifications of menu start -->
+				</div>
+				<!--notification menu end -->
+				<div class="profile_details">		
+				</div>
+				<div class="clearfix"> </div>				
+			</div>
+			<div class="clearfix"> </div>	
+		</div>
+		<!-- //header-ends -->
+		<!-- main content start-->
+		<div id="page-wrapper">
+			<div class="main-page" style="margin-top: -2%;" th:fragment="chatService">
+				<!-- compose-left -->
+				<div class="compose-left chat" style="width: 28%;float: left;" >
+					<div class="chat-grid widget-shadow "  >
+						<ul>
+							<li class="head">联系人</li>
+						</ul>
+						<div class="scrollbar scrollbar1" style="overflow-y: auto; height: 543px;padding-top:0;">
+							<ul>
+								<li th:each="address:${addressBook}">
+									<a href="javaScript:void(0)" th:onclick="toChat([[${address.staffId}]])">
+										<div class="chat-left">
+											<img class="img-circle" style="width: 34px;height: 34px;border-radius: 50%" th:src="${address.staffImg}" alt="">
+											<!-- <label class="small-badge"></label> -->
+										</div>
+										<div class="chat-right">
+											<p th:text="${address.staffName}">Andrew Josifn</p>
+											<h6 th:text="${address.depart.departName}">Nullam quis risus eget </h6>
+										</div>
+										<div class="clearfix"> </div>	
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- //compose-left -->
+				<!-- compose-right -->
+				<div class="profile widget-shadow chat" id="staffChatShadow"  style="width: 68%; margin-top: 2%; margin-left: 1%;float: left;" >
+					<div th:fragment="staffChatShadow">
+						<div >
+							<h4 class="title3" th:text="${addresseeStaff.staffName}" style="text-align: center;">和谁谁谁的聊天</h4>
+							<input id="isGroup" hidden="true" th:value="${isGroup}" />
+							<input id="talkPeopleImg" hidden="true" th:value="${addresseeStaff.staffImg}" />
+							<input id="addresseeId" hidden="true" th:value="${addresseeStaff.staffId}">
+							<div class="scrollbar scrollbar1" id="staffChatShadowContent">
+								<div class="findMoreMsgBox">
+									<a href="javaScript:void(0)" class="findMoreMsg" style="text-align: center;display: block;">查看更多...</a>
+									<span class="findMoreMsgLoding" style="text-align: center;display: none;">加载中...</span>
+								</div>
+								<div th:if="${chatRecordList != null}" th:each="chatRecord:${chatRecordList}">
+									<div class="activity-row activity-row1 activity-left messageDiv" data-page="1" th:if="${chatRecord.chatReceive == loginStaff.staffId}" >
+										<div class="col-xs-3 activity-img" style="width: 10%;">
+											<img style="width: 50px;height: 50px;border-radius: 50%" th:src="${chatRecord.chatSenderStaff.staffImg}" class="img-responsive" th:alt="${chatRecord.chatSenderStaff.staffName}"></div>
+										<div class="col-xs-9 activity-img1" style="width:auto; display:inline-block !important; display:inline;max-width: 28%;">
+											<div class="activity-desc-sub" style="width:auto; display:inline-block !important; display:inline;">
+												<p style="display: inline-block;" th:text="${chatRecord.message}">你好您的这个宝贝，怎么卖呀？</p>
+												<br />
+												<span th:text="${chatRecord.chatTimeSend.toLocalDateTime().getYear()+'-'+chatRecord.chatTimeSend.toLocalDateTime().getMonthValue()+'-'+chatRecord.chatTimeSend.toLocalDateTime().getDayOfMonth()+' '+chatRecord.chatTimeSend.toLocalDateTime().getHour()+':'+chatRecord.chatTimeSend.toLocalDateTime().getMinute()+':'+chatRecord.chatTimeSend.toLocalDateTime().getSecond()}">10:00 PM</span>
+											</div>
+										</div>
+										<div class="clearfix"> </div>
+									</div>
+									<div class="activity-row activity-row1 activity-right messageDiv"  data-page="1" th:if="${chatRecord.chatSender == loginStaff.staffId}">
+										<div class="col-xs-3 activity-img" style="float: right;width: 10%;"><img style="width: 50px;height: 50px;border-radius: 50%" th:src="${loginStaff.staffImg}" th:alt="${loginStaff.staffName}"></div>
+										<div class="col-xs-9 activity-img2" style=" width:auto; display:inline-block !important; display:inline; max-width: 36%;float: right;">
+											<div class="activity-desc-sub1" style="width:auto; display:inline-block !important; display:inline;">
+												<p style="display: inline-block;" th:text="${chatRecord.message}">120一个免邮哦[]~(￣▽￣)~*120一个免邮哦[]~(￣▽￣)~*120一个免邮哦[]~(￣▽￣)~*120一个免邮哦[]~(￣▽￣)~*120一个免邮哦[]~(￣▽￣)~*120一个免邮哦[]~(￣▽￣)~*120一个免邮哦[]~(￣▽￣)~*</p>
+												<br />
+												<span class="right" th:text="${chatRecord.chatTimeSend.toLocalDateTime().getYear()+'-'+chatRecord.chatTimeSend.toLocalDateTime().getMonthValue()+'-'+chatRecord.chatTimeSend.toLocalDateTime().getDayOfMonth()+' '+chatRecord.chatTimeSend.toLocalDateTime().getHour()+':'+chatRecord.chatTimeSend.toLocalDateTime().getMinute()+':'+chatRecord.chatTimeSend.toLocalDateTime().getSecond()}">9:55 PM</span>
+											</div>
+										</div>
+										<div class="clearfix"> </div>
+									</div>
+								</div>
+								
+							</div>
+							<div class="chat-bottom">
+								<form>
+									<textarea id="toStaffContent" placeholder="回复内容..." style="display: inline-block;width: 90%;"></textarea>
+									<a class="label label-info" style="font-size: large;float: right; margin-right: 10px;margin-top: 10px;" href="javascript:void(0)" th:onclick="sendMessageToStaff([[${addresseeStaff.staffId}]])" >回复</a>
+								</form>
+							</div>
+						</div>
+						<script>
+							$(function(){
+								var scrollHeight = $('#staffChatShadowContent').prop("scrollHeight");
+								$('#staffChatShadowContent').animate({scrollTop:scrollHeight}, 400);
+							});
+						</script>
+					</div>
+				</div>
+				<script th:inline="javascript">
+					var loading = false;
+					var loginStaff=[[${loginStaff.staffId}]];
+					
+					$('#staffChatShadowContent').on('scroll', function() {
+						var listheight = $("#staffChatShadowContent").height();
+						var listscrollheight = $('#staffChatShadowContent').scrollTop();
+						if (listscrollheight ==0 && loading == false) {
+							$('.findMoreMsg').css('display','none');
+							$('.findMoreMsgLoding').css('display','block');
+							loading=true;
+							loadMessage();
+						}
+					})
+			        function loadMessage() {
+						var pageNum = $('.messageDiv').attr('data-page');
+						pageNum=parseInt(pageNum)+1;
+						var addresseeId = $('#addresseeId').val();
+						$.post('loadMessage.do', {
+							staffId: addresseeId,pageNum: pageNum
+						}, function(data) {
+							$('.findMoreMsg').css('display','block');
+							$('.findMoreMsgLoding').css('display','none');
+							if (data.sucess == 0) {
+								if(data.message=='前方无记录'){
+									$('.findMoreMsg').text('已到达顶部...')
+									loading=true;
+									return;
+								}else{
+									$('#tipContent').html(data.message);
+									$("#asdf").trigger('click');
+								}
+							}else if(data.sucess == 1){
+								var findMoreMsgBox = $('.findMoreMsgBox').html()
+								$('.findMoreMsgBox').remove();
+								var staffChatShadowContent=$('#staffChatShadowContent').html();
+								var msgArr = data.obj;
+								if(msgArr==null || msgArr.length<1){
+									loading=false;
+									return;
+								}
+								var loadingMsg=''
+								for(var i=0;i<msgArr.length;i++){
+									var chatRecord=msgArr[i];
+									loadingMsg+='<div>';
+									if(chatRecord.chatReceive==loginStaff){
+										loadingMsg+='<div class="activity-row activity-row1 activity-left messageDiv" data-page="'+pageNum+'">'
+											+'<div class="col-xs-3 activity-img" style="width: 10%;">'
+											+'<img style="width: 50px;height: 50px;border-radius: 50%" src="'+chatRecord.chatSenderStaff.staffImg+'" class="img-responsive" alt="'+chatRecord.chatSenderStaff.staffName+'"></div>'
+											+'<div class="col-xs-9 activity-img1" style="width:auto; display:inline-block !important; display:inline;max-width: 28%;">'
+											+'<div class="activity-desc-sub" style="width:auto; display:inline-block !important; display:inline;">'
+											+'<p style="display: inline-block;" >'+chatRecord.message+'</p><br />'
+											+'<span>'+chatRecord.chatTimeSend+'</span></div></div><div class="clearfix"> </div></div>';
+									}else if(chatRecord.chatSender==loginStaff){
+										loadingMsg+='<div class="activity-row activity-row1 activity-right messageDiv"  data-page="'+pageNum+'">'
+											+'<div class="col-xs-3 activity-img" style="float: right;width: 10%;">'
+											+'<img style="width: 50px;height: 50px;border-radius: 50%" src="'+chatRecord.chatSenderStaff.staffImg+'" alt="'+chatRecord.chatSenderStaff.staffName+'"></div>'
+											+'<div class="col-xs-9 activity-img2" style=" width:auto; display:inline-block !important; display:inline; max-width: 36%;float: right;">'
+											+'<div class="activity-desc-sub1" style="width:auto; display:inline-block !important; display:inline;">'
+											+'<p style="display: inline-block;">'+chatRecord.message+'</p><br />'
+											+'<span class="right">'+chatRecord.chatTimeSend+'</span></div></div><div class="clearfix"> </div></div>';
+									}
+								}
+								
+								$('#staffChatShadowContent').html(findMoreMsgBox);
+								$('#staffChatShadowContent').append(loadingMsg);
+								$('#staffChatShadowContent').append(staffChatShadowContent);
+							}
+							loading=false;
+						});
+			        }
+				
+				</script>
+				<script th:inline="javascript">
+					var websocket;
+					var myImage = [[${loginStaff.staffImg}]];
+					var addressee=[[${loginStaff.staffId}]];
+					
+					function link(){
+						
+						// 创建websocket对象
+						if(websocket==null){
+							websocket= new WebSocket("ws://localhost/websocket/"+addressee);
+						}
+						
+						websocket.onerror = function(event) {
+							closeWebSocket()
+							console.log("========onerror========");
+							console.log(event)
+						}
+			
+						websocket.onopen = function(event) {
+							console.log("========onopen========");
+						}
+			
+						websocket.onmessage = function(event) {
+							var talkPeopleImage=$('#talkPeopleImg').val();
+							var answer='<div class="activity-row activity-row1 activity-left">'
+								+'<div class="col-xs-3 activity-img" style="width: 10%;">'
+								+'<img style="width: 50px;height: 50px;" src="'+talkPeopleImage+'" class="img-responsive" alt=""></div>'
+								+'<div class="col-xs-9 activity-img1" style="width:auto; display:inline-block !important; display:inline;max-width: 28%;">'
+								+'<div class="activity-desc-sub" style="width:auto; display:inline-block !important; display:inline;">'
+								+'<p style="display: inline-block;">'+event.data+'</p><br />'
+								+'<span>'+getNowTime()+'</span></div></div>'
+								+'<div class="clearfix"> </div></div>';
+							$('#staffChatShadowContent').append(answer);
+							
+							var scrollHeight = $('#staffChatShadowContent').prop("scrollHeight");
+							$('#staffChatShadowContent').animate({scrollTop:scrollHeight}, 400);
+						}
+			
+						websocket.onclose = function(event) {
+							setTimeout(function(){
+								link();
+							},1000);
+							console.log('websocket 断开: ' + event.code + ' ' + event.reason + ' ' + event.wasClean)
+							console.log(event)
+							
+						}
+					}
+					
+					function closeWebSocket(){
+						websocket.close();
+					}
+					
+					function toChat(addressee){
+						$('#staffChatShadow').load('showChatShadow.do',{staffId:addressee},function(){
+							removeScrollBar();
+						});
+					}
+					function sendMessageToStaff(addressee){
+						var news = $('#toStaffContent').val();
+						var isGroup=$('#isGroup').val();
+						if(news==''){
+							$('#tipContent').html('消息不能为空...');
+							$("#asdf").trigger('click');
+						}else{
+							websocket.send(isGroup+'-=-'+addressee+'-=-'+news);
+							$('#toStaffContent').val('');
+							var str='<div class="activity-row activity-row1 activity-right" >'
+								+'<div class="col-xs-3 activity-img" style="float: right;width: 10%;"><img style="width: 50px;height: 50px;" src="'+myImage+'" alt=""></div>'
+								+'<div class="col-xs-9 activity-img2" style=" width:auto; display:inline-block !important; display:inline; max-width: 36%;float: right;">'
+								+'<div class="activity-desc-sub1" style="width:auto; display:inline-block !important; display:inline;">'
+								+'<p style="display: inline-block;" >'+news+'</p> <br />'
+								+'<span class="right" >'+getNowTime()+'</span></div></div>'
+								+'<div class="clearfix"> </div></div>';
+							$('#staffChatShadowContent').append(str);
+						}
+						
+						var scrollHeight = $('#staffChatShadowContent').prop("scrollHeight");
+						$('#staffChatShadowContent').animate({scrollTop:scrollHeight}, 400);
+					}
+					
+					window.onbeforeunload = function() {
+					    ws.close();
+					} 
+					
+					$(function(){
+						link();
+					});
+				</script>
+				<!-- //compose-right -->
+			</div>
+		</div>
+		<!--footer-->
+		<!--<div class="footer">
+		   <p>Copyright &copy; 2016.Company name All rights reserved.<a target="_blank" href="http://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p>
+		</div>-->
+        <!--//footer-->
+	</div>
+	<!-- Classie -->
+		<script src="js/classie.js"></script>
+		<script>
+			var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
+				showLeftPush = document.getElementById( 'showLeftPush' ),
+				body = document.body;
+				
+			showLeftPush.onclick = function() {
+				classie.toggle( this, 'active' );
+				classie.toggle( body, 'cbp-spmenu-push-toright' );
+				classie.toggle( menuLeft, 'cbp-spmenu-open' );
+				disableOther( 'showLeftPush' );
+			};
+			
+
+			function disableOther( button ) {
+				if( button !== 'showLeftPush' ) {
+					classie.toggle( showLeftPush, 'disabled' );
+				}
+			}
+		</script>
+	<!--scrolling js-->
+	<script src="js/jquery.nicescroll.js"></script>
+	<script src="js/scripts.js"></script>
+	<!--//scrolling js-->
+	<!-- Bootstrap Core JavaScript -->
+   <script src="js/bootstrap.js"> </script>
+</body>
+</html>

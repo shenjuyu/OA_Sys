@@ -5,7 +5,7 @@ import java.util.List;
 import com.sjy.OA_Sys.bean.ChatRecord;
 import com.sjy.OA_Sys.bean.Result;
 
-public interface CharRecordBiz {
+public interface ChatRecordBiz {
 
 	/**
 	 * 添加单条消息记录

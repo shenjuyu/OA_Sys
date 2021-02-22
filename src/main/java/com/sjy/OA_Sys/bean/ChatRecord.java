@@ -1,9 +1,17 @@
 package com.sjy.OA_Sys.bean;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class ChatRecord {
-    private Integer id;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+public class ChatRecord implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Integer id;
 
     private Timestamp chatTimeSend;
 
@@ -14,7 +22,20 @@ public class ChatRecord {
     private Integer isGroup;
 
     private String message;
+    
+    private Staff chatSenderStaff;
+    
+    private Staff chatReceiveStaff;
 
+    public ChatRecord(Timestamp chatTimeSend, String chatSender, String chatReceive, Integer isGroup,
+			String message) {
+		this.chatTimeSend = chatTimeSend;
+		this.chatSender = chatSender;
+		this.chatReceive = chatReceive;
+		this.isGroup = isGroup;
+		this.message = message;
+	}
+    
     public ChatRecord(Integer id, Timestamp chatTimeSend, String chatSender, String chatReceive, Integer isGroup) {
         this.id = id;
         this.chatTimeSend = chatTimeSend;
@@ -32,7 +53,19 @@ public class ChatRecord {
         this.message = message;
     }
 
-    public ChatRecord() {
+    public ChatRecord(Integer id, Timestamp chatTimeSend, String chatSender, String chatReceive, Integer isGroup,
+			String message, Staff chatSenderStaff, Staff chatReceiveStaff) {
+		this.id = id;
+		this.chatTimeSend = chatTimeSend;
+		this.chatSender = chatSender;
+		this.chatReceive = chatReceive;
+		this.isGroup = isGroup;
+		this.message = message;
+		this.chatSenderStaff = chatSenderStaff;
+		this.chatReceiveStaff = chatReceiveStaff;
+	}
+    
+	public ChatRecord() {
         super();
     }
 
@@ -44,6 +77,7 @@ public class ChatRecord {
         this.id = id;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public Timestamp getChatTimeSend() {
         return chatTimeSend;
     }
@@ -83,4 +117,20 @@ public class ChatRecord {
     public void setMessage(String message) {
         this.message = message == null ? null : message.trim();
     }
+
+	public Staff getChatSenderStaff() {
+		return chatSenderStaff;
+	}
+
+	public void setChatSenderStaff(Staff chatSenderStaff) {
+		this.chatSenderStaff = chatSenderStaff;
+	}
+
+	public Staff getChatReceiveStaff() {
+		return chatReceiveStaff;
+	}
+
+	public void setChatReceiveStaff(Staff chatReceiveStaff) {
+		this.chatReceiveStaff = chatReceiveStaff;
+	}
 }

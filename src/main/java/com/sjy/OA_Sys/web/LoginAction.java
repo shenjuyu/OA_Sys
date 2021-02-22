@@ -7,8 +7,10 @@ import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -93,8 +95,18 @@ public class LoginAction {
 		Staff loginStaff = (Staff) resultStaffLogin.getObj();
 		// 添加Cookie
 		addCookie.addCookie(true, remPwd, loginStaff.getStaffId().toString(), loginStaff.getStaffPwd(), request, response);
+		System.out.println(loginStaff.getStaffId());
 		m.addAttribute("loginStaff", loginStaff);
 		return new Result(resultStaffLogin.getSucess(), resultStaffLogin.getMessage());
+	}
+	
+	@GetMapping("loginOut.do")
+	public String toLoginOut(HttpServletRequest request,Model m) {
+		HttpSession session = request.getSession();
+		session.removeAttribute("loginStaff");
+		session.invalidate();
+		m.addAttribute("loginStaff", null);
+		return "redirect:/toLogin.do";
 	}
 	
 	@GetMapping("logVerifyCode.do")

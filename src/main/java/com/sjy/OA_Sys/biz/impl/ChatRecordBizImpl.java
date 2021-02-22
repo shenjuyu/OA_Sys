@@ -1,5 +1,7 @@
 package com.sjy.OA_Sys.biz.impl;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -7,15 +9,16 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.sjy.OA_Sys.bean.ChatRecord;
 import com.sjy.OA_Sys.bean.ChatRecordExample;
 import com.sjy.OA_Sys.bean.ChatRecordExample.Criteria;
 import com.sjy.OA_Sys.bean.Result;
-import com.sjy.OA_Sys.biz.CharRecordBiz;
+import com.sjy.OA_Sys.biz.ChatRecordBiz;
 import com.sjy.OA_Sys.dao.ChatRecordMapper;
 
 @Service
-public class CharRecordBizImpl implements CharRecordBiz {
+public class ChatRecordBizImpl implements ChatRecordBiz {
 
 	@Resource
 	private ChatRecordMapper crm;
@@ -57,13 +60,13 @@ public class CharRecordBizImpl implements CharRecordBiz {
 		try {
 			Criteria criteria = cre.createCriteria();
 			cre.setOrderByClause("CHAT_TIME_SEND desc");
-			
 			if(chatRecord!=null) {
-				if(chatRecord.getChatSender()!=null) {
-					criteria.andChatSenderEqualTo(chatRecord.getChatSender());
-				}
-				if(chatRecord.getChatReceive()!=null) {
-					criteria.andChatReceiveEqualTo(chatRecord.getChatReceive());
+				if(chatRecord.getChatSender()!=null && chatRecord.getChatReceive()!=null) {
+					List<String> values = new ArrayList<String>();
+					values.add(chatRecord.getChatReceive());
+					values.add(chatRecord.getChatSender());
+					criteria.andChatSenderIn(values);
+					criteria.andChatReceiveIn(values);
 				}
 				if(chatRecord.getIsGroup()!=null) {
 					criteria.andIsGroupEqualTo(chatRecord.getIsGroup());
@@ -72,7 +75,10 @@ public class CharRecordBizImpl implements CharRecordBiz {
 			
 			if(pageNum != null && pageSize != null) {
 				PageHelper.startPage(pageNum, pageSize);
-				return crm.selectByExampleWithBLOBs(cre);
+				List<ChatRecord> chatRecords = crm.selectByExampleWithBLOBs(cre);
+				chatRecords=new ArrayList<>(chatRecords);
+				Collections.reverse(chatRecords);
+				return chatRecords;
 			}
 			return crm.selectByExampleWithBLOBs(cre);
 		} catch (Exception e) {

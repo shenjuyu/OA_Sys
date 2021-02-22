@@ -2,6 +2,7 @@ package com.sjy.OA_Sys.biz.impl;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -140,27 +141,27 @@ public class StaffBizImpl implements StaffBiz{
 	@Override
 	public List<Staff> findStaffForComm(Staff staff) {
 		// 通讯录 包括 本部门的所有员工 参与的所有任务的小组（任务全部由小组完成）中的所有员工 去重
-		List<Staff> mailList = new ArrayList<Staff>();
+		Staff staffDepart = new Staff();
+		staffDepart.setDepartId(staff.getDepartId());
+		List<Staff> mailList= findStaff(staffDepart, null, null);// 查找所属本部门的所有员工
 		
 		TaskGroup taskGroup = new TaskGroup();
 		taskGroup.setStaffId(staff.getStaffId());
-		List<TaskGroup> taskGroups = tgbi.findTaskGroup(taskGroup);
+		List<TaskGroup> taskGroups = tgbi.findTaskGroup(taskGroup);//查到该员工所属的小组
 		taskGroup.setStaffId(null);
 		List<TaskGroup> taskGroups2 = null;
+		List<Staff> groupStaffList = new ArrayList<Staff>();
 		for (TaskGroup taskGroup2 : taskGroups) {
 			
 			taskGroup.setTaskGroupId(taskGroup2.getTaskGroupId());
-			taskGroups2 = tgbi.findTaskGroup(taskGroup);
+			taskGroups2 = tgbi.findTaskGroup(taskGroup);// 查该员工所属小组的所有成员
 			
 			for (TaskGroup taskGroup3 : taskGroups2) {
-				mailList.add(taskGroup3.getGroupStaff());
+				groupStaffList.add(taskGroup3.getGroupStaff());
 			}
 		}
 		
-		Staff staffDepart = new Staff();
-		staffDepart.setDepartId(staff.getDepartId());
-		List<Staff> staffList = findStaff(staffDepart, null, null);
-		for (Staff staff2 : staffList) { // 去重
+		for (Staff staff2 : groupStaffList) { // 去重
 			boolean flag = true; // 是否已经存在
 			for (int i=0;i<mailList.size();i++) {
 				if(staff2.getStaffId().equals(mailList.get(i).getStaffId())) {
@@ -174,13 +175,15 @@ public class StaffBizImpl implements StaffBiz{
 				mailList.add(staff2);
 			}
 		}
-		int removeNum=0;
-		for(Staff staff3:mailList) {
-			if(staff3.getStaffId()==staff.getStaffId()) {
-				removeNum=mailList.indexOf(staff3);
+		
+		Iterator<Staff> it=mailList.iterator();
+		while(it.hasNext()) {
+			String staffId = it.next().getStaffId();
+			if(staffId.equals(staff.getStaffId())) {
+				it.remove();
 			}
 		}
-		mailList.remove(removeNum);
+		
 		return mailList;
 	}
 

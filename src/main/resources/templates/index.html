@@ -73,7 +73,7 @@
 										<a class="fa fa-envelope"  href="javascript:void(0)" onclick="toEmail()"> 邮件</a>
 									</li>
 									<li>
-										<a class="fa fa-comment" href="javascript:void(0)" onclick="toCustomerService()"> 信息</a>
+										<a class="fa fa-comment" href="javascript:void(0)" onclick="toChatService()"> 信息</a>
 									</li>
 									<li>
 										<a class="fa fa-bell" href="javascript:void(0)" onclick="toNotice()"> 通告</a>
@@ -248,9 +248,8 @@
 									</div>
 								</a>
 								<ul class="dropdown-menu drp-mnu">
-									<li> <a href="#"><i class="fa fa-cog"></i> Settings</a> </li>
-									<li> <a href="#"><i class="fa fa-user"></i> Profile</a> </li>
-									<li> <a href="#"><i class="fa fa-sign-out"></i> Logout</a> </li>
+									<li> <a href="javascript:void(0)" onclick="toPersonnel()"><i class="fa fa-user"></i> 个人信息</a> </li>
+									<li> <a href="loginOut.do"><i class="fa fa-sign-out"></i> 登出</a> </li>
 								</ul>
 							</li>
 						</ul>
@@ -528,8 +527,8 @@
 					removeScrollBar();
 				});
 			}
-			function toCustomerService() {
-				$('#page-wrapper').load('toCustomerService.do',function(){
+			function toChatService() {
+				$('#page-wrapper').load('toChatService.do',function(){
 					removeScrollBar();
 				});
 			}
@@ -621,6 +620,12 @@
 				if (button !== 'showLeftPush') {
 					classie.toggle(showLeftPush, 'disabled');
 				}
+			}
+			
+			function getNowTime(){
+				var date = new Date()
+				var time = date.getFullYear()+'-'+date.getUTCMonth()+'-'+date.getDate()+' '+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds()
+				return time
 			}
 		</script>
 		<!--scrolling js-->

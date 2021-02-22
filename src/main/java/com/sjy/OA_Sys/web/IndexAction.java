@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sjy.OA_Sys.bean.AttSheet;
@@ -29,6 +30,7 @@ import com.sjy.OA_Sys.biz.impl.NoticeBizImpl;
 import com.sjy.OA_Sys.biz.impl.TaskBizImpl;
 
 @Controller
+@SessionAttributes(value="loginStaff")
 public class IndexAction {
 
 	@Resource
@@ -43,8 +45,6 @@ public class IndexAction {
 	
 	@GetMapping({"/","/index","/index.*"})
 	public String toIndex(@SessionAttribute(value="loginStaff") Staff loginStaff,Model m) {
-		m.addAttribute("loginStaff", loginStaff);
-		
 		// 未读邮件
 		@SuppressWarnings("unchecked")
 		ArrayList<Mail> mailList = (ArrayList<Mail>)mbi.findUnreadMail(loginStaff.getStaffId(), false);

@@ -9,8 +9,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.web.socket.server.standard.ServerEndpointExporter;
+
+import com.sjy.OA_Sys.web.WebSocketAction;
 
 @SpringBootApplication
 @MapperScan("com.sjy.OA_Sys.dao")
@@ -19,7 +23,17 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class OaSysApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(OaSysApplication.class, args);
+//		SpringApplication.run(OaSysApplication.class, args);
+		SpringApplication springApplication = new SpringApplication(OaSysApplication.class);
+		ConfigurableApplicationContext configurableApplicationContext = springApplication.run(args);
+        
+		//解决WebSocket不能注入的问题
+		WebSocketAction.setApplicationContext(configurableApplicationContext);
+	}
+	
+	@Bean
+	public ServerEndpointExporter serverEndpointExporter() {
+		return new ServerEndpointExporter();
 	}
 	
 	/**

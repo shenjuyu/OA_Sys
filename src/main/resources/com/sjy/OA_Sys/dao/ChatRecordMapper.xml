@@ -9,6 +9,10 @@
       <arg column="chat_receive" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="is_group" javaType="java.lang.Integer" jdbcType="INTEGER" />
     </constructor>
+    <association property="chatSenderStaff" autoMapping="true" column="chat_sender"
+    	select="com.sjy.OA_Sys.dao.StaffMapper.selectByStaffId"></association>
+    <association property="chatReceiveStaff" autoMapping="true" column="chat_receive"
+    	select="com.sjy.OA_Sys.dao.StaffMapper.selectByStaffId"></association>
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.sjy.OA_Sys.bean.ChatRecord">
     <constructor>
@@ -19,6 +23,10 @@
       <arg column="is_group" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="message" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
     </constructor>
+    <association property="chatSenderStaff" autoMapping="true" column="chat_sender"
+    	select="com.sjy.OA_Sys.dao.StaffMapper.selectByStaffId"></association>
+    <association property="chatReceiveStaff" autoMapping="true" column="chat_receive"
+    	select="com.sjy.OA_Sys.dao.StaffMapper.selectByStaffId"></association>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
