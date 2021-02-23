@@ -245,52 +245,62 @@ public class NoticeExample {
             return (Criteria) this;
         }
 
-        public Criteria andNoticeStaffAddresseeEqualTo(Integer value) {
+        public Criteria andNoticeStaffAddresseeEqualTo(String value) {
             addCriterion("notice_staff_addressee =", value, "noticeStaffAddressee");
             return (Criteria) this;
         }
 
-        public Criteria andNoticeStaffAddresseeNotEqualTo(Integer value) {
+        public Criteria andNoticeStaffAddresseeNotEqualTo(String value) {
             addCriterion("notice_staff_addressee <>", value, "noticeStaffAddressee");
             return (Criteria) this;
         }
 
-        public Criteria andNoticeStaffAddresseeGreaterThan(Integer value) {
+        public Criteria andNoticeStaffAddresseeGreaterThan(String value) {
             addCriterion("notice_staff_addressee >", value, "noticeStaffAddressee");
             return (Criteria) this;
         }
 
-        public Criteria andNoticeStaffAddresseeGreaterThanOrEqualTo(Integer value) {
+        public Criteria andNoticeStaffAddresseeGreaterThanOrEqualTo(String value) {
             addCriterion("notice_staff_addressee >=", value, "noticeStaffAddressee");
             return (Criteria) this;
         }
 
-        public Criteria andNoticeStaffAddresseeLessThan(Integer value) {
+        public Criteria andNoticeStaffAddresseeLessThan(String value) {
             addCriterion("notice_staff_addressee <", value, "noticeStaffAddressee");
             return (Criteria) this;
         }
 
-        public Criteria andNoticeStaffAddresseeLessThanOrEqualTo(Integer value) {
+        public Criteria andNoticeStaffAddresseeLessThanOrEqualTo(String value) {
             addCriterion("notice_staff_addressee <=", value, "noticeStaffAddressee");
             return (Criteria) this;
         }
 
-        public Criteria andNoticeStaffAddresseeIn(List<Integer> values) {
+        public Criteria andNoticeStaffAddresseeLike(String value) {
+            addCriterion("notice_staff_addressee like", value, "noticeStaffAddressee");
+            return (Criteria) this;
+        }
+
+        public Criteria andNoticeStaffAddresseeNotLike(String value) {
+            addCriterion("notice_staff_addressee not like", value, "noticeStaffAddressee");
+            return (Criteria) this;
+        }
+
+        public Criteria andNoticeStaffAddresseeIn(List<String> values) {
             addCriterion("notice_staff_addressee in", values, "noticeStaffAddressee");
             return (Criteria) this;
         }
 
-        public Criteria andNoticeStaffAddresseeNotIn(List<Integer> values) {
+        public Criteria andNoticeStaffAddresseeNotIn(List<String> values) {
             addCriterion("notice_staff_addressee not in", values, "noticeStaffAddressee");
             return (Criteria) this;
         }
 
-        public Criteria andNoticeStaffAddresseeBetween(Integer value1, Integer value2) {
+        public Criteria andNoticeStaffAddresseeBetween(String value1, String value2) {
             addCriterion("notice_staff_addressee between", value1, value2, "noticeStaffAddressee");
             return (Criteria) this;
         }
 
-        public Criteria andNoticeStaffAddresseeNotBetween(Integer value1, Integer value2) {
+        public Criteria andNoticeStaffAddresseeNotBetween(String value1, String value2) {
             addCriterion("notice_staff_addressee not between", value1, value2, "noticeStaffAddressee");
             return (Criteria) this;
         }

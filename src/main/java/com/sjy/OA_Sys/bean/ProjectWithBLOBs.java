@@ -3,7 +3,12 @@ package com.sjy.OA_Sys.bean;
 import java.sql.Timestamp;
 
 public class ProjectWithBLOBs extends Project {
-    private String proDes;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private String proDes;
 
     private String proAttachment;
 

@@ -1,10 +1,16 @@
 package com.sjy.OA_Sys.bean;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 
-public class AttSheet {
-    private Integer id;
+public class AttSheet implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Integer id;
 
     private String staffId;
 

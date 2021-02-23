@@ -1,10 +1,16 @@
 package com.sjy.OA_Sys.bean;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
-public class Staff {
-    private Integer id;
+public class Staff implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Integer id;
 
     private String staffId;
 

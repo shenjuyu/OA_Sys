@@ -19,6 +19,8 @@ public interface NoticeNumMapper {
     List<NoticeNum> selectByExample(NoticeNumExample example);
 
     NoticeNum selectByPrimaryKey(Integer id);
+    
+    List<NoticeNum> selectByNoticeId(Integer noticeId);
 
     int updateByExampleSelective(@Param("record") NoticeNum record, @Param("example") NoticeNumExample example);
 

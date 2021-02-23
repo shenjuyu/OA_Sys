@@ -1,18 +1,29 @@
 package com.sjy.OA_Sys.bean;
 
-public class NoticeNum {
-    private Integer id;
+import java.io.Serializable;
+import java.sql.Timestamp;
+
+public class NoticeNum implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Integer id;
 
     private Integer noticeId;
 
     private String staffId;
+
+    private Timestamp readTime;
     
     private Staff staff;
 
-    public NoticeNum(Integer id, Integer noticeId, String staffId) {
+    public NoticeNum(Integer id, Integer noticeId, String staffId, Timestamp readTime) {
         this.id = id;
         this.noticeId = noticeId;
         this.staffId = staffId;
+        this.readTime = readTime;
     }
 
     public NoticeNum() {
@@ -51,4 +62,11 @@ public class NoticeNum {
 		this.staff = staff;
 	}
     
+	public Timestamp getReadTime() {
+        return readTime;
+    }
+
+    public void setReadTime(Timestamp readTime) {
+        this.readTime = readTime;
+    }
 }

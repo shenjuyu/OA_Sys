@@ -1,95 +1,102 @@
 package com.sjy.OA_Sys.bean;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class Mail {
-    private Integer id;
+public class Mail implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-    private String mailId;
+	private Integer id;
 
-    private String mailStaffSend;
+	private String mailId;
 
-    private String mailStaffAddressee;
+	private String mailStaffSend;
 
-    private String mailTitle;
+	private String mailStaffAddressee;
 
-    private Timestamp mailTimeSend;
+	private String mailTitle;
 
-    private Integer mailSituation;
-    
-    private Staff staffSend;
-    
-    private Staff staffAddressee;
+	private Timestamp mailTimeSend;
 
-	public Mail(Integer id, String mailId, String mailStaffSend, String mailStaffAddressee, String mailTitle, Timestamp mailTimeSend, Integer mailSituation) {
-        this.id = id;
-        this.mailId = mailId;
-        this.mailStaffSend = mailStaffSend;
-        this.mailStaffAddressee = mailStaffAddressee;
-        this.mailTitle = mailTitle;
-        this.mailTimeSend = mailTimeSend;
-        this.mailSituation = mailSituation;
-    }
+	private Integer mailSituation;
 
-    public Mail() {
-        super();
-    }
+	private Staff staffSend;
 
-    public Integer getId() {
-        return id;
-    }
+	private Staff staffAddressee;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public Mail(Integer id, String mailId, String mailStaffSend, String mailStaffAddressee, String mailTitle,
+			Timestamp mailTimeSend, Integer mailSituation) {
+		this.id = id;
+		this.mailId = mailId;
+		this.mailStaffSend = mailStaffSend;
+		this.mailStaffAddressee = mailStaffAddressee;
+		this.mailTitle = mailTitle;
+		this.mailTimeSend = mailTimeSend;
+		this.mailSituation = mailSituation;
+	}
 
-    public String getMailId() {
-        return mailId;
-    }
+	public Mail() {
+		super();
+	}
 
-    public void setMailId(String mailId) {
-        this.mailId = mailId == null ? null : mailId.trim();
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public String getMailStaffSend() {
-        return mailStaffSend;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setMailStaffSend(String mailStaffSend) {
-        this.mailStaffSend = mailStaffSend == null ? null : mailStaffSend.trim();
-    }
+	public String getMailId() {
+		return mailId;
+	}
 
-    public String getMailStaffAddressee() {
-        return mailStaffAddressee;
-    }
+	public void setMailId(String mailId) {
+		this.mailId = mailId == null ? null : mailId.trim();
+	}
 
-    public void setMailStaffAddressee(String mailStaffAddressee) {
-        this.mailStaffAddressee = mailStaffAddressee == null ? null : mailStaffAddressee.trim();
-    }
+	public String getMailStaffSend() {
+		return mailStaffSend;
+	}
 
-    public String getMailTitle() {
-        return mailTitle;
-    }
+	public void setMailStaffSend(String mailStaffSend) {
+		this.mailStaffSend = mailStaffSend == null ? null : mailStaffSend.trim();
+	}
 
-    public void setMailTitle(String mailTitle) {
-        this.mailTitle = mailTitle == null ? null : mailTitle.trim();
-    }
+	public String getMailStaffAddressee() {
+		return mailStaffAddressee;
+	}
 
-    public Timestamp getMailTimeSend() {
-        return mailTimeSend;
-    }
+	public void setMailStaffAddressee(String mailStaffAddressee) {
+		this.mailStaffAddressee = mailStaffAddressee == null ? null : mailStaffAddressee.trim();
+	}
 
-    public void setMailTimeSend(Timestamp mailTimeSend) {
-        this.mailTimeSend = mailTimeSend;
-    }
+	public String getMailTitle() {
+		return mailTitle;
+	}
 
-    public Integer getMailSituation() {
-        return mailSituation;
-    }
+	public void setMailTitle(String mailTitle) {
+		this.mailTitle = mailTitle == null ? null : mailTitle.trim();
+	}
 
-    public void setMailSituation(Integer mailSituation) {
-        this.mailSituation = mailSituation;
-    }
+	public Timestamp getMailTimeSend() {
+		return mailTimeSend;
+	}
+
+	public void setMailTimeSend(Timestamp mailTimeSend) {
+		this.mailTimeSend = mailTimeSend;
+	}
+
+	public Integer getMailSituation() {
+		return mailSituation;
+	}
+
+	public void setMailSituation(Integer mailSituation) {
+		this.mailSituation = mailSituation;
+	}
 
 	public Staff getStaffSend() {
 		return staffSend;
@@ -106,5 +113,5 @@ public class Mail {
 	public void setStaffAddressee(Staff staffAddressee) {
 		this.staffAddressee = staffAddressee;
 	}
-    
+
 }

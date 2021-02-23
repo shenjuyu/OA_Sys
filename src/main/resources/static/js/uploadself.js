@@ -8,7 +8,7 @@
 			fileTypes: '',
 			buttonText: '选择文件',
 			irmeprocess: '<li id="${fileID}file"><div class="progress"><div class="progressbar"></div></div><span class="filename">${fileName}</span><span class="progressnum">0/${fileSize}</span><a class="uploadbtn">上传</a><a class="delfilebtn">删除</a></li>',
-			filehtml: '<div class="btn btn-default btn-file"><span class="fa fa-paperclip"></span><span class="selftext"></span><input type="file" id="FileUploadSelf" class="selfinput" name="attachment"></div>',
+			filehtml: '<div class="btn btn-default btn-file" style="width:93px;height:34px;position: relative;"><span class="fa fa-paperclip"></span><span class="selftext"></span><input type="file" id="FileUploadSelf" class="selfinput" name="attachment"></div>',
 			onUploadStart: function() {},
 			onUploadSuccess: function() {},
 			onUploadComplete: function() {},

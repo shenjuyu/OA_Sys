@@ -1,5 +1,6 @@
 package com.sjy.OA_Sys.bean;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -291,6 +292,66 @@ public class NoticeNumExample {
 
         public Criteria andStaffIdNotBetween(String value1, String value2) {
             addCriterion("staff_id not between", value1, value2, "staffId");
+            return (Criteria) this;
+        }
+        
+        public Criteria andReadTimeIsNull() {
+            addCriterion("read_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadTimeIsNotNull() {
+            addCriterion("read_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadTimeEqualTo(Timestamp value) {
+            addCriterion("read_time =", value, "readTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadTimeNotEqualTo(Timestamp value) {
+            addCriterion("read_time <>", value, "readTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadTimeGreaterThan(Timestamp value) {
+            addCriterion("read_time >", value, "readTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadTimeGreaterThanOrEqualTo(Timestamp value) {
+            addCriterion("read_time >=", value, "readTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadTimeLessThan(Timestamp value) {
+            addCriterion("read_time <", value, "readTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadTimeLessThanOrEqualTo(Timestamp value) {
+            addCriterion("read_time <=", value, "readTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadTimeIn(List<Timestamp> values) {
+            addCriterion("read_time in", values, "readTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadTimeNotIn(List<Timestamp> values) {
+            addCriterion("read_time not in", values, "readTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadTimeBetween(Timestamp value1, Timestamp value2) {
+            addCriterion("read_time between", value1, value2, "readTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadTimeNotBetween(Timestamp value1, Timestamp value2) {
+            addCriterion("read_time not between", value1, value2, "readTime");
             return (Criteria) this;
         }
     }

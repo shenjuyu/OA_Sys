@@ -1,74 +1,80 @@
 package com.sjy.OA_Sys.bean;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class ImportLog {
-    private Integer id;
+public class ImportLog implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-    private String logId;
+	private Integer id;
 
-    private String staffId;
+	private String logId;
 
-    private Timestamp logTime;
+	private String staffId;
 
-    private String logDes;
+	private Timestamp logTime;
 
-    public ImportLog(Integer id, String logId, String staffId, Timestamp logTime) {
-        this.id = id;
-        this.logId = logId;
-        this.staffId = staffId;
-        this.logTime = logTime;
-    }
+	private String logDes;
 
-    public ImportLog(Integer id, String logId, String staffId, Timestamp logTime, String logDes) {
-        this.id = id;
-        this.logId = logId;
-        this.staffId = staffId;
-        this.logTime = logTime;
-        this.logDes = logDes;
-    }
+	public ImportLog(Integer id, String logId, String staffId, Timestamp logTime) {
+		this.id = id;
+		this.logId = logId;
+		this.staffId = staffId;
+		this.logTime = logTime;
+	}
 
-    public ImportLog() {
-        super();
-    }
+	public ImportLog(Integer id, String logId, String staffId, Timestamp logTime, String logDes) {
+		this.id = id;
+		this.logId = logId;
+		this.staffId = staffId;
+		this.logTime = logTime;
+		this.logDes = logDes;
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	public ImportLog() {
+		super();
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public String getLogId() {
-        return logId;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setLogId(String logId) {
-        this.logId = logId == null ? null : logId.trim();
-    }
+	public String getLogId() {
+		return logId;
+	}
 
-    public String getStaffId() {
-        return staffId;
-    }
+	public void setLogId(String logId) {
+		this.logId = logId == null ? null : logId.trim();
+	}
 
-    public void setStaffId(String staffId) {
-        this.staffId = staffId == null ? null : staffId.trim();
-    }
+	public String getStaffId() {
+		return staffId;
+	}
 
-    public Timestamp getLogTime() {
-        return logTime;
-    }
+	public void setStaffId(String staffId) {
+		this.staffId = staffId == null ? null : staffId.trim();
+	}
 
-    public void setLogTime(Timestamp logTime) {
-        this.logTime = logTime;
-    }
+	public Timestamp getLogTime() {
+		return logTime;
+	}
 
-    public String getLogDes() {
-        return logDes;
-    }
+	public void setLogTime(Timestamp logTime) {
+		this.logTime = logTime;
+	}
 
-    public void setLogDes(String logDes) {
-        this.logDes = logDes == null ? null : logDes.trim();
-    }
+	public String getLogDes() {
+		return logDes;
+	}
+
+	public void setLogDes(String logDes) {
+		this.logDes = logDes == null ? null : logDes.trim();
+	}
 }

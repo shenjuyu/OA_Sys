@@ -3,7 +3,12 @@ package com.sjy.OA_Sys.bean;
 import java.sql.Timestamp;
 
 public class TaskWithBLOBs extends Task {
-    private String taskDes;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private String taskDes;
 
     private String taskReport;
 

@@ -1,7 +1,14 @@
 package com.sjy.OA_Sys.bean;
 
-public class TaskGroup {
-    private Integer id;
+import java.io.Serializable;
+
+public class TaskGroup implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Integer id;
 
     private String taskGroupId;
 

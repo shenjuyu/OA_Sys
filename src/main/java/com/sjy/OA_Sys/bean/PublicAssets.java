@@ -1,10 +1,16 @@
 package com.sjy.OA_Sys.bean;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
-public class PublicAssets {
-    private Integer id;
+public class PublicAssets implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Integer id;
 
     private String pubassId;
 

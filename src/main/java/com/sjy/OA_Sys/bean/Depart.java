@@ -1,54 +1,61 @@
 package com.sjy.OA_Sys.bean;
 
-public class Depart {
-    private Integer id;
+import java.io.Serializable;
 
-    private String departId;
+public class Depart implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-    private String departName;
+	private Integer id;
 
-    private String departAddr;
+	private String departId;
 
-    public Depart(Integer id, String departId, String departName, String departAddr) {
-        this.id = id;
-        this.departId = departId;
-        this.departName = departName;
-        this.departAddr = departAddr;
-    }
+	private String departName;
 
-    public Depart() {
-        super();
-    }
+	private String departAddr;
 
-    public Integer getId() {
-        return id;
-    }
+	public Depart(Integer id, String departId, String departName, String departAddr) {
+		this.id = id;
+		this.departId = departId;
+		this.departName = departName;
+		this.departAddr = departAddr;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public Depart() {
+		super();
+	}
 
-    public String getDepartId() {
-        return departId;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setDepartId(String departId) {
-        this.departId = departId == null ? null : departId.trim();
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public String getDepartName() {
-        return departName;
-    }
+	public String getDepartId() {
+		return departId;
+	}
 
-    public void setDepartName(String departName) {
-        this.departName = departName == null ? null : departName.trim();
-    }
+	public void setDepartId(String departId) {
+		this.departId = departId == null ? null : departId.trim();
+	}
 
-    public String getDepartAddr() {
-        return departAddr;
-    }
+	public String getDepartName() {
+		return departName;
+	}
 
-    public void setDepartAddr(String departAddr) {
-        this.departAddr = departAddr == null ? null : departAddr.trim();
-    }
+	public void setDepartName(String departName) {
+		this.departName = departName == null ? null : departName.trim();
+	}
+
+	public String getDepartAddr() {
+		return departAddr;
+	}
+
+	public void setDepartAddr(String departAddr) {
+		this.departAddr = departAddr == null ? null : departAddr.trim();
+	}
 }

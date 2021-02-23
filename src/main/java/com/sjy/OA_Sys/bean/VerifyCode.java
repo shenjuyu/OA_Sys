@@ -1,13 +1,19 @@
 package com.sjy.OA_Sys.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 验证码类
  */
-public class VerifyCode {
+public class VerifyCode implements Serializable{
 
-    private String code;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private String code;
 
     private byte[] imgBytes;
 

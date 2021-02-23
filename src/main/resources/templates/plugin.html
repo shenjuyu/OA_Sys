@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+	<head>
+	</head>
+	<body>
+		<div class="pro-task" th:fragment="addTask" th:data-task="${taskNum}">
+			<span class="task-num" th:text="任务[[${taskNum}]]:">任务1：</span>
+			<table>
+				<tr>
+					<td>任务名称</td>
+					<td class="left"><input name="taskName" type="text" value="" /></td>
+					<td>所属项目</td>
+					<td class="right"><input type="text" readonly="readonly" value="测试项目"></td>
+				</tr>
+				<tr>
+					<td>任务描述：</td>
+				</tr>
+			</table>
+			<textarea th:id="contents[[${taskNum}]]" name="taskDes" style="height: 350px;" required="required"></textarea>
+			<script th:inline="javascript">
+				var contentId='content'+[[${taskNum}]];
+				var obj = CKEDITOR.replace(contentId, {
+					width: '570px',
+					height: '100px',
+				});
+			</script>
+			<table>
+				<tr>
+					<td>开始时间：</td>
+					<td class="left"><input name="taskTimeStart" type="datetime-local" value="" /></td>
+					<td>结束时间：</td>
+					<td class="right"><input name="taskTimeend" type="datetime-local" value="" /></td>
+				</tr>
+				<tr>
+					<td>任务人员：</td>
+				</tr>
+				<tr>
+					<td>部门：</td>
+					<td class="left">
+						<select>
+							<option>1</option>
+						</select>
+					</td>
+					<td>项目组：</td>
+					<td class="right">
+						<select>
+							<option>2</option>
+						</select>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</body>
+</html>

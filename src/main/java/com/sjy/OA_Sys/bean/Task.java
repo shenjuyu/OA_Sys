@@ -1,9 +1,15 @@
 package com.sjy.OA_Sys.bean;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class Task {
-    private Integer id;
+public class Task implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Integer id;
 
     private String taskId;
 

@@ -3,7 +3,12 @@ package com.sjy.OA_Sys.bean;
 import java.sql.Timestamp;
 
 public class MailWithBLOBs extends Mail {
-    private String mailDes;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private String mailDes;
 
     private String mailAttachment;
 

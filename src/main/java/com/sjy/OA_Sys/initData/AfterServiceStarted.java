@@ -19,7 +19,7 @@ public class AfterServiceStarted implements ApplicationRunner {
 	@Resource
 	private MailBizImpl mbi;
 	@Resource
-	private RedisUtil redisUtil;;
+	private RedisUtil redisUtil;
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
@@ -41,6 +41,8 @@ public class AfterServiceStarted implements ApplicationRunner {
 				redisUtil.set("emailCodeNumTody", Integer.parseInt(emailCodeNumTody));
 			}
 		}
+		
+		// 初始化部门信息
 
 	}
 

@@ -49,18 +49,20 @@ public class IndexAction {
 		@SuppressWarnings("unchecked")
 		ArrayList<Mail> mailList = (ArrayList<Mail>)mbi.findUnreadMail(loginStaff.getStaffId(), false);
 		
+		
 		// 未读通知
 		Notice notice = new Notice();
 		// 被通知人是所有公司员工
-		notice.setNoticeStaffAddressee(2);
-		List<Notice> noReadNoticeList =  nbi.findNotice(notice,false,loginStaff.getStaffId(), null, null);
-		
-		// 登录员工与通知人属于同一部门
-		notice.setNoticeStaffAddressee(1);
-		noReadNoticeList.addAll(nbi.findNotice(notice,false,loginStaff.getStaffId(), null, null));
+		notice.setNoticeStaffAddressee("2");
+		List<String> addressee = new ArrayList<>();
+		addressee.add("2");
+		addressee.add(loginStaff.getDepartId());
+		List<Notice> noReadNoticeList =  nbi.findNotice(notice,addressee,false,loginStaff.getStaffId(), null, null);
+		System.out.println(noReadNoticeList.size()+"--------------");
 		
 		// 未完成任务
 		List<TaskWithBLOBs> noFinishedTask = tbi.findNoFinishedTask(loginStaff.getStaffId(), false, null, null);
+		
 		
 		// 本月出勤情况
 		AttSheet attSheet = new AttSheet(null, loginStaff.getStaffId(), null, null, 1);

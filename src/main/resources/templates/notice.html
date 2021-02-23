@@ -95,7 +95,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 			<!-- //header-ends -->
 			<!-- main content start-->
 			<div id="page-wrapper">
-				<div class="main-page" th:fragment="noticeList">
+				<div class="main-page" id="noticeList" th:fragment="noticeList">
 					<div class="col-md-6 general-grids grids-right widget-shadow">
 						<ul id="myTabs" class="nav nav-tabs" role="tablist">
 							<li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home"
@@ -104,7 +104,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 								 aria-expanded="true">发布</a></li>
 						</ul>
 						<div id="myTabContent" class="tab-content">
-							<div role="tabpanel" class="tab-pane fade active in scrollbar1" id="home" aria-labelledby="home-tab" style="height: 280px;">
+							<div role="tabpanel" class="tab-pane fade active in scrollbar1" id="home" aria-labelledby="home-tab" style="height: 488px;margin-top: 10px">
 								<div th:if="${noticeList eq null or noticeList.size() eq 0}" style="margin-left: 45%;margin-top: 20%;">
 									暂无公告
 								</div>
@@ -112,31 +112,27 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 									<!-- 循环查找公告 这里的公告的显示需要去掉注释， -->
 									<div class="grid_3 grid_4 widget-shadow" th:each="notice:${noticeList}" onmouseout="hideFunction(this)"
 									 onmousemove="showFunction(this)" style="margin-bottom: 10px; background-color: auto;" th:id="'notice'+${notice.id}">
-										<a href="javascript:void(0)" th:onclick="'showAdminNoticeDetils('+${notice.id}+')'" data-toggle="modal"
+										<a href="javaScript:void(0)" th:onclick="showNoticeDetils([[${notice.id}]])" data-toggle="modal"
 										 data-target="#gridSystemModal">
-											<h3 class="hdg" th:text="${notice.title}">这里是公告标题</h3>
+											<h3 class="hdg" th:text="${notice.noticeTitle}">这里是公告标题</h3>
 										</a>
-										<div th:id="'d'+${notice.id}" style="display: none;" th:utext="${notice.description}">文章简略...</div>
+										<div th:id="'d'+${notice.id}" style="display: none;" th:utext="${notice.noticeDes}">文章简略...</div>
 										<p class="intro" th:id="'p'+${notice.id}"></p>
 										<script type="text/javascript" th:inline="javascript">
-											var p = p[[$ {
-												notice.id
-											}]];
-											var d = d[[$ {
-												notice.id
-											}]];
-											p.innerText = d.innerText.substring(0, 100).replace(/[\r\n]/g, "") + "......";
+											var p = p[[${notice.id}]];
+											var d = d[[${notice.id}]];
+											p.innerText = d.innerText.substring(0, 30).replace(/[\r\n]/g, "") + "......";
 										</script>
 
 										<!-- <span th:text="'发表 '+${notice.push_time}"
 															style="font-size: 0.85em; color: #999;">发表 2020-01-23 12:50</span> -->
 										<span style="font-size: 0.85em; color: #999;">&nbsp;·&nbsp;</span>
-										<span th:text="'最后修改于 '+${notice.modifyTime.toLocalDateTime().getYear()}+'-'+${notice.modifyTime.toLocalDateTime().getMonthValue()}+'-'+${notice.modifyTime.toLocalDateTime().getDayOfMonth()}+' '+${notice.modifyTime.toLocalDateTime().getHour()}+':'+${notice.modifyTime.toLocalDateTime().getMinute()}+':'+${notice.modifyTime.toLocalDateTime().getSecond()}"
+										<span th:text="'最后修改于 '+${notice.noticeTime.toLocalDateTime().getYear()}+'-'+${notice.noticeTime.toLocalDateTime().getMonthValue()}+'-'+${notice.noticeTime.toLocalDateTime().getDayOfMonth()}+' '+${notice.noticeTime.toLocalDateTime().getHour()}+':'+${notice.noticeTime.toLocalDateTime().getMinute()}+':'+${notice.noticeTime.toLocalDateTime().getSecond()}"
 										 style="font-size: 0.85em; color: #999;">修改 2020-01-23 12:50</span>&nbsp;·&nbsp;
-										<span th:if="${notice.who eq 1}" style="font-size: 0.85em; color: #999;">TO管理员</span>
-										<span th:if="${notice.who eq 2}" style="font-size: 0.85em; color: #999;">TO商家</span>
+										<span th:text="${notice.noticeStaffAddressee eq 2 ? '全体人员':notice.staffSend.depart.departName}" style="font-size: 0.85em; color: #999;">TO管理员</span>
+										<span th:text="${notice.isRead eq 1?'已读':'未读'}" style="font-size: 0.85em; color: #999;">已读</span>
 										<span id="baseFunction" style="float: right; display: none;">
-											<button type="button" class="btn btn-primary btn-lg" th:onclick="'showAdminNoticeDetils('+${notice.id}+')'"
+											<button type="button" class="btn btn-primary btn-lg" th:onclick="showNoticeDetils([[${notice.id}]])"
 											 data-toggle="modal" data-target="#gridSystemModal" style="padding: 6px;font-size: 11px;">查看详情 </button>
 										</span>
 									</div>
@@ -173,7 +169,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 													<div class="modal-header">
 														<button type="button" id="backNoticeDetilsWindowClose" class="close" data-dismiss="modal" aria-label="Close"><span
 															 aria-hidden="true">&times;</span></button>
-														<h4 class="modal-title" id="gridSystemModalLabel">管理员信息</h4>
+														<h4 class="modal-title" id="gridSystemModalLabel">公司公告</h4>
 													</div>
 													<div class="grid_3 grid_5 widget-shadow" style="margin-top: 0em;">
 														<!-- 公告详情的显示地 -->
@@ -193,12 +189,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 										</div><!-- /.modal -->
 									</div>
 									<script type="text/javascript" th:inline="javascript">
-										var loginAdmin = [
-											[$ {
-												loginAdmin
-											}]
-										];
-
+										var loginStaff = [[loginStaff.stafId]];
 										function showFunction(a) {
 											$(a).css('background-color', '#16250613')
 											$('#' + a.id + ' #baseFunction').css('display', 'block');
@@ -226,32 +217,63 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 											});
 										}
 
-										function showAdminNoticeDetils(notice) {
-											$.post('showAdminNoticeDetils.do', {
+										function showNoticeDetils(notice) {
+											$.post('showNoticeDetils.do', {
 												id: notice
 											}, function(data) {
+												if(data.sucess==0){
+													$('#backNoticeDetilsWindowClose').trigger('click');
+													$('#tipContent').html(data.message);
+													$('#asdf').trigger('click');
+													return
+												}
+												var notice=data.obj;
+												
 												var str = '<div class="modal-header">' +
 													'<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
 													'<h4 class="modal-title" id="gridSystemModalLabel">公告详情</h4></div>' +
 													'<div class="grid_3 grid_5 widget-shadow" style="margin-top: 0em;">' +
 													'<label style="font-size: x-large;color: #0000CC;">公告：</label>';
-												if (data.power == 1) {
-													str += '<h3 style="display: inline-block; color: red;font-weight: bold;" >' + data.title + '</h3>';
-												}
-												str += '<h3 style="display: inline-block; color: #4F52BA;font-weight: bold;" >' + data.title + '</h3>';
-												if (loginAdmin != null && data.admin == loginAdmin.id) {
-													str += '<a href="javascript:void(0)" onclick="modifyNotice(' + data.id +
+												/* if (data.power == 1) {
+													str += '<h3 style="display: inline-block; color: red;font-weight: bold;" >' + notice.title + '</h3>';
+												} */
+												str += '<h3 style="display: inline-block; color: #4F52BA;font-weight: bold;" >' + notice.noticeTitle + '</h3>';
+												if (loginStaff != null && notice.staffSend.staffId == loginStaff) {
+													str += '<a href="javascript:void(0)" onclick="modifyNotice(' + notice.id +
 														')" style="font-size: 0.85em; color: #999; float: right;">修改</a>';
 												}
-												var modifyTime = new Date(data.modifyTime);
-												console.log(modifyTime.toLocaleString());
 												str += '<br /> <div style="margin-left: 6%;margin-top: 1%;">' +
-													'<span style="font-size: 0.85em; color: #999;">最后修改于 ' + modifyTime.toLocaleString() + '</span></div>' +
-													'<div id="noticeDetilsDescription" style="margin-left: 6%;margin-top: 1%;">' + data.description +
+													'<span style="font-size: 0.85em; color: #999;">最后修改于 ' + notice.noticeTime + '</span>'+
+													'<a href="javaScript:void(0)" onclick="showReadStaff('+notice.id+')"><span style="font-size: 0.85em; color: #999;">| 已读：'+notice.readCount+' 人</span></a></div>' +
+													'<div id="noticeDetilsDescription" style="margin-left: 6%;margin-top: 1%;">' + notice.noticeDes +
 													'</div></div>';
 												$('#adminNoticeDetilsWindow').html(str);
 												$('#noticeDetilsDescription p').css('color', 'black');
 												$('#noticeDetilsDescription p').css('font-size', '1em');
+											});
+										}
+										
+										function showReadStaff(notice){
+											$.post('showReadStaff.do', {
+												id: notice
+											}, function(data) {
+												if(data.sucess==0){
+													$('#tipContent').html(data.message);
+													$('#asdf').trigger('click');
+													return
+												}else{
+													var str='';
+													var numArr=data.obj;
+													for(var i =0; i<numArr.length; i++){
+														str+=numArr[i].staff.staffName+';';
+														if(i%5==0){
+															str+='<br/>';
+														}
+													}
+													
+													$('#tipContent').html(str);
+													$('#asdf').trigger('click');
+												}
 											});
 										}
 									</script>
@@ -259,30 +281,30 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 
 							</div>
 							<div role="tabpanel" class="tab-pane fade" id="profile" aria-labelledby="profile-tab" style="margin-top:-20px">
-								<form action="backNoticeAdd.do" method="post" id="backNoticeAdd">
+								<form action="noticeAdd.do" method="post" id="noticeAdd">
 									<div class="inline-form widget-shadow">
 										<div class="form-body">
 											<div data-example-id="simple-form-inline">
 												<div class="form-inline">
-													<input type="text" class="form-control" id="noticeTitle" name="title" placeholder="输入公告标题" style="width: 420px;display: inline-block;"
+													<input type="text" class="form-control" id="noticeTitle" name="noticeTitle" placeholder="输入公告标题" style="width: 420px;display: inline-block;"
 													 required="required">
 													<span style="margin-left: 2%;">发给谁:</span>
-													<select class="input-sm" id="noticeWho" name="who" style="font-size: 13px;display: inline-block;">
-														<option value="1">管理员</option>
-														<option value="2">商家</option>
+													<select class="input-sm" id="noticeWho" name="noticeStaffAddressee" style="font-size: 13px;display: inline-block;">
+														<option value="1">所属部门</option>
+														<option value="2">全体员工</option>
 													</select>
-													<span style="margin-left: 2%;">是否重要:</span>
+													<!-- <span style="margin-left: 2%;">是否重要:</span>
 													<select id="noticePower" class="input-sm" name="power" style="font-size: 13px;display: inline-block;">
 														<option value="0">否</option>
 														<option value="1">是</option>
-													</select>
-													<input name="id" id="noticeId" style="display: none;" />
+													</select> -->
+													<input name="id" id="noticeId" hidden="true"/>
 													<button class="btn btn-default" type="submit" style="background-color: rgba(97, 100, 193, 0.85);color: #fff; margin-left: 2%;">发布公告</button>
 												</div>
 											</div>
 										</div>
 									</div>
-									<textarea id="contents" name="description" style="height: 300px;" required="required"></textarea>
+									<textarea id="contents" name="noticeDes" style="height: 300px;" required="required"></textarea>
 									<script>
 										var obj = CKEDITOR.replace('contents', {
 											height: 300
@@ -291,16 +313,22 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 								</form>
 								<script type="text/javascript">
 									$(function() {
-										$("#backNoticeAdd").submit(function() { // 提交表单的id
-											console.log(123);
+										$("#noticeAdd").submit(function() { // 提交表单的id
 											var options = {
 												dataType: 'json',
+												beforeSubmit: function(){
+													if(CKEDITOR.instances.contents.getData()==""){
+														$('#tipContent').html('请填写公告内容');
+														$("#asdf").trigger('click');
+														return false;
+													}
+												},
 												success: function(data) {
 													if (data.sucess == 0) {
 														$('#tipContent').html(data.message);
 														$("#asdf").trigger('click');
 													} else if (data.sucess == 1) {
-														$('#backNoticeAdd').each(function() {
+														$('#noticeAdd').each(function() {
 															this.reset(); //将表单的元素恢复初始化
 															//清空所有ckeditor
 															for (instance in CKEDITOR.instances)
@@ -314,8 +342,8 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 											};
 											for (instance in CKEDITOR.instances)
 												CKEDITOR.instances[instance].updateElement();
-											$('#backNoticeAdd').ajaxSubmit(options);
-
+											console.log('asdfasdf')
+											$('#noticeAdd').ajaxSubmit(options);
 											return false; //防止表单自动提交
 										});
 									});

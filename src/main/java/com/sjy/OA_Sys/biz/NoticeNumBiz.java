@@ -20,4 +20,11 @@ public interface NoticeNumBiz {
 	 * @return
 	 */
 	List<NoticeNum> findNoticeNum(NoticeNum noticeNum);
+	
+	/**
+	 * 查找数量
+	 * @param noticeNum
+	 * @return
+	 */
+	Long countByExample(NoticeNum noticeNum);
 }
