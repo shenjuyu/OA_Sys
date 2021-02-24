@@ -114,4 +114,12 @@ public class Task implements Serializable{
     public void setProId(String proId) {
         this.proId = proId == null ? null : proId.trim();
     }
+
+	@Override
+	public String toString() {
+		return "Task [id=" + id + ", taskId=" + taskId + ", taskName=" + taskName + ", taskTimeStart=" + taskTimeStart
+				+ ", taskTimeEnd=" + taskTimeEnd + ", taskRateProgress=" + taskRateProgress + ", taskState=" + taskState
+				+ ", taskGroupId=" + taskGroupId + ", proId=" + proId + "]";
+	}
+    
 }

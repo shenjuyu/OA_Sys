@@ -1,50 +1,52 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns:th="www.thymeleaf.org">
 	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	</head>
 	<body>
 		<div class="pro-task" th:fragment="addTask" th:data-task="${taskNum}">
-			<span class="task-num" th:text="ÈÎÎñ[[${taskNum}]]:">ÈÎÎñ1£º</span>
+			<span class="task-num" th:text="'ä»»åŠ¡'+${taskNum}+':'">ä»»åŠ¡1ï¼š</span>
 			<table>
 				<tr>
-					<td>ÈÎÎñÃû³Æ</td>
-					<td class="left"><input name="taskName" type="text" value="" /></td>
-					<td>ËùÊôÏîÄ¿</td>
-					<td class="right"><input type="text" readonly="readonly" value="²âÊÔÏîÄ¿"></td>
+					<td>ä»»åŠ¡åç§°</td>
+					<td class="left"><input th:id="'taskName'+${taskNum}" name="taskName" type="text" value="" required="required"/></td>
 				</tr>
 				<tr>
-					<td>ÈÎÎñÃèÊö£º</td>
+					<td>ä»»åŠ¡æè¿°ï¼š</td>
 				</tr>
 			</table>
-			<textarea th:id="contents[[${taskNum}]]" name="taskDes" style="height: 350px;" required="required"></textarea>
+			<textarea th:id="'contents'+${taskNum}" name="taskDes" style="height: 350px;" required="required"></textarea>
 			<script th:inline="javascript">
-				var contentId='content'+[[${taskNum}]];
-				var obj = CKEDITOR.replace(contentId, {
+				var contentId='contents'+[[${taskNum}]];
+				console.log(contentId)
+				CKEDITOR.replace(contentId, {
 					width: '570px',
 					height: '100px',
 				});
 			</script>
 			<table>
 				<tr>
-					<td>¿ªÊ¼Ê±¼ä£º</td>
-					<td class="left"><input name="taskTimeStart" type="datetime-local" value="" /></td>
-					<td>½áÊøÊ±¼ä£º</td>
-					<td class="right"><input name="taskTimeend" type="datetime-local" value="" /></td>
+					<td>å¼€å§‹æ—¶é—´ï¼š</td>
+					<td class="left"><input th:id="'taskTimeStartBefore'+${taskNum}" name="taskTimeStartBefore" type="datetime-local" value="" required="required"/></td>
+					<td>ç»“æŸæ—¶é—´ï¼š</td>
+					<td class="right"><input th:id="'taskTimeEndBefore'+${taskNum}" name="taskTimeEndBefore" type="datetime-local" value="" required="required"/></td>
 				</tr>
 				<tr>
-					<td>ÈÎÎñÈËÔ±£º</td>
+					<td>ä»»åŠ¡äººå‘˜ï¼š</td>
 				</tr>
 				<tr>
-					<td>²¿ÃÅ£º</td>
+					<td>éƒ¨é—¨ï¼š</td>
 					<td class="left">
-						<select>
-							<option>1</option>
+						<select th:id="'depart'+${taskNum}" name="depart" th:onchange="getDepartGroup(this,[[${taskNum}]])">
+							<option value="0">--æœªé€‰æ‹©--</option>
+							<option th:each="depart:${departCache}" th:value="${depart.departId}" th:text="${depart.departName}">1</option>
 						</select>
 					</td>
-					<td>ÏîÄ¿×é£º</td>
+					<td>é¡¹ç›®ç»„ï¼š</td>
 					<td class="right">
-						<select>
-							<option>2</option>
+						<select th:id="'departGroup'+${taskNum}" name="taskGroupid">
+							<option value="0">è¯·é€‰æ‹©éƒ¨é—¨</option>
 						</select>
 					</td>
 				</tr>

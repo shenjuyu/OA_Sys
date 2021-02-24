@@ -61,7 +61,7 @@ public class Staff implements Serializable{
     }
 
     public Staff(String staffId, String staffName, Integer staffSex, String staffImg, Integer staffState,
-			String staffPower) {
+			String staffPower,String departId) {
 		super();
 		this.staffId = staffId;
 		this.staffName = staffName;
@@ -69,6 +69,7 @@ public class Staff implements Serializable{
 		this.staffImg = staffImg;
 		this.staffState = staffState;
 		this.staffPower = staffPower;
+		this.departId=departId;
 	}
 
 
@@ -200,7 +201,7 @@ public class Staff implements Serializable{
 		return depart;
 	}
 
-	public void setDepartName(Depart depart) {
+	public void setDepart(Depart depart) {
 		this.depart = depart;
 	}
 

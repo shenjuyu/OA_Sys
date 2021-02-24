@@ -48,4 +48,11 @@ public class ProjectWithBLOBs extends Project {
     public void setProComments(String proComments) {
         this.proComments = proComments == null ? null : proComments.trim();
     }
+
+	@Override
+	public String toString() {
+		return "ProjectWithBLOBs [proDes=" + proDes + ", proAttachment=" + proAttachment + ", proComments="
+				+ proComments + "]";
+	}
+    
 }

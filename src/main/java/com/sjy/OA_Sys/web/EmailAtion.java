@@ -239,7 +239,7 @@ public class EmailAtion {
 	@PostMapping("toReplyEmail.do")
 	public Result toReplyEmail(MailWithBLOBs mail, Model m) {
 		Mail oldMail = (Mail) mbi.findMail(mail, null, null, null, false).get(0);
-		String mailId = mailCodeUtil.createEmailCode();
+		String mailId = mailCodeUtil.createCode("email");
 		mail.setMailId(mailId);
 		mail.setMailSituation(1);
 		mail.setMailStaffAddressee(oldMail.getMailStaffSend());
@@ -289,7 +289,7 @@ public class EmailAtion {
 
 		// 发送邮件
 		for (String trueAddress : addressList) {
-			mail.setMailId(mailCodeUtil.createEmailCode());
+			mail.setMailId(mailCodeUtil.createCode("email"));
 			mail.setMailStaffAddressee(trueAddress);
 			mail.setMailSituation(1);
 			result = mbi.addMail(mail);
@@ -334,7 +334,7 @@ public class EmailAtion {
 				}
 			}
 		}else {
-			mail.setMailId(mailCodeUtil.createEmailCode());
+			mail.setMailId(mailCodeUtil.createCode("email"));
 			mail.setMailSituation(0);
 			result = mbi.addMail(mail);
 			return result;

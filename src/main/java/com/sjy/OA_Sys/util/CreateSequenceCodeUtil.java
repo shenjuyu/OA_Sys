@@ -7,42 +7,70 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * 创建编号
+ * @author 沈俊羽
+ *
+ * 2021年2月24日
+ */
 @Component
 public class CreateSequenceCodeUtil {
 
 	@Resource
 	private RedisUtil redisUtil;
 	
-	public String createEmailCode() {
-		String emailCode = "";
-		Integer emailCodeNumTody = null;
+	/**
+	 * 获取id
+	 * @param codeType :email  project  task
+	 * @return
+	 */
+	public String createCode(String codeType) {
+		String code = "";
+		Integer codeNumTody = null;
 		try {
-			emailCodeNumTody = (Integer)redisUtil.get("emailCodeNumTody");
-			if(emailCodeNumTody==null) {
-				emailCodeNumTody = 1;
+			String codeName="";
+			switch (codeType) {
+				case "email":
+					codeName="emailCodeNumTody";
+					break;
+				case "project":
+					codeName="projectCodeNumTody";
+					break;
+				case "task":
+					codeName="taskCodeNumTody";
+					break;
+				default:
+					break;
+			}
+			if(codeName=="") {
+				return null;
+			}
+			codeNumTody = (Integer)redisUtil.get(codeName);
+			if(codeNumTody==null) {
+				codeNumTody = 1;
 			}else {
-				emailCodeNumTody++;
+				codeNumTody++;
 			}
 			SimpleDateFormat formatter= new SimpleDateFormat("yyyyMMdd");
 			Date date = new Date(System.currentTimeMillis());
-			emailCode=formatter.format(date);
+			code=formatter.format(date);
 			
-			if(emailCodeNumTody/10<1) {
-				emailCode+="0000"+emailCodeNumTody;
-			}else if(emailCodeNumTody/100<1) {
-				emailCode+="000"+emailCodeNumTody;
-			}else if(emailCodeNumTody/1000<1) {
-				emailCode+="00"+emailCodeNumTody;
-			}else if(emailCodeNumTody/10000<1) {
-				emailCode+="0"+emailCodeNumTody;
+			if(codeNumTody/10<1) {
+				code+="0000"+codeNumTody;
+			}else if(codeNumTody/100<1) {
+				code+="000"+codeNumTody;
+			}else if(codeNumTody/1000<1) {
+				code+="00"+codeNumTody;
+			}else if(codeNumTody/10000<1) {
+				code+="0"+codeNumTody;
 			}else {
-				emailCode+=emailCodeNumTody;
+				code+=codeNumTody;
 			}
-			return emailCode;
+			return code;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			redisUtil.set("emailCodeNumTody", emailCodeNumTody);
+			redisUtil.set("codeNumTody", codeNumTody);
 		}
 		return null;
 	}

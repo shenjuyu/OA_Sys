@@ -2,6 +2,7 @@ package com.sjy.OA_Sys.biz;
 
 import java.util.List;
 
+import com.sjy.OA_Sys.bean.Project;
 import com.sjy.OA_Sys.bean.Result;
 import com.sjy.OA_Sys.bean.Task;
 import com.sjy.OA_Sys.bean.TaskWithBLOBs;
@@ -20,7 +21,7 @@ public interface TaskBiz {
 	 * @param tasks
 	 * @return
 	 */
-	Result addTaskForList(List<TaskWithBLOBs> tasks);
+	Result addTaskForList(List<TaskWithBLOBs> tasks,String projectId);
 	
 	/**
 	 * 查找任务
@@ -38,4 +39,10 @@ public interface TaskBiz {
 	 * @return
 	 */
 	List<?> findNoFinishedTask(String staffID,Boolean withBLOB, Integer pageNum, Integer pageSize);
+	
+	/**
+	 * 查找最后一个
+	 * @return
+	 */
+	Task findLastTask();
 }

@@ -95,7 +95,7 @@
     select 
     <include refid="Base_Column_List" />
     from depart
-    where depart_id = #{departId,jdbcType=INTEGER}
+    where depart_id = #{departId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from depart

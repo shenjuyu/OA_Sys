@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
+import com.sjy.OA_Sys.bean.Project;
 import com.sjy.OA_Sys.bean.Result;
 import com.sjy.OA_Sys.bean.Task;
 import com.sjy.OA_Sys.bean.TaskExample;
@@ -16,6 +17,7 @@ import com.sjy.OA_Sys.bean.TaskGroup;
 import com.sjy.OA_Sys.bean.TaskWithBLOBs;
 import com.sjy.OA_Sys.biz.TaskBiz;
 import com.sjy.OA_Sys.dao.TaskMapper;
+import com.sjy.OA_Sys.util.CreateSequenceCodeUtil;
 
 @Service
 public class TaskBizImpl implements TaskBiz {
@@ -25,6 +27,9 @@ public class TaskBizImpl implements TaskBiz {
 	@Resource
 	private TaskGroupBizImpl tgbi;
 
+	@Resource
+	private CreateSequenceCodeUtil codeUtil;
+	
 	private TaskExample te = new TaskExample();
 
 	@Override
@@ -38,9 +43,11 @@ public class TaskBizImpl implements TaskBiz {
 	}
 
 	@Override
-	public Result addTaskForList(List<TaskWithBLOBs> tasks) {
+	public Result addTaskForList(List<TaskWithBLOBs> tasks,String projectId) {
 		int code = 0;
 		for (TaskWithBLOBs taskWithBLOBs : tasks) {
+			taskWithBLOBs.setProId(projectId);
+			taskWithBLOBs.setTaskId(codeUtil.createCode("task"));
 			code += tm.insertSelective(taskWithBLOBs);
 		}
 
@@ -134,6 +141,16 @@ public class TaskBizImpl implements TaskBiz {
 		}
 
 		return noFinishedTaskList;
+	}
+
+	@Override
+	public Task findLastTask() {
+		te.setOrderByClause("id desc");
+		List<Task> tasks = tm.selectByExample(te);
+		if(tasks.size()<1) {
+			return null;
+		}
+		return tasks.get(0);
 	}
 
 }

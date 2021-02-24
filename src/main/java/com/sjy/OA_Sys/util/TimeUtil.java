@@ -1,6 +1,7 @@
 package com.sjy.OA_Sys.util;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -12,6 +13,20 @@ import java.util.Date;
  * 2021年1月31日
  */
 public class TimeUtil {
+	
+	public static Timestamp formatDateTime(String date) {
+		System.out.println("dateBefore:"+date);
+		date = date.replace("T", " ");
+		System.out.println("dateAfter:"+date);
+		Date dateTemp = null;
+		try {
+			dateTemp = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		Timestamp timestamp = new Timestamp(dateTemp.getTime());
+		return timestamp;
+	}
 	
 	public static String formatDateTime(Date date,String pattern) {
 		SimpleDateFormat formatter= new SimpleDateFormat(pattern);

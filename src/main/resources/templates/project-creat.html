@@ -125,21 +125,21 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 									</div>
 								</div>
 							</nav>
-							<div data-spy="scroll" data-target="#navbar-example2" class="scrollspy-example scroll scrollbar1 pro-cre" style="height: 450px;">
-								<div class="pro-cre-child">
+							<div id="createProBox" data-spy="scroll" data-target="#navbar-example2" class="scrollspy-example pro-cre" style="height: 450px;overflow:auto;">
+								<div id="projectBox" class="pro-cre-child">
 									<h4 id="one">申请人信息</h4>
 									<table>
 										<tr>
 											<td>员工编号：</td>
-											<td class="left"><input name="staffId" type="text" value="" /></td>
+											<td class="left"><input name="staffId" type="text" th:value="${loginStaff.staffId}" disabled="disabled"/></td>
 											<td>姓名：</td>
-											<td class="right"><input name="staffName" type="text" value="" /></td>
+											<td class="right"><input name="staffName" type="text" th:value="${loginStaff.staffName}" disabled="disabled"/></td>
 										</tr>
 										<tr>
 											<td>所属部门：</td>
-											<td class="left"><input name="partName" type="text" value="" /></td>
+											<td class="left"><input name="partName" type="text" th:value="${loginStaff.depart.departName}" disabled="disabled"/></td>
 											<td>申请日期：</td>
-											<td class="right"><input name="proTimeCre" type="datetime-local" value="" /></td>
+											<td class="right"><input id="proTimeCre" name="proTimeCre" type="datetime-local" value="" disabled="disabled"/></td>
 										</tr>
 									</table>
 									<br />
@@ -147,7 +147,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 									<table>
 										<tr>
 											<td>项目名称：</td>
-											<td class="left"><input name="proName" type="text" value="" /></td>
+											<td class="left"><input name="proName" type="text" value="" required="required"/></td>
 										</tr>
 										<tr>
 											<td>项目简述：</td>
@@ -163,149 +163,338 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 									<table>
 										<tr>
 											<td>开始时间：</td>
-											<td class="left"><input name="proTimeStart" type="datetime-local" value="" /></td>
+											<td class="left"><input name="proTimeStartBefore" type="datetime-local" value="" required="required"/></td>
 											<td>结束时间：</td>
-											<td class="right"><input name="proTimeEnd" type="datetime-local" value="" /></td>
+											<td class="right"><input name="proTimeEndBefore" type="datetime-local" value="" required="required"/></td>
 										</tr>
 									</table>
 									附件：
-									<div class="btn btn-default btn-file" style="position: relative;">
-										<i class="fa fa-paperclip"></i> 添加附件
-										<input type="file" name="attachment" style="position: absolute;
-																							top: 0;
-																							right: 0;
-																							opacity: 0;
-																							outline: none;
-																							background: white;
-																							cursor: inherit;
-																							display: inline-flex;
-																							width: 100%;
-																							padding: 0.4em;">
+									<div class="form-group" style="height:100px;">
+									
 									</div>
-									<table>
-										<tr>
-											<td>
-												<span class="fa fa-paperclip">这是一个测试文件.css</span>
-												<a href="#">删除</a>
-											</td>
-										</tr>
-										<tr>
-											<td>
-												<span class="fa fa-paperclip">这是一个测试文件.css</span>
-												<a href="#">删除</a>
-											</td>
-										</tr>
-									</table>
 									<br />
-									<h4 id="three" style="display: inline;">任务详情</h4>
-									<h4 style="display: inline;margin-left: 5px;">
-										<a href="#">
-											<span class="label label-info">添加任务</span>
-										</a>
-									</h4>
+									<div>
+										<h4 id="three" style="display: inline;">任务详情</h4>
+										<h4 style="display: inline;margin-left: 5px;">
+											<a href="javaScript:void(0)" onclick="addTask()">
+												<span class="label label-info">添加任务</span>
+											</a>
+										</h4>
+									</div>
 									<div class="task-box">
-										<div class="pro-task">
-											<span class="task-num">任务1：</span>
-											<table>
-												<tr>
-													<td>任务名称</td>
-													<td class="left"><input name="taskName" type="text" value="" /></td>
-													<td>所属项目</td>
-													<td class="right"><input type="text" readonly="readonly" value="测试项目"></td>
-												</tr>
-												<tr>
-													<td>任务描述：</td>
-												</tr>
-											</table>
-											<textarea id="contents1" name="taskDes" style="height: 350px;" required="required"></textarea>
-											<script>
-												var obj = CKEDITOR.replace('contents1', {
-													width: '570px',
-													height: '100px',
-												});
-											</script>
-											<table>
-												<tr>
-													<td>开始时间：</td>
-													<td class="left"><input name="taskTimeStart" type="datetime-local" value="" /></td>
-													<td>结束时间：</td>
-													<td class="right"><input name="taskTimeend" type="datetime-local" value="" /></td>
-												</tr>
-												<tr>
-													<td>任务人员：</td>
-												</tr>
-												<tr>
-													<td>部门：</td>
-													<td class="left">
-														<select>
-															<option>1</option>
-														</select>
-													</td>
-													<td>项目组：</td>
-													<td class="right">
-														<select>
-															<option>2</option>
-														</select>
-													</td>
-												</tr>
-											</table>
-										</div>
-										<div class="pro-task">
-											<span class="task-num">任务2：</span>
-											<table>
-												<tr>
-													<td>任务名称：</td>
-													<td class="left"><input name="taskName" type="text" value="" /></td>
-													<td>所属项目：</td>
-													<td class="right"><input type="text" readonly="readonly" value="测试项目"></td>
-												</tr>
-												<tr>
-													<td>任务描述：</td>
-												</tr>
-											</table>
-											<textarea id="contents2" name="taskDes" style="height: 350px;" required="required"></textarea>
-											<script>
-												var obj = CKEDITOR.replace('contents2', {
-													width: '570px',
-													height: '100px',
-												});
-											</script>
-											<table>
-												<tr>
-													<td>开始时间：</td>
-													<td class="left"><input name="taskTimeStart" type="datetime-local" value="" /></td>
-													<td>结束时间：</td>
-													<td class="right"><input name="taskTimeend" type="datetime-local" value="" /></td>
-												</tr>
-												<tr>
-													<td>任务人员：</td>
-												</tr>
-												<tr>
-													<td>部门：</td>
-													<td class="left">
-														<select>
-															<option>1</option>
-														</select>
-													</td>
-													<td>项目组：</td>
-													<td class="right">
-														<select>
-															<option>2</option>
-														</select>
-													</td>
-												</tr>
-											</table>
+										<div>
+											<div class="pro-task" th:fragment="addTask" data-task="1">
+												<span class="task-num">任务1：</span>
+												<table>
+													<tr>
+														<td>任务名称</td>
+														<td class="left"><input id="taskName1" name="taskName" type="text" value="" required="required"/></td>
+													</tr>
+													<tr>
+														<td>任务描述：</td>
+													</tr>
+												</table>
+												<textarea id="contents1" name="taskDes" style="height: 350px;" required="required"></textarea>
+												<script>
+													var obj = CKEDITOR.replace('contents1', {
+														width: '570px',
+														height: '100px',
+													});
+												</script>
+												<table>
+													<tr>
+														<td>开始时间：</td>
+														<td class="left"><input id="taskTimeStartBefore1" name="taskTimeStartBefore" type="datetime-local" value="" required="required"/></td>
+														<td>结束时间：</td>
+														<td class="right"><input id="taskTimeEndBefore1" name="taskTimeEndBefore" type="datetime-local" value="" required="required"/></td>
+													</tr>
+													<tr>
+														<td>任务人员：</td>
+													</tr>
+													<tr>
+														<td>部门：</td>
+														<td class="left">
+															<select th:id="'depart'+${taskNum}" name="depart" th:onchange="getDepartGroup(this,[[${taskNum}]])">
+																<option value="0">--未选择--</option>
+																<option th:each="depart:${departCache}" th:value="${depart.departId}" th:text="${depart.departName}">1</option>
+															</select>
+														</td>
+														<td>项目组：</td>
+														<td class="right">
+															<select th:id="'departGroup'+${taskNum}" name="taskGroupid">
+																<option value="0">请选择部门</option>
+															</select>
+														</td>
+													</tr>
+												</table>
+											</div>
 										</div>
 									</div>
 									<h3 class="pro-sub">
-										<a href="#">
-											<span class="label label-primary">提交申请</span>
-										</a>
+										<button id="proCreateBtn" class="label label-primary" type="button">提交申请</button>
 									</h3>
 								</div>
 							</div>
 						</div>
 					</div>
+					<script src="js/uploadself.js"></script>
+					<script type="text/javascript">
+						$('#proCreateBtn').click(function(){
+							var taskNum = $('.pro-task').attr('data-task');
+							taskNum=parseInt(taskNum)+1;
+							for(var i=1;i<taskNum;i++){
+								var departSelect = $('#depart'+i).val();
+								var departGroupSelect = $('#departGroup'+i).val();
+								if(departSelect=="0"){
+									$('#createProBox').animate({scrollTop:$('#depart'+i).offset().top+100+"px"}, 400);
+									$('#tipContent').html('请选择正确内容...');
+									$("#asdf").trigger('click');
+									return false;
+								}
+								if(departGroupSelect=="0"){
+									$('#createProBox').animate({scrollTop:$('#departGroup'+i).offset().top+100+"px"}, 400);
+									$('#tipContent').html('请选择正确内容...');
+									$("#asdf").trigger('click');
+									return false;
+								}
+							}
+							
+							// 项目数据
+							var proName = $('input[name=proName]').val();
+							var proTimeStartBefore = $('input[name=proTimeStartBefore]').val();
+							var proTimeEndBefore = $('input[name=proTimeEndBefore]').val();
+							var fileNames = new Array();
+							var tempCount=0;
+							$('input[name=fileNames]').each(function(){
+								fileNames[tempCount]=$(this).val();
+								tempCount++;
+							});
+							tempCount=0;
+							var proDes = CKEDITOR.instances.contents.getData();
+							if(proName==null || proName=="" || proTimeStartBefore==null || proTimeStartBefore=="" || proTimeEndBefore==null || proTimeEndBefore==""){
+								$('#tipContent').html('请将项目信息填写完整...');
+								$("#asdf").trigger('click');
+								return false;
+							}
+							
+							var nowDate = new Date();
+							var proTimeStartDate = new Date(proTimeStartBefore);
+							var proTimeEndDate = new Date(proTimeEndBefore);
+							
+							if(proTimeStartDate<nowDate){
+								$('#tipContent').html('项目开始时间无效...');
+								$("#asdf").trigger('click');
+								return false;
+							}
+							if(proTimeStartDate>proTimeEndDate){
+								$('#tipContent').html('项目开始时间不能晚于结束时间...');
+								$("#asdf").trigger('click');
+								return false;
+							}
+							
+							
+							// 任务数据
+							
+							var taskArray=new Array();
+							var taskDesArray=new Array();
+							var taskGroupIdArray=new Array();
+							var taskNameArray=new Array();
+							
+							var taskTimeStartBeforeArr = new Array();
+							var taskTimeEndBeforeArr = new Array();
+							for(var i=1;i<taskNum;i++){
+								var task=new Object();
+								var taskDes=CKEDITOR.instances['contents'+i].getData();
+								var taskGroupId=$('#departGroup'+i).val();
+								var taskName=$('#taskName'+i).val();
+								var taskTimeStartBefore=$('#taskTimeStartBefore'+i).val();
+								var taskTimeEndBefore=$('#taskTimeEndBefore'+i).val();
+								
+								var taskTimeStartDate = new Date(taskTimeStartBefore);
+								var taskTimeEndDate = new Date(taskTimeEndBefore);
+								
+								if(taskTimeStartDate>taskTimeEndDate){
+									$('#tipContent').html('任务 '+taskNum+' 中开始时间不能晚于结束时间...');
+									$("#asdf").trigger('click');
+									return false;
+								}
+								if(taskTimeStartDate<proTimeStartDate||taskTimeStartDate>proTimeEndDate){
+									$('#tipContent').html('任务 '+taskNum+' 中任务开始时间不能早于(晚于)项目开始(结束)时间...');
+									$("#asdf").trigger('click');
+									return false;
+								}
+								if(taskTimeEndBefore<proTimeStartDate||taskTimeEndBefore>proTimeEndDate){
+									$('#tipContent').html('任务 '+taskNum+' 中任务开始时间不能早于(晚于)项目开始(结束)时间...');
+									$("#asdf").trigger('click');
+									return false;
+								}
+								
+								if(taskDes==null || taskDes=='' || taskName==null || taskName=='' || taskTimeStartBefore==null || taskTimeStartBefore=='' || taskTimeEndBefore==null || taskTimeEndBefore==''){
+									$('#tipContent').html('请将任务 '+taskNum+' 信息填写完整...');
+									$("#asdf").trigger('click');
+									return false;
+								}
+								
+								task.taskDes=taskDes;
+								task.taskGroupId=taskGroupId;
+								task.taskName=taskName;
+								
+								taskArray[i-1]=task;
+								taskDesArray[i-1]=taskDes;
+								taskGroupIdArray[i-1]=taskGroupId;
+								taskNameArray[i-1]=taskName;
+								
+								taskTimeStartBeforeArr[i-1]=taskTimeStartBefore;
+								taskTimeEndBeforeArr[i-1]=taskTimeEndBefore;
+								
+								
+							}
+							
+							var taskList=JSON.stringify(taskArray);
+							var taskDesList=JSON.stringify(taskDesArray);
+							var taskGroupIdList=JSON.stringify(taskGroupIdArray);
+							var taskNameList=JSON.stringify(taskNameArray);
+							var fileNameList=JSON.stringify(fileNames);
+							
+							var taskTimeStartBeforeList=JSON.stringify(taskTimeStartBeforeArr);
+							var taskTimeEndBeforeList=JSON.stringify(taskTimeEndBeforeArr);
+							
+							$.post('createProform.do',{
+								proName:proName,
+								proDes:proDes,
+								fileNames:fileNameList,
+								proTimeStartBefore:proTimeStartBefore,
+								proTimeEndBefore:proTimeEndBefore,
+								taskTimeStartBefore:taskTimeStartBeforeList,
+								taskTimeEndBefore:taskTimeEndBeforeList,
+								taskDes:taskDesList,
+								taskGroupId:taskGroupIdList,
+								taskName:taskNameList
+							},function(data){
+								$('#tipContent').html(data.message);
+								$("#asdf").trigger('click');
+								if(data.sucess==1){
+									CKEDITOR.instances.contents.setData('');
+									$('input[name=proName]').val('');
+									$('input[name=proTimeStartBefore]').val('');
+									$('input[name=proTimeEndBefore]').val('');
+									
+									$('.fileprocessbox').each(function(){
+										this.remove();
+									});
+									
+									for(var i=1;i<taskNum;i++){
+										CKEDITOR.instances['contents'+i].setData('');
+										$('#taskName'+i).val('');
+										$('#taskTimeStartBefore'+i).val('');
+										$('#taskTimeEndBefore'+i).val('');
+									}
+								}
+							},);
+							
+						});
+						
+					</script>
+					<script type="text/javascript">
+						function delEmailAtta(obj){
+							$(obj).parent().parent().remove();
+						}
+						function addTask(){
+							var taskNum = $('.pro-task').attr('data-task');
+							taskNum=parseInt(taskNum)+1;
+							
+							var taskNameArr = new Array();
+							var taskTimeStartBeforeArr = new Array();
+							var taskTimeEndBeforeArr = new Array();
+							var ckeditorDataArr = new Array();
+							var departArr = new Array();
+							var departGroupArr = new Array();
+							for(var i=1;i<taskNum;i++){
+								ckeditorDataArr[i]=CKEDITOR.instances['contents'+i].getData();
+								CKEDITOR.instances['contents'+i].destroy();
+								departArr[i]=$('#depart'+i).val();
+								departGroupArr[i]=$('#departGroup'+i).val();
+								taskNameArr[i]=$('#taskName'+i).val()
+								taskTimeStartBeforeArr[i]=$('#taskTimeStartBefore'+i).val()
+								taskTimeEndBeforeArr[i]=$('#taskTimeEndBefore'+i).val()
+							}
+							
+							
+							var taskBox = $('.task-box').html()
+							$('.task-box').html('')
+							
+							var str='<div id="tempDivId"></div>'
+							$('.task-box').html(str)
+							$('#tempDivId').load('toAddTaskDiv.do',{taskNum:taskNum},function(){
+								$('.task-box').append(taskBox);
+								$('#tempDivId').removeAttr('id');
+								console.log(taskNum+'++++++++++++++++++')
+								for(var i=1;i<taskNum;i++){
+									CKEDITOR.instances['contents'+i].setData(ckeditorDataArr[i]);
+									$('#depart'+i).val(departArr[i]);
+									$('#departGroup'+i).val(departGroupArr[i]);
+									$('#taskName'+i).val(taskNameArr[i])
+									$('#taskTimeStartBefore'+i).val(taskTimeStartBeforeArr[i])
+									$('#taskTimeEndBefore'+i).val(taskTimeEndBeforeArr[i])
+									$('.fileprocessbox').each(function(){
+										this.remove();
+									});
+								}
+							});
+							
+						}
+						
+						function getDepartGroup(obj,num){
+							var depart = $(obj).val();
+							var departGroup = 'departGroup'+num;
+							$.post('getDepartGroup.do',{departId:depart},function(data){
+								var str='';
+								var groupArr=data.obj;
+								if(groupArr==null || groupArr.length==0){
+									str+='<option>此部门无小组</option>';
+								}else if(groupArr.length>0){
+									for(var i =0;i<groupArr.length;i++){
+										var group=groupArr[i];
+										str+='<option value="'+group.taskGroupId+'">'+group.taskGroupName+'</option>';
+									}
+								}
+								$('#'+departGroup).html(str);
+							});
+						}
+						
+					</script>
+					<script type="text/javascript">
+						$(".form-group").filesUpload({
+							url:'uploadProjectAtta.do',//上传地址
+							multiple: true,  //是否多文件上传
+							accept: '', //input accept属性
+							buttonText: '添加附件',  //按钮文字
+							fileChangeEnd:function(file){
+								$("#txtname").text(file[0].name)
+							},
+							onUploadStart: function() {}, //请求开始
+							onUploadSuccess: function(a,b) {
+								var data = eval("("+b+")")
+								$('.fileprocess').remove()
+								$('.size').remove()
+								$('.sizeSplit').remove()
+								$('.sizetext').append('<a class="delatta" href="javaScript:void(0)" onclick="delEmailAtta(this)">删除</a><input name="fileNames" value="'+data.obj+'"  hidden="true"/>')
+								$('.sizetext').addClass('sizetextend')
+								$('.sizetext').removeClass('sizetext')
+							},//请求成功
+							onUploadComplete: function() {
+								
+							},//请求完成
+							onUploadError:function(res, xhr){//请求错误
+								console.log("err",res,xhr)
+							}
+						})
+					</script>
+					<script type="text/javascript">
+						$(function(){
+							$('#proTimeCre').val(getFormat())
+						});
+					</script>
 				</div>
 			</div>
 			<!--footer-->

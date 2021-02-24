@@ -2,6 +2,7 @@ package com.sjy.OA_Sys.web;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
@@ -19,17 +20,23 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sjy.OA_Sys.bean.Depart;
 import com.sjy.OA_Sys.bean.Result;
 import com.sjy.OA_Sys.bean.Staff;
 import com.sjy.OA_Sys.bean.VerifyCode;
 import com.sjy.OA_Sys.biz.impl.StaffBizImpl;
 import com.sjy.OA_Sys.util.AddCookie;
 import com.sjy.OA_Sys.util.RandomUtils;
+import com.sjy.OA_Sys.util.RedisUtil;
 import com.sjy.OA_Sys.util.SendEmail;
 import com.sjy.OA_Sys.util.VerificationCodeGeneratorUtil;
 
 @Controller
-@SessionAttributes({"loginStaff","backResetPwdEmailCode"})
+@SessionAttributes({"loginStaff","backResetPwdEmailCode","departCache"})
 public class LoginAction { 
 
 	@Resource
@@ -38,6 +45,11 @@ public class LoginAction {
 	private SendEmail sendEmail;
 	@Resource
 	private StaffBizImpl sbi; 
+	
+	@Resource
+	private ObjectMapper objectMapper;
+	@Resource
+	private RedisUtil redisUtil;
 
 	@GetMapping("toLogin.do")
 	public String toLogin(HttpServletRequest request,HttpServletResponse response) {
@@ -95,7 +107,18 @@ public class LoginAction {
 		Staff loginStaff = (Staff) resultStaffLogin.getObj();
 		// 添加Cookie
 		addCookie.addCookie(true, remPwd, loginStaff.getStaffId().toString(), loginStaff.getStaffPwd(), request, response);
-		System.out.println(loginStaff.getStaffId());
+		
+		List<Depart> departs = null;
+		try {
+			departs = objectMapper.readValue((String) redisUtil.get("departCache"), new TypeReference<List<Depart>>() {
+			});
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		
+		m.addAttribute("departCache", departs);
 		m.addAttribute("loginStaff", loginStaff);
 		return new Result(resultStaffLogin.getSucess(), resultStaffLogin.getMessage());
 	}

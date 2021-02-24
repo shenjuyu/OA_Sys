@@ -30,8 +30,9 @@
       <arg column="staff_img" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="staff_state" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="staff_power" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="depart_id" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
-    <association property="departName" autoMapping="true" column="depart_id"
+    <association property="depart" autoMapping="true" column="depart_id"
     	select="com.sjy.OA_Sys.dao.DepartMapper.selectByDepartId"></association>
   </resultMap>
   <sql id="Example_Where_Clause">

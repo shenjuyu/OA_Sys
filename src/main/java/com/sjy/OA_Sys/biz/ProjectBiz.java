@@ -2,6 +2,7 @@ package com.sjy.OA_Sys.biz;
 
 import java.util.List;
 
+import com.sjy.OA_Sys.bean.Mail;
 import com.sjy.OA_Sys.bean.Project;
 import com.sjy.OA_Sys.bean.ProjectWithBLOBs;
 import com.sjy.OA_Sys.bean.Result;
@@ -33,5 +34,11 @@ public interface ProjectBiz {
 	 * @return
 	 */
 	Result updateProject(ProjectWithBLOBs project);
+
+	/**
+	 * 查找最后一个
+	 * @return
+	 */
+	Project findLastPro();
 	
 }

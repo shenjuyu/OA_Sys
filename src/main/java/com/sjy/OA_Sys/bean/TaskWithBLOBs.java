@@ -37,4 +37,10 @@ public class TaskWithBLOBs extends Task {
     public void setTaskReport(String taskReport) {
         this.taskReport = taskReport == null ? null : taskReport.trim();
     }
+
+	@Override
+	public String toString() {
+		return "TaskWithBLOBs [taskDes=" + taskDes + ", taskReport=" + taskReport + "]";
+	}
+    
 }

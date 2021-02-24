@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
+import com.sjy.OA_Sys.bean.Mail;
 import com.sjy.OA_Sys.bean.Project;
 import com.sjy.OA_Sys.bean.ProjectExample;
 import com.sjy.OA_Sys.bean.ProjectExample.Criteria;
@@ -15,6 +16,7 @@ import com.sjy.OA_Sys.bean.Result;
 import com.sjy.OA_Sys.bean.TaskWithBLOBs;
 import com.sjy.OA_Sys.biz.ProjectBiz;
 import com.sjy.OA_Sys.dao.ProjectMapper;
+import com.sjy.OA_Sys.util.CreateSequenceCodeUtil;
 
 @Service
 public class ProjectBizImpl implements ProjectBiz {
@@ -23,20 +25,20 @@ public class ProjectBizImpl implements ProjectBiz {
 	private ProjectMapper pm;
 	@Resource
 	private TaskBizImpl tbi;
+
+	@Resource
+	private CreateSequenceCodeUtil codeUtil;
 	
 	private ProjectExample pe = new ProjectExample();
 	
 	@Override
 	public Result addProject(ProjectWithBLOBs project, List<TaskWithBLOBs> taskWithBLOBs) {
 		Result re = null;
+		project.setProId(codeUtil.createCode("project"));
 		int code = pm.insertSelective(project);
-		if(taskWithBLOBs.size()==1) {
-			re = tbi.addTask(taskWithBLOBs.get(0));
-			if(re.getSucess()==1) {
-				code++;
-			}
+		if(taskWithBLOBs!=null && taskWithBLOBs.size()>0) {
+			re = tbi.addTaskForList(taskWithBLOBs,project.getProId());
 		}
-		re = tbi.addTaskForList(taskWithBLOBs);
 		if(re.getSucess()==1) {
 			code++;
 		}
@@ -104,4 +106,13 @@ public class ProjectBizImpl implements ProjectBiz {
 		}
 	}
 
+	@Override
+	public Project findLastPro() {
+		pe.setOrderByClause("id desc");
+		List<Project> projects = pm.selectByExample(pe);
+		if(projects.size()<1) {
+			return null;
+		}
+		return projects.get(0);
+	}
 }

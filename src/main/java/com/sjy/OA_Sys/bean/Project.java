@@ -114,4 +114,12 @@ public class Project implements Serializable{
     public void setProState(Integer proState) {
         this.proState = proState;
     }
+
+	@Override
+	public String toString() {
+		return "Project [id=" + id + ", proId=" + proId + ", staffId=" + staffId + ", proName=" + proName
+				+ ", proTimeCre=" + proTimeCre + ", proTimeStart=" + proTimeStart + ", proTimeEnd=" + proTimeEnd
+				+ ", proRateProgress=" + proRateProgress + ", proState=" + proState + "]";
+	}
+    
 }
