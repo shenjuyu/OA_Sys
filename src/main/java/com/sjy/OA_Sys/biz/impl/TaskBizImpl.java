@@ -100,15 +100,10 @@ public class TaskBizImpl implements TaskBiz {
 				}
 			}
 
-			// 分页
-			if (pageNum != null && pageSize != null) {
-				if (withBLOB) {
-					PageHelper.startPage(pageNum, pageSize);
-					return tm.selectByExampleWithBLOBs(te);
-				} else {
-					PageHelper.startPage(pageNum, pageSize);
-					return tm.selectByExample(te);
-				}
+			if (withBLOB) {
+				return tm.selectByExampleWithBLOBs(te);
+			} else {
+				return tm.selectByExample(te);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

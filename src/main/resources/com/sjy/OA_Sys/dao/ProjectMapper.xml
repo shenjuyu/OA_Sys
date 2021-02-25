@@ -13,6 +13,8 @@
       <arg column="pro_rate_progress" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="pro_state" javaType="java.lang.Integer" jdbcType="INTEGER" />
     </constructor>
+    <association property="staff" autoMapping="true" column="staff_id"
+    	select="com.sjy.OA_Sys.dao.StaffMapper.selectByStaffId"></association>
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.sjy.OA_Sys.bean.ProjectWithBLOBs">
     <constructor>
@@ -29,6 +31,8 @@
       <arg column="pro_attachment" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
       <arg column="pro_comments" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
     </constructor>
+    <association property="staff" autoMapping="true" column="staff_id"
+    	select="com.sjy.OA_Sys.dao.StaffMapper.selectByStaffId"></association>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -132,6 +136,14 @@
     <include refid="Blob_Column_List" />
     from project
     where id = #{id,jdbcType=INTEGER}
+  </select>
+  <!-- 查找登录员工创建的或者项目所属的任务小组中有登录员工的项目 -->
+  <select id="selectByStaffId" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from project where staff_id=#{staffId,jdbcType=VARCHAR} or pro_id=(SELECT DISTINCT pro_id from task where task_group_id=(select DISTINCT task_group_id from task_group where staff_id=#{staffId,jdbcType=VARCHAR}))
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from project

@@ -115,19 +115,11 @@ public class ProjectCreatAction {
 			projectWithBLOBs.setProState(1);
 			projectWithBLOBs.setProRateProgress("0%");
 			
-			List<String> taskTimeStartBeforeList = null;
-			List<String> taskTimeEndBeforeList = null;
-			List<String> taskDesList = null;
-			List<String> taskGroupIdList = null;
-			List<String> taskNameList = null;
-			
-			taskTimeStartBeforeList = objectMapper.readValue(taskTimeStartBefore, new TypeReference<List<String>>() {});
-			taskTimeEndBeforeList = objectMapper.readValue(taskTimeEndBefore, new TypeReference<List<String>>() {});
-			taskDesList = objectMapper.readValue(taskDes, new TypeReference<List<String>>() {});
-			taskGroupIdList = objectMapper.readValue(taskGroupId, new TypeReference<List<String>>() {});
-			taskNameList = objectMapper.readValue(taskName, new TypeReference<List<String>>() {});
-		
-		
+			List<String> taskTimeStartBeforeList = objectMapper.readValue(taskTimeStartBefore, new TypeReference<List<String>>() {});
+			List<String> taskTimeEndBeforeList = objectMapper.readValue(taskTimeEndBefore, new TypeReference<List<String>>() {});
+			List<String> taskDesList = objectMapper.readValue(taskDes, new TypeReference<List<String>>() {});
+			List<String> taskGroupIdList = objectMapper.readValue(taskGroupId, new TypeReference<List<String>>() {});
+			List<String> taskNameList = objectMapper.readValue(taskName, new TypeReference<List<String>>() {});
 		
 			List<TaskWithBLOBs> taskWithBLOBs = new ArrayList<TaskWithBLOBs>();
 			if(taskNameList!=null && taskNameList.size()>0) {

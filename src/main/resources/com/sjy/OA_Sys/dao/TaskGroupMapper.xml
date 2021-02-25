@@ -93,6 +93,13 @@
     from task_group
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <!-- 根据小组ID查找 -->
+  <select id="selectByTaskGroupId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from task_group
+    where task_group_id = #{taskGroupId,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from task_group
     where id = #{id,jdbcType=INTEGER}

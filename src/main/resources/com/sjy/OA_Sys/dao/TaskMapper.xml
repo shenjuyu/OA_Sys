@@ -13,6 +13,8 @@
       <arg column="task_group_id" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="pro_id" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
+    <collection property="taskGroup" autoMapping="true" column="task_group_id"
+       select="com.sjy.OA_Sys.dao.TaskGroupMapper.selectByTaskGroupId"></collection>
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.sjy.OA_Sys.bean.TaskWithBLOBs">
     <constructor>

@@ -171,6 +171,11 @@ public class FileOperationUtil {
 		return sb.toString();
 	}
 	
+	/**
+	 * 文件名拆解
+	 * @param fileNames
+	 * @return
+	 */
 	public static List<String> fileNameDismantling(String fileNames){
 		List<String> fileNamesList = new ArrayList<String>();
 		for(String str : fileNames.split(";")) {

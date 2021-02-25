@@ -2,6 +2,7 @@ package com.sjy.OA_Sys.bean;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
 public class Task implements Serializable{
     /**
@@ -26,6 +27,8 @@ public class Task implements Serializable{
     private String taskGroupId;
 
     private String proId;
+    
+    private List<TaskGroup> taskGroup;
 
     public Task(Integer id, String taskId, String taskName, Timestamp taskTimeStart, Timestamp taskTimeEnd, String taskRateProgress, Integer taskState, String taskGroupId, String proId) {
         this.id = id;
@@ -68,22 +71,22 @@ public class Task implements Serializable{
     }
 
     public Timestamp getTaskTimeStart() {
-        return taskTimeStart;
-    }
+		return taskTimeStart;
+	}
 
-    public void setTaskTimeStart(Timestamp taskTimeStart) {
-        this.taskTimeStart = taskTimeStart;
-    }
+	public void setTaskTimeStart(Timestamp taskTimeStart) {
+		this.taskTimeStart = taskTimeStart;
+	}
 
-    public Timestamp getTaskTimeEnd() {
-        return taskTimeEnd;
-    }
+	public Timestamp getTaskTimeEnd() {
+		return taskTimeEnd;
+	}
 
-    public void setTaskTimeEnd(Timestamp taskTimeEnd) {
-        this.taskTimeEnd = taskTimeEnd;
-    }
+	public void setTaskTimeEnd(Timestamp taskTimeEnd) {
+		this.taskTimeEnd = taskTimeEnd;
+	}
 
-    public String getTaskRateProgress() {
+	public String getTaskRateProgress() {
         return taskRateProgress;
     }
 
@@ -114,6 +117,14 @@ public class Task implements Serializable{
     public void setProId(String proId) {
         this.proId = proId == null ? null : proId.trim();
     }
+
+	public List<TaskGroup> getTaskGroup() {
+		return taskGroup;
+	}
+
+	public void setTaskGroup(List<TaskGroup> taskGroup) {
+		this.taskGroup = taskGroup;
+	}
 
 	@Override
 	public String toString() {

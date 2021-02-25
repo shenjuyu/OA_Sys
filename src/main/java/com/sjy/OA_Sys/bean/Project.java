@@ -26,6 +26,8 @@ public class Project implements Serializable{
     private String proRateProgress;
 
     private Integer proState;
+    
+    private Staff staff;
 
     public Project(Integer id, String proId, String staffId, String proName, Timestamp proTimeCre, Timestamp proTimeStart, Timestamp proTimeEnd, String proRateProgress, Integer proState) {
         this.id = id;
@@ -114,6 +116,14 @@ public class Project implements Serializable{
     public void setProState(Integer proState) {
         this.proState = proState;
     }
+    
+	public Staff getStaff() {
+		return staff;
+	}
+
+	public void setStaff(Staff staff) {
+		this.staff = staff;
+	}
 
 	@Override
 	public String toString() {

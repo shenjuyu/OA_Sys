@@ -103,7 +103,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 			<div id="page-wrapper">
 				<div class="main-page" th:fragment="taskCreat">
 					<div class="col-md-6 general-grids widget-shadow">
-						<h4 class="title2">创建新项目 :</h4>
+						<h4 class="title2">创建新任务 :</h4>
 						<div class="bs-example1" data-example-id="embedded-scrollspy">
 							<nav id="navbar-example2" class="navbar navbar-default navbar-static">
 								<div class="container-fluid">
@@ -123,117 +123,400 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 									</div>
 								</div>
 							</nav>
-							<div data-spy="scroll" data-target="#navbar-example2" class="scrollspy-example scroll scrollbar1 pro-cre" style="height: 450px;">
+							<div data-spy="scroll" data-target="#navbar-example2" class="scrollspy-example pro-cre" style="height: 450px;overflow:auto;">
 								<div class="pro-cre-child">
-									<h4 id="three" style="display: inline;">任务详情</h4>
-									<h4 style="display: inline;margin-left: 5px;">
-										<a href="#">
-											<span class="label label-info">添加任务</span>
-										</a>
-									</h4>
+									<div>
+										<h4 id="three" style="display: inline;">任务详情</h4>
+										<h4 style="display: inline;margin-left: 5px;">
+											<a onclick="addTask()" style="cursor: pointer;">
+												<span class="label label-info">添加任务</span>
+											</a>
+										</h4>
+										<h4 style="display: inline;margin-left: 5px;">
+											<a style="cursor: pointer;" data-toggle="modal" data-target="#gridSystemModal">
+												<span class="label label-info">所属项目</span>
+											</a>
+										</h4>
+										<span>项目名：</span>
+										<span id="projectBelong" data-proId="" data-proTimeEnd="">空</span>
+									</div>
 									<div class="task-box">
-										<div class="pro-task">
-											<span class="task-num">任务1：</span>
-											<table>
-												<tr>
-													<td>任务名称</td>
-													<td class="left"><input name="taskName" type="text" value="" /></td>
-													<td>所属项目</td>
-													<td class="right"><input type="text" value=""></td>
-												</tr>
-												<tr>
-													<td>任务描述：</td>
-												</tr>
-											</table>
-											<textarea id="contents1" name="taskDes" style="height: 350px;" required="required"></textarea>
-											<script>
-												var obj = CKEDITOR.replace('contents1', {
-													width: '570px',
-													height: '100px',
-												});
-											</script>
-											<table>
-												<tr>
-													<td>开始时间：</td>
-													<td class="left"><input name="taskTimeStart" type="datetime-local" value="" /></td>
-													<td>结束时间：</td>
-													<td class="right"><input name="taskTimeend" type="datetime-local" value="" /></td>
-												</tr>
-												<tr>
-													<td>任务人员：</td>
-												</tr>
-												<tr>
-													<td>部门：</td>
-													<td class="left">
-														<select>
-															<option>1</option>
-														</select>
-													</td>
-													<td>项目组：</td>
-													<td class="right">
-														<select>
-															<option>2</option>
-														</select>
-													</td>
-												</tr>
-											</table>
-										</div>
-										<div class="pro-task">
-											<span class="task-num">任务2：</span>
-											<table>
-												<tr>
-													<td>任务名称：</td>
-													<td class="left"><input name="taskName" type="text" value="" /></td>
-													<td>所属项目：</td>
-													<td class="right"><input type="text" value=""></td>
-												</tr>
-												<tr>
-													<td>任务描述：</td>
-												</tr>
-											</table>
-											<textarea id="contents2" name="taskDes" style="height: 350px;" required="required"></textarea>
-											<script>
-												var obj = CKEDITOR.replace('contents2', {
-													width: '570px',
-													height: '100px',
-												});
-											</script>
-											<table>
-												<tr>
-													<td>开始时间：</td>
-													<td class="left"><input name="taskTimeStart" type="datetime-local" value="" /></td>
-													<td>结束时间：</td>
-													<td class="right"><input name="taskTimeend" type="datetime-local" value="" /></td>
-												</tr>
-												<tr>
-													<td>任务人员：</td>
-												</tr>
-												<tr>
-													<td>部门：</td>
-													<td class="left">
-														<select>
-															<option>1</option>
-														</select>
-													</td>
-													<td>项目组：</td>
-													<td class="right">
-														<select>
-															<option>2</option>
-														</select>
-													</td>
-												</tr>
-											</table>
+										<div>
+											<div class="pro-task" th:fragment="addTask" data-task="1">
+												<span class="task-num">任务1：</span>
+												<table>
+													<tr>
+														<td>任务名称</td>
+														<td class="left"><input id="taskName1" name="taskName" type="text" value="" required="required"/></td>
+													</tr>
+													<tr>
+														<td>任务描述：</td>
+													</tr>
+												</table>
+												<textarea id="contents1" name="taskDes" style="height: 350px;" required="required"></textarea>
+												<script>
+													var obj = CKEDITOR.replace('contents1', {
+														width: '570px',
+														height: '100px',
+													});
+												</script>
+												<table>
+													<tr>
+														<td>开始时间：</td>
+														<td class="left"><input id="taskTimeStartBefore1" name="taskTimeStartBefore" type="datetime-local" value="" required="required"/></td>
+														<td>结束时间：</td>
+														<td class="right"><input id="taskTimeEndBefore1" name="taskTimeEndBefore" type="datetime-local" value="" required="required"/></td>
+													</tr>
+													<tr>
+														<td>任务人员：</td>
+													</tr>
+													<tr>
+														<td>部门：</td>
+														<td class="left">
+															<select th:id="'depart'+${taskNum}" name="depart" th:onchange="getDepartGroup(this,[[${taskNum}]])">
+																<option value="0">--未选择--</option>
+																<option th:each="depart:${departCache}" th:value="${depart.departId}" th:text="${depart.departName}">1</option>
+															</select>
+														</td>
+														<td>项目组：</td>
+														<td class="right">
+															<select th:id="'departGroup'+${taskNum}" name="taskGroupid">
+																<option value="0">请选择部门</option>
+															</select>
+														</td>
+													</tr>
+												</table>
+											</div>
 										</div>
 									</div>
 									<h3 class="pro-sub">
 										<a href="#">
-											<span class="label label-primary">创建任务</span>
+											<button id="taskCreateBtn" class="label label-primary" type="button">创建任务</button>
 										</a>
 									</h3>
 								</div>
 							</div>
 						</div>
 					</div>
+					<div class="col-md-4 modal-grids">
+						<div class="modal fade" id="gridSystemModal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" style="overflow: hidden;">
+							<div class="modal-dialog" role="document" style="width: 690px;">
+								<div class="modal-content" id="adminNoticeDetilsWindow">
+									<div class="modal-header">
+										<button type="button" id="backNoticeDetilsWindowClose" class="close" data-dismiss="modal" aria-label="Close"><span
+											 aria-hidden="true">&times;</span></button>
+										<h4 class="modal-title" id="gridSystemModalLabel">添加附属项目</h4>
+									</div>
+									<div class="grid_3 grid_5 widget-shadow" style="margin-top: 0em;height: 600px;overflow-y: visible;">
+										<div class="search-box" style="width: 85%;">
+											<form class="input" action="searchPro.do" method="post">
+												<input class="sb-search-input input__field--madoka projectNameInput" name="proName" placeholder="查询..." type="search" id="input-31" />
+												<label class="input__label" for="input-31">
+													<svg class="graphic" width="100%" height="100%" viewBox="0 0 404 77" preserveAspectRatio="none">
+														<path d="m0,0l404,0l0,77l-404,0l0,-77z" />
+													</svg>
+												</label>
+											</form>
+										</div>
+										<div id="proFindBox" style="border-top: 1px solid #cccccc;float: left;width: 100%;margin-top: 20px;overflow-y: scroll;overflow-X: hidden;height: 470px;">
+											<div class="btn btn-default projectDesDiv" onclick="addProId(this)" th:if="${projectList!=null && projectList.size>0}" th:each="project:${projectList}" th:data-proName="${project.proName}" th:data-proId="${project.proId}" th:data-proStaffName="${project.staff.staffName}" th:data-proTimeEnd="${project.proTimeEnd}" style="height:34px;float: left;margin: 5px 5px 5px 5px;cursor: pointer;">
+												<span th:text="${project.proName}">啊着</span>&nbsp;&nbsp;
+												<span th:text="${project.staff.staffName}">创建人：沈俊羽</span>
+											</div>
+										</div>
+									</div>
+								</div><!-- /.modal-content -->
+							</div><!-- /.modal-dialog -->
+						</div><!-- /.modal -->
+					</div>
+					<!-- 所属项目搜索框JS -->
+					<script type="text/javascript">
+						var tempProFindBox=null;
+						$('.projectNameInput').keyup(function(){
+							var name = $(this).val().replace(/\s+/g, '');
+							if(name.length>0){
+								console.log(jsonArr);
+			                    var resultArray = getArrayByName(name,jsonArr);
+			                    if(resultArray.length<1){
+			                    	tempProFindBox=$('#proFindBox').html();
+			                        $('#proFindBox').empty();
+			                    }else{
+			                        var html = '';
+			                        for(var i=0;i<resultArray.length;i++){
+			                            html += '<div class="btn btn-default projectDesDiv" data-proName="'+resultArray[i].proName+'" '
+			                            	+'data-proId="'+resultArray[i].proId+'" data-proTimeEnd="'+resultArray[i].proTimeEnd+'" style="height:34px;float: left;margin: 5px 5px 5px 5px;cursor: pointer;">'
+											+'<span>'+resultArray[i].proName+'</span>&nbsp;&nbsp;'
+											+'<span>创建人：'+resultArray[i].proStaffName+'</span></div>';
+			                        }
+			                        $('#proFindBox').html(html);
+			                    }
+			                }
+						});
+						
+						function addProId(obj){
+							$('#projectBelong').attr('data-proId',$(obj).attr('data-proId'));
+							$('#projectBelong').attr('data-proTimeEnd',$(obj).attr('data-proTimeEnd'));
+							$('#projectBelong').text($(obj).attr('data-proName'));
+							
+							if(tempProFindBox!=null){
+								$('#proFindBox').html(tempProFindBox);
+							}
+							$("#backNoticeDetilsWindowClose").trigger('click');
+						}
+						
+						
+						var jsonArr=new Array();
+						$(document).ready(function(){
+							var a=0;
+							$('.projectDesDiv').each(function(){
+								var obj = new Object();
+								obj.proName=$(this).attr('data-proName');
+								obj.proId=$(this).attr('data-proId');
+								obj.proStaffName=$(this).attr('data-proStaffName');
+								obj.proTimeEnd=$(this).attr('data-proTimeEnd');
+								
+								jsonArr[a]=obj;
+								a++;
+							});
+						});
+						/**
+					     * 根据字符串模糊搜索返回符合条件的数据
+					     * name   搜索字符串
+					     * array  检索json数组
+					     * length 匹配结果最大长度
+					     */
+					    function getArrayByName(name,array){
+					        if(array.length < 1){
+					            return;
+					        }
+					        var result = [];
+					        for (var key in array) {
+					            if (checkStrContain(array[key].proName,name)) {
+					                result.push(array[key])
+					            }
+					        }
+					        return result
+					    }
+					    /**检查一个字符串是否包含在另一个字符串里,并且首字符相同
+					     * i:计算机科学与技术
+					     * j:计科
+					     * 返回true
+					     * */
+					    function checkStrContain(i, j) {
+					        if(!i || !j){
+					            return false;
+					        }
+					        if(i.charAt(0) != j.charAt(0)){
+					            return false;
+					        }
+					        i = i.substr(1,i.length-1);
+					        j = j.substr(1,j.length-1);
+					        var a;
+					        var b;
+					        if (i.length > j.length) {
+					            a = i;
+					            b = j;
+					        } else {
+					            a = j;
+					            b = i;
+					        }
+					        var count = 0;
+					        for (var bi = 0; bi < b.length; bi++) {
+					            var bArr = b.split("");
+					            if (a.indexOf(bArr[bi]) != -1) {
+					                count++;
+					            } else {
+					                break;
+					            }
+					        }
+					        if (b.length == count) {
+					            return true;
+					        } else {
+					            return false;
+					        }
+					    }
+					</script>
+					<!-- //所属项目搜索框JS -->
+					
+					<!-- 创建任务JS -->
+					<script type="text/javascript">
+						$('#taskCreateBtn').click(function(){
+							var taskNum = $('.pro-task').attr('data-task');
+							taskNum=parseInt(taskNum)+1;
+							
+							for(var i=1;i<taskNum;i++){
+								var departSelect = $('#depart'+i).val();
+								var departGroupSelect = $('#departGroup'+i).val();
+								if(departSelect=="0"){
+									$('#createProBox').animate({scrollTop:$('#depart'+i).offset().top+100+"px"}, 400);
+									$('#tipContent').html('请选择正确内容...');
+									$("#asdf").trigger('click');
+									return false;
+								}
+								if(departGroupSelect=="0"){
+									$('#createProBox').animate({scrollTop:$('#departGroup'+i).offset().top+100+"px"}, 400);
+									$('#tipContent').html('请选择正确内容...');
+									$("#asdf").trigger('click');
+									return false;
+								}
+							}
+							
+							// 任务数据
+							var proId=$('#projectBelong').attr('data-proId');
+							var proTimeEnd=$('#projectBelong').attr('data-proTimeEnd');
+							
+							var taskArray=new Array();
+							var taskDesArray=new Array();
+							var taskGroupIdArray=new Array();
+							var taskNameArray=new Array();
+							
+							var taskTimeStartBeforeArr = new Array();
+							var taskTimeEndBeforeArr = new Array();
+							for(var i=1;i<taskNum;i++){
+								var task=new Object();
+								var taskDes=CKEDITOR.instances['contents'+i].getData();
+								var taskGroupId=$('#departGroup'+i).val();
+								var taskName=$('#taskName'+i).val();
+								var taskTimeStartBefore=$('#taskTimeStartBefore'+i).val();
+								var taskTimeEndBefore=$('#taskTimeEndBefore'+i).val();
+								
+								var taskTimeStartDate = new Date(taskTimeStartBefore);
+								var taskTimeEndDate = new Date(taskTimeEndBefore);
+								
+								var proTimeEndDate = new Date(proTimeEnd);
+								var nowDate = new Date();
+								
+								if(taskTimeStartDate<nowDate){
+									$('#tipContent').html('任务'+taskNum+'开始时间无效...');
+									$("#asdf").trigger('click');
+									return false;
+								}
+								if(taskTimeStartDate>proTimeEndDate || taskTimeEndDate>proTimeEndDate){
+									$('#tipContent').html('任务 '+taskNum+' 中开始时间或结束时间不可晚于项目结束时间...');
+									$("#asdf").trigger('click');
+									return false;
+								}
+								if(taskTimeStartDate>taskTimeEndDate){
+									$('#tipContent').html('任务 '+taskNum+' 中开始时间不能晚于结束时间...');
+									$("#asdf").trigger('click');
+									return false;
+								}
+								
+								if(taskDes==null || taskDes=='' || taskName==null || taskName=='' || taskTimeStartBefore==null || taskTimeStartBefore=='' || taskTimeEndBefore==null || taskTimeEndBefore==''){
+									$('#tipContent').html('请将任务 '+taskNum+' 信息填写完整...');
+									$("#asdf").trigger('click');
+									return false;
+								}
+								
+								task.taskDes=taskDes;
+								task.taskGroupId=taskGroupId;
+								task.taskName=taskName;
+								
+								taskArray[i-1]=task;
+								taskDesArray[i-1]=taskDes;
+								taskGroupIdArray[i-1]=taskGroupId;
+								taskNameArray[i-1]=taskName;
+								
+								taskTimeStartBeforeArr[i-1]=taskTimeStartBefore;
+								taskTimeEndBeforeArr[i-1]=taskTimeEndBefore;
+								
+								
+							}
+							
+							var taskList=JSON.stringify(taskArray);
+							var taskDesList=JSON.stringify(taskDesArray);
+							var taskGroupIdList=JSON.stringify(taskGroupIdArray);
+							var taskNameList=JSON.stringify(taskNameArray);
+							
+							var taskTimeStartBeforeList=JSON.stringify(taskTimeStartBeforeArr);
+							var taskTimeEndBeforeList=JSON.stringify(taskTimeEndBeforeArr);
+							
+							$.post('createTaskform.do',{
+								proId:proId,
+								taskTimeStartBefore:taskTimeStartBeforeList,
+								taskTimeEndBefore:taskTimeEndBeforeList,
+								taskDes:taskDesList,
+								taskGroupId:taskGroupIdList,
+								taskName:taskNameList
+							},function(data){
+								$('#tipContent').html(data.message);
+								$("#asdf").trigger('click');
+								if(data.sucess==1){
+									for(var i=1;i<taskNum;i++){
+										CKEDITOR.instances['contents'+i].setData('');
+										$('#taskName'+i).val('');
+										$('#taskTimeStartBefore'+i).val('');
+										$('#taskTimeEndBefore'+i).val('');
+									}
+								}
+							},);
+							
+						});
+					</script>
+					<script type="text/javascript">
+						function addTask(){
+							var taskNum = $('.pro-task').attr('data-task');
+							taskNum=parseInt(taskNum)+1;
+							
+							var taskNameArr = new Array();
+							var taskTimeStartBeforeArr = new Array();
+							var taskTimeEndBeforeArr = new Array();
+							var ckeditorDataArr = new Array();
+							var departArr = new Array();
+							var departGroupArr = new Array();
+							for(var i=1;i<taskNum;i++){
+								ckeditorDataArr[i]=CKEDITOR.instances['contents'+i].getData();
+								CKEDITOR.instances['contents'+i].destroy();
+								departArr[i]=$('#depart'+i).val();
+								departGroupArr[i]=$('#departGroup'+i).val();
+								taskNameArr[i]=$('#taskName'+i).val()
+								taskTimeStartBeforeArr[i]=$('#taskTimeStartBefore'+i).val()
+								taskTimeEndBeforeArr[i]=$('#taskTimeEndBefore'+i).val()
+							}
+							
+							
+							var taskBox = $('.task-box').html()
+							$('.task-box').html('')
+							
+							var str='<div id="tempDivId"></div>'
+							$('.task-box').html(str)
+							$('#tempDivId').load('toAddTaskDiv.do',{taskNum:taskNum},function(){
+								$('.task-box').append(taskBox);
+								$('#tempDivId').removeAttr('id');
+								for(var i=1;i<taskNum;i++){
+									CKEDITOR.instances['contents'+i].setData(ckeditorDataArr[i]);
+									$('#depart'+i).val(departArr[i]);
+									$('#departGroup'+i).val(departGroupArr[i]);
+									$('#taskName'+i).val(taskNameArr[i])
+									$('#taskTimeStartBefore'+i).val(taskTimeStartBeforeArr[i])
+									$('#taskTimeEndBefore'+i).val(taskTimeEndBeforeArr[i])
+									$('.fileprocessbox').each(function(){
+										this.remove();
+									});
+								}
+							});
+							
+						}
+						
+						function getDepartGroup(obj,num){
+							var depart = $(obj).val();
+							var departGroup = 'departGroup'+num;
+							$.post('getDepartGroup.do',{departId:depart},function(data){
+								var str='';
+								var groupArr=data.obj;
+								if(groupArr==null || groupArr.length==0){
+									str+='<option>此部门无小组</option>';
+								}else if(groupArr.length>0){
+									for(var i =0;i<groupArr.length;i++){
+										var group=groupArr[i];
+										str+='<option value="'+group.taskGroupId+'">'+group.taskGroupName+'</option>';
+									}
+								}
+								$('#'+departGroup).html(str);
+							});
+						}
+					</script>
+					<!-- //创建任务JS -->
 				</div>
 			</div>
 			<!--footer-->

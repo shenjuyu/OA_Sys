@@ -5,6 +5,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	</head>
 	<body>
+		<!-- 添加任务 -->
 		<div class="pro-task" th:fragment="addTask" th:data-task="${taskNum}">
 			<span class="task-num" th:text="'任务'+${taskNum}+':'">任务1：</span>
 			<table>
@@ -51,6 +52,133 @@
 					</td>
 				</tr>
 			</table>
+		</div>
+		
+		<!-- 项目详情 -->
+		<div th:fragment="proDes" class="bs-example1" data-example-id="embedded-scrollspy">
+			<nav id="navbar-example2" class="navbar navbar-default navbar-static">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".bs-example-js-navbar-scrollspy">
+							<span class="sr-only">切换导航</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="#one">子项 ：</a>
+					</div>
+					<div class="collapse navbar-collapse bs-example-js-navbar-scrollspy">
+						<ul class="nav navbar-nav">
+							<li class="active"><a href="#one">申请人</a></li>
+							<li class=""><a href="#two">项目详情</a></li>
+							<li class=""><a href="#three">任务详情</a></li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+			<div data-spy="scroll" data-target="#navbar-example2" class="scrollspy-example pro-cre"style="height: 450px;">
+				<div class="pro-cre-child" style="width: 100%;left: 0%">
+					<h4 id="one">申请人信息</h4>
+					<table>
+						<tr>
+							<td>员工编号：</td>
+							<td class="left"><input name="staffId" type="text" th:value="${project.staffId}" readonly="readonly"/></td>
+							<td>姓名：</td>
+							<td class="right"><input name="staffName" type="text" th:value="${project.staff.staffName}" readonly="readonly"/></td>
+						</tr>
+						<tr>
+							<td>所属部门：</td>
+							<td class="left"><input name="partName" type="text" th:value="${project.staff.depart.departName}" readonly="readonly"/></td>
+							<td>创建日期：</td>
+							<td class="right"><input name="proTimeCre" type="datetime" th:value="${#dates.format(project.proTimeCre,'yyyy-MM-dd HH:mm:ss')}" readonly="readonly"/></td>
+						</tr>
+					</table>
+					<br />
+					<h4 id="two">项目详情</h4>
+					<table>
+						<tr>
+							<td>项目名称：</td>
+							<td class="left"><input name="proName" type="text" th:value="${project.proName}" readonly="readonly"/></td>
+						</tr>
+						<tr>
+							<td>项目简述：</td>
+						</tr>
+					</table>
+					<div class="projectpanel" th:utext="${project.proDes}" style="border:3px solid #f8f8f8;width: 570px;height: 300px;"></div>
+					<table>
+						<tr>
+							<td>开始时间：</td>
+							<td class="left"><input name="proTimeStart" type="datetime" th:value="${#dates.format(project.proTimeStart,'yyyy-MM-dd HH:mm:ss')}" readonly="readonly"/></td>
+							<td>结束时间：</td>
+							<td class="right"><input name="proTimeEnd" type="datetime" th:value="${#dates.format(project.proTimeStart,'yyyy-MM-dd HH:mm:ss')}" readonly="readonly"/></td>
+						</tr>
+					</table>
+					附件：
+					<table>
+						<tr th:if="${fileNameList != null || fileNameList.size > 0}" th:each="fileName:${fileNameList}">
+							<td>
+								<span class="fa fa-paperclip" th:text="${fileName.fileNameAfter}">这是一个测试文件.css</span>
+								<a th:href="'downloadProjectAtta.do?fileName='+${fileName.fileNameBefore}" target="_blank">下载</a>
+							</td>
+						</tr>
+						<tr th:if="${fileNameList == null || fileNameList.size <= 0}">
+							<td>
+								<span class="fa fa-paperclip" >无文件...</span>
+							</td>
+						</tr>
+					</table>
+					<br />
+					<h4 id="three" style="display: inline;">任务详情</h4>
+					<div class="task-box">
+						<div class="pro-task" th:if="${taskList!=null && taskList.size >0}" th:each="task,taskStat:${taskList}">
+							<div class="task-info">
+								<span class="task-num" th:text="'任务'+${taskStat.count}">任务1</span><span class="percentage" th:text="${task.taskRateProgress}">80%</span>
+								<div class="clearfix"></div>
+							</div>
+							<div class="progress progress-striped active">
+								<div class="bar yellow" th:style="'width:'+*{task.taskRateProgress}"></div>
+							</div>
+							<table>
+								<tr>
+									<td>任务名称：</td>
+									<td class="left"><input name="taskName" type="text" th:value="${task.taskName}" readonly="readonly"/></td>
+								</tr>
+								<tr>
+									<td>开始时间：</td>
+									<td class="left"><input name="taskTimeStart" type="datetime" th:value="${#dates.format(task.taskTimeStart,'yyyy-MM-dd HH:mm:ss')}" readonly="readonly"/></td>
+									<td>结束时间：</td>
+									<td class="right"><input name="taskTimeend" type="datetime" th:value="${#dates.format(task.taskTimeEnd,'yyyy-MM-dd HH:mm:ss')}" readonly="readonly"/></td>
+								</tr>
+								<tr>
+									<td>任务人员：</td>
+								</tr>
+								<tr th:each="taskGroup,taskGroupStat:${task.taskGroup}" th:if="${taskGroupStat.count lt 1}">
+									<td>部门：</td>
+									<td class="left">
+										<input name="part" type="text" th:value="${taskGroup.groupStaff.depart.departName}" readonly="readonly"/>
+									</td>
+									<td>项目组：</td>
+									<td class="right">
+										<input name="pro-group" type="text" th:value="${taskGroup.taskGroupName}" readonly="readonly"/>
+									</td>
+								</tr>
+								<tr>
+									<td>任务描述：</td>
+								</tr>
+							</table>
+							<div class="projectpanel" th:utext="${task.taskDes}" style="border:3px solid #f8f8f8;width: 570px;height: 300px;"></div>
+						</div>
+					</div>
+					<div>
+						<br />
+						<!-- <span style="margin-left: 3px;">审核批语：</span>
+						<textarea id="contents3" name="taskDes" style="height: 100px;width: 570px;" required="required" ></textarea>
+						<br />
+						<span>是否通过：</span>
+						<span>是</span> -->
+					</div>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>

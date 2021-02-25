@@ -27,8 +27,9 @@ public class CreateSequenceCodeUtil {
 	public String createCode(String codeType) {
 		String code = "";
 		Integer codeNumTody = null;
+		String codeName="";
 		try {
-			String codeName="";
+			
 			switch (codeType) {
 				case "email":
 					codeName="emailCodeNumTody";
@@ -70,7 +71,7 @@ public class CreateSequenceCodeUtil {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			redisUtil.set("codeNumTody", codeNumTody);
+			redisUtil.set(codeName, codeNumTody);
 		}
 		return null;
 	}

@@ -54,6 +54,9 @@ public class ProjectBizImpl implements ProjectBiz {
 		try {
 			Criteria criteria = pe.createCriteria();
 			if(project!=null) {
+				if(project.getId()!=null) {
+					criteria.andIdEqualTo(project.getId());
+				}
 				if(project.getStaffId()!=null) {
 					criteria.andStaffIdEqualTo(project.getStaffId());
 				}
@@ -80,7 +83,6 @@ public class ProjectBizImpl implements ProjectBiz {
 				}
 			}
 			if(withBLOB) {
-				PageHelper.startPage(pageNum, pageSize);
 				return pm.selectByExampleWithBLOBs(pe);
 			}else {
 				return pm.selectByExample(pe);

@@ -22,6 +22,8 @@ public interface ProjectMapper {
     List<Project> selectByExample(ProjectExample example);
 
     ProjectWithBLOBs selectByPrimaryKey(Integer id);
+    
+    List<ProjectWithBLOBs> selectByStaffId(String staffId);
 
     int updateByExampleSelective(@Param("record") ProjectWithBLOBs record, @Param("example") ProjectExample example);
 
