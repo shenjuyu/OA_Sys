@@ -28,6 +28,8 @@ public class Task implements Serializable{
 
     private String proId;
     
+    private Project project;
+    
     private List<TaskGroup> taskGroup;
 
     public Task(Integer id, String taskId, String taskName, Timestamp taskTimeStart, Timestamp taskTimeEnd, String taskRateProgress, Integer taskState, String taskGroupId, String proId) {
@@ -117,6 +119,14 @@ public class Task implements Serializable{
     public void setProId(String proId) {
         this.proId = proId == null ? null : proId.trim();
     }
+
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
 
 	public List<TaskGroup> getTaskGroup() {
 		return taskGroup;

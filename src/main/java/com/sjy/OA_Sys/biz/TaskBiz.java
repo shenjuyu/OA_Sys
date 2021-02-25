@@ -24,11 +24,27 @@ public interface TaskBiz {
 	Result addTaskForList(List<TaskWithBLOBs> tasks,String projectId);
 	
 	/**
+	 * 修改
+	 * @param task
+	 * @return
+	 */
+	Result updateTask(TaskWithBLOBs task);
+	
+	/**
 	 * 查找任务
 	 * @param task
 	 * @return
 	 */
 	List<?> findTask(Task task,Boolean withBLOB, Integer pageNum, Integer pageSize);
+	
+	/**
+	 * 查找该员工参与的任务
+	 * @param staffId
+	 * @param pageNum
+	 * @param pageSize
+	 * @return
+	 */
+	List<TaskWithBLOBs> findTaskByStaffId(String staffId, Integer pageNum, Integer pageSize);
 	
 	/**
 	 * 根据员工ID查找未完成任务

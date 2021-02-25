@@ -13,8 +13,11 @@
       <arg column="task_group_id" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="pro_id" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
+    <association property="project" autoMapping="true" column="pro_id"
+    	select="com.sjy.OA_Sys.dao.ProjectMapper.selectByProId"></association>
     <collection property="taskGroup" autoMapping="true" column="task_group_id"
        select="com.sjy.OA_Sys.dao.TaskGroupMapper.selectByTaskGroupId"></collection>
+    
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.sjy.OA_Sys.bean.TaskWithBLOBs">
     <constructor>
@@ -30,6 +33,8 @@
       <arg column="task_des" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
       <arg column="task_report" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
     </constructor>
+    <association property="project" autoMapping="true" column="pro_id"
+    	select="com.sjy.OA_Sys.dao.ProjectMapper.selectByProId"></association>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -133,6 +138,13 @@
     <include refid="Blob_Column_List" />
     from task
     where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByStaffId" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from task where task_group_id=(select DISTINCT task_group_id from task_group where staff_id=#{staffId,jdbcType=VARCHAR})
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from task

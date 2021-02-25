@@ -59,6 +59,17 @@ public class TaskBizImpl implements TaskBiz {
 	}
 
 	@Override
+	public Result updateTask(TaskWithBLOBs task) {
+		te.createCriteria().andTaskIdEqualTo(task.getTaskId());
+		int code = tm.updateByExampleSelective(task, te);
+		if (code==1) {
+			return new Result(1, "添加成功");
+		} else {
+			return new Result(0, "添加失败");
+		}
+	}
+
+	@Override
 	public List<?> findTask(Task task, Boolean withBLOB, Integer pageNum, Integer pageSize) {
 		try {
 			Criteria criteria = te.createCriteria();
@@ -112,6 +123,17 @@ public class TaskBizImpl implements TaskBiz {
 		}
 		return null;
 	}
+	
+
+	@Override
+	public List<TaskWithBLOBs> findTaskByStaffId(String staffId, Integer pageNum, Integer pageSize) {
+		if(pageNum!=null && pageSize!=null) {
+			PageHelper.startPage(pageNum, pageSize);
+			return tm.selectByStaffId(staffId);
+		}
+		return tm.selectByStaffId(staffId);
+	}
+
 
 	@SuppressWarnings("unchecked")
 	@Override

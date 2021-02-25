@@ -22,6 +22,8 @@ public interface TaskMapper {
     List<Task> selectByExample(TaskExample example);
 
     TaskWithBLOBs selectByPrimaryKey(Integer id);
+    
+    List<TaskWithBLOBs> selectByStaffId(String staffId);
 
     int updateByExampleSelective(@Param("record") TaskWithBLOBs record, @Param("example") TaskExample example);
 

@@ -137,6 +137,12 @@
     from project
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectByProId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from project
+    where pro_id = #{proId,jdbcType=VARCHAR}
+  </select>
   <!-- 查找登录员工创建的或者项目所属的任务小组中有登录员工的项目 -->
   <select id="selectByStaffId" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
     select

@@ -180,5 +180,92 @@
 				</div>
 			</div>
 		</div>
+		
+		<!-- 任务详情 -->
+		<div th:fragment="taskDes" class="bs-example1" data-example-id="embedded-scrollspy">
+			<nav id="navbar-example2" class="navbar navbar-default navbar-static">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".bs-example-js-navbar-scrollspy">
+							<span class="sr-only">切换导航</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="#one">任务：</a>
+					</div>
+				</div>
+			</nav>
+			<div data-spy="scroll" data-target="#navbar-example2" class="scrollspy-example pro-cre" style="height: 490px;">
+				<div class="pro-cre-child" style="left: 0%;">
+					<div class="task-box">
+						<div class="pro-task">
+							<div class="progress progress-striped active" style="height:20px ;">
+								<span class="percentage" style="z-index: 9999;position: absolute;" th:text="${taskDes.taskRateProgress}">80%</span>
+								<div class="bar yellow" th:style="'width:'+*{taskDes.taskRateProgress}+';height:20px;'"></div>
+							</div>
+							<table>
+								<tr>
+									<td>任务名称：</td>
+									<td class="left"><input name="taskName" type="text" th:value="${taskDes.taskName}" readonly="readonly"/></td>
+									<td>所属项目：</td>
+									<td class="right"><input type="text" th:value="${taskDes.project.proName}" readonly="readonly"></td>
+								</tr>
+								<tr>
+									<td>任务描述：</td>
+								</tr>
+							</table>
+							<div class="projectpanel" th:utext="${taskDes.taskDes}" style="border:3px solid #f8f8f8;width: 570px;height: 300px;"></div>
+							<table>
+								<tr>
+									<td>开始时间：</td>
+									<td class="left"><input name="taskTimeStart" type="datetime" th:value="${#dates.format(taskDes.taskTimeStart,'yyyy-MM-dd HH:mm:ss')}" readonly="readonly"/></td>
+									<td>结束时间：</td>
+									<td class="right"><input name="taskTimeend" type="datetime" th:value="${#dates.format(taskDes.taskTimeEnd,'yyyy-MM-dd HH:mm:ss')}" readonly="readonly"/></td>
+								</tr>
+								<tr>
+									<td>任务人员：</td>
+								</tr>
+								<tr th:each="taskGroup,taskGroupStat:${taskDes.taskGroup}" th:if="${taskGroupStat.count lt 1}">
+									<td>部门：</td>
+									<td class="left">
+										<input name="part" type="text" th:value="${taskGroup.groupStaff.depart.departName}" readonly="readonly"/>
+									</td>
+									<td>项目组：</td>
+									<td class="right">
+										<input name="pro-group" type="text" th:value="${taskGroup.taskGroupName}" readonly="readonly"/>
+									</td>
+								</tr>
+							</table>
+							<span style="margin-left: 3px;">任务报告：</span>
+							<input id="taskRateProgressInt" name="taskRateProgress" type="number" maxlength="3" max="1" min="0" step="0.01" placeholder="任务总进度"  value="" style="width: 110px;text-align: center;" data-toggle="tooltip" data-placement="right" titile data-original-title="请填写0~1之间的数值,例:0.09" />
+							<textarea id="contents2" name="taskReport" style="height: 100px;width: 570px;" required="required"></textarea>
+							<script th:inline="javascript">
+								var taskRateProgress=[[${taskDes.taskRateProgress}]]
+								var taskRateProgressDouble=parseFloat(taskRateProgress)*0.01
+								$('#taskRateProgressInt').val(taskRateProgressDouble)
+								var taskReport=[[${taskDes.taskReport}]]
+								
+								var obj = CKEDITOR.replace('contents2', {
+									width: '570px',
+									height: '100px',
+								});
+								
+								if(taskReport!=null && taskReport!=''){
+									CKEDITOR.instances.contents2.setData(taskReport);
+								}
+								
+								$(function(){
+									$('[data-toggle="tooltip"]').tooltip()
+								})
+							</script>
+							<h3 class="pro-sub">
+									<span class="label label-primary" th:onclick="taskReportSub([[${taskDes.taskId}]])" style="cursor: pointer;">提交</span>
+							</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</body>
 </html>
