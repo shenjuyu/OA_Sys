@@ -6,7 +6,7 @@
       <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="pubass_id" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="pubass_name" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="pubass_type" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="pubass_type" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="pubass_price" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
       <arg column="depart_id" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="pubass_time" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
@@ -18,7 +18,7 @@
       <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="pubass_id" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="pubass_name" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="pubass_type" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="pubass_type" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="pubass_price" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
       <arg column="depart_id" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="pubass_time" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
@@ -145,7 +145,7 @@
     insert into public_assets (pubass_id, pubass_name, pubass_type, 
       pubass_price, depart_id, pubass_time, 
       pubass_count, pubass_des)
-    values (#{pubassId,jdbcType=VARCHAR}, #{pubassName,jdbcType=VARCHAR}, #{pubassType,jdbcType=VARCHAR}, 
+    values (#{pubassId,jdbcType=VARCHAR}, #{pubassName,jdbcType=VARCHAR}, #{pubassType,jdbcType=INTEGER}, 
       #{pubassPrice,jdbcType=DECIMAL}, #{departId,jdbcType=VARCHAR}, #{pubassTime,jdbcType=TIMESTAMP}, 
       #{pubassCount,jdbcType=INTEGER}, #{pubassDes,jdbcType=LONGVARCHAR})
   </insert>
@@ -188,7 +188,7 @@
         #{pubassName,jdbcType=VARCHAR},
       </if>
       <if test="pubassType != null">
-        #{pubassType,jdbcType=VARCHAR},
+        #{pubassType,jdbcType=INTEGER},
       </if>
       <if test="pubassPrice != null">
         #{pubassPrice,jdbcType=DECIMAL},
@@ -226,7 +226,7 @@
         pubass_name = #{record.pubassName,jdbcType=VARCHAR},
       </if>
       <if test="record.pubassType != null">
-        pubass_type = #{record.pubassType,jdbcType=VARCHAR},
+        pubass_type = #{record.pubassType,jdbcType=INTEGER},
       </if>
       <if test="record.pubassPrice != null">
         pubass_price = #{record.pubassPrice,jdbcType=DECIMAL},
@@ -253,7 +253,7 @@
     set id = #{record.id,jdbcType=INTEGER},
       pubass_id = #{record.pubassId,jdbcType=VARCHAR},
       pubass_name = #{record.pubassName,jdbcType=VARCHAR},
-      pubass_type = #{record.pubassType,jdbcType=VARCHAR},
+      pubass_type = #{record.pubassType,jdbcType=INTEGER},
       pubass_price = #{record.pubassPrice,jdbcType=DECIMAL},
       depart_id = #{record.departId,jdbcType=VARCHAR},
       pubass_time = #{record.pubassTime,jdbcType=TIMESTAMP},
@@ -268,7 +268,7 @@
     set id = #{record.id,jdbcType=INTEGER},
       pubass_id = #{record.pubassId,jdbcType=VARCHAR},
       pubass_name = #{record.pubassName,jdbcType=VARCHAR},
-      pubass_type = #{record.pubassType,jdbcType=VARCHAR},
+      pubass_type = #{record.pubassType,jdbcType=INTEGER},
       pubass_price = #{record.pubassPrice,jdbcType=DECIMAL},
       depart_id = #{record.departId,jdbcType=VARCHAR},
       pubass_time = #{record.pubassTime,jdbcType=TIMESTAMP},
@@ -287,7 +287,7 @@
         pubass_name = #{pubassName,jdbcType=VARCHAR},
       </if>
       <if test="pubassType != null">
-        pubass_type = #{pubassType,jdbcType=VARCHAR},
+        pubass_type = #{pubassType,jdbcType=INTEGER},
       </if>
       <if test="pubassPrice != null">
         pubass_price = #{pubassPrice,jdbcType=DECIMAL},
@@ -311,7 +311,7 @@
     update public_assets
     set pubass_id = #{pubassId,jdbcType=VARCHAR},
       pubass_name = #{pubassName,jdbcType=VARCHAR},
-      pubass_type = #{pubassType,jdbcType=VARCHAR},
+      pubass_type = #{pubassType,jdbcType=INTEGER},
       pubass_price = #{pubassPrice,jdbcType=DECIMAL},
       depart_id = #{departId,jdbcType=VARCHAR},
       pubass_time = #{pubassTime,jdbcType=TIMESTAMP},
@@ -323,7 +323,7 @@
     update public_assets
     set pubass_id = #{pubassId,jdbcType=VARCHAR},
       pubass_name = #{pubassName,jdbcType=VARCHAR},
-      pubass_type = #{pubassType,jdbcType=VARCHAR},
+      pubass_type = #{pubassType,jdbcType=INTEGER},
       pubass_price = #{pubassPrice,jdbcType=DECIMAL},
       depart_id = #{departId,jdbcType=VARCHAR},
       pubass_time = #{pubassTime,jdbcType=TIMESTAMP},

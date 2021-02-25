@@ -316,62 +316,52 @@ public class PublicAssetsExample {
             return (Criteria) this;
         }
 
-        public Criteria andPubassTypeEqualTo(String value) {
+        public Criteria andPubassTypeEqualTo(Integer value) {
             addCriterion("pubass_type =", value, "pubassType");
             return (Criteria) this;
         }
 
-        public Criteria andPubassTypeNotEqualTo(String value) {
+        public Criteria andPubassTypeNotEqualTo(Integer value) {
             addCriterion("pubass_type <>", value, "pubassType");
             return (Criteria) this;
         }
 
-        public Criteria andPubassTypeGreaterThan(String value) {
+        public Criteria andPubassTypeGreaterThan(Integer value) {
             addCriterion("pubass_type >", value, "pubassType");
             return (Criteria) this;
         }
 
-        public Criteria andPubassTypeGreaterThanOrEqualTo(String value) {
+        public Criteria andPubassTypeGreaterThanOrEqualTo(Integer value) {
             addCriterion("pubass_type >=", value, "pubassType");
             return (Criteria) this;
         }
 
-        public Criteria andPubassTypeLessThan(String value) {
+        public Criteria andPubassTypeLessThan(Integer value) {
             addCriterion("pubass_type <", value, "pubassType");
             return (Criteria) this;
         }
 
-        public Criteria andPubassTypeLessThanOrEqualTo(String value) {
+        public Criteria andPubassTypeLessThanOrEqualTo(Integer value) {
             addCriterion("pubass_type <=", value, "pubassType");
             return (Criteria) this;
         }
 
-        public Criteria andPubassTypeLike(String value) {
-            addCriterion("pubass_type like", value, "pubassType");
-            return (Criteria) this;
-        }
-
-        public Criteria andPubassTypeNotLike(String value) {
-            addCriterion("pubass_type not like", value, "pubassType");
-            return (Criteria) this;
-        }
-
-        public Criteria andPubassTypeIn(List<String> values) {
+        public Criteria andPubassTypeIn(List<Integer> values) {
             addCriterion("pubass_type in", values, "pubassType");
             return (Criteria) this;
         }
 
-        public Criteria andPubassTypeNotIn(List<String> values) {
+        public Criteria andPubassTypeNotIn(List<Integer> values) {
             addCriterion("pubass_type not in", values, "pubassType");
             return (Criteria) this;
         }
 
-        public Criteria andPubassTypeBetween(String value1, String value2) {
+        public Criteria andPubassTypeBetween(Integer value1, Integer value2) {
             addCriterion("pubass_type between", value1, value2, "pubassType");
             return (Criteria) this;
         }
 
-        public Criteria andPubassTypeNotBetween(String value1, String value2) {
+        public Criteria andPubassTypeNotBetween(Integer value1, Integer value2) {
             addCriterion("pubass_type not between", value1, value2, "pubassType");
             return (Criteria) this;
         }
