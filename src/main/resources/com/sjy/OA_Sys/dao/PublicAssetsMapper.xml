@@ -12,6 +12,10 @@
       <arg column="pubass_time" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
       <arg column="pubass_count" javaType="java.lang.Integer" jdbcType="INTEGER" />
     </constructor>
+    <association property="assetsType" autoMapping="true" column="pubass_type"
+    	select="com.sjy.OA_Sys.dao.PublicAssetsTypeMapper.selectByPrimaryKey"></association>
+    <association property="depart" autoMapping="true" column="depart_id"
+    	select="com.sjy.OA_Sys.dao.DepartMapper.selectByDepartId"></association>
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.sjy.OA_Sys.bean.PublicAssets">
     <constructor>
@@ -25,6 +29,10 @@
       <arg column="pubass_count" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="pubass_des" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
     </constructor>
+    <association property="assetsType" autoMapping="true" column="pubass_type"
+    	select="com.sjy.OA_Sys.dao.PublicAssetsTypeMapper.selectByPrimaryKey"></association>
+    <association property="depart" autoMapping="true" column="depart_id"
+    	select="com.sjy.OA_Sys.dao.DepartMapper.selectByDepartId"></association>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -127,6 +135,14 @@
     <include refid="Blob_Column_List" />
     from public_assets
     where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByPubassId" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from public_assets
+    where pubass_id = #{pubassId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from public_assets

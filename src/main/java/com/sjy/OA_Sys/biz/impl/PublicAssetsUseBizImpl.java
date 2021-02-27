@@ -1,5 +1,6 @@
 package com.sjy.OA_Sys.biz.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -7,11 +8,14 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
+import com.sjy.OA_Sys.bean.PublicAssets;
+import com.sjy.OA_Sys.bean.PublicAssetsType;
 import com.sjy.OA_Sys.bean.PublicAssetsUse;
 import com.sjy.OA_Sys.bean.PublicAssetsUseExample;
 import com.sjy.OA_Sys.bean.PublicAssetsUseExample.Criteria;
 import com.sjy.OA_Sys.bean.Result;
 import com.sjy.OA_Sys.biz.PublicAssetsUseBiz;
+import com.sjy.OA_Sys.dao.PublicAssetsTypeMapper;
 import com.sjy.OA_Sys.dao.PublicAssetsUseMapper;
 
 @Service
@@ -19,6 +23,9 @@ public class PublicAssetsUseBizImpl implements PublicAssetsUseBiz {
 
 	@Resource
 	private PublicAssetsUseMapper paum;
+	
+	@Resource
+	private PublicAssetsBizImpl pabi;
 	
 	private PublicAssetsUseExample paue = new PublicAssetsUseExample();
 	
@@ -46,6 +53,43 @@ public class PublicAssetsUseBizImpl implements PublicAssetsUseBiz {
 				return paum.selectByExample(paue);
 			}
 			return paum.selectByExample(paue);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			paue.clear();
+		}
+		return null;
+	}
+	
+
+	@Override
+	public List<PublicAssetsUse> findPublicAssetsUse(String pubassName, Integer pubassType, Integer pageNum,
+			Integer pageSize) {
+		try {
+			PublicAssets publicAssets = new PublicAssets();
+			publicAssets.setPubassName(pubassName);
+			if(pubassType!=null && pubassType != 0) {
+				publicAssets.setPubassType(pubassType);
+			}
+			List<PublicAssets> assetList = pabi.findPublicAssets(publicAssets, null, null);
+			List<String> values=null;
+			if(assetList!=null && assetList.size()>0) {
+				values=new ArrayList<String>();
+				for (int i=0;i<assetList.size();i++) {
+					values.add(assetList.get(i).getPubassId());
+				}
+			}
+			
+			if(values!=null && values.size()>0) {
+				paue.createCriteria().andPubassIdIn(values);
+			}
+			
+			if(pageNum!=null && pageSize!=null) {
+				PageHelper.startPage(pageNum, pageSize);
+				return paum.selectByExample(paue);
+			}else {
+				return paum.selectByExample(paue);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {

@@ -11,6 +11,8 @@
       <arg column="use_term" javaType="java.util.Date" jdbcType="DATE" />
       <arg column="use_state" javaType="java.lang.Integer" jdbcType="INTEGER" />
     </constructor>
+    <association property="pubAss" autoMapping="true" column="pubass_id"
+    	select="com.sjy.OA_Sys.dao.PublicAssetsMapper.selectByPubassId"></association>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>

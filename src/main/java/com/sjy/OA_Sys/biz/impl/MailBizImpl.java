@@ -103,12 +103,19 @@ public class MailBizImpl implements MailBiz {
 
 	@Override
 	public Mail findLastMail() {
-		me.setOrderByClause("id desc");
-		List<Mail> mails = mm.selectByExample(me);
-		if(mails.size()<1) {
-			return null;
+		try {
+			me.setOrderByClause("id desc");
+			List<Mail> mails = mm.selectByExample(me);
+			if(mails.size()<1) {
+				return null;
+			}
+			return mails.get(0);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			me.clear();
 		}
-		return mails.get(0);
+		return null;
 	}
 	
 	@Override

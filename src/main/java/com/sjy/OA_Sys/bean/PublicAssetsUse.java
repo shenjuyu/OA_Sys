@@ -4,93 +4,105 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 
-public class PublicAssetsUse implements Serializable{
-    /**
+public class PublicAssetsUse implements Serializable {
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
 
-    private String pubassId;
+	private String pubassId;
 
-    private String staffId;
+	private String staffId;
 
-    private Integer useCount;
+	private Integer useCount;
 
-    private Timestamp useTime;
+	private Timestamp useTime;
 
-    private Date useTerm;
+	private Date useTerm;
 
-    private Integer useState;
+	private Integer useState;
 
-    public PublicAssetsUse(Integer id, String pubassId, String staffId, Integer useCount, Timestamp useTime, Date useTerm, Integer useState) {
-        this.id = id;
-        this.pubassId = pubassId;
-        this.staffId = staffId;
-        this.useCount = useCount;
-        this.useTime = useTime;
-        this.useTerm = useTerm;
-        this.useState = useState;
-    }
+	private PublicAssets pubAss;
 
-    public PublicAssetsUse() {
-        super();
-    }
+	public PublicAssetsUse(Integer id, String pubassId, String staffId, Integer useCount, Timestamp useTime,
+			Date useTerm, Integer useState) {
+		this.id = id;
+		this.pubassId = pubassId;
+		this.staffId = staffId;
+		this.useCount = useCount;
+		this.useTime = useTime;
+		this.useTerm = useTerm;
+		this.useState = useState;
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	public PublicAssetsUse() {
+		super();
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public String getPubassId() {
-        return pubassId;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setPubassId(String pubassId) {
-        this.pubassId = pubassId == null ? null : pubassId.trim();
-    }
+	public String getPubassId() {
+		return pubassId;
+	}
 
-    public String getStaffId() {
-        return staffId;
-    }
+	public void setPubassId(String pubassId) {
+		this.pubassId = pubassId == null ? null : pubassId.trim();
+	}
 
-    public void setStaffId(String staffId) {
-        this.staffId = staffId == null ? null : staffId.trim();
-    }
+	public String getStaffId() {
+		return staffId;
+	}
 
-    public Integer getUseCount() {
-        return useCount;
-    }
+	public void setStaffId(String staffId) {
+		this.staffId = staffId == null ? null : staffId.trim();
+	}
 
-    public void setUseCount(Integer useCount) {
-        this.useCount = useCount;
-    }
+	public Integer getUseCount() {
+		return useCount;
+	}
 
-    public Timestamp getUseTime() {
-        return useTime;
-    }
+	public void setUseCount(Integer useCount) {
+		this.useCount = useCount;
+	}
 
-    public void setUseTime(Timestamp useTime) {
-        this.useTime = useTime;
-    }
+	public Timestamp getUseTime() {
+		return useTime;
+	}
 
-    public Date getUseTerm() {
-        return useTerm;
-    }
+	public void setUseTime(Timestamp useTime) {
+		this.useTime = useTime;
+	}
 
-    public void setUseTerm(Date useTerm) {
-        this.useTerm = useTerm;
-    }
+	public Date getUseTerm() {
+		return useTerm;
+	}
 
-    public Integer getUseState() {
-        return useState;
-    }
+	public void setUseTerm(Date useTerm) {
+		this.useTerm = useTerm;
+	}
 
-    public void setUseState(Integer useState) {
-        this.useState = useState;
-    }
+	public Integer getUseState() {
+		return useState;
+	}
+
+	public void setUseState(Integer useState) {
+		this.useState = useState;
+	}
+
+	public PublicAssets getPubAss() {
+		return pubAss;
+	}
+
+	public void setPubAss(PublicAssets pubAss) {
+		this.pubAss = pubAss;
+	}
+
 }

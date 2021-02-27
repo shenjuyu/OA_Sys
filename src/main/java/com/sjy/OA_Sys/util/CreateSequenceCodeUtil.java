@@ -40,6 +40,8 @@ public class CreateSequenceCodeUtil {
 				case "task":
 					codeName="taskCodeNumTody";
 					break;
+				case "pubass":
+					codeName="publicAssetsCodeNumTody";
 				default:
 					break;
 			}

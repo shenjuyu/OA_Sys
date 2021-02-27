@@ -1,7 +1,14 @@
 package com.sjy.OA_Sys.bean;
 
-public class PublicAssetsType {
-    private Integer id;
+import java.io.Serializable;
+
+public class PublicAssetsType implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Integer id;
 
     private String typeName;
 

@@ -30,4 +30,10 @@ public interface PublicAssetsBiz {
 	 */
 	Result updatePublicAssets(PublicAssets publicAssets);
 	
+	/**
+	 * 查找最后一个
+	 * @return
+	 */
+	PublicAssets findLastPublicAssets();
+	
 }

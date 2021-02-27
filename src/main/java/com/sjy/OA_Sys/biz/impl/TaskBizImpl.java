@@ -60,13 +60,20 @@ public class TaskBizImpl implements TaskBiz {
 
 	@Override
 	public Result updateTask(TaskWithBLOBs task) {
-		te.createCriteria().andTaskIdEqualTo(task.getTaskId());
-		int code = tm.updateByExampleSelective(task, te);
-		if (code==1) {
-			return new Result(1, "添加成功");
-		} else {
-			return new Result(0, "添加失败");
+		try {
+			te.createCriteria().andTaskIdEqualTo(task.getTaskId());
+			int code = tm.updateByExampleSelective(task, te);
+			if (code==1) {
+				return new Result(1, "添加成功");
+			} else {
+				return new Result(0, "添加失败");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			te.clear();
 		}
+		return new Result(0, "添加失败");
 	}
 
 	@Override
@@ -162,12 +169,19 @@ public class TaskBizImpl implements TaskBiz {
 
 	@Override
 	public Task findLastTask() {
-		te.setOrderByClause("id desc");
-		List<Task> tasks = tm.selectByExample(te);
-		if(tasks.size()<1) {
-			return null;
+		try {
+			te.setOrderByClause("id desc");
+			List<Task> tasks = tm.selectByExample(te);
+			if(tasks.size()<1) {
+				return null;
+			}
+			return tasks.get(0);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			te.clear();
 		}
-		return tasks.get(0);
+		return null;
 	}
 
 }

@@ -28,6 +28,10 @@ public class PublicAssets implements Serializable {
 
 	private String pubassDes;
 
+	private PublicAssetsType assetsType;
+
+	private Depart depart;
+
 	public PublicAssets(Integer id, String pubassId, String pubassName, Integer pubassType, BigDecimal pubassPrice,
 			String departId, Timestamp pubassTime, Integer pubassCount) {
 		this.id = id;
@@ -128,4 +132,21 @@ public class PublicAssets implements Serializable {
 	public void setPubassDes(String pubassDes) {
 		this.pubassDes = pubassDes == null ? null : pubassDes.trim();
 	}
+
+	public PublicAssetsType getAssetsType() {
+		return assetsType;
+	}
+
+	public void setAssetsType(PublicAssetsType assetsType) {
+		this.assetsType = assetsType;
+	}
+
+	public Depart getDepart() {
+		return depart;
+	}
+
+	public void setDepart(Depart depart) {
+		this.depart = depart;
+	}
+
 }

@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
+import com.sjy.OA_Sys.bean.Mail;
 import com.sjy.OA_Sys.bean.PublicAssets;
 import com.sjy.OA_Sys.bean.PublicAssetsExample;
 import com.sjy.OA_Sys.bean.PublicAssetsExample.Criteria;
@@ -75,6 +76,23 @@ public class PublicAssetsBizImpl implements PublicAssetsBiz {
 		}else {
 			return new Result(0,"添加失败");
 		}
+	}
+	
+	@Override
+	public PublicAssets findLastPublicAssets() {
+		try {
+			pae.setOrderByClause("id desc");
+			List<PublicAssets> mails = pam.selectByExample(pae);
+			if(mails.size()<1) {
+				return null;
+			}
+			return mails.get(0);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			pae.clear();
+		}
+		return null;
 	}
 
 }

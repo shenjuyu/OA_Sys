@@ -98,7 +98,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 						<ul id="myTabs" class="nav nav-tabs" role="tablist">
 							<li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home"
 								 aria-expanded="false">个人资产信息</a></li>
-							<li role="presentation" class=""><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile"
+							<li th:if="${loginStaff.staffPower!='P4' && loginStaff.staffPower!='P5'}" role="presentation" class=""><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile"
 								 aria-expanded="true">部门资产信息信息</a></li>
 						</ul>
 						<div id="myTabContent" class="tab-content scrollbar1">
@@ -106,56 +106,53 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 								<div class="tables">
 									<div class="bs-example widget-shadow" data-example-id="hoverable-table">
 										<!-- 条件查询 -->
-										<form id="staffFindForm" action="staffFind.do" method="post">
-											<input type="text" style="margin-left: 2%;" placeholder="编号" id="findStaffId" name="trueId" />
-											<input type="text" style="margin-left: 2%;" placeholder="名称" id="findStaffName" name="trueName" />
-											<span style="margin-left: 2%;">类型：</span>
-											<select class="input-sm" style="font-size: 13px;" name="state" id="findUserState">
-												<option value="4">未选择</option>
-												<option value="0">实习</option>
-												<option value="1">试用</option>
-												<option value="2">正式</option>
-												<option value="3">离职</option>
-											</select>&nbsp;&nbsp;&nbsp;
-											<button class="label label-info" style="font-size: large;">查询</button>
-										</form>
-										
+										<input type="text" style="margin-left: 2%;" placeholder="名称" class="pubassName" name="pubassName" />
+										<span style="margin-left: 2%;">类型：</span>
+										<select class="input-sm pubassType" style="font-size: 13px;" name="pubassType">
+											<option value="0">--未选择--</option>
+											<option th:if="${assetsTypeCache!=null && assetsTypeCache.size>0}" th:each="assetsType:${assetsTypeCache}" th:value="${assetsType.id}" th:text="${assetsType.typeName}">实习</option>
+										</select>&nbsp;&nbsp;&nbsp;
+										<button class="label label-info" onclick="findPubAssUseByCondition()" style="font-size: large;">查询</button>
+										<script type="text/javascript">
+											function findPubAssUseByCondition(){
+												var pubassName=$('.pubassName').val();
+												var pubassType=$('.pubassType').val();
+												
+												$('#pubassUseShowListBox').load('pubassUseShow.do',{
+													pubassName:pubassName,
+													pubassType:pubassType
+												},function(){
+													
+												});
+											}
+										</script>
 										<!-- //条件查询 -->
-										<div id="userShowTable">
-											<table class="table table-hover">
+										<div id="pubassUseShowListBox">
+											<table class="table table-hover" th:fragment="pubassUseShowList">
 												<thead>
 													<tr>
 														<th>编号</th>
 														<th>名称</th>
 														<th>类型</th>
-														<th>详情</th>
 														<th>价格</th>
 														<th>所属部门</th>
-														<th>入库时间</th>
-														<th>数量</th><!-- 点击查看详情，跳转到product-add.html页面，填充所有的数据 -->
+														<th>租借时间</th>
+														<th>归还时间</th>
+														<th>租借数量</th>
 														<th>操作</th>
 													</tr>
 												</thead>
 												<tbody>
-													<tr>
-														<th scope="row" >1</th>
-														<td >张三</td>
-														<td>
-															<span>女</span>
-															<span >男</span>
-															<span >未知</span>
-														</td>
-														<td ></td>
-														<td ></td>
-														<td >2020-2-22
-															22:22</td>
-														<td>
-															<label class="label label-info">实习</label>
-															<label class="label label-primary" >试用</label>
-															<label class="label label-success" >正式</label>
-															<label class="label label-danger" >离职</label>
-														</td>
-														<td><button type="button" class="btn btn-primary btn-lg" onclick="showUserDetails(id)"
+													<tr th:if="${assetsUseList!=null && assetsUseList.size()>0}" th:each="assUse,assUseStat:${assetsUseList}">
+														<th scope="row" th:text=${assUseStat.count}>1</th>
+														<td th:text="${assUse.pubAss.pubassName}">张三</td>
+														<td th:text="${assUse.pubAss.assetsType.typeName}"></td>
+														<td th:text="${assUse.pubAss.pubassPrice}"></td>
+														<td th:text="${assUse.pubAss.depart.departName}"></td>
+														<td th:text="${#dates.format(assUse.useTime,'yyyy-MM-dd HH:mm')}"></td>
+														<td th:text="${#dates.format(assUse.useTerm,'yyyy-MM-dd HH:mm')}"></td>
+														<td th:text="${assUse.useCount}"></td>
+														<td><button type="button" class="btn btn-primary btn-lg" th:onclick="showPubAssUseDetails([[${assUse.id}]])"
 															 data-toggle="modal" data-target="#gridSystemModal" style="padding: 6px;font-size: 11px;">查看详情 </button></td>
 													</tr>
 												</tbody>
@@ -165,154 +162,80 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 											<nav style="margin-left: 65%;">
 												<ul class="pagination pagination-lg">
 													<!-- class='disabled'为选中了第一个或者最后一个的样式 -->
-													<li class="disabled"><a href="javascript:void(0)" aria-label="Previous"><span
+													<li th:if="${assetsUseList.pageNum eq 1}" class="disabled"><a style="cursor: pointer;" aria-label="Previous"><span
 															 aria-hidden="true">«</span></a></li>
-													<li><a href="javascript:void(0)" 
+													<li th:if="${assetsUseList.pageNum gt 1}"><a style="cursor: pointer;" th:onclick="toPubAssUsePage([[${assetsUseList.pageNum-1}]])"
 														 aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-													<li ><a href="javascript:void(0)">1</a></li>
-													<li ><a href="javascript:void(0)">2</a></li>
-													<li class="active"><a href="javascript:void(0)">3</a></li><!-- 被选中 -->
-													<li ><a href="javascript:void(0)">4</a></li>
-													<li ><a href="javascript:void(0)">5</a></li>
-													<li  class="disabled"><a href="javascript:void(0)" aria-label="Next"><span
-															 aria-hidden="true">»</span></a></li>
-													<li ><a href="javascript:void(0)"  
+													<li th:if="${assetsUseList.pageNum-2 gt 0 }"><a style="cursor: pointer;" th:onclick="toPubAssUsePage([[${assetsUseList.pageNum-2}]])"
+														 th:text="${assetsUseList.pageNum-2}">1</a></li>
+													<li th:if="${assetsUseList.pageNum-1 gt 0 }"><a style="cursor: pointer;" th:onclick="'toPubAssUsePage('+${assetsUseList.pageNum-1}+')'"
+														 th:text="${assetsUseList.pageNum-1}">2</a></li>
+													<li class="active"><a style="cursor: pointer;" th:text="${assetsUseList.pageNum}">3</a></li><!-- 被选中 -->
+													<li th:if="${assetsUseList.pageNum+1 le assetsUseList.pages}"><a style="cursor: pointer;" th:onclick="toPubAssUsePage([[${assetsUseList.pageNum+1}]])"
+														 th:text="${assetsUseList.pageNum+1}">4</a></li>
+													<li th:if="${assetsUseList.pageNum+2 le assetsUseList.pages}"><a style="cursor: pointer;" th:onclick="'toPubAssUsePage('+${assetsUseList.pageNum+2}+')'"
+														 th:text="${assetsUseList.pageNum+2}">5</a></li>
+													<li th:if="${assetsUseList.pageNum eq assetsUseList.pages}" class="disabled"><a style="cursor: pointer;"
+														 aria-label="Next"><span aria-hidden="true">»</span></a></li>
+													<li th:if="${assetsUseList.pageNum eq 1 && assetsUseList.pages eq 0}" class="disabled"><a style="cursor: pointer;"
+														 aria-label="Next"><span aria-hidden="true">»</span></a></li>
+													<li th:if="${assetsUseList.pageNum lt assetsUseList.pages}"><a style="cursor: pointer;" th:onclick="'toPubAssUsePage('+${assetsUseList.pageNum+1}+')'"
 														 aria-label="Next"><span aria-hidden="true">»</span></a></li>
 												</ul>
 											</nav>
 											<!-- //分页查询 -->
-										</div>
-								
-										<div class="col-md-4 modal-grids">
-											<div class="modal fade" id="gridSystemModal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
-												<div class="modal-dialog" role="document">
-													<div class="modal-content">
-														<div class="modal-header">
-															<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-															<h4 class="modal-title" id="gridSystemModalLabel">员工信息</h4>
-														</div>
-														<div class="grid_3 grid_5 widget-shadow" style="margin-top: 0em;" id="staffDetilsWindow">
-															<div class="staffs-left">
-																<table>
-																	<tr>
-																		<td><img class="staffs-img" src="images/staff-img1.jpg" /></td>
-																	</tr>
-																	<tr>
-																		<td>部门：开发部</td>
-																	</tr>
-																	<tr>
-																		<td>直接上级：刘根朔</td>
-																	</tr>
-																	<tr>
-																		<td>下属：5</td>
-																	</tr>
-																	<tr>
-																		<td>状态：正式</td>
-																	</tr>
-																	<tr>
-																		<td>最后登录：2021/1/22 20:23</td>
-																	</tr>
-																</table>
-															</div>
-															<div class="staffs-right">
-																<table>
-																	<tr>
-																		<td class="lefts">工号</td>
-																		<td class="rights">17020140242</td>
-																	</tr>
-																	<tr>
-																		<td class="lefts">姓名</td>
-																		<td class="rights">沈俊羽</td>
-																	</tr>
-																	<tr>
-																		<td class="lefts">年龄</td>
-																		<td class="rights">24</td>
-																	</tr>
-																	<tr>
-																		<td class="lefts">身份证号</td>
-																		<td class="rights">3713241999********</td>
-																	</tr>
-																	<tr>
-																		<td class="lefts">手机号</td>
-																		<td class="rights">175****4608</td>
-																	</tr>
-																	<tr>
-																		<td class="lefts">邮箱</td>
-																		<td class="rights">175***5809@qq.com</td>
-																	</tr>
-																	<tr>
-																		<td class="lefts">住址</td>
-																		<td class="rights">山东省临沂市兰陵县</td>
-																	</tr>
-																	<tr>
-																		<td class="lefts">工资</td>
-																		<td class="rights">7400</td>
-																	</tr>
-																</table>
-															</div>
-								
-														</div>
-													</div><!-- /.modal-content -->
-												</div><!-- /.modal-dialog -->
-											</div><!-- /.modal -->
 										</div>
 									</div>
 								</div>
 							</div>
-							<div role="tabpanel" class="tab-pane fade" id="profile" aria-labelledby="profile-tab">
+							<div th:if="${loginStaff.staffPower!='P4' && loginStaff.staffPower!='P5'}" role="tabpanel" class="tab-pane fade" id="profile" aria-labelledby="profile-tab">
 								<div class="tables">
 									<div class="bs-example widget-shadow" data-example-id="hoverable-table">
 										<!-- 条件查询 -->
-										<form id="staffFindForm" action="staffFind.do" method="post">
-											<input type="text" style="margin-left: 2%;" placeholder="编号" id="findStaffId" name="trueId" />
-											<input type="text" style="margin-left: 2%;" placeholder="名称" id="findStaffName" name="trueName" />
-											<span style="margin-left: 2%;">类型：</span>
-											<select class="input-sm" style="font-size: 13px;" name="state" id="findUserState">
-												<option value="4">未选择</option>
-												<option value="0">实习</option>
-												<option value="1">试用</option>
-												<option value="2">正式</option>
-												<option value="3">离职</option>
-											</select>&nbsp;&nbsp;&nbsp;
-											<button class="label label-info" style="font-size: large;">查询</button>
-										</form>
-										
+										<input type="text" style="margin-left: 2%;" placeholder="名称" id="findPubAssName" name="trueName" />
+										<span style="margin-left: 2%;">类型：</span>
+										<select class="input-sm" style="font-size: 13px;" name="state" id="findPubAssType">
+											<option value="0">--未选择--</option>
+											<option th:if="${assetsTypeCache!=null && assetsTypeCache.size>0}" th:each="assetsType:${assetsTypeCache}" th:value="${assetsType.id}" th:text="${assetsType.typeName}">实习</option>
+										</select>&nbsp;&nbsp;&nbsp;
+										<button class="label label-info" onclick="findPubAssByCondition()" style="font-size: large;">查询</button>
+										<script type="text/javascript">
+											function findPubAssByCondition(){
+												var pubassName=$('#findPubAssName').val();
+												var pubassType=$('#findPubAssType').val();
+												
+												$('#pubassShowListBox').load('pubassShow.do',{
+													pubassName:pubassName,
+													pubassType:pubassType
+												},function(){
+													
+												});
+											}
+										</script>
 										<!-- //条件查询 -->
-										<div id="userShowTable" th:fragment="userShowTable">
-											<table class="table table-hover">
+										<div id="pubassShowListBox" >
+											<table class="table table-hover" th:fragment="pubassShowList">
 												<thead>
 													<tr>
-														<th>编号</th>
+														<th>序号</th>
 														<th>名称</th>
 														<th>类型</th>
-														<th>详情</th>
 														<th>价格</th>
+														<th>数量</th>
 														<th>所属部门</th>
 														<th>入库时间</th>
-														<th>数量</th><!-- 点击查看详情，跳转到product-add.html页面，填充所有的数据 -->
-														<th>操作</th>
 													</tr>
 												</thead>
 												<tbody>
-													<tr>
-														<th scope="row" >1</th>
-														<td >张三</td>
-														<td>
-															<span>女</span>
-															<span>男</span>
-															<span>未知</span>
-														</td>
-														<td></td>
-														<td ></td>
-														<td>2020-2-22
-															22:22</td>
-														<td>
-															<label class="label label-info" >实习</label>
-															<label class="label label-primary">试用</label>
-															<label class="label label-success" >正式</label>
-															<label class="label label-danger" >离职</label>
-														</td>
-														<td><button type="button" class="btn btn-primary btn-lg" onclick="showUserDetails(id)"
+													<tr th:if="${assetsList!=null && assetsList.size()>0}" th:each="ass,assStat:${assetsList}">
+														<th scope="row" th:text=${assStat.count}>1</th>
+														<td th:text="${ass.pubassName}">张三</td>
+														<td th:text="${ass.assetsType.typeName}"></td>
+														<td th:text="${ass.pubassPrice}"></td>
+														<td th:text="${ass.depart.departName}"></td>
+														<td th:text="${ass.pubassCount}"></td>
+														<td th:text="${#dates.format(ass.pubassTime,'yyyy-MM-dd HH:mm')}"></td>
+														<td><button type="button" class="btn btn-primary btn-lg" th:onclick="showAssDetails([[${ass.pubassId}]])"
 															 data-toggle="modal" data-target="#gridSystemModal" style="padding: 6px;font-size: 11px;">查看详情 </button></td>
 													</tr>
 												</tbody>
@@ -322,103 +245,85 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 											<nav style="margin-left: 65%;">
 												<ul class="pagination pagination-lg">
 													<!-- class='disabled'为选中了第一个或者最后一个的样式 -->
-													<li class="disabled"><a href="javascript:void(0)" aria-label="Previous"><span
+													<li th:if="${assetsList.pageNum eq 1}" class="disabled"><a style="cursor: pointer;" aria-label="Previous"><span
 															 aria-hidden="true">«</span></a></li>
-													<li><a href="javascript:void(0)" 
+													<li th:if="${assetsList.pageNum gt 1}"><a style="cursor: pointer;" th:onclick="toPubAssPage([[${assetsList.pageNum-1}]])"
 														 aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-													<li ><a href="javascript:void(0)">1</a></li>
-													<li ><a href="javascript:void(0)">2</a></li>
-													<li class="active"><a href="javascript:void(0)">3</a></li><!-- 被选中 -->
-													<li ><a href="javascript:void(0)">4</a></li>
-													<li ><a href="javascript:void(0)">5</a></li>
-													<li  class="disabled"><a href="javascript:void(0)" aria-label="Next"><span
-															 aria-hidden="true">»</span></a></li>
-													<li ><a href="javascript:void(0)"  
+													<li th:if="${assetsList.pageNum-2 gt 0 }"><a style="cursor: pointer;" th:onclick="toPubAssPage([[${assetsList.pageNum-2}]])"
+														 th:text="${assetsList.pageNum-2}">1</a></li>
+													<li th:if="${assetsList.pageNum-1 gt 0 }"><a style="cursor: pointer;" th:onclick="'toPubAssPage('+${assetsList.pageNum-1}+')'"
+														 th:text="${assetsList.pageNum-1}">2</a></li>
+													<li class="active"><a style="cursor: pointer;" th:text="${assetsList.pageNum}">3</a></li><!-- 被选中 -->
+													<li th:if="${assetsList.pageNum+1 le assetsList.pages}"><a style="cursor: pointer;" th:onclick="toPubAssPage([[${assetsList.pageNum+1}]])"
+														 th:text="${assetsList.pageNum+1}">4</a></li>
+													<li th:if="${assetsList.pageNum+2 le assetsList.pages}"><a style="cursor: pointer;" th:onclick="toPubAssPage([[${assetsList.pageNum+2}]])"
+														 th:text="${assetsList.pageNum+2}">5</a></li>
+													<li th:if="${assetsList.pageNum eq assetsList.pages}" class="disabled"><a style="cursor: pointer;"
+														 aria-label="Next"><span aria-hidden="true">»</span></a></li>
+													<li th:if="${assetsList.pageNum lt assetsList.pages}"><a style="cursor: pointer;" th:onclick="toPubAssPage([[${assetsList.pageNum+1}]])"
 														 aria-label="Next"><span aria-hidden="true">»</span></a></li>
 												</ul>
 											</nav>
 											<!-- //分页查询 -->
 										</div>
-
-										<div class="col-md-4 modal-grids">
-											<div class="modal fade" id="gridSystemModal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
-												<div class="modal-dialog" role="document">
-													<div class="modal-content">
-														<div class="modal-header">
-															<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-															<h4 class="modal-title" id="gridSystemModalLabel">员工信息</h4>
-														</div>
-														<div class="grid_3 grid_5 widget-shadow" style="margin-top: 0em;" id="staffDetilsWindow">
-															<div class="staffs-left">
-																<table>
-																	<tr>
-																		<td><img class="staffs-img" src="images/staff-img1.jpg" /></td>
-																	</tr>
-																	<tr>
-																		<td>部门：开发部</td>
-																	</tr>
-																	<tr>
-																		<td>直接上级：刘根朔</td>
-																	</tr>
-																	<tr>
-																		<td>下属：5</td>
-																	</tr>
-																	<tr>
-																		<td>状态：正式</td>
-																	</tr>
-																	<tr>
-																		<td>最后登录：2021/1/22 20:23</td>
-																	</tr>
-																</table>
-															</div>
-															<div class="staffs-right">
-																<table>
-																	<tr>
-																		<td class="lefts">工号</td>
-																		<td class="rights">17020140242</td>
-																	</tr>
-																	<tr>
-																		<td class="lefts">姓名</td>
-																		<td class="rights">沈俊羽</td>
-																	</tr>
-																	<tr>
-																		<td class="lefts">年龄</td>
-																		<td class="rights">24</td>
-																	</tr>
-																	<tr>
-																		<td class="lefts">身份证号</td>
-																		<td class="rights">3713241999********</td>
-																	</tr>
-																	<tr>
-																		<td class="lefts">手机号</td>
-																		<td class="rights">175****4608</td>
-																	</tr>
-																	<tr>
-																		<td class="lefts">邮箱</td>
-																		<td class="rights">175***5809@qq.com</td>
-																	</tr>
-																	<tr>
-																		<td class="lefts">住址</td>
-																		<td class="rights">山东省临沂市兰陵县</td>
-																	</tr>
-																	<tr>
-																		<td class="lefts">工资</td>
-																		<td class="rights">7400</td>
-																	</tr>
-																</table>
-															</div>
-
-														</div>
-													</div><!-- /.modal-content -->
-												</div><!-- /.modal-dialog -->
-											</div><!-- /.modal -->
-										</div>
+										<script type="text/javascript">
+											function showAssDetails(id){
+												$('#pubAssMsgDetailBox').load('showPubAssDetails.do',{pubassId:id},function(){});
+											}
+											
+											function toPubAssPage(page){
+												var pubassName=$('#findPubAssName').val();
+												var pubassType=$('#findPubAssType').val();
+												
+												$('#pubassShowListBox').load('toPubAssShowPage.do',{
+													pubassName:pubassName,
+													pubassType:pubassType,
+													page:page
+												},function(){
+													
+												});
+											}
+										</script>
 									</div>
 								</div>
 
 							</div>
 						</div>
 					</div>
+					<!-- 弹窗 -->
+					<div class="col-md-4 modal-grids">
+						<div class="modal fade" id="gridSystemModal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+										<h4 class="modal-title" id="gridSystemModalLabel">资产信息</h4>
+									</div>
+									<div id="pubAssMsgDetailBox" class="grid_3 grid_5 widget-shadow" style="margin-top: 0em;height: 398px;">
+										<!-- 弹窗内容 -->
+									</div>
+								</div><!-- /.modal-content -->
+							</div><!-- /.modal-dialog -->
+						</div><!-- /.modal -->
+					</div>
+					<!-- //弹窗 -->
+					<script type="text/javascript">
+						function showPubAssUseDetails(id){
+							$('#pubAssMsgDetailBox').load('showPubAssUseDetails.do',{id:id},function(){});
+						}
+						function toPubAssUsePage(page){
+							var pubassName=$('.pubassName').val();
+							var pubassType=$('.pubassType').val();
+							
+							$('#pubassUseShowListBox').load('toPubAssUsePage.do',{
+								pubassName:pubassName,
+								pubassType:pubassType,
+								page:page
+							},function(){
+								
+							});
+						}
+					</script>
 				</div>
 			</div>
 			<!--footer-->

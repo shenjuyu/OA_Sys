@@ -110,11 +110,18 @@ public class ProjectBizImpl implements ProjectBiz {
 
 	@Override
 	public Project findLastPro() {
-		pe.setOrderByClause("id desc");
-		List<Project> projects = pm.selectByExample(pe);
-		if(projects.size()<1) {
-			return null;
+		try {
+			pe.setOrderByClause("id desc");
+			List<Project> projects = pm.selectByExample(pe);
+			if(projects.size()<1) {
+				return null;
+			}
+			return projects.get(0);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			pe.clear();
 		}
-		return projects.get(0);
+		return null;
 	}
 }

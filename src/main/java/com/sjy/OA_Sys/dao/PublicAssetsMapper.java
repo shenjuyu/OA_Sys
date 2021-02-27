@@ -21,6 +21,8 @@ public interface PublicAssetsMapper {
     List<PublicAssets> selectByExample(PublicAssetsExample example);
 
     PublicAssets selectByPrimaryKey(Integer id);
+    
+    PublicAssets selectByPubassId(String pubassId);
 
     int updateByExampleSelective(@Param("record") PublicAssets record, @Param("example") PublicAssetsExample example);
 

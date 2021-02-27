@@ -25,6 +25,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sjy.OA_Sys.bean.Depart;
+import com.sjy.OA_Sys.bean.PublicAssetsType;
 import com.sjy.OA_Sys.bean.Result;
 import com.sjy.OA_Sys.bean.Staff;
 import com.sjy.OA_Sys.bean.VerifyCode;
@@ -36,7 +37,7 @@ import com.sjy.OA_Sys.util.SendEmail;
 import com.sjy.OA_Sys.util.VerificationCodeGeneratorUtil;
 
 @Controller
-@SessionAttributes({"loginStaff","backResetPwdEmailCode","departCache"})
+@SessionAttributes({"loginStaff","backResetPwdEmailCode","departCache","assetsTypeCache"})
 public class LoginAction { 
 
 	@Resource
@@ -109,8 +110,11 @@ public class LoginAction {
 		addCookie.addCookie(true, remPwd, loginStaff.getStaffId().toString(), loginStaff.getStaffPwd(), request, response);
 		
 		List<Depart> departs = null;
+		List<PublicAssetsType> assetsTypes = null;
 		try {
 			departs = objectMapper.readValue((String) redisUtil.get("departCache"), new TypeReference<List<Depart>>() {
+			});
+			assetsTypes=objectMapper.readValue((String) redisUtil.get("assetsTypeCache"), new TypeReference<List<PublicAssetsType>>() {
 			});
 		} catch (JsonMappingException e) {
 			e.printStackTrace();
@@ -119,6 +123,7 @@ public class LoginAction {
 		}
 		
 		m.addAttribute("departCache", departs);
+		m.addAttribute("assetsTypeCache", assetsTypes);
 		m.addAttribute("loginStaff", loginStaff);
 		return new Result(resultStaffLogin.getSucess(), resultStaffLogin.getMessage());
 	}

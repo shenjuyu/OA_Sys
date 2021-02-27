@@ -14,10 +14,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sjy.OA_Sys.bean.Depart;
 import com.sjy.OA_Sys.bean.Mail;
 import com.sjy.OA_Sys.bean.Project;
+import com.sjy.OA_Sys.bean.PublicAssets;
+import com.sjy.OA_Sys.bean.PublicAssetsType;
 import com.sjy.OA_Sys.bean.Task;
 import com.sjy.OA_Sys.biz.impl.DepartBizImpl;
 import com.sjy.OA_Sys.biz.impl.MailBizImpl;
 import com.sjy.OA_Sys.biz.impl.ProjectBizImpl;
+import com.sjy.OA_Sys.biz.impl.PublicAssetsBizImpl;
+import com.sjy.OA_Sys.biz.impl.PublicAssetsTypeBizImpl;
 import com.sjy.OA_Sys.biz.impl.TaskBizImpl;
 import com.sjy.OA_Sys.util.RedisUtil;
 
@@ -33,7 +37,13 @@ public class AfterServiceStarted implements ApplicationRunner {
 	@Resource
 	private DepartBizImpl dbi;
 	@Resource
+	private PublicAssetsBizImpl pabi;
+	@Resource
+	private PublicAssetsTypeBizImpl patbi;
+	@Resource
 	private RedisUtil redisUtil;
+	@Resource
+	private ObjectMapper mapper;
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
@@ -57,7 +67,7 @@ public class AfterServiceStarted implements ApplicationRunner {
 		}
 
 		// 初始化项目编码
-		Project project= pbi.findLastPro();
+		Project project = pbi.findLastPro();
 		if (project == null) {
 			redisUtil.set("projectCodeNumTody", 0);
 		} else {
@@ -74,7 +84,7 @@ public class AfterServiceStarted implements ApplicationRunner {
 				redisUtil.set("projectCodeNumTody", Integer.parseInt(projectCodeNumTody));
 			}
 		}
-		
+
 		// 初始化任务编码
 		Task task = tbi.findLastTask();
 		if (task == null) {
@@ -94,10 +104,32 @@ public class AfterServiceStarted implements ApplicationRunner {
 			}
 		}
 
+		// 初始化任务编码
+		PublicAssets publicAssets = pabi.findLastPublicAssets();
+		if (publicAssets == null) {
+			redisUtil.set("publicAssetsCodeNumTody", 0);
+		} else {
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+			Date date = new Date(System.currentTimeMillis());
+			int nowPublicAssetsCode = Integer.parseInt(formatter.format(date));
+			String publicAssetsCodeNumTody = publicAssets.getPubassId();
+			int publicAssetsCodePre = Integer.parseInt(publicAssetsCodeNumTody.substring(0, 8));
+
+			if (publicAssetsCodePre < nowPublicAssetsCode) {
+				redisUtil.set("publicAssetsCodeNumTody", 0);
+			} else {
+				publicAssetsCodeNumTody = publicAssetsCodeNumTody.substring(8);
+				redisUtil.set("publicAssetsCodeNumTody", Integer.parseInt(publicAssetsCodeNumTody));
+			}
+		}
+
 		// 初始化部门信息
 		List<Depart> departs = dbi.findDepart(null);
-		ObjectMapper mapper = new ObjectMapper();
 		redisUtil.set("departCache", mapper.writeValueAsString(departs));
+
+		// 初始化资产类型信息
+		List<PublicAssetsType> assetsTypes = patbi.find(null);
+		redisUtil.set("assetsTypeCache", mapper.writeValueAsString(assetsTypes));
 	}
 
 }

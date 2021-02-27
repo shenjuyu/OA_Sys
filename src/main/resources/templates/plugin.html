@@ -267,5 +267,147 @@
 				</div>
 			</div>
 		</div>
+		
+		<div th:fragment="pubAssUseDetail">
+			<div class="staffs-left">
+				<table>
+					<tr>
+						<td>资产名称：
+							<span th:text="${assetsUseDetail.pubAss.pubassName}">桌子</span>
+						</td>
+					</tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr>
+						<td>所属部门：
+							<span th:text="${assetsUseDetail.pubAss.depart.departName}">桌子</span>
+						</td>
+					</tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr>
+						<td>类型：
+							<span th:text="${assetsUseDetail.pubAss.assetsType.typeName}">桌子</span>
+						</td>
+					</tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr>
+						<td>价格：
+							<span th:text="${assetsUseDetail.pubAss.pubassPrice}">桌子</span>
+						</td>
+					</tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr>
+						<td>入库时间：</td>
+					</tr>
+					<tr>
+						<td th:text="${#dates.format(assetsUseDetail.pubAss.pubassTime,'yyyy-MM-dd HH:mm')}">2020-02-02 12:23</td>
+					</tr>
+				</table>
+			</div>
+			<div class="staffs-right" >
+				<table style="width: 418px;margin-bottom: 10px;">
+					<tr>
+						<td class="lefts">借用数量：</td>
+						<td class="rights" th:text="${assetsUseDetail.useCount}">2</td>
+					</tr>
+					<tr>
+						<td class="lefts">借用日期：</td>
+						<td class="rights" th:text="${#dates.format(assetsUseDetail.useTime,'yyyy-MM-dd HH:mm')}">2020-02-02 15:15</td>
+					</tr>
+					<tr>
+						<td class="lefts">预计归还日期：</td>
+						<td class="rights" th:text="${#dates.format(assetsUseDetail.useTerm,'yyyy-MM-dd')}">2020-02-02 15:15</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+					</tr>
+				</table>
+				<span>商品详情：</span>
+				<div class="projectpanel" th:utext="${assetsUseDetail.pubAss.pubassDes}" style="margin-top: 10px;float: left;height: 152px;width: 418px;border:3px solid #f8f8f8;">测试描述</div>
+			</div>
+		</div>
+		
+		<div th:fragment="pubAssDetail">
+			<div class="staffs-left">
+				<table>
+					<tr>
+						<td>资产名称：
+							<span th:text="${pubAssDetail.pubassName}">桌子</span>
+						</td>
+					</tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr>
+						<td>所属部门：
+							<span th:text="${pubAssDetail.depart.departName}">桌子</span>
+						</td>
+					</tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr>
+						<td>类型：
+							<span th:text="${pubAssDetail.assetsType.typeName}">桌子</span>
+						</td>
+					</tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr>
+						<td>价格：
+							<span th:text="${pubAssDetail.pubassPrice}">桌子</span>
+						</td>
+					</tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr><td></td></tr>
+					<tr>
+						<td>入库时间：</td>
+					</tr>
+					<tr>
+						<td th:text="${#dates.format(pubAssDetail.pubassTime,'yyyy-MM-dd HH:mm')}">2020-02-02 12:23</td>
+					</tr>
+				</table>
+			</div>
+			<div class="staffs-right" >
+				<table style="width: 418px;margin-bottom: 10px;">
+					<tr>
+						<td class="lefts">数量：</td>
+						<td class="rights" th:text="${pubAssDetail.pubassCount}">2</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+					</tr>
+				</table>
+				<span style="margin-top: 10px;margin-bottom: 10px;">商品详情：</span>
+				<div class="projectpanel" th:utext="${pubAssDetail.pubassDes}" style="margin-top: 10px;float: left;height: 152px;width: 418px;border:3px solid #f8f8f8;">测试描述</div>
+			</div>
+		</div>
 	</body>
 </html>
