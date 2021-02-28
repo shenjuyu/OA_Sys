@@ -1,0 +1,368 @@
+<!DOCTYPE HTML>
+<html  xmlns:th="www.thymeleaf.org">
+	<head>
+		<title>Inbox</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="keywords" content="Novus Admin Panel Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+		<script type="application/x-javascript">
+			addEventListener("load", function() {
+				setTimeout(hideURLbar, 0);
+			}, false);
+
+			function hideURLbar() {
+				window.scrollTo(0, 1);
+			}
+		</script>
+		<!-- Bootstrap Core CSS -->
+		<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+		<!-- Custom CSS -->
+		<link href="css/style.css" rel='stylesheet' type='text/css' />
+		<!-- font CSS -->
+		<!-- font-awesome icons -->
+		<link href="css/font-awesome.css" rel="stylesheet">
+		<!-- //font-awesome icons -->
+		<!-- js-->
+		<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="js/modernizr.custom.js"></script>
+		<!--webfonts-->
+		<link href='http://fonts.useso.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet'
+		 type='text/css'>
+		<!--//webfonts-->
+		<!--animate-->
+		<link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
+		<script src="js/wow.min.js"></script>
+		<script>
+			new WOW().init();
+		</script>
+		<!--//end-animate-->
+		<!-- Metis Menu -->
+		<script src="js/metisMenu.min.js"></script>
+		<script src="js/custom.js"></script>
+		<link href="css/custom.css" rel="stylesheet">
+		<!--//Metis Menu -->
+		<link href='fullcalendar/main.css' rel='stylesheet' />
+		<script src='fullcalendar/main.js'></script>
+		<script src='fullcalendar/locales-all.js'></script>
+		<!-- ckeditor -->
+		<script src="ckeditor/ckeditor.js"></script>
+		<!--//ckeditor -->
+		<link href="css/project-creat.css" rel="stylesheet" type="text/css" media="all" />
+	</head>
+	<body class="cbp-spmenu-push">
+		<div class="main-content">
+			<!--left-fixed -navigation-->
+			<div class=" sidebar" role="navigation">
+				<div class="navbar-collapse">
+					<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+					</nav>
+				</div>
+			</div>
+			<!--left-fixed -navigation-->
+			<!-- header-starts -->
+			<div class="sticky-header header-section ">
+				<div class="header-left">
+					<!--toggle button start-->
+					<button id="showLeftPush"><i class="fa fa-bars"></i></button>
+					<!--toggle button end-->
+					<!--logo -->
+					<div class="logo">
+						<a href="index.html">
+							<h1>NOVUS</h1>
+							<span>AdminPanel</span>
+						</a>
+					</div>
+					<!--//logo-->
+				</div>
+				<div class="header-right">
+					<div class="profile_details_left">
+						<!--notifications of menu start -->
+					</div>
+					<!--notification menu end -->
+					<div class="profile_details">
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+			<!-- //header-ends -->
+			<!-- main content start-->
+			<div id="page-wrapper">
+				<div class="main-page" th:fragment="calendarShow">
+					<div id='calendar'></div>
+					<!-- 消息提示框 -->
+					<button id="calendarPopUpBtn" data-toggle="modal" data-target="#gridSystemModal" hidden="true"></button>
+					<div class="col-md-4 modal-grids">
+						<div class="modal fade" id="gridSystemModal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" id="calendarPopUpCloseBtn" class="close" data-dismiss="modal" aria-label="Close"><span
+											 aria-hidden="true">&times;</span></button>
+										<h4 class="modal-title" id="gridSystemModalLabel">日程信息</h4>
+									</div>
+									<div class="grid_3 grid_5 widget-shadow" style="margin-top: 0em;height: 450px;">
+										<div class="pro-cre">
+											<input id="calendarId" type="text" class="left" hidden="hidden"/>
+											<table>
+												<tr>
+													<td>日程主题：</td>
+													<td><input id="calendarTitle" type="text" class="left" required="required" /></td>
+												</tr>
+												<tr>
+													<td>开始时间：</td>
+													<td><input id="calendarTimeStart" type="datetime-local" class="left" required="required" /></td>
+												</tr>
+												<tr>
+													<td>结束时间：</td>
+													<td><input id="calendarTimeEnd" type="datetime-local" class="left" required="required" /></td>
+												</tr>
+												<tr>
+													<td></td>
+													<td></td>
+												</tr>
+											</table>
+											<span>日程详情：</span>
+											<textarea id="contents1" name="taskDes" style="height: 350px;" required="required"></textarea>
+											<script>
+												var obj = CKEDITOR.replace('contents1', {
+													width: '570px',
+													height: '100px',
+												});
+											</script>
+											<div id="calendarEditorBox" style="margin-top: 10px;width: 100%;">
+												<span id="calendarCloseBtn" data-dismiss="modal" aria-label="Close" class="label label-default" style="cursor: pointer;margin-left: 70%;">取消</span>
+												<span id="calendarAddBtn" class="label label-primary" style="cursor: pointer;margin-left: 2%;">保存</span>
+											</div>
+										</div>
+									</div>
+								</div><!-- /.modal-content -->
+							</div><!-- /.modal-dialog -->
+						</div><!-- /.modal -->
+					</div>
+					<!-- //消息提示框 -->
+
+					<script>
+						var calendar;
+						var nowArg;
+						$(document).ready(function(){
+							var date = new Date();
+							var dateStr = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+
+							var calendarEl = document.getElementById('calendar');
+
+							calendar = new FullCalendar.Calendar(calendarEl, {
+								headerToolbar: {
+									left: 'prev,next today',
+									center: 'title',
+									right: 'dayGridMonth,timeGridWeek,timeGridDay'
+								},
+								initialDate: getHandelNowDate(), //getHandelNowDate()
+								locale: 'zh-cn', // 设置中文
+								eventLimit: 4, // 显示更多
+								displayEventEnd: true, // 显示结束时间
+								buttonIcons: true, // 显示上一个/下一个
+								weekNumbers: true,
+								navLinks: true, // 可以单击日/周名称来浏览
+								editable: false,
+								dayMaxEvents: true, // 日程太多时允许“更多”
+								selectable: true,
+								selectMirror: true,
+								select: function(arg) { // 等同于dateClick: function(){}
+									var calendarTimeStart = getDateWithT(arg.start);
+
+									$('#calendarTimeStart').val(calendarTimeStart);
+									$('#calendarPopUpBtn').trigger('click');
+								},
+								eventClick: function(arg) {
+									nowArg=arg;
+									var calendarTimeStart = getDateWithT(arg.event.start);
+									var calendarTimeEnd = getDateWithT(arg.event.end);
+
+									console.log(arg.event.extendedProps.des)
+									$('#calendarId').val(arg.event.id);
+									$('#calendarTitle').val(arg.event.title);
+									$('#calendarTimeStart').val(calendarTimeStart);
+									$('#calendarTimeEnd').val(calendarTimeEnd);
+									CKEDITOR.instances.contents1.setData(arg.event.extendedProps.des);
+
+
+									$('#calendarPopUpBtn').trigger('click');
+									var str =
+										'<span id="calendarDelBtn" class="label label-primary" style="cursor: pointer;margin-left: 2%;">删除</span>';
+									$('#calendarEditorBox').append(str);
+									$('#calendarDelBtn').click(function() {
+										var calendarId = $('#calendarId').val();
+										$.post('toDelCalendar.do', {
+											calendarId: calendarId
+										}, function(data) {
+											$('#tipContent').html(data.message);
+											$("#asdf").trigger('click');
+											if (data.sucess == 1) {
+												arg.event.remove();
+												$('#calendarPopUpCloseBtn').trigger('click');
+												clearDetail();
+											}
+										});
+									});
+								},
+								events: function(info, successCallback, failureCallback) {
+									$.get('getCalendar.do',function(data){
+										var events=[];
+										$.each(data.obj,function(i,c){
+											console.log(c.calendarTimeStart)
+											events.push({
+												title: c.calendarTitle,
+												start: c.calendarTimeStart,
+												end: c.calendarTimeEnd,
+												id: c.id,
+												des: c.calendarDes
+											});
+										});
+										successCallback(events);
+									});
+								}
+							});
+							calendar.render();
+							console.log(calendar)
+						});
+
+						$('#calendarAddBtn').click(function() {
+							var calendarId = $('#calendarId').val();
+							var calendarTitle = $('#calendarTitle').val();
+							var calendarTimeStart = $('#calendarTimeStart').val();
+							var calendarTimeEnd = $('#calendarTimeEnd').val();
+							var calendarDes = CKEDITOR.instances.contents1.getData();
+
+							var calendarTimeStartDate=new Date(calendarTimeStart);
+							var calendarTimeEndDate=new Date(calendarTimeEnd);
+							
+							if(calendarTimeStartDate>calendarTimeEndDate){
+								$('#tipContent').html('日程开始时间不能晚于结束时间');
+								$("#asdf").trigger('click');
+							}
+							
+							
+							$.post('toAddCalendar.do', {
+								calendarId: calendarId,
+								calendarTitle: calendarTitle,
+								calendarTimeStart: calendarTimeStart,
+								calendarTimeEnd: calendarTimeEnd,
+								calendarDes: calendarDes
+							}, function(data) {
+								$('#tipContent').html(data.message);
+								$("#asdf").trigger('click');
+								if (data.sucess == 1) {
+									if(calendarId!=null && calendarId!=''){
+										nowArg.event.remove();
+									}
+									calendar.addEvent({
+										calendarId: calendarId,
+										title: calendarTitle,
+										start: calendarTimeStart,
+										end: calendarTimeEnd,
+										des: calendarDes
+									})
+									$('#calendarPopUpCloseBtn').trigger('click');
+									clearDetail();
+								}
+							});
+						});
+
+						$('#calendarCloseBtn').click(function() {
+							clearDetail();
+						});
+						$('#gridSystemModal').on('hide.bs.modal', function() {
+							clearDetail();
+						});
+
+						function clearDetail() {
+							$('#calendarId').val('');
+							$('#calendarTitle').val('');
+							$('#calendarTimeStart').val('');
+							$('#calendarTimeEnd').val('');
+							CKEDITOR.instances.contents1.setData('');
+						}
+
+						function getDateWithT(dateTime) {
+							var date = new Date(dateTime);
+
+							var m = date.getMonth() + 1;
+							m = addZero(m);
+
+							var d = date.getDate();
+							d = addZero(d);
+
+							var h = date.getHours();
+							h = addZero(h);
+
+							var mm = date.getMinutes();
+							mm = addZero(mm);
+
+							var ss = date.getSeconds();
+							ss = addZero(ss);
+
+							var time = date.getFullYear() + '-' + m + '-' + d + 'T' + h + ':' + mm + ':' + ss;
+							return time;
+						}
+
+						function addZero(i) {
+							if (i.toString().length == 1) {
+								i = "0" + i;
+							}
+							return i;
+						}
+
+						function getHandelNowDate() {
+							var myDate = new Date();
+							var tYear = myDate.getFullYear();
+							var tMonth = myDate.getMonth();
+							var tDay = myDate.getDate();
+
+							var m = tMonth + 1;
+							if (m.toString().length == 1) {
+								m = "0" + m;
+							}
+							if (tDay.toString().length == 1) {
+								tDay = "0" + tDay;
+							}
+							return tYear + '-' + m + '-' + tDay;
+						}
+					</script>
+				</div>
+			</div>
+			<!--footer-->
+			<div class="footer">
+				<p>Copyright &copy; 2016.Company name All rights reserved.<a target="_blank" href="http://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p>
+			</div>
+			<!--//footer-->
+		</div>
+		<!-- Classie -->
+		<script src="js/classie.js"></script>
+		<script>
+			var menuLeft = document.getElementById('cbp-spmenu-s1'),
+				showLeftPush = document.getElementById('showLeftPush'),
+				body = document.body;
+
+			showLeftPush.onclick = function() {
+				classie.toggle(this, 'active');
+				classie.toggle(body, 'cbp-spmenu-push-toright');
+				classie.toggle(menuLeft, 'cbp-spmenu-open');
+				disableOther('showLeftPush');
+			};
+
+			function disableOther(button) {
+				if (button !== 'showLeftPush') {
+					classie.toggle(showLeftPush, 'disabled');
+				}
+			}
+		</script>
+		<!--scrolling js-->
+		<script src="js/jquery.nicescroll.js"></script>
+		<script src="js/scripts.js"></script>
+		<!--//scrolling js-->
+		<!-- Bootstrap Core JavaScript -->
+		<script src="js/bootstrap.js"> </script>
+	</body>
+</html>

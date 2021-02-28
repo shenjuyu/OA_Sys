@@ -14,10 +14,13 @@ import java.util.Date;
  */
 public class TimeUtil {
 	
+	/**
+	 * 去T
+	 * @param date
+	 * @return
+	 */
 	public static Timestamp formatDateTime(String date) {
-		System.out.println("dateBefore:"+date);
 		date = date.replace("T", " ");
-		System.out.println("dateAfter:"+date);
 		Date dateTemp = null;
 		try {
 			dateTemp = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(date);
@@ -28,6 +31,12 @@ public class TimeUtil {
 		return timestamp;
 	}
 	
+	/**
+	 * 格式化
+	 * @param date 需要格式化的日期
+	 * @param pattern 格式：例：yyyy-MM-dd HH:mm:SS
+	 * @return
+	 */
 	public static String formatDateTime(Date date,String pattern) {
 		SimpleDateFormat formatter= new SimpleDateFormat(pattern);
 		return formatter.format(date);

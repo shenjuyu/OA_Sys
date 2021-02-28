@@ -50,6 +50,12 @@
 		<link href="css/uploadself.css" rel="stylesheet" type="text/css" />
 		<link href="css/hide-scroll-bar.css" rel="stylesheet" type="text/css" />
 		
+		<!-- fullcalendar -->
+		<link href='fullcalendar/main.css' rel='stylesheet' />
+		<script src='fullcalendar/main.js'></script>
+		<script src='fullcalendar/locales-all.js'></script>
+		<!-- //fullcalendar -->
+		
 		<script src="js/jquery.form.js"></script>
 		<script src="ckeditor/ckeditor.js"></script>
 		<script src="js/timeago.js"></script>
@@ -114,7 +120,7 @@
 								<a href="javascript:void(0)" onclick="toPublicAssets()"><i class="fa fa-rmb nav_icon"></i>公共资产</a>
 							</li>
 							<li>
-								<a href="javascript:void(0)" onclick="toWidget()" class="chart-nav"><i class="fa fa-plus-square nav_icon"></i>附加 <span class="nav-badge-btm pull-right">new</span></a>
+								<a href="javascript:void(0)" onclick="toCalendar()" class="chart-nav"><i class="fa fa-calendar nav_icon"></i>日程 <span class="nav-badge-btm pull-right">new</span></a>
 							</li>
 						</ul>
 						<!-- //sidebar-collapse -->
@@ -568,8 +574,8 @@
 					removeScrollBar();
 				});
 			}
-			function toWidget() {
-				$('#page-wrapper').load('toWidget.do',function(){
+			function toCalendar() {
+				$('#page-wrapper').load('toCalendar.do',function(){
 					removeScrollBar();
 				});
 			}
