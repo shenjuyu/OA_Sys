@@ -15,6 +15,13 @@ public interface AttSheetBiz {
 	List<AttSheet> findAttSheetForMonth(AttSheet attSheet);
 	
 	/**
+	 * 
+	 * @param attSheet
+	 * @return
+	 */
+	AttSheet findAttSheetForToDay(AttSheet attSheet);
+	
+	/**
 	 * 添加出勤记录
 	 * @param attSheet
 	 * @return
@@ -22,10 +29,23 @@ public interface AttSheetBiz {
 	Result addAttSheet(AttSheet attSheet);
 	
 	/**
-	 * 更新出勤记录
+	 * 更新出勤记录 需要参数staffID 、签退时间 和状态
 	 * @param attSheet
 	 * @return
 	 */
 	Result updateAttSheet(AttSheet attSheet);
 	
+	/**
+	 * 更新出勤记录 管理员用
+	 * @param attSheet
+	 * @return
+	 */
+	Result updateAttSheetForAdmin(AttSheet attSheet);
+	
+	/**
+	 * 添加出勤记录 管理员用
+	 * @param attSheet
+	 * @return
+	 */
+	Result addAttSheetForAdmin(AttSheet attSheet);
 }

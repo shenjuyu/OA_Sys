@@ -2,6 +2,7 @@ package com.sjy.OA_Sys.web;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.sjy.OA_Sys.bean.AttSheet;
 import com.sjy.OA_Sys.bean.Mail;
 import com.sjy.OA_Sys.bean.Notice;
+import com.sjy.OA_Sys.bean.Result;
 import com.sjy.OA_Sys.bean.Staff;
 import com.sjy.OA_Sys.bean.Task;
 import com.sjy.OA_Sys.bean.TaskWithBLOBs;
@@ -71,6 +73,18 @@ public class IndexAction {
 		attSheet.setAttSheetSituation(0);
 		int leaveDays = asbi.findAttSheetForMonth(attSheet).size();
 		
+		
+		// 今日是否签到
+		AttSheet attSheetTemp = new AttSheet();
+		attSheetTemp.setStaffId(loginStaff.getStaffId());
+		attSheetTemp = asbi.findAttSheetForToDay(attSheetTemp);
+		if(attSheetTemp==null) {// 未签到
+			m.addAttribute("attSheetFlag", 0);
+		}else if(attSheetTemp.getAttSheetSituation()==5){ // 已签到 未签退
+			m.addAttribute("attSheetFlag", 1);
+		}else { // 今日签到任务已完成
+			m.addAttribute("attSheetFlag", 2);
+		}
 		
 		m.addAttribute("mailList", mailList);
 		m.addAttribute("noReadNoticeList", noReadNoticeList);
@@ -124,4 +138,23 @@ public class IndexAction {
 		return result;
 	}
 	
+	@PostMapping("toSignIn.do")
+	@ResponseBody
+	private Result toSignIn(@SessionAttribute(value="loginStaff") Staff loginStaff) {
+		AttSheet attSheet = new AttSheet();
+		attSheet.setAttSheetSituation(5);
+		attSheet.setAttSheetTimeStart(new Timestamp(System.currentTimeMillis()));
+		attSheet.setStaffId(loginStaff.getStaffId());
+		return asbi.addAttSheet(attSheet);
+	}
+	
+	@PostMapping("toSignOut.do")
+	@ResponseBody
+	private Result toSignOut(@SessionAttribute(value="loginStaff") Staff loginStaff) {
+		AttSheet attSheet = new AttSheet();
+		attSheet.setAttSheetSituation(1);
+		attSheet.setAttSheetTimeStart(new Timestamp(System.currentTimeMillis()));
+		attSheet.setStaffId(loginStaff.getStaffId());
+		return asbi.updateAttSheet(attSheet);
+	}
 }

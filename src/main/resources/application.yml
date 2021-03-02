@@ -67,6 +67,8 @@ mail:
 contentTips:
   initPwd: 123456
   loginPwdTips: 您的登录密码是初始密码，请及时修改。
+  openingTimeHour: 8       # 上班的时间 时
+  openingTimeMin: 30       # 上班的时间 分
   closingTimeHour: 17      # 下班的时间 时
   closingTimeMin: 30       # 下班的时间 分
   salaryDay: 10            # 发工资的时间 日

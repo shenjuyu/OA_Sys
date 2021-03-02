@@ -25,11 +25,6 @@ public class CalendarAction {
 	@Resource
 	private CalendarBizImpl cbi;
 
-	@GetMapping("toCalendar.do")
-	public String toCalendarAction() {
-		return "full_calendar::calendarShow";
-	}
-
 	@GetMapping("getCalendar.do")
 	@ResponseBody
 	public Result toGetCalendar(@SessionAttribute(value = "loginStaff") Staff loginStaff) {
