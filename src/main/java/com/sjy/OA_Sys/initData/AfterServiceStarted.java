@@ -1,6 +1,7 @@
 package com.sjy.OA_Sys.initData;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -130,6 +131,10 @@ public class AfterServiceStarted implements ApplicationRunner {
 		// 初始化资产类型信息
 		List<PublicAssetsType> assetsTypes = patbi.find(null);
 		redisUtil.set("assetsTypeCache", mapper.writeValueAsString(assetsTypes));
+		
+		// 初始化登录信息
+		List<String> loginStaffIdList = new ArrayList<String>();
+		redisUtil.set("loginStaffIdList", mapper.writeValueAsString(loginStaffIdList));
 	}
 
 }
