@@ -97,15 +97,22 @@ public class ProjectBizImpl implements ProjectBiz {
 
 	@Override
 	public Result updateProject(ProjectWithBLOBs project) {
-		pe.createCriteria()
-			.andProIdEqualTo(project.getProId());
-		int code = pm.updateByExampleSelective(project, pe);
-		pe.clear();
-		if(code>0) {
-			return new Result(1,"更新成功");
-		}else {
-			return new Result(0,"更新失败");
+		try {
+			pe.createCriteria()
+				.andProIdEqualTo(project.getProId());
+			int code = pm.updateByExampleSelective(project, pe);
+			pe.clear();
+			if(code>0) {
+				return new Result(1,"更新成功");
+			}else {
+				return new Result(0,"更新失败");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			pe.clear();
 		}
+		return null;
 	}
 
 	@Override
