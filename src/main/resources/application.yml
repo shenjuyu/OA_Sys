@@ -77,6 +77,9 @@ contentTips:
 
 # 配置debug日志输出
 logging:
+  config: classpath:logback-spring.xml
   level:
+    org:
+      mybatis: debug
     com:
       sjy: debug
