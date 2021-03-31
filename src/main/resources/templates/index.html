@@ -389,6 +389,9 @@
 	
 										$('#calendarTimeStart').val(calendarTimeStart);
 										$('#calendarPopUpBtn').trigger('click');
+										if($('#calendarDelBtn').length>0){
+											$('#calendarDelBtn').remove();
+										}
 									},
 									eventClick: function(arg) {
 										nowArg=arg;
@@ -404,9 +407,12 @@
 	
 	
 										$('#calendarPopUpBtn').trigger('click');
-										var str =
-											'<span id="calendarDelBtn" class="label label-primary" style="cursor: pointer;margin-left: 2%;">删除</span>';
-										$('#calendarEditorBox').append(str);
+										if($('#calendarDelBtn').length<=0){
+											var str =
+												'<span id="calendarDelBtn" class="label label-primary" style="cursor: pointer;margin-left: 2%;">删除</span>';
+											$('#calendarEditorBox').append(str);
+										}
+										
 										$('#calendarDelBtn').click(function() {
 											var calendarId = $('#calendarId').val();
 											$.post('toDelCalendar.do', {
