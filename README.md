@@ -1,6 +1,5 @@
 # OA_Sys
 Graduation-Project
-ssh测试
 ## 开发技术
 
 	JDK8 SpringBoot JQuery ThymeLeaf MyBatis MySQL5
