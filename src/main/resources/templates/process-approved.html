@@ -1,0 +1,412 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Tables</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="keywords" content="Novus Admin Panel Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+		<script type="application/x-javascript">
+			addEventListener("load", function() {
+				setTimeout(hideURLbar, 0);
+			}, false);
+
+			function hideURLbar() {
+				window.scrollTo(0, 1);
+			}
+		</script>
+
+		<!-- Bootstrap Core CSS -->
+		<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+		<!-- Custom CSS -->
+		<link href="css/style.css" rel='stylesheet' type='text/css' />
+		<!-- font CSS -->
+		<!-- font-awesome icons -->
+		<link href="css/font-awesome.css" rel="stylesheet">
+		<!-- //font-awesome icons -->
+		<!-- js-->
+		<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="js/modernizr.custom.js"></script>
+		<!--webfonts-->
+		<link href='http://fonts.useso.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet'
+		 type='text/css'>
+		<!--//webfonts-->
+		<!--animate-->
+		<link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
+		<script src="js/wow.min.js"></script>
+		<script>
+			new WOW().init();
+	</script>
+		<!--//end-animate-->
+		<!-- Metis Menu -->
+		<script src="js/metisMenu.min.js"></script>
+		<script src="js/custom.js"></script>
+		<link href="css/custom.css" rel="stylesheet">
+		<!--//Metis Menu -->
+		<link href="css/personnel.css" rel="stylesheet" type="text/css" />
+	</head>
+	<body class="cbp-spmenu-push">
+		<div class="main-content">
+			<!--left-fixed -navigation-->
+			<div class=" sidebar" role="navigation">
+				<div class="navbar-collapse">
+					<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+						<ul class="nav" id="side-menu">
+							<li>
+								<a href="index.html"><i class="fa fa-home nav_icon"></i>Dashboard</a>
+							</li>
+
+						</ul>
+						<div class="clearfix"> </div>
+						<!-- //sidebar-collapse -->
+					</nav>
+				</div>
+			</div>
+			<!--left-fixed -navigation-->
+			<!-- header-starts -->
+			<div class="sticky-header header-section ">
+				<div class="header-left">
+					<!--toggle button start-->
+					<button id="showLeftPush"><i class="fa fa-bars"></i></button>
+					<!--toggle button end-->
+					<!--logo -->
+					<div class="logo">
+						<a href="index.html">
+							<h1>NOVUS</h1>
+							<span>AdminPanel</span>
+						</a>
+					</div>
+					<!--//logo-->
+					<div class="clearfix"> </div>
+				</div>
+				<div class="header-right">
+					<div class="profile_details_left">
+						<div class="clearfix"> </div>
+					</div>
+					<!--notification menu end -->
+					<div class="profile_details">
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+			<!-- //header-ends -->
+			<!-- main content start-->
+			<div id="page-wrapper">
+				<div class="main-page">
+					<div class="col-md-6 general-grids grids-right widget-shadow">
+						<ul id="myTabs" class="nav nav-tabs" role="tablist">
+							<li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home"
+								 aria-expanded="false">个人资产信息</a></li>
+							<li role="presentation" class=""><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile"
+								 aria-expanded="true">部门资产信息信息</a></li>
+						</ul>
+						<div id="myTabContent" class="tab-content scrollbar1">
+							<div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
+								<div class="tables">
+									<div class="bs-example widget-shadow" data-example-id="hoverable-table">
+										<!-- 条件查询 -->
+										<form id="staffFindForm" action="staffFind.do" method="post">
+											<input type="text" style="margin-left: 2%;" placeholder="编号" id="findStaffId" name="trueId" />
+											<input type="text" style="margin-left: 2%;" placeholder="名称" id="findStaffName" name="trueName" />
+											<span style="margin-left: 2%;">类型：</span>
+											<select class="input-sm" style="font-size: 13px;" name="state" id="findUserState">
+												<option value="4">未选择</option>
+												<option value="0">实习</option>
+												<option value="1">试用</option>
+												<option value="2">正式</option>
+												<option value="3">离职</option>
+											</select>&nbsp;&nbsp;&nbsp;
+											<button class="label label-info" style="font-size: large;">查询</button>
+										</form>
+										
+										<!-- //条件查询 -->
+										<div id="userShowTable" th:fragment="userShowTable">
+											<table class="table table-hover">
+												<thead>
+													<tr>
+														<th>编号</th>
+														<th>名称</th>
+														<th>类型</th>
+														<th>详情</th>
+														<th>价格</th>
+														<th>所属部门</th>
+														<th>入库时间</th>
+														<th>数量</th><!-- 点击查看详情，跳转到product-add.html页面，填充所有的数据 -->
+														<th>操作</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr th:each="ulist,uStat:${userList}">
+														<th scope="row" th:text="${uStat.count}">1</th>
+														<td th:text="${ulist.trueName}">张三</td>
+														<td>
+															<span th:if=${ulist.sex==0}>女</span>
+															<span th:if=${ulist.sex==1}>男</span>
+															<span th:if=${ulist.sex==2}>未知</span>
+														</td>
+														<td th:text="${ulist.tel.substring(0,3)}+'****'+${ulist.tel.substring(7,11)}"></td>
+														<td th:text="${ulist.email.substring(0,3)}+'***'+${ulist.email.substring(6)}"></td>
+														<td th:text="${ulist.registerTime.toLocalDateTime().getYear()}+'-'+${ulist.registerTime.toLocalDateTime().getMonthValue()}+'-'+${ulist.registerTime.toLocalDateTime().getDayOfMonth()}">2020-2-22
+															22:22</td>
+														<td>
+															<label class="label label-info" th:if=${ulist.state==0} th:id="'showUserStateLabel'+${ulist.id}">实习</label>
+															<label class="label label-primary" th:if=${ulist.state==1} th:id="'showUserStateLabel'+${ulist.id}">试用</label>
+															<label class="label label-success" th:if=${ulist.state==2} th:id="'showUserStateLabel'+${ulist.id}">正式</label>
+															<label class="label label-danger" th:if=${ulist.state==3} th:id="'showUserStateLabel'+${ulist.id}">离职</label>
+														</td>
+														<td><button type="button" class="btn btn-primary btn-lg" th:id="'backUser'+${ulist.id}" th:onclick="'showUserDetails('+${ulist.id}+')'"
+															 data-toggle="modal" data-target="#gridSystemModal" style="padding: 6px;font-size: 11px;">查看详情 </button></td>
+													</tr>
+												</tbody>
+											</table>
+								
+											<!-- 分页查询 -->
+											<nav style="margin-left: 65%;">
+												<ul class="pagination pagination-lg">
+													<!-- class='disabled'为选中了第一个或者最后一个的样式 -->
+													<li th:if="${userList.pageNum eq 1}" class="disabled"><a href="javascript:void(0)" aria-label="Previous"><span
+															 aria-hidden="true">«</span></a></li>
+													<li th:if="${userList.pageNum gt 1}"><a href="javascript:void(0)" th:onclick="'toPage('+${userList.pageNum-1}+')'"
+														 aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+													<li th:if="${userList.pageNum-2 gt 0 }"><a href="javascript:void(0)" th:onclick="'toPage('+${userList.pageNum-2}+')'"
+														 th:text="${userList.pageNum-2}">1</a></li>
+													<li th:if="${userList.pageNum-1 gt 0 }"><a href="javascript:void(0)" th:onclick="'toPage('+${userList.pageNum-1}+')'"
+														 th:text="${userList.pageNum-1}">2</a></li>
+													<li class="active"><a href="javascript:void(0)" th:text="${userList.pageNum}">3</a></li><!-- 被选中 -->
+													<li th:if="${userList.pageNum+1 le userList.pages}"><a href="javascript:void(0)" th:onclick="'toPage('+${userList.pageNum+1}+')'"
+														 th:text="${userList.pageNum+1}">4</a></li>
+													<li th:if="${userList.pageNum+2 le userList.pages}"><a href="javascript:void(0)" th:onclick="'toPage('+${userList.pageNum+2}+')'"
+														 th:text="${userList.pageNum+2}">5</a></li>
+													<li th:if="${userList.pageNum eq userList.pages}" class="disabled"><a href="javascript:void(0)" aria-label="Next"><span
+															 aria-hidden="true">»</span></a></li>
+													<li th:if="${userList.pageNum lt userList.pages}"><a href="javascript:void(0)" th:onclick="'toPage('+${userList.pageNum+1}+')'"
+														 aria-label="Next"><span aria-hidden="true">»</span></a></li>
+												</ul>
+											</nav>
+											<!-- //分页查询 -->
+										</div>
+								
+										
+									</div>
+								</div>
+							</div>
+							<div role="tabpanel" class="tab-pane fade" id="profile" aria-labelledby="profile-tab">
+								<div class="tables">
+									<div class="bs-example widget-shadow" data-example-id="hoverable-table">
+										<!-- 条件查询 -->
+										<form id="staffFindForm" action="staffFind.do" method="post">
+											<input type="text" style="margin-left: 2%;" placeholder="编号" id="findStaffId" name="trueId" />
+											<input type="text" style="margin-left: 2%;" placeholder="名称" id="findStaffName" name="trueName" />
+											<span style="margin-left: 2%;">类型：</span>
+											<select class="input-sm" style="font-size: 13px;" name="state" id="findUserState">
+												<option value="4">未选择</option>
+												<option value="0">实习</option>
+												<option value="1">试用</option>
+												<option value="2">正式</option>
+												<option value="3">离职</option>
+											</select>&nbsp;&nbsp;&nbsp;
+											<button class="label label-info" style="font-size: large;">查询</button>
+										</form>
+										
+										<!-- //条件查询 -->
+										<div id="userShowTable" th:fragment="userShowTable">
+											<table class="table table-hover">
+												<thead>
+													<tr>
+														<th>编号</th>
+														<th>名称</th>
+														<th>类型</th>
+														<th>详情</th>
+														<th>价格</th>
+														<th>所属部门</th>
+														<th>入库时间</th>
+														<th>数量</th><!-- 点击查看详情，跳转到product-add.html页面，填充所有的数据 -->
+														<th>操作</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr th:each="ulist,uStat:${userList}">
+														<th scope="row" th:text="${uStat.count}">1</th>
+														<td th:text="${ulist.trueName}">张三</td>
+														<td>
+															<span th:if=${ulist.sex==0}>女</span>
+															<span th:if=${ulist.sex==1}>男</span>
+															<span th:if=${ulist.sex==2}>未知</span>
+														</td>
+														<td th:text="${ulist.tel.substring(0,3)}+'****'+${ulist.tel.substring(7,11)}"></td>
+														<td th:text="${ulist.email.substring(0,3)}+'***'+${ulist.email.substring(6)}"></td>
+														<td th:text="${ulist.registerTime.toLocalDateTime().getYear()}+'-'+${ulist.registerTime.toLocalDateTime().getMonthValue()}+'-'+${ulist.registerTime.toLocalDateTime().getDayOfMonth()}">2020-2-22
+															22:22</td>
+														<td>
+															<label class="label label-info" th:if=${ulist.state==0} th:id="'showUserStateLabel'+${ulist.id}">实习</label>
+															<label class="label label-primary" th:if=${ulist.state==1} th:id="'showUserStateLabel'+${ulist.id}">试用</label>
+															<label class="label label-success" th:if=${ulist.state==2} th:id="'showUserStateLabel'+${ulist.id}">正式</label>
+															<label class="label label-danger" th:if=${ulist.state==3} th:id="'showUserStateLabel'+${ulist.id}">离职</label>
+														</td>
+														<td><button type="button" class="btn btn-primary btn-lg" th:id="'backUser'+${ulist.id}" th:onclick="'showUserDetails('+${ulist.id}+')'"
+															 data-toggle="modal" data-target="#gridSystemModal" style="padding: 6px;font-size: 11px;">查看详情 </button></td>
+													</tr>
+												</tbody>
+											</table>
+
+											<!-- 分页查询 -->
+											<nav style="margin-left: 65%;">
+												<ul class="pagination pagination-lg">
+													<!-- class='disabled'为选中了第一个或者最后一个的样式 -->
+													<li th:if="${userList.pageNum eq 1}" class="disabled"><a href="javascript:void(0)" aria-label="Previous"><span
+															 aria-hidden="true">«</span></a></li>
+													<li th:if="${userList.pageNum gt 1}"><a href="javascript:void(0)" th:onclick="'toPage('+${userList.pageNum-1}+')'"
+														 aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+													<li th:if="${userList.pageNum-2 gt 0 }"><a href="javascript:void(0)" th:onclick="'toPage('+${userList.pageNum-2}+')'"
+														 th:text="${userList.pageNum-2}">1</a></li>
+													<li th:if="${userList.pageNum-1 gt 0 }"><a href="javascript:void(0)" th:onclick="'toPage('+${userList.pageNum-1}+')'"
+														 th:text="${userList.pageNum-1}">2</a></li>
+													<li class="active"><a href="javascript:void(0)" th:text="${userList.pageNum}">3</a></li><!-- 被选中 -->
+													<li th:if="${userList.pageNum+1 le userList.pages}"><a href="javascript:void(0)" th:onclick="'toPage('+${userList.pageNum+1}+')'"
+														 th:text="${userList.pageNum+1}">4</a></li>
+													<li th:if="${userList.pageNum+2 le userList.pages}"><a href="javascript:void(0)" th:onclick="'toPage('+${userList.pageNum+2}+')'"
+														 th:text="${userList.pageNum+2}">5</a></li>
+													<li th:if="${userList.pageNum eq userList.pages}" class="disabled"><a href="javascript:void(0)" aria-label="Next"><span
+															 aria-hidden="true">»</span></a></li>
+													<li th:if="${userList.pageNum lt userList.pages}"><a href="javascript:void(0)" th:onclick="'toPage('+${userList.pageNum+1}+')'"
+														 aria-label="Next"><span aria-hidden="true">»</span></a></li>
+												</ul>
+											</nav>
+											<!-- //分页查询 -->
+										</div>
+										
+									</div>
+								</div>
+
+							</div>
+						</div>
+					<div class="col-md-4 modal-grids">
+						<div class="modal fade" id="gridSystemModal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+										<h4 class="modal-title" id="gridSystemModalLabel">资产信息</h4>
+									</div>
+									<div class="grid_3 grid_5 widget-shadow" style="margin-top: 0em;" id="staffDetilsWindow">
+										<div>
+											<div class="staffs-left">
+												<table>
+													<tr>
+														<td>资产名称：
+															<span>着重</span>
+														</td>
+													</tr>
+													<tr><td></td></tr>
+													<tr><td></td></tr>
+													<tr><td></td></tr>
+													<tr><td></td></tr>
+													<tr><td></td></tr>
+													<tr>
+														<td>所属部门：</td>
+													</tr>
+													<tr><td></td></tr>
+													<tr><td></td></tr>
+													<tr><td></td></tr>
+													<tr><td></td></tr>
+													<tr><td></td></tr>
+													<tr>
+														<td>类型：</td>
+													</tr>
+													<tr><td></td></tr>
+													<tr><td></td></tr>
+													<tr><td></td></tr>
+													<tr><td></td></tr>
+													<tr><td></td></tr>
+													<tr>
+														<td>价格：</td>
+													</tr>
+													<tr><td></td></tr>
+													<tr><td></td></tr>
+													<tr><td></td></tr>
+													<tr><td></td></tr>
+													<tr><td></td></tr>
+													<tr>
+														<td>入库时间：</td>
+													</tr>
+													<tr>
+														<td>2020-02-02 12:23</td>
+													</tr>
+												</table>
+											</div>
+											<div class="staffs-right" >
+												<table style="width: 418px;">
+													<tr>
+														<td class="lefts">数量：</td>
+														<td class="rights">2</td>
+													</tr>
+													<tr>
+														<td>商品详情：</td>
+														<td></td>
+													</tr>
+												</table>
+												<div style="float: left;height: 152px;width: 418px;">asdfasdasf</div>
+											</div>
+										</div>
+									</div>
+								</div><!-- /.modal-content -->
+							</div><!-- /.modal-dialog -->
+						</div><!-- /.modal -->
+					</div>
+					</div>
+				</div>
+			</div>
+			
+			<!--footer-->
+			<div class="footer">
+				<p>Copyright &copy; 2016.Company name All rights reserved.<a target="_blank" href="http://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p>
+			</div>
+			<!--//footer-->
+		</div>
+		<!-- Classie -->
+		<!-- 消息提示框 -->
+		<div class="col-md-4 modal-grids">
+			<button type="button" id="asdf" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm" style="display: none;">Small
+				modal</button>
+			<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+							<h4 class="modal-title" id="mySmallModalLabel">温馨提示</h4>
+						</div>
+						<div class="modal-body" id="tipContent"> Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- //消息提示框 -->
+		<script src="js/classie.js"></script>
+		<script>
+			var menuLeft = document.getElementById('cbp-spmenu-s1'),
+				showLeftPush = document.getElementById('showLeftPush'),
+				body = document.body;
+
+			showLeftPush.onclick = function() {
+				classie.toggle(this, 'active');
+				classie.toggle(body, 'cbp-spmenu-push-toright');
+				classie.toggle(menuLeft, 'cbp-spmenu-open');
+				disableOther('showLeftPush');
+			};
+
+			function disableOther(button) {
+				if (button !== 'showLeftPush') {
+					classie.toggle(showLeftPush, 'disabled');
+				}
+			}
+		</script>
+		<!--scrolling js-->
+		<script src="js/jquery.nicescroll.js"></script>
+		<script src="js/scripts.js"></script>
+		<!--//scrolling js-->
+		<!-- Bootstrap Core JavaScript -->
+		<script src="js/bootstrap.js"> </script>
+	</body>
+</html>

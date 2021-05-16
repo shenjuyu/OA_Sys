@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sjy.OA_Sys.dao.ProcessMapper">
+  <resultMap id="BaseResultMap" type="com.sjy.OA_Sys.bean.Process">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="process_type" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="process_applicant" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="process_applicant_time" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+      <arg column="process_start_time" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+      <arg column="process_end_time" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+      <arg column="process_task_to_staff" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="process_task_supervise" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="process_finish" javaType="java.lang.Integer" jdbcType="INTEGER" />
+    </constructor>
+    <association property="processTypePoJo" autoMapping="true" column="process_type"
+    	select="com.sjy.OA_Sys.dao.ProcessTypeMapper.selectByPrimaryKey"></association>
+    <association property="applicantStaff" autoMapping="true" column="process_applicant"
+    	select="com.sjy.OA_Sys.dao.StaffMapper.selectByStaffId"></association>
+    <association property="taskStaff" autoMapping="true" column="process_task_to_staff"
+    	select="com.sjy.OA_Sys.dao.StaffMapper.selectByStaffId"></association>
+    <association property="superviceStaff" autoMapping="true" column="process_task_supervise"
+    	select="com.sjy.OA_Sys.dao.StaffMapper.selectByStaffId"></association>
+    <collection property="processDetails" autoMapping="true" column="id"
+    	select="com.sjy.OA_Sys.dao.ProcessDetailsMapper.selectByProcessId"></collection>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.sjy.OA_Sys.bean.ProcessWithBLOBs">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="process_type" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="process_applicant" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="process_applicant_time" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+      <arg column="process_start_time" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+      <arg column="process_end_time" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+      <arg column="process_task_to_staff" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="process_task_supervise" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="process_finish" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="process_task" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+      <arg column="process_reason" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+      <arg column="process_enclosure" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+    </constructor>
+    <association property="processTypePoJo" autoMapping="true" column="process_type"
+    	select="com.sjy.OA_Sys.dao.ProcessTypeMapper.selectByPrimaryKey"></association>
+    <association property="applicantStaff" autoMapping="true" column="process_applicant"
+    	select="com.sjy.OA_Sys.dao.StaffMapper.selectByStaffId"></association>
+    <association property="taskStaff" autoMapping="true" column="process_task_to_staff"
+    	select="com.sjy.OA_Sys.dao.StaffMapper.selectByStaffId"></association>
+    <association property="superviceStaff" autoMapping="true" column="process_task_supervise"
+    	select="com.sjy.OA_Sys.dao.StaffMapper.selectByStaffId"></association>
+    <collection property="processDetails" autoMapping="true" column="id"
+    	select="com.sjy.OA_Sys.dao.ProcessDetailsMapper.selectByProcessId"></collection>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, process_type, process_applicant, process_applicant_time, process_start_time, 
+    process_end_time, process_task_to_staff, process_task_supervise, process_finish
+  </sql>
+  <sql id="Blob_Column_List">
+    process_task, process_reason, process_enclosure
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.sjy.OA_Sys.bean.ProcessExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from process
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.sjy.OA_Sys.bean.ProcessExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from process
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from process
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from process
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sjy.OA_Sys.bean.ProcessExample">
+    delete from process
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sjy.OA_Sys.bean.ProcessWithBLOBs">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into process (process_type, process_applicant, process_applicant_time, 
+      process_start_time, process_end_time, process_task_to_staff, 
+      process_task_supervise, process_finish, process_task, 
+      process_reason, process_enclosure
+      )
+    values (#{processType,jdbcType=INTEGER}, #{processApplicant,jdbcType=VARCHAR}, #{processApplicantTime,jdbcType=TIMESTAMP}, 
+      #{processStartTime,jdbcType=TIMESTAMP}, #{processEndTime,jdbcType=TIMESTAMP}, #{processTaskToStaff,jdbcType=VARCHAR}, 
+      #{processTaskSupervise,jdbcType=VARCHAR}, #{processFinish,jdbcType=INTEGER}, #{processTask,jdbcType=LONGVARCHAR}, 
+      #{processReason,jdbcType=LONGVARCHAR}, #{processEnclosure,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sjy.OA_Sys.bean.ProcessWithBLOBs">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into process
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="processType != null">
+        process_type,
+      </if>
+      <if test="processApplicant != null">
+        process_applicant,
+      </if>
+      <if test="processApplicantTime != null">
+        process_applicant_time,
+      </if>
+      <if test="processStartTime != null">
+        process_start_time,
+      </if>
+      <if test="processEndTime != null">
+        process_end_time,
+      </if>
+      <if test="processTaskToStaff != null">
+        process_task_to_staff,
+      </if>
+      <if test="processTaskSupervise != null">
+        process_task_supervise,
+      </if>
+      <if test="processFinish != null">
+        process_finish,
+      </if>
+      <if test="processTask != null">
+        process_task,
+      </if>
+      <if test="processReason != null">
+        process_reason,
+      </if>
+      <if test="processEnclosure != null">
+        process_enclosure,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="processType != null">
+        #{processType,jdbcType=INTEGER},
+      </if>
+      <if test="processApplicant != null">
+        #{processApplicant,jdbcType=VARCHAR},
+      </if>
+      <if test="processApplicantTime != null">
+        #{processApplicantTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="processStartTime != null">
+        #{processStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="processEndTime != null">
+        #{processEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="processTaskToStaff != null">
+        #{processTaskToStaff,jdbcType=VARCHAR},
+      </if>
+      <if test="processTaskSupervise != null">
+        #{processTaskSupervise,jdbcType=VARCHAR},
+      </if>
+      <if test="processFinish != null">
+        #{processFinish,jdbcType=INTEGER},
+      </if>
+      <if test="processTask != null">
+        #{processTask,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="processReason != null">
+        #{processReason,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="processEnclosure != null">
+        #{processEnclosure,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sjy.OA_Sys.bean.ProcessExample" resultType="java.lang.Long">
+    select count(*) from process
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update process
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.processType != null">
+        process_type = #{record.processType,jdbcType=INTEGER},
+      </if>
+      <if test="record.processApplicant != null">
+        process_applicant = #{record.processApplicant,jdbcType=VARCHAR},
+      </if>
+      <if test="record.processApplicantTime != null">
+        process_applicant_time = #{record.processApplicantTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.processStartTime != null">
+        process_start_time = #{record.processStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.processEndTime != null">
+        process_end_time = #{record.processEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.processTaskToStaff != null">
+        process_task_to_staff = #{record.processTaskToStaff,jdbcType=VARCHAR},
+      </if>
+      <if test="record.processTaskSupervise != null">
+        process_task_supervise = #{record.processTaskSupervise,jdbcType=VARCHAR},
+      </if>
+      <if test="record.processFinish != null">
+        process_finish = #{record.processFinish,jdbcType=INTEGER},
+      </if>
+      <if test="record.processTask != null">
+        process_task = #{record.processTask,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.processReason != null">
+        process_reason = #{record.processReason,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.processEnclosure != null">
+        process_enclosure = #{record.processEnclosure,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update process
+    set id = #{record.id,jdbcType=INTEGER},
+      process_type = #{record.processType,jdbcType=INTEGER},
+      process_applicant = #{record.processApplicant,jdbcType=VARCHAR},
+      process_applicant_time = #{record.processApplicantTime,jdbcType=TIMESTAMP},
+      process_start_time = #{record.processStartTime,jdbcType=TIMESTAMP},
+      process_end_time = #{record.processEndTime,jdbcType=TIMESTAMP},
+      process_task_to_staff = #{record.processTaskToStaff,jdbcType=VARCHAR},
+      process_task_supervise = #{record.processTaskSupervise,jdbcType=VARCHAR},
+      process_finish = #{record.processFinish,jdbcType=INTEGER},
+      process_task = #{record.processTask,jdbcType=LONGVARCHAR},
+      process_reason = #{record.processReason,jdbcType=LONGVARCHAR},
+      process_enclosure = #{record.processEnclosure,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update process
+    set id = #{record.id,jdbcType=INTEGER},
+      process_type = #{record.processType,jdbcType=INTEGER},
+      process_applicant = #{record.processApplicant,jdbcType=VARCHAR},
+      process_applicant_time = #{record.processApplicantTime,jdbcType=TIMESTAMP},
+      process_start_time = #{record.processStartTime,jdbcType=TIMESTAMP},
+      process_end_time = #{record.processEndTime,jdbcType=TIMESTAMP},
+      process_task_to_staff = #{record.processTaskToStaff,jdbcType=VARCHAR},
+      process_task_supervise = #{record.processTaskSupervise,jdbcType=VARCHAR},
+      process_finish = #{record.processFinish,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sjy.OA_Sys.bean.ProcessWithBLOBs">
+    update process
+    <set>
+      <if test="processType != null">
+        process_type = #{processType,jdbcType=INTEGER},
+      </if>
+      <if test="processApplicant != null">
+        process_applicant = #{processApplicant,jdbcType=VARCHAR},
+      </if>
+      <if test="processApplicantTime != null">
+        process_applicant_time = #{processApplicantTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="processStartTime != null">
+        process_start_time = #{processStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="processEndTime != null">
+        process_end_time = #{processEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="processTaskToStaff != null">
+        process_task_to_staff = #{processTaskToStaff,jdbcType=VARCHAR},
+      </if>
+      <if test="processTaskSupervise != null">
+        process_task_supervise = #{processTaskSupervise,jdbcType=VARCHAR},
+      </if>
+      <if test="processFinish != null">
+        process_finish = #{processFinish,jdbcType=INTEGER},
+      </if>
+      <if test="processTask != null">
+        process_task = #{processTask,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="processReason != null">
+        process_reason = #{processReason,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="processEnclosure != null">
+        process_enclosure = #{processEnclosure,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.sjy.OA_Sys.bean.ProcessWithBLOBs">
+    update process
+    set process_type = #{processType,jdbcType=INTEGER},
+      process_applicant = #{processApplicant,jdbcType=VARCHAR},
+      process_applicant_time = #{processApplicantTime,jdbcType=TIMESTAMP},
+      process_start_time = #{processStartTime,jdbcType=TIMESTAMP},
+      process_end_time = #{processEndTime,jdbcType=TIMESTAMP},
+      process_task_to_staff = #{processTaskToStaff,jdbcType=VARCHAR},
+      process_task_supervise = #{processTaskSupervise,jdbcType=VARCHAR},
+      process_finish = #{processFinish,jdbcType=INTEGER},
+      process_task = #{processTask,jdbcType=LONGVARCHAR},
+      process_reason = #{processReason,jdbcType=LONGVARCHAR},
+      process_enclosure = #{processEnclosure,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sjy.OA_Sys.bean.Process">
+    update process
+    set process_type = #{processType,jdbcType=INTEGER},
+      process_applicant = #{processApplicant,jdbcType=VARCHAR},
+      process_applicant_time = #{processApplicantTime,jdbcType=TIMESTAMP},
+      process_start_time = #{processStartTime,jdbcType=TIMESTAMP},
+      process_end_time = #{processEndTime,jdbcType=TIMESTAMP},
+      process_task_to_staff = #{processTaskToStaff,jdbcType=VARCHAR},
+      process_task_supervise = #{processTaskSupervise,jdbcType=VARCHAR},
+      process_finish = #{processFinish,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

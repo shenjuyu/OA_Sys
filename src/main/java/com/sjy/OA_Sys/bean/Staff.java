@@ -36,13 +36,15 @@ public class Staff implements Serializable{
 
     private Integer staffState;
 
-    private String staffPower;
+    private Integer staffPower;
 
     private String departId;
     
     private Depart depart;
+    
+    private StaffRank staffRank;
 
-    public Staff(Integer id, String staffId, String staffPwd, String staffName, Integer staffSex, Timestamp staffBirth, String staffIdCard, String staffTel, String staffEmail, String staffAddr, String staffImg, BigDecimal staffWages, Integer staffState, String staffPower, String departId) {
+    public Staff(Integer id, String staffId, String staffPwd, String staffName, Integer staffSex, Timestamp staffBirth, String staffIdCard, String staffTel, String staffEmail, String staffAddr, String staffImg, BigDecimal staffWages, Integer staffState, Integer staffPower, String departId) {
         this.id = id;
         this.staffId = staffId;
         this.staffPwd = staffPwd;
@@ -61,7 +63,7 @@ public class Staff implements Serializable{
     }
 
     public Staff(String staffId, String staffName, Integer staffSex, String staffImg, Integer staffState,
-			String staffPower,String departId) {
+    		Integer staffPower,String departId) {
 		super();
 		this.staffId = staffId;
 		this.staffName = staffName;
@@ -181,12 +183,12 @@ public class Staff implements Serializable{
         this.staffState = staffState;
     }
 
-    public String getStaffPower() {
+    public Integer getStaffPower() {
         return staffPower;
     }
 
-    public void setStaffPower(String staffPower) {
-        this.staffPower = staffPower == null ? null : staffPower.trim();
+    public void setStaffPower(Integer staffPower) {
+        this.staffPower = staffPower;
     }
 
     public String getDepartId() {
@@ -203,6 +205,14 @@ public class Staff implements Serializable{
 
 	public void setDepart(Depart depart) {
 		this.depart = depart;
+	}
+
+	public StaffRank getStaffRank() {
+		return staffRank;
+	}
+
+	public void setStaffRank(StaffRank staffRank) {
+		this.staffRank = staffRank;
 	}
 
 }

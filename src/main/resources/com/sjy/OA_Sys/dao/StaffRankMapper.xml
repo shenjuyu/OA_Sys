@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sjy.OA_Sys.dao.StaffRankMapper">
+  <resultMap id="BaseResultMap" type="com.sjy.OA_Sys.bean.StaffRank">
+    <constructor>
+      <idArg column="rank_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="rank_sequence" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="rank_sequence_level" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="rank_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="rank_state" javaType="java.lang.Integer" jdbcType="INTEGER" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    rank_id, rank_sequence, rank_sequence_level, rank_name, rank_state
+  </sql>
+  <select id="selectByExample" parameterType="com.sjy.OA_Sys.bean.StaffRankExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from staff_rank
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from staff_rank
+    where rank_id = #{rankId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from staff_rank
+    where rank_id = #{rankId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sjy.OA_Sys.bean.StaffRankExample">
+    delete from staff_rank
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sjy.OA_Sys.bean.StaffRank">
+    insert into staff_rank (rank_id, rank_sequence, rank_sequence_level, 
+      rank_name, rank_state)
+    values (#{rankId,jdbcType=INTEGER}, #{rankSequence,jdbcType=VARCHAR}, #{rankSequenceLevel,jdbcType=INTEGER}, 
+      #{rankName,jdbcType=VARCHAR}, #{rankState,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sjy.OA_Sys.bean.StaffRank">
+    insert into staff_rank
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rankId != null">
+        rank_id,
+      </if>
+      <if test="rankSequence != null">
+        rank_sequence,
+      </if>
+      <if test="rankSequenceLevel != null">
+        rank_sequence_level,
+      </if>
+      <if test="rankName != null">
+        rank_name,
+      </if>
+      <if test="rankState != null">
+        rank_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rankId != null">
+        #{rankId,jdbcType=INTEGER},
+      </if>
+      <if test="rankSequence != null">
+        #{rankSequence,jdbcType=VARCHAR},
+      </if>
+      <if test="rankSequenceLevel != null">
+        #{rankSequenceLevel,jdbcType=INTEGER},
+      </if>
+      <if test="rankName != null">
+        #{rankName,jdbcType=VARCHAR},
+      </if>
+      <if test="rankState != null">
+        #{rankState,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sjy.OA_Sys.bean.StaffRankExample" resultType="java.lang.Long">
+    select count(*) from staff_rank
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update staff_rank
+    <set>
+      <if test="record.rankId != null">
+        rank_id = #{record.rankId,jdbcType=INTEGER},
+      </if>
+      <if test="record.rankSequence != null">
+        rank_sequence = #{record.rankSequence,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rankSequenceLevel != null">
+        rank_sequence_level = #{record.rankSequenceLevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.rankName != null">
+        rank_name = #{record.rankName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rankState != null">
+        rank_state = #{record.rankState,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update staff_rank
+    set rank_id = #{record.rankId,jdbcType=INTEGER},
+      rank_sequence = #{record.rankSequence,jdbcType=VARCHAR},
+      rank_sequence_level = #{record.rankSequenceLevel,jdbcType=INTEGER},
+      rank_name = #{record.rankName,jdbcType=VARCHAR},
+      rank_state = #{record.rankState,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sjy.OA_Sys.bean.StaffRank">
+    update staff_rank
+    <set>
+      <if test="rankSequence != null">
+        rank_sequence = #{rankSequence,jdbcType=VARCHAR},
+      </if>
+      <if test="rankSequenceLevel != null">
+        rank_sequence_level = #{rankSequenceLevel,jdbcType=INTEGER},
+      </if>
+      <if test="rankName != null">
+        rank_name = #{rankName,jdbcType=VARCHAR},
+      </if>
+      <if test="rankState != null">
+        rank_state = #{rankState,jdbcType=INTEGER},
+      </if>
+    </set>
+    where rank_id = #{rankId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sjy.OA_Sys.bean.StaffRank">
+    update staff_rank
+    set rank_sequence = #{rankSequence,jdbcType=VARCHAR},
+      rank_sequence_level = #{rankSequenceLevel,jdbcType=INTEGER},
+      rank_name = #{rankName,jdbcType=VARCHAR},
+      rank_state = #{rankState,jdbcType=INTEGER}
+    where rank_id = #{rankId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -238,7 +238,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 				
 				</script>
 				<script th:inline="javascript">
-					var websocket;
+					var websocket=null;
 					var myImage = [[${loginStaff.staffImg}]];
 					var addressee=[[${loginStaff.staffId}]];
 					
@@ -276,6 +276,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 						}
 			
 						websocket.onclose = function(event) {
+							websocket=null;
 							setTimeout(function(){
 								link();
 							},1000);

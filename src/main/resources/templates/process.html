@@ -1,0 +1,356 @@
+<!DOCTYPE HTML>
+<html xmlns:th="www.thymeleaf.org">
+	<head>
+		<title>Tables</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="keywords" content="Novus Admin Panel Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+		<script type="application/x-javascript">
+			addEventListener("load", function() {
+				setTimeout(hideURLbar, 0);
+			}, false);
+
+			function hideURLbar() {
+				window.scrollTo(0, 1);
+			}
+		</script>
+
+		<!-- Bootstrap Core CSS -->
+		<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+		<!-- Custom CSS -->
+		<link href="css/style.css" rel='stylesheet' type='text/css' />
+		<!-- font CSS -->
+		<!-- font-awesome icons -->
+		<link href="css/font-awesome.css" rel="stylesheet">
+		<!-- //font-awesome icons -->
+		<!-- js-->
+		<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="js/modernizr.custom.js"></script>
+		<!--webfonts-->
+		<link href='http://fonts.useso.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet'
+		 type='text/css'>
+		<!--//webfonts-->
+		<!--animate-->
+		<link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
+		<script src="js/wow.min.js"></script>
+		<script>
+			new WOW().init();
+	</script>
+		<!--//end-animate-->
+		<!-- Metis Menu -->
+		<script src="js/metisMenu.min.js"></script>
+		<script src="js/custom.js"></script>
+		<link href="css/custom.css" rel="stylesheet">
+		<!--//Metis Menu -->
+		<style type="text/css">
+			/* #cke_contents{
+				width: 570px;
+			} */
+		</style>
+		<!-- ckeditor -->
+		<script src="ckeditor/ckeditor.js"></script>
+		<!--//ckeditor -->
+		<link href="css/project-creat.css" rel="stylesheet" type="text/css" media="all" />
+	</head>
+	<body class="cbp-spmenu-push">
+		<div class="main-content">
+			<!--left-fixed -navigation-->
+			<div class=" sidebar" role="navigation">
+				<div class="navbar-collapse">
+					<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+						<ul class="nav" id="side-menu">
+							<li>
+								<a href="index.html"><i class="fa fa-home nav_icon"></i>Dashboard</a>
+							</li>
+
+						</ul>
+						<div class="clearfix"> </div>
+						<!-- //sidebar-collapse -->
+					</nav>
+				</div>
+			</div>
+			<!--left-fixed -navigation-->
+			<!-- header-starts -->
+			<div class="sticky-header header-section ">
+				<div class="header-left">
+					<!--toggle button start-->
+					<button id="showLeftPush"><i class="fa fa-bars"></i></button>
+					<!--toggle button end-->
+					<!--logo -->
+					<div class="logo">
+						<a href="index.html">
+							<h1>NOVUS</h1>
+							<span>AdminPanel</span>
+						</a>
+					</div>
+					<!--//logo-->
+					<div class="clearfix"> </div>
+				</div>
+				<div class="header-right">
+					<div class="profile_details_left">
+						<div class="clearfix"> </div>
+					</div>
+					<!--notification menu end -->
+					<div class="profile_details">
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+			<!-- //header-ends -->
+			<!-- main content start-->
+			<div id="page-wrapper">
+				<div class="main-page" th:fragment="processCreate">
+					<div class="col-md-6 general-grids widget-shadow">
+						<h4 class="title2">创建新流程 :</h4>
+						<div class="bs-example1" data-example-id="embedded-scrollspy">
+							<nav id="navbar-example2" class="navbar navbar-default navbar-static">
+								<div class="container-fluid">
+									<div class="navbar-header">
+										<button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".bs-example-js-navbar-scrollspy">
+											<span class="sr-only">导航：</span>
+											<span class="icon-bar"></span>
+											<span class="icon-bar"></span>
+											<span class="icon-bar"></span>
+										</button>
+										<a class="navbar-brand" href="#one">导航 ：</a>
+									</div>
+									<div class="collapse navbar-collapse bs-example-js-navbar-scrollspy">
+										<ul class="nav navbar-nav">
+											<li class="active"><a href="#one">申请人</a></li>
+											<li class=""><a href="#two">流程详情</a></li>
+										</ul>
+									</div>
+								</div>
+							</nav>
+							<div id="createProBox" data-spy="scroll" data-target="#navbar-example2" class="scrollspy-example pro-cre" style="height: 450px;overflow:auto;">
+								<div class="pro-cre-child">
+									<h4 id="one">申请人信息</h4>
+									<table>
+										<tr>
+											<td>员工编号：</td>
+											<td class="left"><input name="staffId" type="text" th:value="${loginStaff.staffId}" disabled="disabled"/></td>
+											<td>姓名：</td>
+											<td class="right"><input name="staffName" type="text" th:value="${loginStaff.staffName}" disabled="disabled"/></td>
+										</tr>
+										<tr>
+											<td>所属部门：</td>
+											<td class="left"><input name="partName" type="text" th:value="${loginStaff.depart.departName}" disabled="disabled"/></td>
+											<td>申请日期：</td>
+											<td class="right"><input id="processApplicantTime" name="processApplicantTime" type="datetime-local" value="" disabled="disabled"/></td>
+										</tr>
+									</table>
+									<br />
+									<h4 id="two">流程详情</h4>
+									<table>
+										<tr>
+											<td>流程类型：</td>
+											<td class="left">
+												<select name="processType">
+													<option value="" selected="selected">--未选择--</option>
+													<option value="1">请假</option>
+													<option value="2">出差</option>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<td>原因：</td>
+											<td class="left">
+												<input name="processReason" type="text" />
+											</td>
+										</tr>
+										<tr>
+											<td>任务交接人：</td>
+											<td class="left">
+												<input name="processTaskToStaff" type="text" />
+											</td>
+										</tr>
+										<tr>
+											<td>任务监督人：</td>
+											<td class="left">
+												<input name="processTaskSupervise" type="text" />
+											</td>
+										</tr>
+									</table>
+									<table>
+										<tr>
+											<td>交接任务描述：</td>
+										</tr>
+									</table>
+									<textarea id="processTask" name="processTask" style="height: 350px;" required="required"></textarea>
+									<script>
+										var obj = CKEDITOR.replace('processTask', {
+											width: '570px',
+											height: '100px',
+										});
+									</script>
+									<table>
+										<tr>
+											<td>开始时间：</td>
+											<td class="left"><input name="processStartTime" type="datetime-local" value="" /></td>
+											<td>结束时间：</td>
+											<td class="right"><input name="processEndTime" type="datetime-local" value="" /></td>
+										</tr>
+									</table>
+									附件：
+									<div class="form-group" style="height:100px;">
+									
+									</div>
+									<br />
+									<h3 class="pro-sub">
+										<button id="processCreateBtn" class="label label-primary" type="button">提交申请</button>
+									</h3>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 添加附件 -->
+					<script type="text/javascript">
+						$(".form-group").filesUpload({
+							url:'uploadProcessAtta.do',//上传地址
+							multiple: true,  //是否多文件上传
+							accept: '', //input accept属性
+							buttonText: '添加附件',  //按钮文字
+							fileChangeEnd:function(file){
+								$("#txtname").text(file[0].name)
+							},
+							onUploadStart: function() {}, //请求开始
+							onUploadSuccess: function(a,b) {
+								var data = eval("("+b+")")
+								$('.fileprocess').remove()
+								$('.size').remove()
+								$('.sizeSplit').remove()
+								$('.sizetext').append('<a class="delatta" href="javaScript:void(0)" onclick="delEmailAtta(this)">删除</a><input name="fileNames" value="'+data.obj+'"  hidden="true"/>')
+								$('.sizetext').addClass('sizetextend')
+								$('.sizetext').removeClass('sizetext')
+							},//请求成功
+							onUploadComplete: function() {
+								
+							},//请求完成
+							onUploadError:function(res, xhr){//请求错误
+								console.log("err",res,xhr)
+							}
+						})
+					</script>
+					<!--//添加附件 -->
+					<!-- 提交流程申请 -->
+					<script type="text/javascript">
+						$('#processCreateBtn').click(function(){
+							// 流程数据
+							var processApplicantTime = $('input[name=processApplicantTime]').val();
+							var processType = $('select=[name=processType]').val();
+							var processTaskSupervise = $('input=[name=processTaskSupervise]').val();
+							var processTaskToStaff = $('input=[name=processTaskToStaff]').val();
+							var processStartTime = $('input[name=processStartTime]').val();
+							var processEndTime = $('input[name=processEndTime]').val();
+							var processReason = $('input[name=processReason]').val();
+							
+							var processEnclosure = new Array();
+							var tempCount=0;
+							$('input[name=fileNames]').each(function(){
+								processEnclosure[tempCount]=$(this).val();
+								tempCount++;
+							});
+							tempCount=0;
+							
+							var processTask = CKEDITOR.instances.processTask.getData();
+							
+							if(processApplicantTime==null || processApplicantTime=="" || 
+									processType==null || processType=="" || 
+									processTaskSupervise==null || processTaskSupervise=="" || 
+									processTaskToStaff==null || processTaskToStaff=="" || 
+									processStartTime==null || processStartTime=="" || 
+									processEndTime==null || processEndTime=="" || 
+									processReason==null || processReason=="" || 
+									processTask==null || processTask=="" || 
+									){
+								$('#tipContent').html('请将项目信息填写完整...');
+								$("#asdf").trigger('click');
+								return false;
+							}
+							
+							var nowDate = new Date();
+							var processStartTime = new Date(processStartTime);
+							var processEndTime = new Date(processEndTime);
+							
+							if(processStartTime<nowDate){
+								$('#tipContent').html('开始时间无效...');
+								$("#asdf").trigger('click');
+								return false;
+							}
+							if(processStartTime>processEndTime){
+								$('#tipContent').html('开始时间不能晚于结束时间...');
+								$("#asdf").trigger('click');
+								return false;
+							}
+							
+							var fileNameList=JSON.stringify(processEnclosure);
+							
+							$.post('createProcess.do',{
+								processApplicantTime:processApplicantTime,
+								processType:processType,
+								processReason:processReason,
+								processTaskToStaff:processTaskToStaff,
+								processTaskSupervise:processTaskSupervise,
+								processTask:processTask,
+								processStartTime:processStartTime,
+								processEndTime:processEndTime,
+								fileNames:fileNameList
+							},function(data){
+								$('#tipContent').html(data.message);
+								$("#asdf").trigger('click');
+								if(data.sucess==1){
+									CKEDITOR.instances.processTask.setData('');
+									
+									$('input[name=processApplicantTime]').val('');
+									$('input=[name=processTaskSupervise]').val('');
+									$('input=[name=processTaskToStaff]').val('');
+									$('input[name=processStartTime]').val('');
+									$('input[name=processEndTime]').val('');
+									$('input[name=processReason]').val('');
+									
+									$('.fileprocessbox').each(function(){
+										this.remove();
+									});
+								}
+							},);
+							
+						});
+					</script>
+				</div>
+			</div>
+			<!--footer-->
+			<div class="footer">
+				<p>Copyright &copy; 2016.Company name All rights reserved.<a target="_blank" href="http://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p>
+			</div>
+			<!--//footer-->
+		</div>
+		<!-- Classie -->
+		<script src="js/classie.js"></script>
+		<script>
+			var menuLeft = document.getElementById('cbp-spmenu-s1'),
+				showLeftPush = document.getElementById('showLeftPush'),
+				body = document.body;
+
+			showLeftPush.onclick = function() {
+				classie.toggle(this, 'active');
+				classie.toggle(body, 'cbp-spmenu-push-toright');
+				classie.toggle(menuLeft, 'cbp-spmenu-open');
+				disableOther('showLeftPush');
+			};
+
+			function disableOther(button) {
+				if (button !== 'showLeftPush') {
+					classie.toggle(showLeftPush, 'disabled');
+				}
+			}
+		</script>
+		<!--scrolling js-->
+		<script src="js/jquery.nicescroll.js"></script>
+		<script src="js/scripts.js"></script>
+		<!--//scrolling js-->
+		<!-- Bootstrap Core JavaScript -->
+		<script src="js/bootstrap.js"> </script>
+	</body>
+</html>

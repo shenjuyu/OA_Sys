@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sjy.OA_Sys.dao.ProcessDetailsMapper">
+  <resultMap id="BaseResultMap" type="com.sjy.OA_Sys.bean.ProcessDetails">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="process_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="process_stage" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="approved_staff" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="approved_result" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="approved_time" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+    </constructor>
+    <association property="staff" autoMapping="true" column="approved_staff"
+    	select="com.sjy.OA_Sys.dao.StaffMapper.selectByStaffId"></association>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.sjy.OA_Sys.bean.ProcessDetails">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="process_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="process_stage" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="approved_staff" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="approved_result" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="approved_time" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+      <arg column="approved_opinion" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+    </constructor>
+    <association property="staff" autoMapping="true" column="approved_staff"
+    	select="com.sjy.OA_Sys.dao.StaffMapper.selectByStaffId"></association>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, process_id, process_stage, approved_staff, approved_result, approved_time
+  </sql>
+  <sql id="Blob_Column_List">
+    approved_opinion
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.sjy.OA_Sys.bean.ProcessDetailsExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from process_details
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.sjy.OA_Sys.bean.ProcessDetailsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from process_details
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from process_details
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByProcessId" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from process_details
+    where process_id = #{process_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from process_details
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sjy.OA_Sys.bean.ProcessDetailsExample">
+    delete from process_details
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sjy.OA_Sys.bean.ProcessDetails">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into process_details (process_id, process_stage, approved_staff, 
+      approved_result, approved_time, approved_opinion
+      )
+    values (#{processId,jdbcType=INTEGER}, #{processStage,jdbcType=INTEGER}, #{approvedStaff,jdbcType=VARCHAR}, 
+      #{approvedResult,jdbcType=INTEGER}, #{approvedTime,jdbcType=TIMESTAMP}, #{approvedOpinion,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sjy.OA_Sys.bean.ProcessDetails">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into process_details
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="processId != null">
+        process_id,
+      </if>
+      <if test="processStage != null">
+        process_stage,
+      </if>
+      <if test="approvedStaff != null">
+        approved_staff,
+      </if>
+      <if test="approvedResult != null">
+        approved_result,
+      </if>
+      <if test="approvedTime != null">
+        approved_time,
+      </if>
+      <if test="approvedOpinion != null">
+        approved_opinion,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="processId != null">
+        #{processId,jdbcType=INTEGER},
+      </if>
+      <if test="processStage != null">
+        #{processStage,jdbcType=INTEGER},
+      </if>
+      <if test="approvedStaff != null">
+        #{approvedStaff,jdbcType=VARCHAR},
+      </if>
+      <if test="approvedResult != null">
+        #{approvedResult,jdbcType=INTEGER},
+      </if>
+      <if test="approvedTime != null">
+        #{approvedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approvedOpinion != null">
+        #{approvedOpinion,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sjy.OA_Sys.bean.ProcessDetailsExample" resultType="java.lang.Long">
+    select count(*) from process_details
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update process_details
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.processId != null">
+        process_id = #{record.processId,jdbcType=INTEGER},
+      </if>
+      <if test="record.processStage != null">
+        process_stage = #{record.processStage,jdbcType=INTEGER},
+      </if>
+      <if test="record.approvedStaff != null">
+        approved_staff = #{record.approvedStaff,jdbcType=VARCHAR},
+      </if>
+      <if test="record.approvedResult != null">
+        approved_result = #{record.approvedResult,jdbcType=INTEGER},
+      </if>
+      <if test="record.approvedTime != null">
+        approved_time = #{record.approvedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.approvedOpinion != null">
+        approved_opinion = #{record.approvedOpinion,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update process_details
+    set id = #{record.id,jdbcType=INTEGER},
+      process_id = #{record.processId,jdbcType=INTEGER},
+      process_stage = #{record.processStage,jdbcType=INTEGER},
+      approved_staff = #{record.approvedStaff,jdbcType=VARCHAR},
+      approved_result = #{record.approvedResult,jdbcType=INTEGER},
+      approved_time = #{record.approvedTime,jdbcType=TIMESTAMP},
+      approved_opinion = #{record.approvedOpinion,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update process_details
+    set id = #{record.id,jdbcType=INTEGER},
+      process_id = #{record.processId,jdbcType=INTEGER},
+      process_stage = #{record.processStage,jdbcType=INTEGER},
+      approved_staff = #{record.approvedStaff,jdbcType=VARCHAR},
+      approved_result = #{record.approvedResult,jdbcType=INTEGER},
+      approved_time = #{record.approvedTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sjy.OA_Sys.bean.ProcessDetails">
+    update process_details
+    <set>
+      <if test="processId != null">
+        process_id = #{processId,jdbcType=INTEGER},
+      </if>
+      <if test="processStage != null">
+        process_stage = #{processStage,jdbcType=INTEGER},
+      </if>
+      <if test="approvedStaff != null">
+        approved_staff = #{approvedStaff,jdbcType=VARCHAR},
+      </if>
+      <if test="approvedResult != null">
+        approved_result = #{approvedResult,jdbcType=INTEGER},
+      </if>
+      <if test="approvedTime != null">
+        approved_time = #{approvedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approvedOpinion != null">
+        approved_opinion = #{approvedOpinion,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.sjy.OA_Sys.bean.ProcessDetails">
+    update process_details
+    set process_id = #{processId,jdbcType=INTEGER},
+      process_stage = #{processStage,jdbcType=INTEGER},
+      approved_staff = #{approvedStaff,jdbcType=VARCHAR},
+      approved_result = #{approvedResult,jdbcType=INTEGER},
+      approved_time = #{approvedTime,jdbcType=TIMESTAMP},
+      approved_opinion = #{approvedOpinion,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sjy.OA_Sys.bean.ProcessDetails">
+    update process_details
+    set process_id = #{processId,jdbcType=INTEGER},
+      process_stage = #{processStage,jdbcType=INTEGER},
+      approved_staff = #{approvedStaff,jdbcType=VARCHAR},
+      approved_result = #{approvedResult,jdbcType=INTEGER},
+      approved_time = #{approvedTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

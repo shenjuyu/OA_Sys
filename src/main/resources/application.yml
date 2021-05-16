@@ -29,7 +29,7 @@ spring:
   mail:
     host: smtp.qq.com
     username: shenjunyu123@foxmail.com
-    password: skjhnjcwfirbdgga
+    password: mnlntttnevaobdbc
     properties:
       mail:
         smtp:

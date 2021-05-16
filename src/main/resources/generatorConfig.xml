@@ -78,6 +78,11 @@
 			<columnOverride column="pubass_time" javaType="java.sql.Timestamp"></columnOverride>
 			<columnOverride column="use_time" javaType="java.sql.Timestamp"></columnOverride>
 			<columnOverride column="log_time" javaType="java.sql.Timestamp"></columnOverride>
+			
+			<columnOverride column="process_applicant_time" javaType="java.sql.Timestamp"></columnOverride>
+			<columnOverride column="process_start_time" javaType="java.sql.Timestamp"></columnOverride>
+			<columnOverride column="process_end_time" javaType="java.sql.Timestamp"></columnOverride>
+			<columnOverride column="approved_time" javaType="java.sql.Timestamp"></columnOverride>
 		</table>
 	</context>
 </generatorConfiguration>

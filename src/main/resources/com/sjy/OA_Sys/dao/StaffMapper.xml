@@ -16,11 +16,13 @@
       <arg column="staff_img" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="staff_wages" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
       <arg column="staff_state" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="staff_power" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="staff_power" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="depart_id" javaType="java.lang.String" jdbcType="VARCHAR" />
-    </constructor>
+    </constructor>staffRank
     <association property="depart" autoMapping="true" column="depart_id"
     	select="com.sjy.OA_Sys.dao.DepartMapper.selectByDepartId"></association>
+    <association property="staffRank" autoMapping="true" column="staff_power"
+    	select="com.sjy.OA_Sys.dao.StaffRankMapper.selectByPrimaryKey"></association>
   </resultMap>
   <resultMap id="NotImpResultMap" type="com.sjy.OA_Sys.bean.Staff">
     <constructor>
@@ -29,11 +31,13 @@
       <arg column="staff_sex" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="staff_img" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="staff_state" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="staff_power" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="staff_power" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="depart_id" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
     <association property="depart" autoMapping="true" column="depart_id"
     	select="com.sjy.OA_Sys.dao.DepartMapper.selectByDepartId"></association>
+    <association property="staffRank" autoMapping="true" column="staff_power"
+    	select="com.sjy.OA_Sys.dao.StaffRankMapper.selectByPrimaryKey"></association>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -147,7 +151,7 @@
       #{staffSex,jdbcType=INTEGER}, #{staffBirth,jdbcType=DATE}, #{staffIdCard,jdbcType=VARCHAR},
       #{staffTel,jdbcType=VARCHAR}, #{staffEmail,jdbcType=VARCHAR}, #{staffAddr,jdbcType=VARCHAR}, 
       #{staffImg,jdbcType=VARCHAR}, #{staffWages,jdbcType=DECIMAL}, #{staffState,jdbcType=INTEGER}, 
-      #{staffPower,jdbcType=VARCHAR}, #{departId,jdbcType=VARCHAR})
+      #{staffPower,jdbcType=INTEGER}, #{departId,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.sjy.OA_Sys.bean.Staff">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -236,7 +240,7 @@
         #{staffState,jdbcType=INTEGER},
       </if>
       <if test="staffPower != null">
-        #{staffPower,jdbcType=VARCHAR},
+        #{staffPower,jdbcType=INTEGER},
       </if>
       <if test="departId != null">
         #{departId,jdbcType=VARCHAR},
@@ -292,7 +296,7 @@
         staff_state = #{record.staffState,jdbcType=INTEGER},
       </if>
       <if test="record.staffPower != null">
-        staff_power = #{record.staffPower,jdbcType=VARCHAR},
+        staff_power = #{record.staffPower,jdbcType=INTEGER},
       </if>
       <if test="record.departId != null">
         depart_id = #{record.departId,jdbcType=VARCHAR},
@@ -317,7 +321,7 @@
       staff_img = #{record.staffImg,jdbcType=VARCHAR},
       staff_wages = #{record.staffWages,jdbcType=DECIMAL},
       staff_state = #{record.staffState,jdbcType=INTEGER},
-      staff_power = #{record.staffPower,jdbcType=VARCHAR},
+      staff_power = #{record.staffPower,jdbcType=INTEGER},
       depart_id = #{record.departId,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -363,7 +367,7 @@
         staff_state = #{staffState,jdbcType=INTEGER},
       </if>
       <if test="staffPower != null">
-        staff_power = #{staffPower,jdbcType=VARCHAR},
+        staff_power = #{staffPower,jdbcType=INTEGER},
       </if>
       <if test="departId != null">
         depart_id = #{departId,jdbcType=VARCHAR},
@@ -385,7 +389,7 @@
       staff_img = #{staffImg,jdbcType=VARCHAR},
       staff_wages = #{staffWages,jdbcType=DECIMAL},
       staff_state = #{staffState,jdbcType=INTEGER},
-      staff_power = #{staffPower,jdbcType=VARCHAR},
+      staff_power = #{staffPower,jdbcType=INTEGER},
       depart_id = #{departId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>

@@ -976,62 +976,52 @@ public class StaffExample {
             return (Criteria) this;
         }
 
-        public Criteria andStaffPowerEqualTo(String value) {
+        public Criteria andStaffPowerEqualTo(Integer value) {
             addCriterion("staff_power =", value, "staffPower");
             return (Criteria) this;
         }
 
-        public Criteria andStaffPowerNotEqualTo(String value) {
+        public Criteria andStaffPowerNotEqualTo(Integer value) {
             addCriterion("staff_power <>", value, "staffPower");
             return (Criteria) this;
         }
 
-        public Criteria andStaffPowerGreaterThan(String value) {
+        public Criteria andStaffPowerGreaterThan(Integer value) {
             addCriterion("staff_power >", value, "staffPower");
             return (Criteria) this;
         }
 
-        public Criteria andStaffPowerGreaterThanOrEqualTo(String value) {
+        public Criteria andStaffPowerGreaterThanOrEqualTo(Integer value) {
             addCriterion("staff_power >=", value, "staffPower");
             return (Criteria) this;
         }
 
-        public Criteria andStaffPowerLessThan(String value) {
+        public Criteria andStaffPowerLessThan(Integer value) {
             addCriterion("staff_power <", value, "staffPower");
             return (Criteria) this;
         }
 
-        public Criteria andStaffPowerLessThanOrEqualTo(String value) {
+        public Criteria andStaffPowerLessThanOrEqualTo(Integer value) {
             addCriterion("staff_power <=", value, "staffPower");
             return (Criteria) this;
         }
 
-        public Criteria andStaffPowerLike(String value) {
-            addCriterion("staff_power like", value, "staffPower");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffPowerNotLike(String value) {
-            addCriterion("staff_power not like", value, "staffPower");
-            return (Criteria) this;
-        }
-
-        public Criteria andStaffPowerIn(List<String> values) {
+        public Criteria andStaffPowerIn(List<Integer> values) {
             addCriterion("staff_power in", values, "staffPower");
             return (Criteria) this;
         }
 
-        public Criteria andStaffPowerNotIn(List<String> values) {
+        public Criteria andStaffPowerNotIn(List<Integer> values) {
             addCriterion("staff_power not in", values, "staffPower");
             return (Criteria) this;
         }
 
-        public Criteria andStaffPowerBetween(String value1, String value2) {
+        public Criteria andStaffPowerBetween(Integer value1, Integer value2) {
             addCriterion("staff_power between", value1, value2, "staffPower");
             return (Criteria) this;
         }
 
-        public Criteria andStaffPowerNotBetween(String value1, String value2) {
+        public Criteria andStaffPowerNotBetween(Integer value1, Integer value2) {
             addCriterion("staff_power not between", value1, value2, "staffPower");
             return (Criteria) this;
         }
