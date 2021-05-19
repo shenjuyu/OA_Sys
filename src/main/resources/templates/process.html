@@ -149,8 +149,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 											<td class="left">
 												<select name="processType">
 													<option value="" selected="selected">--未选择--</option>
-													<option value="1">请假</option>
-													<option value="2">出差</option>
+													<option th:each="processType:${processTypeList}" th:value="${processType.id}" th:text="${processType.typeName}">1</option>
 												</select>
 											</td>
 										</tr>
@@ -188,9 +187,9 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 									<table>
 										<tr>
 											<td>开始时间：</td>
-											<td class="left"><input name="processStartTime" type="datetime-local" value="" /></td>
+											<td class="left"><input name="processStartTime" type="datetime-local" value="" required="required"/></td>
 											<td>结束时间：</td>
-											<td class="right"><input name="processEndTime" type="datetime-local" value="" /></td>
+											<td class="right"><input name="processEndTime" type="datetime-local" value=""  required="required"/></td>
 										</tr>
 									</table>
 									附件：
@@ -205,6 +204,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 							</div>
 						</div>
 					</div>
+					<script src="js/uploadself.js"></script>
 					<!-- 添加附件 -->
 					<script type="text/javascript">
 						$(".form-group").filesUpload({
@@ -229,7 +229,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 								
 							},//请求完成
 							onUploadError:function(res, xhr){//请求错误
-								console.log("err",res,xhr)
+								console.log("err",res,xhr);
 							}
 						})
 					</script>
@@ -239,9 +239,9 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 						$('#processCreateBtn').click(function(){
 							// 流程数据
 							var processApplicantTime = $('input[name=processApplicantTime]').val();
-							var processType = $('select=[name=processType]').val();
-							var processTaskSupervise = $('input=[name=processTaskSupervise]').val();
-							var processTaskToStaff = $('input=[name=processTaskToStaff]').val();
+							var processType = $('select[name=processType]').val();
+							var processTaskSupervise = $('input[name=processTaskSupervise]').val();
+							var processTaskToStaff = $('input[name=processTaskToStaff]').val();
 							var processStartTime = $('input[name=processStartTime]').val();
 							var processEndTime = $('input[name=processEndTime]').val();
 							var processReason = $('input[name=processReason]').val();
@@ -257,13 +257,13 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 							var processTask = CKEDITOR.instances.processTask.getData();
 							
 							if(processApplicantTime==null || processApplicantTime=="" || 
-									processType==null || processType=="" || 
+									processType==null || processType=="" || processType=="0" ||
 									processTaskSupervise==null || processTaskSupervise=="" || 
 									processTaskToStaff==null || processTaskToStaff=="" || 
 									processStartTime==null || processStartTime=="" || 
 									processEndTime==null || processEndTime=="" || 
 									processReason==null || processReason=="" || 
-									processTask==null || processTask=="" || 
+									processTask==null || processTask==""
 									){
 								$('#tipContent').html('请将项目信息填写完整...');
 								$("#asdf").trigger('click');
@@ -271,15 +271,15 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 							}
 							
 							var nowDate = new Date();
-							var processStartTime = new Date(processStartTime);
-							var processEndTime = new Date(processEndTime);
+							var processStartDate = new Date(processStartTime);
+							var processEndDate = new Date(processEndTime);
 							
-							if(processStartTime<nowDate){
+							if(processStartDate<nowDate){
 								$('#tipContent').html('开始时间无效...');
 								$("#asdf").trigger('click');
 								return false;
 							}
-							if(processStartTime>processEndTime){
+							if(processStartDate>processEndDate){
 								$('#tipContent').html('开始时间不能晚于结束时间...');
 								$("#asdf").trigger('click');
 								return false;
@@ -288,14 +288,14 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 							var fileNameList=JSON.stringify(processEnclosure);
 							
 							$.post('createProcess.do',{
-								processApplicantTime:processApplicantTime,
+								processApplicantTimeTemp:processApplicantTime,
 								processType:processType,
 								processReason:processReason,
 								processTaskToStaff:processTaskToStaff,
 								processTaskSupervise:processTaskSupervise,
 								processTask:processTask,
-								processStartTime:processStartTime,
-								processEndTime:processEndTime,
+								processStartTimeTemp:processStartTime,
+								processEndTimeTemp:processEndTime,
 								fileNames:fileNameList
 							},function(data){
 								$('#tipContent').html(data.message);
@@ -304,8 +304,8 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 									CKEDITOR.instances.processTask.setData('');
 									
 									$('input[name=processApplicantTime]').val('');
-									$('input=[name=processTaskSupervise]').val('');
-									$('input=[name=processTaskToStaff]').val('');
+									$('input[name=processTaskSupervise]').val('');
+									$('input[name=processTaskToStaff]').val('');
 									$('input[name=processStartTime]').val('');
 									$('input[name=processEndTime]').val('');
 									$('input[name=processReason]').val('');
@@ -316,6 +316,11 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 								}
 							},);
 							
+						});
+					</script>
+					<script type="text/javascript">
+						$(function(){
+							$('#processApplicantTime').val(getFormat());
 						});
 					</script>
 				</div>

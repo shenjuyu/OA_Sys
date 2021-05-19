@@ -50,6 +50,30 @@
     <collection property="processDetails" autoMapping="true" column="id"
     	select="com.sjy.OA_Sys.dao.ProcessDetailsMapper.selectByProcessId"></collection>
   </resultMap>
+  <resultMap id="ApprovedResultMapWithBLOBs" type="com.sjy.OA_Sys.bean.ProcessWithBLOBs">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="process_type" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="process_applicant" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="process_applicant_time" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+      <arg column="process_start_time" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+      <arg column="process_end_time" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+      <arg column="process_task_to_staff" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="process_task_supervise" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="process_finish" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="process_task" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+      <arg column="process_reason" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+      <arg column="process_enclosure" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+    </constructor>
+    <association property="processTypePoJo" autoMapping="true" column="process_type"
+    	select="com.sjy.OA_Sys.dao.ProcessTypeMapper.selectByPrimaryKey"></association>
+    <association property="applicantStaff" autoMapping="true" column="process_applicant"
+    	select="com.sjy.OA_Sys.dao.StaffMapper.selectByStaffId"></association>
+    <association property="taskStaff" autoMapping="true" column="process_task_to_staff"
+    	select="com.sjy.OA_Sys.dao.StaffMapper.selectByStaffId"></association>
+    <association property="superviceStaff" autoMapping="true" column="process_task_supervise"
+    	select="com.sjy.OA_Sys.dao.StaffMapper.selectByStaffId"></association>
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -146,6 +170,14 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from process
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByPrimaryKeyForApproved" parameterType="java.lang.Integer" resultMap="ApprovedResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
     ,

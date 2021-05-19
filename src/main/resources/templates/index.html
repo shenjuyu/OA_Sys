@@ -74,7 +74,7 @@
 								<a href="javascript:void(0)" onclick="toPersonnel()"><i class="fa fa-group nav_icon"></i>人事</a>
 							</li>
 							<li>
-								<a href="#"><i class="fa fa-comments nav_icon"></i>通讯 <span class="nav-badge">12</span> <span class="fa arrow"></span></a>
+								<a href="#"><i class="fa fa-comments nav_icon"></i>通讯 <!-- <span class="nav-badge">12</span> --> <span class="fa arrow"></span></a>
 								<ul class="nav nav-second-level collapse">
 									<li>
 										<a class="fa fa-envelope"  href="javascript:void(0)" onclick="toEmail()"> 邮件</a>
@@ -89,7 +89,7 @@
 								<!-- /nav-second-level -->
 							</li>
 							<li>
-								<a href="#"><i class="fa fa-tasks fa-inverse nav_icon" style="color: #FFFFFF;"></i>项目 <span class="nav-badge">12</span>
+								<a href="#"><i class="fa fa-tasks fa-inverse nav_icon" style="color: #FFFFFF;"></i>项目 <!-- <span class="nav-badge">12</span> -->
 									<span class="fa arrow"></span></a>
 								<ul class="nav nav-second-level collapse">
 									<li>
@@ -105,7 +105,7 @@
 								<!-- /nav-second-level -->
 							</li>
 							<li>
-								<a href="#"><i class="fa fa-calendar nav_icon"></i>任务 <span class="nav-badge">12</span> <span class="fa arrow"></span></a>
+								<a href="#"><i class="fa fa-calendar nav_icon"></i>任务 <!-- <span class="nav-badge">12</span> --> <span class="fa arrow"></span></a>
 								<ul class="nav nav-second-level collapse">
 									<li>
 										<a href="javascript:void(0)" onclick="toTaskCreat()">创建</a>
@@ -118,6 +118,18 @@
 							</li>
 							<li>
 								<a href="javascript:void(0)" onclick="toPublicAssets()"><i class="fa fa-rmb nav_icon"></i>公共资产</a>
+							</li>
+							<li>
+								<a href="#"><i class="fa fa-sort-amount-asc nav_icon"></i>流程管理 <!-- <span class="nav-badge">12</span>  --><span class="fa arrow"></span></a>
+								<ul class="nav nav-second-level collapse">
+									<li>
+										<a href="javascript:void(0)" onclick="toProcessCreat()">创建</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)" onclick="toProcessApproved()">审批</a>
+									</li>
+								</ul>
+								<!-- /nav-second-level -->
 							</li>
 						</ul>
 						<!-- //sidebar-collapse -->
@@ -638,6 +650,18 @@
 			}
 			function toCalendar() {
 				$('#page-wrapper').load('toCalendar.do',function(){
+					removeScrollBar();
+				});
+			}
+			
+			function toProcessCreat() {
+				$('#page-wrapper').load('toCreateProcess.do',function(){
+					removeScrollBar();
+				});
+			}
+			
+			function toProcessApproved() {
+				$('#page-wrapper').load('toProcessApproved.do',function(){
 					removeScrollBar();
 				});
 			}

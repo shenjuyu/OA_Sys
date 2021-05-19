@@ -23,6 +23,8 @@ public interface ProcessMapper {
     List<Process> selectByExample(ProcessExample example);
 
     ProcessWithBLOBs selectByPrimaryKey(Integer id);
+    
+    ProcessWithBLOBs selectByPrimaryKeyForApproved(Integer id);
 
     int updateByExampleSelective(@Param("record") ProcessWithBLOBs record, @Param("example") ProcessExample example);
 

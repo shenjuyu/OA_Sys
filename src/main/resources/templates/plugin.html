@@ -409,5 +409,179 @@
 				<div class="projectpanel" th:utext="${pubAssDetail.pubassDes}" style="margin-top: 10px;float: left;height: 152px;width: 418px;border:3px solid #f8f8f8;">测试描述</div>
 			</div>
 		</div>
+		
+		<!-- 流程详情弹窗 -->
+		<div th:fragment="processDetails" class="bs-example1" data-example-id="embedded-scrollspy">
+			<nav id="navbar-example2" class="navbar navbar-default navbar-static">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".bs-example-js-navbar-scrollspy">
+							<span class="sr-only">导航：</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="#one">导航 ：</a>
+					</div>
+					<div class="collapse navbar-collapse bs-example-js-navbar-scrollspy">
+						<ul class="nav navbar-nav">
+							<li class="active"><a href="#one">申请人</a></li>
+							<li class=""><a href="#two">流程详情</a></li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+			<div id="createProBox" data-spy="scroll" data-target="#navbar-example2" class="scrollspy-example pro-cre" style="height: 450px;overflow:auto;">
+				<div class="pro-cre-child" style="width: 100%;left: 0%">
+					<h4 id="one">申请人信息</h4>
+					<table>
+						<tr>
+							<td>员工编号：</td>
+							<td class="left"><input name="staffId" type="text" th:value="${processForDetails.applicantStaff.staffId}" disabled="disabled"/></td>
+							<td>姓名：</td>
+							<td class="right"><input name="staffName" type="text" th:value="${processForDetails.applicantStaff.staffName}" disabled="disabled"/></td>
+						</tr>
+						<tr>
+							<td>所属部门：</td>
+							<td class="left"><input name="partName" type="text" th:value="${processForDetails.applicantStaff.depart.departName}" disabled="disabled"/></td>
+							<td>申请日期：</td>
+							<td class="right"><input id="processApplicantTime" name="processApplicantTime" type="text" th:value="${#dates.format(processForDetails.processApplicantTime,'yyyy-MM-dd HH:mm')}" disabled="disabled"/></td>
+						</tr>
+					</table>
+					<br />
+					<h4 id="two">流程详情</h4>
+					<table>
+						<tr>
+							<td>流程类型：</td>
+							<td class="left">
+								<input type="text" th:value="${processForDetails.processTypePoJo.typeName}" disabled="disabled"/>
+							</td>
+						</tr>
+						<tr>
+							<td>原因：</td>
+							<td class="left">
+								<input th:value="${processForDetails.processReason}" type="text" disabled="disabled"/>
+							</td>
+						</tr>
+						<tr>
+							<td>任务交接人：</td>
+							<td class="left">
+								<input th:if=${processForDetails.taskStaff!=null} th:value="${processForDetails.taskStaff.staffName}" type="text" disabled="disabled"/>
+								<input th:if=${processForDetails.taskStaff==null} value="无" type="text" disabled="disabled"/>
+							</td>
+						</tr>
+						<tr>
+							<td>任务监督人：</td>
+							<td class="left">
+								<input th:if=${processForDetails.superviceStaff!=null} th:value="${processForDetails.superviceStaff.staffName}" type="text" disabled="disabled"/>
+								<input th:if=${processForDetails.superviceStaff==null} value="无" type="text" disabled="disabled"/>
+							</td>
+						</tr>
+					</table>
+					<table>
+						<tr>
+							<td>交接任务描述：</td>
+						</tr>
+					</table>
+					<div id="processTaskDes" th:utext="${processForDetails.processTask}" style="height: 150px;border: solid 1px;"></div>
+					<table>
+						<tr>
+							<td>开始时间：</td>
+							<td class="left"><input type="text" th:value="${#dates.format(processForDetails.processStartTime,'yyyy-MM-dd HH:mm')}" disabled="disabled"/></td>
+							<td>结束时间：</td>
+							<td class="right"><input type="text" th:value="${#dates.format(processForDetails.processEndTime,'yyyy-MM-dd HH:mm')}"  disabled="disabled"/></td>
+						</tr>
+					</table>
+					附件：
+					<br />
+					<div>
+						<span th:if="${fileNames==null || fileNames.size < 1}">无</span>
+						<span th:if="${fileNames!=null || fileNames.size > 0}" th:each="fileName:${fileNames}" style="margin-bottom: 0em;">
+							<span th:text="${fileName.trueName}">adsf.exe </span>
+							<a th:href="'downloadAtta.do/?fileName='+${fileName.afterName}">下载</a>
+						</span>
+					</div>
+					<br />
+					<!-- 显示流程审核人以及审核情况 -->
+					<table th:each="processApproved:${processForDetails.processDetails}" style="border-bottom: solid 1px;">
+						<tr>
+							<td>审批人：</td>
+							<td class="left">
+								<input th:value="${processApproved.staff.staffName}" type="text" disabled="disabled"/>
+							</td>
+							<td>职称：</td>
+							<td class="left">
+								<input th:value="${processApproved.staff.staffRank.rankName}" type="text" disabled="disabled"/>
+							</td>
+						</tr>
+						<tr>
+							<td>审批结果：</td>
+							<td class="left">
+								<input th:if="${processApproved.approvedResult==0}" value="未到达" type="text" disabled="disabled"/>
+								<input th:if="${processApproved.approvedResult==1}" value="同意" type="text" disabled="disabled"/>
+								<input th:if="${processApproved.approvedResult==2}" value="不同意" type="text" disabled="disabled"/>
+								<input th:if="${processApproved.approvedResult==3}" value="未审批" type="text" disabled="disabled"/>
+							</td>
+							<td>审批意见：</td>
+							<td class="right">
+								<input th:value="${processApproved.approvedOpinion}" type="text" disabled="disabled"/>
+							</td>
+						</tr>
+					</table>
+					<table>					
+						<tr>
+							<td>审批结果：</td>
+							<td class="left">
+								<select name="approvedResult">
+									<option value="1">同意</option>
+									<option value="2">不同意</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>审批意见：</td>
+							<td class="left">
+								<input name="approvedOpinion" type="text"  />
+							</td>
+						</tr>
+						
+					</table>
+					<h3 class="pro-sub">
+						<input type="text" name="processDetailsId" th:value="${processDetailSelf.id}" hidden="true"/>
+						<input type="text" name="processId" th:value="${processForDetails.id}" hidden="true"/>
+						<button id="processApprovedReslutBtn" class="label label-primary"  type="button">提交审批结果</button>
+					</h3>
+				</div>
+			</div>
+			<script type="text/javascript">
+				$('#processApprovedReslutBtn').click(function(){
+					var approvedResult = $('select[name=approvedResult]').val();
+					var approvedOpinion = $('input[name=approvedOpinion]').val();
+					var processDetailsId = $('input[name=processDetailsId]').val();
+					var processId = $('input[name=processId]').val();
+					
+					if(approvedResult==null || approvedResult=='' ||
+						approvedOpinion==null || approvedOpinion==''){
+						$('#tipContent').html('请将信息填写完整...');
+						$("#asdf").trigger('click');
+						return false;
+					}
+					
+					$.post('approvedProcess.do',{
+						approvedResult:approvedResult,
+						approvedOpinion:approvedOpinion,
+						id:processDetailsId,
+						processId,processId},function(data){
+						
+						if(data.sucess==1){
+							$('#processApprovedCloseBtn').trigger('click');
+						}
+						$('#tipContent').html(data.message);
+						$("#asdf").trigger('click');
+					});
+					
+				});
+			</script>
+		</div>
 	</body>
 </html>

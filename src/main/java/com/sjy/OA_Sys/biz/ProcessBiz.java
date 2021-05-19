@@ -18,7 +18,7 @@ public interface ProcessBiz {
 	 * @param process
 	 * @return
 	 */
-	List<Process> findProcess(Process process, Integer pageNum, Integer pageSize);
+	List<ProcessWithBLOBs> findProcess(Process process, Integer pageNum, Integer pageSize);
 	
 	/**
 	 * 查询或更新

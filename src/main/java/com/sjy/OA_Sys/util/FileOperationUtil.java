@@ -177,6 +177,9 @@ public class FileOperationUtil {
 	 * @return
 	 */
 	public static List<String> fileNameDismantling(String fileNames){
+		if(fileNames==null) {
+			return null;
+		}
 		List<String> fileNamesList = new ArrayList<String>();
 		for(String str : fileNames.split(";")) {
 			fileNamesList.add(str);

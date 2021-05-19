@@ -26,6 +26,21 @@
     <association property="staff" autoMapping="true" column="approved_staff"
     	select="com.sjy.OA_Sys.dao.StaffMapper.selectByStaffId"></association>
   </resultMap>
+  <resultMap id="ApprovedResultMapWithBLOBs" type="com.sjy.OA_Sys.bean.ProcessDetails">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="process_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="process_stage" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="approved_staff" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="approved_result" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="approved_time" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+      <arg column="approved_opinion" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+    </constructor>
+    <association property="staff" autoMapping="true" column="approved_staff"
+    	select="com.sjy.OA_Sys.dao.StaffMapper.selectByStaffId"></association>
+    <association property="process" autoMapping="true" column="process_id"
+    	select="com.sjy.OA_Sys.dao.ProcessMapper.selectByPrimaryKeyForApproved"></association>
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -90,6 +105,12 @@
   <sql id="Blob_Column_List">
     approved_opinion
   </sql>
+  <sql id="Base_Column_List_For_Approved">
+    d.id, d.process_id, d.process_stage, d.approved_staff, d.approved_result, d.approved_time
+  </sql>
+  <sql id="Blob_Column_List_For_Approved">
+    d.approved_opinion
+  </sql>
   <select id="selectByExampleWithBLOBs" parameterType="com.sjy.OA_Sys.bean.ProcessDetailsExample" resultMap="ResultMapWithBLOBs">
     select
     <if test="distinct">
@@ -134,8 +155,41 @@
     ,
     <include refid="Blob_Column_List" />
     from process_details
-    where process_id = #{process_id,jdbcType=INTEGER}
+    where process_id = #{processId,jdbcType=INTEGER} order by process_stage asc
   </select>
+  <!-- <select id="selectForApprovedStaff" parameterType="com.sjy.OA_Sys.bean.ProcessDetails" resultMap="ApprovedResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from process_details
+    where approved_staff = #{approvedStaff,jdbcType=VARCHAR} and approved_result = #{approvedResult,jdbcType=INTEGER}
+  </select> -->
+  
+  <select id="selectForApprovedStaff" resultMap="ApprovedResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List_For_Approved" />
+    ,
+    <include refid="Blob_Column_List_For_Approved" />
+    from process_details d LEFT JOIN process p ON d.process_id=p.id where d.approved_staff=#{processDetails.approvedStaff,jdbcType=VARCHAR} 
+    and d.approved_result=#{processDetails.approvedResult,jdbcType=INTEGER} and p.process_finish='0' 
+		<if test="process != null">
+			<if test="process.processApplicant != null">
+				and p.process_applicant=#{process.processApplicant,jdbcType=VARCHAR} 
+			</if>
+			<if test="process.processTaskToStaff != null">
+				and p.process_task_to_staff=#{process.processTaskToStaff,jdbcType=VARCHAR} 
+			</if>
+			<if test="process.processType != null">
+				and p.process_type=#{process.processType,jdbcType=INTEGER} 
+			</if>
+			<if test="process.processTaskSupervise != null">
+				and p.process_task_supervise=#{process.processTaskSupervise,jdbcType=VARCHAR} 
+			</if>
+		</if>
+  </select>
+  
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from process_details
     where id = #{id,jdbcType=INTEGER}

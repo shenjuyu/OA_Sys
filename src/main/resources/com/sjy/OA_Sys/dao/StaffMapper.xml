@@ -18,7 +18,7 @@
       <arg column="staff_state" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="staff_power" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="depart_id" javaType="java.lang.String" jdbcType="VARCHAR" />
-    </constructor>staffRank
+    </constructor>
     <association property="depart" autoMapping="true" column="depart_id"
     	select="com.sjy.OA_Sys.dao.DepartMapper.selectByDepartId"></association>
     <association property="staffRank" autoMapping="true" column="staff_power"

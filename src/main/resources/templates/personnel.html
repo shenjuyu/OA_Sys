@@ -111,12 +111,9 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 										<tr>
 											<td th:text="'部门：'+${loginStaff.depart.departName}">部门：开发部</td>
 										</tr>
-										<!-- <tr>
-											<td>直接上级：刘根朔</td>
-										</tr>
 										<tr>
-											<td>下属：5</td>
-										</tr> -->
+											<td th:text="'职称：'+${loginStaff.staffRank.rankName}">部门：开发部</td>
+										</tr>
 										<tr>
 											<td th:if="${loginStaff.staffSex eq 1}">性别：男</td>
 											<td th:if="${loginStaff.staffSex eq 0}">性别：女</td>

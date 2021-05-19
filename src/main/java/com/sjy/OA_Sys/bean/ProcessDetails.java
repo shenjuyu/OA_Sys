@@ -18,6 +18,8 @@ public class ProcessDetails {
     private String approvedOpinion;
     
     private Staff staff;
+    
+    private ProcessWithBLOBs process;
 
     public ProcessDetails(Integer id, Integer processId, Integer processStage, String approvedStaff, Integer approvedResult, Timestamp approvedTime) {
         this.id = id;
@@ -105,5 +107,13 @@ public class ProcessDetails {
 	public void setStaff(Staff staff) {
 		this.staff = staff;
 	}
-    
+
+	public ProcessWithBLOBs getProcess() {
+		return process;
+	}
+
+	public void setProcess(ProcessWithBLOBs process) {
+		this.process = process;
+	}
+	
 }

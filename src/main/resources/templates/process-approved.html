@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns:th="www.thymeleaf.org">
 	<head>
 		<title>Tables</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -93,267 +93,148 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 			<!-- //header-ends -->
 			<!-- main content start-->
 			<div id="page-wrapper">
-				<div class="main-page">
+				<div class="main-page" th:fragment="processApproved">
 					<div class="col-md-6 general-grids grids-right widget-shadow">
 						<ul id="myTabs" class="nav nav-tabs" role="tablist">
 							<li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home"
-								 aria-expanded="false">个人资产信息</a></li>
-							<li role="presentation" class=""><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile"
-								 aria-expanded="true">部门资产信息信息</a></li>
+								 aria-expanded="false">流程审批</a></li>
 						</ul>
 						<div id="myTabContent" class="tab-content scrollbar1">
 							<div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
 								<div class="tables">
 									<div class="bs-example widget-shadow" data-example-id="hoverable-table">
 										<!-- 条件查询 -->
-										<form id="staffFindForm" action="staffFind.do" method="post">
-											<input type="text" style="margin-left: 2%;" placeholder="编号" id="findStaffId" name="trueId" />
-											<input type="text" style="margin-left: 2%;" placeholder="名称" id="findStaffName" name="trueName" />
-											<span style="margin-left: 2%;">类型：</span>
-											<select class="input-sm" style="font-size: 13px;" name="state" id="findUserState">
-												<option value="4">未选择</option>
-												<option value="0">实习</option>
-												<option value="1">试用</option>
-												<option value="2">正式</option>
-												<option value="3">离职</option>
-											</select>&nbsp;&nbsp;&nbsp;
-											<button class="label label-info" style="font-size: large;">查询</button>
-										</form>
+										<input type="text" style="margin-left: 2%;" placeholder="流程申请人" id="processApplicant" name="processApplicant" />
+										<input type="text" style="margin-left: 2%;" placeholder="任务转交人" id="processTaskToStaff" name="processTaskToStaff" />
+										<input type="text" style="margin-left: 2%;" placeholder="任务监督人" id="processTaskSupervise" name="processTaskSupervise" />
+										<span style="margin-left: 2%;">流程类型：</span>
+										<select class="input-sm" style="font-size: 13px;" name="processType" id="findProcessType">
+											<option value="0">--未选择--</option>
+											<option th:each="processType:${processTypeList}" th:value="${processType.id}" th:text="${processType.typeName}">实习</option>
+										</select>&nbsp;&nbsp;&nbsp;
+										<button class="label label-info" id="selectProcessByConditionBtn" style="font-size: large;">查询</button>
+										<script type="text/javascript">
+											$('#selectProcessByConditionBtn').click(function(){
+												var processApplicant=$('input[name=processApplicant]').val();
+												var processTaskToStaff=$('input[name=processTaskToStaff]').val();
+												var processTaskSupervise=$('input[name=processTaskSupervise]').val();
+												var approvedStaff=$('input[name=approvedStaff]').val();
+												var processType=$('select[name=processType]').val();
+												
+												$('#processDetailsShowListBox').load('selectProcessByCondition.do',{
+													processApplicant:processApplicant,
+													processTaskToStaff:processTaskToStaff,
+													processTaskSupervise:processTaskSupervise,
+													approvedStaff:approvedStaff,
+													processType:processType,
+												},function(){
+													
+												});
+											});
+										</script>
 										
 										<!-- //条件查询 -->
-										<div id="userShowTable" th:fragment="userShowTable">
-											<table class="table table-hover">
-												<thead>
-													<tr>
-														<th>编号</th>
-														<th>名称</th>
-														<th>类型</th>
-														<th>详情</th>
-														<th>价格</th>
-														<th>所属部门</th>
-														<th>入库时间</th>
-														<th>数量</th><!-- 点击查看详情，跳转到product-add.html页面，填充所有的数据 -->
-														<th>操作</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr th:each="ulist,uStat:${userList}">
-														<th scope="row" th:text="${uStat.count}">1</th>
-														<td th:text="${ulist.trueName}">张三</td>
-														<td>
-															<span th:if=${ulist.sex==0}>女</span>
-															<span th:if=${ulist.sex==1}>男</span>
-															<span th:if=${ulist.sex==2}>未知</span>
-														</td>
-														<td th:text="${ulist.tel.substring(0,3)}+'****'+${ulist.tel.substring(7,11)}"></td>
-														<td th:text="${ulist.email.substring(0,3)}+'***'+${ulist.email.substring(6)}"></td>
-														<td th:text="${ulist.registerTime.toLocalDateTime().getYear()}+'-'+${ulist.registerTime.toLocalDateTime().getMonthValue()}+'-'+${ulist.registerTime.toLocalDateTime().getDayOfMonth()}">2020-2-22
-															22:22</td>
-														<td>
-															<label class="label label-info" th:if=${ulist.state==0} th:id="'showUserStateLabel'+${ulist.id}">实习</label>
-															<label class="label label-primary" th:if=${ulist.state==1} th:id="'showUserStateLabel'+${ulist.id}">试用</label>
-															<label class="label label-success" th:if=${ulist.state==2} th:id="'showUserStateLabel'+${ulist.id}">正式</label>
-															<label class="label label-danger" th:if=${ulist.state==3} th:id="'showUserStateLabel'+${ulist.id}">离职</label>
-														</td>
-														<td><button type="button" class="btn btn-primary btn-lg" th:id="'backUser'+${ulist.id}" th:onclick="'showUserDetails('+${ulist.id}+')'"
-															 data-toggle="modal" data-target="#gridSystemModal" style="padding: 6px;font-size: 11px;">查看详情 </button></td>
-													</tr>
-												</tbody>
-											</table>
-								
-											<!-- 分页查询 -->
-											<nav style="margin-left: 65%;">
-												<ul class="pagination pagination-lg">
-													<!-- class='disabled'为选中了第一个或者最后一个的样式 -->
-													<li th:if="${userList.pageNum eq 1}" class="disabled"><a href="javascript:void(0)" aria-label="Previous"><span
-															 aria-hidden="true">«</span></a></li>
-													<li th:if="${userList.pageNum gt 1}"><a href="javascript:void(0)" th:onclick="'toPage('+${userList.pageNum-1}+')'"
-														 aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-													<li th:if="${userList.pageNum-2 gt 0 }"><a href="javascript:void(0)" th:onclick="'toPage('+${userList.pageNum-2}+')'"
-														 th:text="${userList.pageNum-2}">1</a></li>
-													<li th:if="${userList.pageNum-1 gt 0 }"><a href="javascript:void(0)" th:onclick="'toPage('+${userList.pageNum-1}+')'"
-														 th:text="${userList.pageNum-1}">2</a></li>
-													<li class="active"><a href="javascript:void(0)" th:text="${userList.pageNum}">3</a></li><!-- 被选中 -->
-													<li th:if="${userList.pageNum+1 le userList.pages}"><a href="javascript:void(0)" th:onclick="'toPage('+${userList.pageNum+1}+')'"
-														 th:text="${userList.pageNum+1}">4</a></li>
-													<li th:if="${userList.pageNum+2 le userList.pages}"><a href="javascript:void(0)" th:onclick="'toPage('+${userList.pageNum+2}+')'"
-														 th:text="${userList.pageNum+2}">5</a></li>
-													<li th:if="${userList.pageNum eq userList.pages}" class="disabled"><a href="javascript:void(0)" aria-label="Next"><span
-															 aria-hidden="true">»</span></a></li>
-													<li th:if="${userList.pageNum lt userList.pages}"><a href="javascript:void(0)" th:onclick="'toPage('+${userList.pageNum+1}+')'"
-														 aria-label="Next"><span aria-hidden="true">»</span></a></li>
-												</ul>
-											</nav>
-											<!-- //分页查询 -->
+										<div id="processDetailsShowListBox">
+											<div th:fragment="processDetailsShowList">
+												<table class="table table-hover">
+													<thead>
+														<tr>
+															<th>序号</th>
+															<th>流程类型</th>
+															<th>申请人</th>
+															<th>申请时间</th>
+															<th>申请理由</th>
+															<th>流程状态</th>
+															<th>操作</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr th:each="processDetail,processDetailStat:${processDetailsList}">
+															<th scope="row" th:text="${processDetailStat.count}">1</th>
+															<td th:text="${processDetail.process.processTypePoJo.typeName}">请假</td>
+															<td th:text="${processDetail.process.applicantStaff.staffName}">张三</td>
+															<td th:text="${#dates.format(processDetail.process.processApplicantTime,'yyyy-MM-dd HH:mm')}"></td>
+															<td th:text="${processDetail.process.processReason}"></td>
+															<td>
+																<label class="label label-info" th:if=${processDetail.process.processFinish==0}>审批中</label>
+																<label class="label label-success" th:if=${processDetail.process.processFinish==1}>已结束</label>
+															</td>
+															<td><button type="button" class="btn btn-primary btn-lg" th:onclick="'showProcessDetails('+${processDetail.id}+')'"
+																 data-toggle="modal" data-target="#gridSystemModal" style="padding: 6px;font-size: 11px;">查看详情 </button></td>
+														</tr>
+													</tbody>
+												</table>
+									
+												<!-- 分页查询 -->
+												<nav style="margin-left: 65%;">
+													<ul class="pagination pagination-lg">
+														<!-- class='disabled'为选中了第一个或者最后一个的样式 -->
+														<li th:if="${processDetailsList.pageNum eq 1}" class="disabled"><a href="javascript:void(0)" aria-label="Previous"><span
+																 aria-hidden="true">«</span></a></li>
+														<li th:if="${processDetailsList.pageNum gt 1}"><a href="javascript:void(0)" th:onclick="'toProcessDetailsPage('+${processDetailsList.pageNum-1}+')'"
+															 aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+														<li th:if="${processDetailsList.pageNum-2 gt 0 }"><a href="javascript:void(0)" th:onclick="'toProcessDetailsPage('+${processDetailsList.pageNum-2}+')'"
+															 th:text="${processDetailsList.pageNum-2}">1</a></li>
+														<li th:if="${processDetailsList.pageNum-1 gt 0 }"><a href="javascript:void(0)" th:onclick="'toProcessDetailsPage('+${processDetailsList.pageNum-1}+')'"
+															 th:text="${processDetailsList.pageNum-1}">2</a></li>
+														<li class="active"><a href="javascript:void(0)" th:text="${processDetailsList.pageNum}">3</a></li><!-- 被选中 -->
+														<li th:if="${processDetailsList.pageNum+1 le processDetailsList.pages}"><a href="javascript:void(0)" th:onclick="'toProcessDetailsPage('+${processDetailsList.pageNum+1}+')'"
+															 th:text="${processDetailsList.pageNum+1}">4</a></li>
+														<li th:if="${processDetailsList.pageNum+2 le processDetailsList.pages}"><a href="javascript:void(0)" th:onclick="'toProcessDetailsPage('+${processDetailsList.pageNum+2}+')'"
+															 th:text="${processDetailsList.pageNum+2}">5</a></li>
+														<li th:if="${processDetailsList.pageNum eq processDetailsList.pages}" class="disabled"><a href="javascript:void(0)" aria-label="Next"><span
+																 aria-hidden="true">»</span></a></li>
+														<li th:if="${processDetailsList.pageNum lt processDetailsList.pages}"><a href="javascript:void(0)" th:onclick="'toProcessDetailsPage('+${processDetailsList.pageNum+1}+')'"
+															 aria-label="Next"><span aria-hidden="true">»</span></a></li>
+													</ul>
+												</nav>
+												<!-- //分页查询 -->
+											</div>
 										</div>
-								
-										
 									</div>
 								</div>
-							</div>
-							<div role="tabpanel" class="tab-pane fade" id="profile" aria-labelledby="profile-tab">
-								<div class="tables">
-									<div class="bs-example widget-shadow" data-example-id="hoverable-table">
-										<!-- 条件查询 -->
-										<form id="staffFindForm" action="staffFind.do" method="post">
-											<input type="text" style="margin-left: 2%;" placeholder="编号" id="findStaffId" name="trueId" />
-											<input type="text" style="margin-left: 2%;" placeholder="名称" id="findStaffName" name="trueName" />
-											<span style="margin-left: 2%;">类型：</span>
-											<select class="input-sm" style="font-size: 13px;" name="state" id="findUserState">
-												<option value="4">未选择</option>
-												<option value="0">实习</option>
-												<option value="1">试用</option>
-												<option value="2">正式</option>
-												<option value="3">离职</option>
-											</select>&nbsp;&nbsp;&nbsp;
-											<button class="label label-info" style="font-size: large;">查询</button>
-										</form>
-										
-										<!-- //条件查询 -->
-										<div id="userShowTable" th:fragment="userShowTable">
-											<table class="table table-hover">
-												<thead>
-													<tr>
-														<th>编号</th>
-														<th>名称</th>
-														<th>类型</th>
-														<th>详情</th>
-														<th>价格</th>
-														<th>所属部门</th>
-														<th>入库时间</th>
-														<th>数量</th><!-- 点击查看详情，跳转到product-add.html页面，填充所有的数据 -->
-														<th>操作</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr th:each="ulist,uStat:${userList}">
-														<th scope="row" th:text="${uStat.count}">1</th>
-														<td th:text="${ulist.trueName}">张三</td>
-														<td>
-															<span th:if=${ulist.sex==0}>女</span>
-															<span th:if=${ulist.sex==1}>男</span>
-															<span th:if=${ulist.sex==2}>未知</span>
-														</td>
-														<td th:text="${ulist.tel.substring(0,3)}+'****'+${ulist.tel.substring(7,11)}"></td>
-														<td th:text="${ulist.email.substring(0,3)}+'***'+${ulist.email.substring(6)}"></td>
-														<td th:text="${ulist.registerTime.toLocalDateTime().getYear()}+'-'+${ulist.registerTime.toLocalDateTime().getMonthValue()}+'-'+${ulist.registerTime.toLocalDateTime().getDayOfMonth()}">2020-2-22
-															22:22</td>
-														<td>
-															<label class="label label-info" th:if=${ulist.state==0} th:id="'showUserStateLabel'+${ulist.id}">实习</label>
-															<label class="label label-primary" th:if=${ulist.state==1} th:id="'showUserStateLabel'+${ulist.id}">试用</label>
-															<label class="label label-success" th:if=${ulist.state==2} th:id="'showUserStateLabel'+${ulist.id}">正式</label>
-															<label class="label label-danger" th:if=${ulist.state==3} th:id="'showUserStateLabel'+${ulist.id}">离职</label>
-														</td>
-														<td><button type="button" class="btn btn-primary btn-lg" th:id="'backUser'+${ulist.id}" th:onclick="'showUserDetails('+${ulist.id}+')'"
-															 data-toggle="modal" data-target="#gridSystemModal" style="padding: 6px;font-size: 11px;">查看详情 </button></td>
-													</tr>
-												</tbody>
-											</table>
-
-											<!-- 分页查询 -->
-											<nav style="margin-left: 65%;">
-												<ul class="pagination pagination-lg">
-													<!-- class='disabled'为选中了第一个或者最后一个的样式 -->
-													<li th:if="${userList.pageNum eq 1}" class="disabled"><a href="javascript:void(0)" aria-label="Previous"><span
-															 aria-hidden="true">«</span></a></li>
-													<li th:if="${userList.pageNum gt 1}"><a href="javascript:void(0)" th:onclick="'toPage('+${userList.pageNum-1}+')'"
-														 aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-													<li th:if="${userList.pageNum-2 gt 0 }"><a href="javascript:void(0)" th:onclick="'toPage('+${userList.pageNum-2}+')'"
-														 th:text="${userList.pageNum-2}">1</a></li>
-													<li th:if="${userList.pageNum-1 gt 0 }"><a href="javascript:void(0)" th:onclick="'toPage('+${userList.pageNum-1}+')'"
-														 th:text="${userList.pageNum-1}">2</a></li>
-													<li class="active"><a href="javascript:void(0)" th:text="${userList.pageNum}">3</a></li><!-- 被选中 -->
-													<li th:if="${userList.pageNum+1 le userList.pages}"><a href="javascript:void(0)" th:onclick="'toPage('+${userList.pageNum+1}+')'"
-														 th:text="${userList.pageNum+1}">4</a></li>
-													<li th:if="${userList.pageNum+2 le userList.pages}"><a href="javascript:void(0)" th:onclick="'toPage('+${userList.pageNum+2}+')'"
-														 th:text="${userList.pageNum+2}">5</a></li>
-													<li th:if="${userList.pageNum eq userList.pages}" class="disabled"><a href="javascript:void(0)" aria-label="Next"><span
-															 aria-hidden="true">»</span></a></li>
-													<li th:if="${userList.pageNum lt userList.pages}"><a href="javascript:void(0)" th:onclick="'toPage('+${userList.pageNum+1}+')'"
-														 aria-label="Next"><span aria-hidden="true">»</span></a></li>
-												</ul>
-											</nav>
-											<!-- //分页查询 -->
-										</div>
-										
-									</div>
-								</div>
-
 							</div>
 						</div>
-					<div class="col-md-4 modal-grids">
-						<div class="modal fade" id="gridSystemModal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
-							<div class="modal-dialog" role="document">
-								<div class="modal-content">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-										<h4 class="modal-title" id="gridSystemModalLabel">资产信息</h4>
-									</div>
-									<div class="grid_3 grid_5 widget-shadow" style="margin-top: 0em;" id="staffDetilsWindow">
-										<div>
-											<div class="staffs-left">
-												<table>
-													<tr>
-														<td>资产名称：
-															<span>着重</span>
-														</td>
-													</tr>
-													<tr><td></td></tr>
-													<tr><td></td></tr>
-													<tr><td></td></tr>
-													<tr><td></td></tr>
-													<tr><td></td></tr>
-													<tr>
-														<td>所属部门：</td>
-													</tr>
-													<tr><td></td></tr>
-													<tr><td></td></tr>
-													<tr><td></td></tr>
-													<tr><td></td></tr>
-													<tr><td></td></tr>
-													<tr>
-														<td>类型：</td>
-													</tr>
-													<tr><td></td></tr>
-													<tr><td></td></tr>
-													<tr><td></td></tr>
-													<tr><td></td></tr>
-													<tr><td></td></tr>
-													<tr>
-														<td>价格：</td>
-													</tr>
-													<tr><td></td></tr>
-													<tr><td></td></tr>
-													<tr><td></td></tr>
-													<tr><td></td></tr>
-													<tr><td></td></tr>
-													<tr>
-														<td>入库时间：</td>
-													</tr>
-													<tr>
-														<td>2020-02-02 12:23</td>
-													</tr>
-												</table>
-											</div>
-											<div class="staffs-right" >
-												<table style="width: 418px;">
-													<tr>
-														<td class="lefts">数量：</td>
-														<td class="rights">2</td>
-													</tr>
-													<tr>
-														<td>商品详情：</td>
-														<td></td>
-													</tr>
-												</table>
-												<div style="float: left;height: 152px;width: 418px;">asdfasdasf</div>
-											</div>
+						<!-- 弹窗 -->
+						<div class="col-md-4 modal-grids">
+							<div class="modal fade" id="gridSystemModal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content" style="width: 685px;">
+										<div class="modal-header">
+											<button type="button" id="processApprovedCloseBtn" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+											<h4 class="modal-title" id="gridSystemModalLabel">资产信息</h4>
 										</div>
-									</div>
-								</div><!-- /.modal-content -->
-							</div><!-- /.modal-dialog -->
-						</div><!-- /.modal -->
-					</div>
+										<div id="processMsgDetailBox" class="grid_3 grid_5 widget-shadow" style="margin-top: 0em;height: 562px;">
+											<!-- 弹窗内容 -->
+										</div>
+									</div><!-- /.modal-content -->
+								</div><!-- /.modal-dialog -->
+							</div><!-- /.modal -->
+						</div>
+						<!-- //弹窗 -->
+						<script type="text/javascript">
+							function showProcessDetails(id){
+								$('#processMsgDetailBox').load('showProcessDetails.do',{id:id},function(){});
+							}
+							function toProcessDetailsPage(page){
+								var processApplicant=$('input[name=processApplicant]').val();
+								var processTaskToStaff=$('input[name=processTaskToStaff]').val();
+								var processTaskSupervise=$('input[name=processTaskSupervise]').val();
+								var approvedStaff=$('input[name=approvedStaff]').val();
+								var processType=$('select[name=processType]').val();
+								
+								$('#processDetailsShowListBox').load('toProcessDetailsPage.do',{
+									processApplicant:processApplicant,
+									processTaskToStaff:processTaskToStaff,
+									processTaskSupervise:processTaskSupervise,
+									approvedStaff:approvedStaff,
+									processType:processType,
+									pageNum,page
+								},function(){
+									
+								});
+							}
+						</script>
 					</div>
 				</div>
 			</div>

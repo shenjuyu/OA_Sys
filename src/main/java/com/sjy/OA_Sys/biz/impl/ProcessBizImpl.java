@@ -33,7 +33,7 @@ public class ProcessBizImpl implements ProcessBiz {
 	private ProcessExample pe = new ProcessExample();
 
 	@Override
-	public List<Process> findProcess(Process process, Integer pageNum, Integer pageSize) {
+	public List<ProcessWithBLOBs> findProcess(Process process, Integer pageNum, Integer pageSize) {
 		try {
 			Criteria ce = pe.createCriteria();
 			if (process != null) {
@@ -56,9 +56,9 @@ public class ProcessBizImpl implements ProcessBiz {
 
 			if (pageNum != null && pageSize != null) {
 				PageHelper.startPage(pageNum, pageSize);
-				return pm.selectByExample(pe);
+				return pm.selectByExampleWithBLOBs(pe);
 			}
-			return pm.selectByExample(pe);
+			return pm.selectByExampleWithBLOBs(pe);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
